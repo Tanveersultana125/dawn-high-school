@@ -1,0 +1,21 @@
+{
+  "name": "dawn-model-high-school",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Premium website for Dawn Model High School — Shaping Future Leaders Through Excellence in Education.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.16.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.0"
+  }
+}
