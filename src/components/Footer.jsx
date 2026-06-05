@@ -27,7 +27,7 @@ export default function Footer() {
               <Crest />
               <span className="brand-text">
                 <b>Dawn High School</b>
-                <small>Banjara Hills, Hyderabad</small>
+                <small>New Malakpet, Hyderabad</small>
               </span>
             </Link>
             <p className="footer-about">

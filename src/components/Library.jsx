@@ -17,10 +17,10 @@ const FEATURES = [
 
 // Extra detail shown only on the Campus page (detailed variant)
 const COLLECTIONS = [
-  { ic: '📚', t: 'Reference & Lending', d: 'Curriculum titles, encyclopedias, atlases, and a rich lending collection across every subject and grade.' },
-  { ic: '💻', t: 'Digital Research Commons', d: 'Access to e-books, online journals, and subscription databases for project work and competitive-exam prep.' },
-  { ic: '🧒', t: "Children's Reading Corner", d: 'A colourful early-years zone with picture books and story-time sessions to build a lifelong love of reading.' },
-  { ic: '🗞️', t: 'Periodicals & Archives', d: 'Daily newspapers, magazines, and a growing archive of student publications and school records.' },
+  { ic: '📚', t: 'Reference & Lending', d: 'Curriculum titles, encyclopedias, atlases, and a rich lending collection across every subject and grade.', img: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=700&q=80' },
+  { ic: '💻', t: 'Digital Research Commons', d: 'Access to e-books, online journals, and subscription databases for project work and competitive-exam prep.', img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=700&q=80' },
+  { ic: '🧒', t: "Children's Reading Corner", d: 'A colourful early-years zone with picture books and story-time sessions to build a lifelong love of reading.', img: 'https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&w=700&q=80' },
+  { ic: '🗞️', t: 'Periodicals & Archives', d: 'Daily newspapers, magazines, and a growing archive of student publications and school records.', img: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=700&q=80' },
 ]
 
 // Default image (Campus page); Home passes its own via the `img` prop
@@ -98,6 +98,9 @@ export default function Library({ alt = false, detailed = false, img = LIBRARY_I
           <div className="library-collections">
             {COLLECTIONS.map((c, i) => (
               <Reveal className="library-collection" delay={(i % 4) + 1} key={c.t}>
+                <div className="lc-media">
+                  <img src={c.img} alt={c.t} loading="lazy" />
+                </div>
                 <span className="lc-ic">{c.ic}</span>
                 <h4>{c.t}</h4>
                 <p>{c.d}</p>

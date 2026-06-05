@@ -1,5 +1,6 @@
 import PageHero from '../components/PageHero'
 import Academics from '../components/Academics'
+import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
 
 const PHILOSOPHY = [
@@ -48,10 +49,12 @@ export default function AcademicsPage() {
           />
           <div className="grid cols-3">
             {PHILOSOPHY.map((p, i) => (
-              <Reveal className="card" delay={(i % 3) + 1} key={p.t}>
-                <div className="card-icon">{p.ic}</div>
-                <h3>{p.t}</h3>
-                <p>{p.d}</p>
+              <Reveal className="philo-cell" delay={(i % 3) + 1} key={p.t}>
+                <TiltCard className="card philosophy-card">
+                  <div className="card-icon">{p.ic}</div>
+                  <h3>{p.t}</h3>
+                  <p>{p.d}</p>
+                </TiltCard>
               </Reveal>
             ))}
           </div>

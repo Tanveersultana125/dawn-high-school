@@ -172,7 +172,7 @@ export default function Hero() {
         <div className="container hero-inner">
           <div className="hero-copy" ref={copyRef}>
             <span className="hero-badge reveal in">
-              <i>★</i> Ranked Among Hyderabad&apos;s Top Institutions
+              <i>★</i> Ranked Among Hyderabad&apos;s Top Schools
             </span>
 
             <h1 className="hero-title">

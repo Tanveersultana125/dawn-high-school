@@ -10,10 +10,11 @@ const REQUIREMENTS = [
   ['Transfer certificate', 'Required for students moving from another school.'],
 ]
 
-const FEES = [
-  { tier: 'Primary', price: '$3,200', per: '/ year', items: ['Grades 1–5', 'Tuition & materials', 'Activity access'] },
-  { tier: 'Middle', price: '$4,100', per: '/ year', items: ['Grades 6–8', 'STEM & labs', 'Clubs & sports'] },
-  { tier: 'High School', price: '$5,400', per: '/ year', items: ['Grades 9–12', 'AP & counselling', 'Career guidance'] },
+const GRADES = [
+  { tier: 'Play School', grade: 'Nursery – KG', items: ['Play-based early learning', 'Phonics & motor skills', 'Safe, nurturing care'] },
+  { tier: 'Primary', grade: 'Grades 1 – 5', items: ['Strong foundations', 'Tuition & materials', 'Activity access'] },
+  { tier: 'Middle', grade: 'Grades 6 – 8', items: ['STEM & labs', 'Clubs & sports', 'Critical thinking'] },
+  { tier: 'High School', grade: 'Grades 9 – 12', items: ['Science & Commerce streams', 'Counselling & guidance', 'Career preparation'] },
 ]
 
 const DATES = [
@@ -70,17 +71,23 @@ export default function AdmissionsPage() {
         </div>
       </section>
 
-      {/* Fees */}
+      {/* Classes offered */}
       <section className="section section-alt">
         <div className="container">
-          <SectionHead center eyebrow="Fee Structure" title="Transparent" accent="Pricing" />
-          <div className="grid cols-3">
-            {FEES.map((f, i) => (
-              <Reveal className="card fee-card" delay={(i % 3) + 1} key={f.tier}>
-                <span className="tier">{f.tier}</span>
-                <div className="price">{f.price}<span> {f.per}</span></div>
+          <SectionHead
+            center
+            eyebrow="Classes We Offer"
+            title="Admissions Open Across"
+            accent="Every Grade"
+            lead="From our earliest learners to graduating seniors, Dawn welcomes students at every stage of their journey."
+          />
+          <div className="grid cols-4">
+            {GRADES.map((g, i) => (
+              <Reveal className="card grade-card" delay={(i % 4) + 1} key={g.tier}>
+                <span className="tier">{g.tier}</span>
+                <div className="grade-range">{g.grade}</div>
                 <ul>
-                  {f.items.map((it) => <li key={it}>{it}</li>)}
+                  {g.items.map((it) => <li key={it}>{it}</li>)}
                 </ul>
               </Reveal>
             ))}

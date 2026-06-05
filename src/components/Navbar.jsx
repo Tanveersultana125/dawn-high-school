@@ -43,11 +43,11 @@ export default function Navbar() {
         <div className="topbar">
           <div className="container topbar-inner">
             <div className="topbar-left">
-              <a href="https://maps.google.com/?q=Banjara+Hills+Hyderabad" target="_blank" rel="noreferrer">
-                📍 Banjara Hills, Hyderabad, Telangana
+              <a href="https://maps.google.com/?q=17.36875,78.501016" target="_blank" rel="noreferrer">
+                📍 New Malakpet, Hyderabad, Telangana
               </a>
               <span className="topbar-dot">·</span>
-              <a href="tel:+914023456789">📞 +91 40 2345 6789</a>
+              <a href="tel:+918107666766">📞 +91 81076 66766</a>
             </div>
             <div className="topbar-right">
               {UTILITY.map(([label, to]) => (

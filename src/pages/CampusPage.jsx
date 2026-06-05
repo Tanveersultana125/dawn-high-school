@@ -2,6 +2,7 @@ import PageHero from '../components/PageHero'
 import CampusLife from '../components/CampusLife'
 import Campus3D from '../components/Campus3D'
 import Library from '../components/Library'
+import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
 
 const FACILITIES = [
@@ -39,10 +40,12 @@ export default function CampusPage() {
           />
           <div className="grid cols-4">
             {FACILITIES.map((f, i) => (
-              <Reveal className="card" delay={(i % 4) + 1} key={f.t}>
-                <div className="card-icon">{f.ic}</div>
-                <h3>{f.t}</h3>
-                <p>{f.d}</p>
+              <Reveal className="philo-cell" delay={(i % 4) + 1} key={f.t}>
+                <TiltCard className="card philosophy-card">
+                  <div className="card-icon">{f.ic}</div>
+                  <h3>{f.t}</h3>
+                  <p>{f.d}</p>
+                </TiltCard>
               </Reveal>
             ))}
           </div>

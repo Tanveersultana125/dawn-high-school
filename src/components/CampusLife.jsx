@@ -1,12 +1,14 @@
 import { Reveal, SectionHead } from './common'
 
+const U = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80`
+
 const CARDS = [
-  { icon: '🏆', title: 'Sports & Athletics', desc: 'Olympic-grade facilities across 14 disciplines, from cricket to swimming.', grad: 'linear-gradient(150deg,#0e2a5e,#1450c8)', cls: 'wide' },
-  { icon: '🎨', title: 'Arts & Music', desc: 'Dedicated studios for visual arts, dance, theatre, and an orchestra.', grad: 'linear-gradient(150deg,#1450c8,#4f86f7)' },
-  { icon: '🔬', title: 'Science Labs', desc: 'Eight smart laboratories for physics, chemistry, biology & robotics.', grad: 'linear-gradient(150deg,#061128,#0e2a5e)', cls: 'tall' },
-  { icon: '📖', title: 'Modern Library', desc: 'A 30,000-volume library and digital research center.', grad: 'linear-gradient(150deg,#0a1f44,#2563eb)' },
-  { icon: '🤝', title: 'Student Clubs', desc: '40+ clubs from debate and MUN to coding and entrepreneurship.', grad: 'linear-gradient(150deg,#13316c,#4f86f7)', cls: 'wide' },
-  { icon: '⭐', title: 'Leadership Activities', desc: 'Student council, community service, and global exchange programs.', grad: 'linear-gradient(150deg,#0e2a5e,#1450c8)' },
+  { icon: '🏆', title: 'Sports & Athletics', stat: '14 Disciplines', desc: 'Olympic-grade facilities across 14 disciplines, from cricket to swimming.', img: U('photo-1461896836934-ffe607ba8211'), grad: 'linear-gradient(150deg,#0e2a5e,#1450c8)', cls: 'wide' },
+  { icon: '🎨', title: 'Arts & Music', stat: '6 Studios', desc: 'Dedicated studios for visual arts, dance, theatre, and an orchestra.', img: U('photo-1511671782779-c97d3d27a1d4'), grad: 'linear-gradient(150deg,#1450c8,#4f86f7)' },
+  { icon: '🔬', title: 'Science Labs', stat: '8 Smart Labs', desc: 'Eight smart laboratories for physics, chemistry, biology & robotics.', img: U('photo-1532094349884-543bc11b234d'), grad: 'linear-gradient(150deg,#061128,#0e2a5e)', cls: 'tall' },
+  { icon: '📖', title: 'Modern Library', stat: '30K+ Volumes', desc: 'A 30,000-volume library and digital research center.', img: U('photo-1497486751825-1233686d5d80'), grad: 'linear-gradient(150deg,#0a1f44,#2563eb)' },
+  { icon: '🤝', title: 'Student Clubs', stat: '40+ Clubs', desc: '40+ clubs from debate and MUN to coding and entrepreneurship.', img: U('photo-1529070538774-1843cb3265df'), grad: 'linear-gradient(150deg,#13316c,#4f86f7)', cls: 'wide' },
+  { icon: '⭐', title: 'Leadership Activities', stat: 'Global Programs', desc: 'Student council, community service, and global exchange programs.', img: U('photo-1517245386807-bb43f82c33c4'), grad: 'linear-gradient(150deg,#0e2a5e,#1450c8)' },
 ]
 
 export default function CampusLife() {
@@ -29,9 +31,16 @@ export default function CampusLife() {
               className={`life-card ${c.cls || ''}`}
               style={{ '--bg-gradient': c.grad }}
             >
-              <span className="life-ic">{c.icon}</span>
-              <h3>{c.title}</h3>
-              <p>{c.desc}</p>
+              <img className="life-img" src={c.img} alt={c.title} loading="lazy" />
+              <div className="life-top">
+                <span className="life-ic">{c.icon}</span>
+                <span className="life-stat">{c.stat}</span>
+              </div>
+              <div className="life-body">
+                <h3>{c.title}</h3>
+                <p>{c.desc}</p>
+                <span className="life-more">Explore <i aria-hidden="true">→</i></span>
+              </div>
             </Reveal>
           ))}
         </div>
