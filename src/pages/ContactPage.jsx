@@ -9,9 +9,9 @@ const HOURS = [
 ]
 
 const DEPTS = [
-  { ic: '🎓', t: 'Admissions Office', d: 'admissions@dawnhighschool.edu.in', e: '+91 40 2345 6789' },
-  { ic: '💬', t: 'General Enquiries', d: 'info@dawnhighschool.edu.in', e: '+91 40 2345 6700' },
-  { ic: '🧾', t: 'Accounts & Fees', d: 'accounts@dawnhighschool.edu.in', e: '+91 40 2345 6710' },
+  { ic: '🏫', t: 'Malakpet Campus', d: '16-3-993, Malakpet Rd, Opp. Officer Mess, Officers Colony, New Malakpet, Hyderabad – 500036', e: '+91 81076 66766' },
+  { ic: '🏛️', t: 'Purani Haveli Campus', d: 'Mir Chowk Rd, Opp. ACP, Purani Haveli, Pathar Gatti, Hyderabad – 500002', e: '040 6671 4228' },
+  { ic: '💬', t: 'General Enquiries', d: 'info@dawnhighschool.com · www.dawnhighschool.com', e: 'admin@dawnhighschool.com' },
 ]
 
 export default function ContactPage() {

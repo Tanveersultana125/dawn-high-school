@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Reveal, SectionHead } from './common'
 
 const INFO = [
-  { icon: '📍', title: 'Visit Us', text: '8-2-120, Road No. 2, Banjara Hills, Hyderabad, Telangana 500034' },
-  { icon: '📞', title: 'Call Us', text: '+91 40 2345 6789 · Mon–Sat, 8am–4pm' },
-  { icon: '✉️', title: 'Email Us', text: 'admissions@dawnhighschool.edu.in' },
+  { icon: '📍', title: 'Visit Us', text: '16-3-993, Malakpet Rd, Opposite Officer Mess, Officers Colony, New Malakpet, Hyderabad – 500036, Telangana' },
+  { icon: '📞', title: 'Call Us', text: '+91 81076 66766 (Malakpet) · 040 6671 4228 (Purani Haveli)' },
+  { icon: '✉️', title: 'Email Us', text: 'info@dawnhighschool.com' },
 ]
 
 const SOCIALS = ['Fb', 'In', 'X', 'Yt']
@@ -48,10 +48,17 @@ export default function Contact() {
               ))}
             </div>
 
-            <div className="contact-map" aria-label="Campus location map">
-              <div className="map-grid" />
-              <div className="pin-pulse" />
-              <div className="pin">📍</div>
+            <div className="contact-map">
+              <iframe
+                title="Dawn Model High School location"
+                src="https://www.google.com/maps?q=17.36875,78.501016&z=14&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </Reveal>
 

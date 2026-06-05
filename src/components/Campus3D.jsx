@@ -1,12 +1,15 @@
 import { useRef } from 'react'
 import { Reveal, SectionHead } from './common'
 
-const BUILDINGS = [
-  { cls: 'main', icon: '🏛️' },
-  { cls: 'left', icon: '🔬' },
-  { cls: 'right', icon: '📚' },
-  { cls: 'back', icon: '🏢' },
-  { cls: 'front', icon: '⚽' },
+const CAMPUS_IMG =
+  'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1400&q=80'
+
+// Interactive markers placed over the campus photo (x/y are % of the stage)
+const HOTSPOTS = [
+  { icon: '🏛️', title: 'Academic Block', desc: '60 smart classrooms across four floors.', x: '50%', y: '40%' },
+  { icon: '🔬', title: 'Innovation Center', desc: 'Robotics, AI, and STEM laboratories.', x: '24%', y: '54%' },
+  { icon: '📚', title: 'Library & Media', desc: 'Digital research and reading commons.', x: '76%', y: '50%' },
+  { icon: '⚽', title: 'Sports Complex', desc: 'Indoor arena, pool, and athletic fields.', x: '50%', y: '74%' },
 ]
 
 const POINTS = [
@@ -18,20 +21,20 @@ const POINTS = [
 
 export default function Campus3D() {
   const stageRef = useRef(null)
-  const worldRef = useRef(null)
+  const imgRef = useRef(null)
 
   const handleMove = (e) => {
     const stage = stageRef.current
-    const world = worldRef.current
-    if (!stage || !world) return
+    const img = imgRef.current
+    if (!stage || !img) return
     const rect = stage.getBoundingClientRect()
     const px = (e.clientX - rect.left) / rect.width - 0.5
     const py = (e.clientY - rect.top) / rect.height - 0.5
-    world.style.transform = `rotateX(${8 - py * 14}deg) rotateY(${px * 26}deg)`
+    img.style.transform = `scale(1.1) translate(${px * -22}px, ${py * -16}px)`
   }
 
   const handleLeave = () => {
-    if (worldRef.current) worldRef.current.style.transform = 'rotateX(8deg) rotateY(0deg)'
+    if (imgRef.current) imgRef.current.style.transform = 'scale(1.1) translate(0, 0)'
   }
 
   return (
@@ -40,32 +43,40 @@ export default function Campus3D() {
         <SectionHead
           center
           eyebrow="Immersive Experience"
-          title="Explore Our Campus in"
-          accent="3D"
-          lead="Move your cursor across the scene to glide through a living model of the Dawn campus — a glimpse of the world your child will learn and grow in."
+          title="Explore Our Campus"
+          accent="Up Close"
+          lead="Move your cursor across the scene and hover the glowing markers to discover the spaces where your child will learn, play, and grow."
         />
 
         <Reveal>
           <div
-            className="campus3d-stage"
+            className="campus-map"
             ref={stageRef}
             onMouseMove={handleMove}
             onMouseLeave={handleLeave}
           >
-            <div className="campus3d-floor" aria-hidden="true" />
-            <div className="campus3d-world" ref={worldRef} style={{ transform: 'rotateX(8deg)' }}>
-              {BUILDINGS.map((b) => (
-                <div
-                  key={b.cls}
-                  className={`b3d ${b.cls} float-y`}
-                  style={{ animationDelay: `${Math.random() * 2}s` }}
-                >
-                  <span className="b3d-label">{b.icon}</span>
-                </div>
-              ))}
-            </div>
+            <img
+              className="campus-map-img"
+              ref={imgRef}
+              src={CAMPUS_IMG}
+              alt="Dawn High School campus"
+              loading="lazy"
+            />
+            <div className="campus-map-overlay" aria-hidden="true" />
+
+            {HOTSPOTS.map((h) => (
+              <button className="map-pin" style={{ left: h.x, top: h.y }} key={h.title}>
+                <span className="map-pin-dot" aria-hidden="true" />
+                <span className="map-pin-card">
+                  <span className="mp-ic">{h.icon}</span>
+                  <b>{h.title}</b>
+                  <small>{h.desc}</small>
+                </span>
+              </button>
+            ))}
+
             <div className="campus3d-hint">
-              <span>🖱️</span> Move your mouse to explore
+              <span>🖱️</span> Hover the markers to explore
             </div>
           </div>
         </Reveal>

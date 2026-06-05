@@ -99,13 +99,18 @@ export default function Academics() {
                 ))}
               </ul>
             </div>
-            <div className="panel-meta">
-              {p.meta.map(([val, label]) => (
-                <div key={label}>
-                  <b>{val}</b>
-                  <span>{label}</span>
-                </div>
-              ))}
+            <div className="panel-footer">
+              <div className="panel-meta">
+                {p.meta.map(([val, label]) => (
+                  <div key={label}>
+                    <b>{val}</b>
+                    <span>{label}</span>
+                  </div>
+                ))}
+              </div>
+              <a className="panel-cta" href="#admissions">
+                Explore Program <i aria-hidden="true">→</i>
+              </a>
             </div>
           </Reveal>
         </div>

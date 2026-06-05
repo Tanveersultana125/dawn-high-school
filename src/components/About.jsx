@@ -20,20 +20,14 @@ export default function About() {
         <div className="about-grid">
           <Reveal className="about-visual">
             <div className="about-frame">
-              <div className="campus-illustration" aria-hidden="true">
-                <svg width="74%" viewBox="0 0 200 200" fill="none">
-                  <rect x="40" y="80" width="120" height="90" rx="6" fill="#13316c" />
-                  <rect x="55" y="100" width="18" height="22" rx="2" fill="#e6c768" opacity="0.8" />
-                  <rect x="91" y="100" width="18" height="22" rx="2" fill="#e6c768" opacity="0.8" />
-                  <rect x="127" y="100" width="18" height="22" rx="2" fill="#e6c768" opacity="0.8" />
-                  <rect x="88" y="135" width="24" height="35" rx="2" fill="#0a1f44" />
-                  <polygon points="100,40 165,80 35,80" fill="#1450c8" />
-                  <polygon points="100,52 150,80 50,80" fill="#2563eb" opacity="0.7" />
-                  <rect x="98" y="20" width="4" height="22" fill="#d4af37" />
-                  <path d="M102 22 L122 28 L102 34 Z" fill="#d4af37" />
-                  <circle cx="100" cy="40" r="4" fill="#e6c768" />
-                </svg>
-              </div>
+              <img
+                className="about-photo"
+                src="https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=1100"
+                alt="Dawn High School campus building"
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="about-frame-overlay" aria-hidden="true" />
               <div className="scene-tag">
                 <span className="eyebrow" style={{ color: 'var(--gold-400)' }}>Est. 2000</span>
                 <div>
@@ -44,8 +38,15 @@ export default function About() {
               </div>
             </div>
             <div className="about-quote">
-              <p>“We don&apos;t just teach subjects — we nurture leaders.”</p>
-              <span>— Dr. Eleanor Hayes, Principal</span>
+              <span className="quote-mark" aria-hidden="true">“</span>
+              <p>We don&apos;t just teach subjects — we nurture leaders.</p>
+              <div className="quote-author">
+                <span className="qa-avatar" aria-hidden="true">EH</span>
+                <span className="qa-meta">
+                  <b>Dr. Eleanor Hayes</b>
+                  <small>Principal</small>
+                </span>
+              </div>
             </div>
           </Reveal>
 
