@@ -1,6 +1,6 @@
-# Dawn Model High School — Premium Website
+# Dawn High School — Premium Website
 
-A world-class, ultra-premium marketing website for **Dawn Model High School**, built with a modern React + Vite architecture. Designed to feel like a prestigious international private school — elegant typography, deep-navy & soft-gold palette, immersive 3D-style visuals, and luxury motion throughout.
+A world-class, ultra-premium marketing website for **Dawn High School**, built with a modern React + Vite architecture. Designed to feel like a prestigious international private school — elegant typography, deep-navy & soft-gold palette, immersive 3D-style visuals, and luxury motion throughout.
 
 > _“Shaping Future Leaders Through Excellence in Education.”_
 
@@ -77,4 +77,4 @@ Visuals currently use elegant gradient + emoji placeholders so the site ships de
 
 ---
 
-Built with React 18 + Vite. © Dawn Model High School.
+Built with React 18 + Vite. © Dawn High School.

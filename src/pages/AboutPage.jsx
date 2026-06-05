@@ -1,9 +1,10 @@
 import PageHero from '../components/PageHero'
 import About from '../components/About'
+import Achievements from '../components/Achievements'
 import { Reveal, SectionHead } from '../components/common'
 
 const JOURNEY = [
-  { year: '2000', title: 'Founded', desc: 'Dawn Model High School opens its doors with 120 students and a bold vision.' },
+  { year: '2000', title: 'Founded', desc: 'Dawn High School opens its doors with 120 students and a bold vision.' },
   { year: '2008', title: 'Campus Expansion', desc: 'A new 12-acre smart campus with advanced science and technology labs.' },
   { year: '2016', title: 'Digital Transformation', desc: 'Every classroom becomes a connected, smart-learning environment.' },
   { year: '2024', title: 'National Recognition', desc: 'Ranked among the region’s top institutions for academic excellence.' },
@@ -24,7 +25,7 @@ export default function AboutPage() {
       <PageHero
         kicker="About Us"
         title="A Legacy of Learning, A Vision for Tomorrow"
-        subtitle="For over two decades, Dawn Model High School has shaped confident, compassionate, and capable global citizens."
+        subtitle="For over two decades, Dawn High School has shaped confident, compassionate, and capable global citizens."
         crumb="About"
       />
 
@@ -94,6 +95,9 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Achievements */}
+      <Achievements />
+
       {/* Principal's message */}
       <section className="section section-alt">
         <div className="container">
@@ -106,7 +110,7 @@ export default function AboutPage() {
             </p>
             <div className="who">
               Dr. Eleanor Hayes
-              <small>Principal, Dawn Model High School</small>
+              <small>Principal, Dawn High School</small>
             </div>
           </Reveal>
         </div>

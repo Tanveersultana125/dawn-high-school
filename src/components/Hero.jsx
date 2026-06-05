@@ -58,7 +58,7 @@ export default function Hero() {
 
     const boxInsets = (vw, vh) =>
       vw < 900
-        ? { top: vh * 0.34, left: vw * 0.05, right: vw * 0.05, bottom: vh * 0.08, radius: 22 }
+        ? { top: 0, left: 0, right: 0, bottom: 0, radius: 0 } // mobile: video is the full-screen backdrop
         : { top: vh * 0.15, left: vw * 0.5, right: vw * 0.05, bottom: vh * 0.17, radius: 26 }
 
     const clamp = (n) => Math.min(Math.max(n, 0), 1)
@@ -172,7 +172,7 @@ export default function Hero() {
         <div className="container hero-inner">
           <div className="hero-copy" ref={copyRef}>
             <span className="hero-badge reveal in">
-              <i>★</i> Ranked Among the Region&apos;s Top Institutions
+              <i>★</i> Ranked Among Hyderabad&apos;s Top Institutions
             </span>
 
             <h1 className="hero-title">
@@ -206,7 +206,7 @@ export default function Hero() {
             playsInline
             preload="metadata"
             poster={HERO_POSTER}
-            aria-label="Campus life at Dawn Model High School"
+            aria-label="Campus life at Dawn High School"
           >
             <source src={VIDEO_HD} type="video/mp4" media="(min-width: 900px)" />
             <source src={VIDEO_SD} type="video/mp4" />
@@ -230,7 +230,7 @@ export default function Hero() {
         <div className="hero-statement" ref={stmtRef} aria-hidden="true">
           <div className="container">
             <div className="statement-copy">
-              <span className="statement-kicker">At Dawn Model High School</span>
+              <span className="statement-kicker">At Dawn High School</span>
               <h2 className="statement-title">Every Day is an Exploration</h2>
               <p className="statement-text">
                 It is our scale and spirit that let us offer a robust curriculum and rich,

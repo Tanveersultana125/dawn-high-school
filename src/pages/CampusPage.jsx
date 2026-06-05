@@ -1,6 +1,7 @@
 import PageHero from '../components/PageHero'
 import CampusLife from '../components/CampusLife'
 import Campus3D from '../components/Campus3D'
+import Library from '../components/Library'
 import { Reveal, SectionHead } from '../components/common'
 
 const FACILITIES = [
@@ -47,6 +48,8 @@ export default function CampusPage() {
           </div>
         </div>
       </section>
+
+      <Library alt detailed />
 
       <Campus3D />
     </>

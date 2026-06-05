@@ -99,7 +99,7 @@ export default function Distinctly() {
       <div className="container">
         <Reveal className="distinct-head">
           <span className="distinct-kicker">Distinctly</span>
-          <h2 className="distinct-title">Dawn Model</h2>
+          <h2 className="distinct-title">Dawn</h2>
         </Reveal>
 
         <div className="distinct-layout">

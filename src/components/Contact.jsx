@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Reveal, SectionHead } from './common'
 
 const INFO = [
-  { icon: '📍', title: 'Visit Us', text: '12 Knowledge Avenue, Greenfield, CA 90210' },
-  { icon: '📞', title: 'Call Us', text: '+1 (555) 326-9663 · Mon–Sat, 8am–4pm' },
-  { icon: '✉️', title: 'Email Us', text: 'admissions@dawnmodelhighschool.edu' },
+  { icon: '📍', title: 'Visit Us', text: '8-2-120, Road No. 2, Banjara Hills, Hyderabad, Telangana 500034' },
+  { icon: '📞', title: 'Call Us', text: '+91 40 2345 6789 · Mon–Sat, 8am–4pm' },
+  { icon: '✉️', title: 'Email Us', text: 'admissions@dawnhighschool.edu.in' },
 ]
 
 const SOCIALS = ['Fb', 'In', 'X', 'Yt']
@@ -70,7 +70,7 @@ export default function Contact() {
               <div className="form-row">
                 <div className="field">
                   <label htmlFor="phone">Phone Number</label>
-                  <input id="phone" name="phone" type="tel" placeholder="+1 555 000 0000" />
+                  <input id="phone" name="phone" type="tel" placeholder="+91 90000 00000" />
                 </div>
                 <div className="field">
                   <label htmlFor="grade">Grade of Interest</label>

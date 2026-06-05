@@ -26,8 +26,8 @@ export default function Footer() {
             <Link to="/" className="brand">
               <Crest />
               <span className="brand-text">
-                <b>Dawn Model High School</b>
-                <small>Excellence in Education</small>
+                <b>Dawn High School</b>
+                <small>Banjara Hills, Hyderabad</small>
               </span>
             </Link>
             <p className="footer-about">
@@ -66,7 +66,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Dawn Model High School. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Dawn High School. All rights reserved.</span>
           <div style={{ display: 'flex', gap: 22 }}>
             <a href="#home">Privacy Policy</a>
             <a href="#home">Terms of Use</a>

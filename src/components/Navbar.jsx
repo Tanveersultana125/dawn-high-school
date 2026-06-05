@@ -42,6 +42,13 @@ export default function Navbar() {
         {/* Utility bar */}
         <div className="topbar">
           <div className="container topbar-inner">
+            <div className="topbar-left">
+              <a href="https://maps.google.com/?q=Banjara+Hills+Hyderabad" target="_blank" rel="noreferrer">
+                📍 Banjara Hills, Hyderabad, Telangana
+              </a>
+              <span className="topbar-dot">·</span>
+              <a href="tel:+914023456789">📞 +91 40 2345 6789</a>
+            </div>
             <div className="topbar-right">
               {UTILITY.map(([label, to]) => (
                 <Link key={label} to={to}>{label}</Link>
@@ -61,11 +68,11 @@ export default function Navbar() {
         {/* Main bar */}
         <div className="mainbar">
           <div className="container mainbar-inner">
-            <Link to="/" className="brand" aria-label="Dawn Model High School — home">
+            <Link to="/" className="brand" aria-label="Dawn High School — home">
               <Crest />
               <span className="brand-text">
-                <b>Dawn Model High School</b>
-                <small>Excellence in Education · Est. 2000</small>
+                <b>Dawn High School</b>
+                <small>Hyderabad, India · Est. 2000</small>
               </span>
             </Link>
 

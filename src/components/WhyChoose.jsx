@@ -18,7 +18,7 @@ export default function WhyChoose() {
           eyebrow="Why Choose Us"
           title="Six Reasons Families"
           accent="Trust Dawn"
-          lead="Choosing a school is one of life’s most important decisions. Here is why thousands of families choose Dawn Model High School."
+          lead="Choosing a school is one of life’s most important decisions. Here is why thousands of families choose Dawn High School."
         />
 
         <div className="why-grid">

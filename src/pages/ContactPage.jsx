@@ -9,9 +9,9 @@ const HOURS = [
 ]
 
 const DEPTS = [
-  { ic: '🎓', t: 'Admissions Office', d: 'admissions@dawnmodelhighschool.edu', e: '+1 (555) 326-9663' },
-  { ic: '💬', t: 'General Enquiries', d: 'info@dawnmodelhighschool.edu', e: '+1 (555) 326-9600' },
-  { ic: '🧾', t: 'Accounts & Fees', d: 'accounts@dawnmodelhighschool.edu', e: '+1 (555) 326-9610' },
+  { ic: '🎓', t: 'Admissions Office', d: 'admissions@dawnhighschool.edu.in', e: '+91 40 2345 6789' },
+  { ic: '💬', t: 'General Enquiries', d: 'info@dawnhighschool.edu.in', e: '+91 40 2345 6700' },
+  { ic: '🧾', t: 'Accounts & Fees', d: 'accounts@dawnhighschool.edu.in', e: '+91 40 2345 6710' },
 ]
 
 export default function ContactPage() {
@@ -49,9 +49,9 @@ export default function ContactPage() {
                   <div className="card" key={d.t} style={{ padding: 22 }}>
                     <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
                       <span style={{ fontSize: '1.6rem' }}>{d.ic}</span>
-                      <div>
+                      <div style={{ minWidth: 0 }}>
                         <b style={{ color: 'var(--navy-800)', fontFamily: 'var(--font-display)', fontSize: '1.15rem' }}>{d.t}</b>
-                        <p style={{ color: 'var(--text-soft)', fontSize: '0.88rem' }}>{d.d}</p>
+                        <p style={{ color: 'var(--text-soft)', fontSize: '0.88rem', overflowWrap: 'anywhere' }}>{d.d}</p>
                         <p style={{ color: 'var(--royal-600)', fontSize: '0.88rem', fontWeight: 600 }}>{d.e}</p>
                       </div>
                     </div>

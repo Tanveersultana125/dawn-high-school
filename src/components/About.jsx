@@ -54,7 +54,7 @@ export default function About() {
               eyebrow="About Our School"
               title="Where Ambition Meets"
               accent="Achievement"
-              lead="For over two decades, Dawn Model High School has been a beacon of educational excellence — combining a rich heritage with cutting-edge teaching to shape confident, compassionate, and capable global citizens."
+              lead="For over two decades, Dawn High School has been a beacon of educational excellence — combining a rich heritage with cutting-edge teaching to shape confident, compassionate, and capable global citizens."
             />
             <Reveal className="about-points" delay={2}>
               {POINTS.map(([title, desc]) => (

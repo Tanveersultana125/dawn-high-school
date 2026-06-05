@@ -11,7 +11,7 @@ export default function Statement() {
 
       <div className="container statement-inner">
         <Reveal className="statement-copy">
-          <span className="statement-kicker">At Dawn Model High School</span>
+          <span className="statement-kicker">At Dawn High School</span>
           <h2 className="statement-title">Every Day is an Exploration</h2>
           <p className="statement-text">
             It is our scale and spirit that let us offer a robust curriculum and rich,

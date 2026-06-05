@@ -1,9 +1,9 @@
 {
-  "name": "dawn-model-high-school",
+  "name": "dawn-high-school",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Premium website for Dawn Model High School — Shaping Future Leaders Through Excellence in Education.",
+  "description": "Premium website for Dawn High School — Shaping Future Leaders Through Excellence in Education.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -1,7 +1,7 @@
 /** Heraldic school crest — shield with stars, torch of knowledge, and an open book. */
 export default function Crest({ className = 'crest' }) {
   return (
-    <svg className={className} viewBox="0 0 100 116" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dawn Model High School crest">
+    <svg className={className} viewBox="0 0 100 116" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dawn High School crest">
       <defs>
         <linearGradient id="crNavy" x1="50" y1="4" x2="50" y2="112" gradientUnits="userSpaceOnUse">
           <stop stopColor="#1b4488" />
