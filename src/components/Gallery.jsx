@@ -1,7 +1,18 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Reveal, SectionHead } from './common'
+import { fetchMedia } from '../lib/media'
+import { isFirebaseConfigured } from '../lib/firebase'
 
 const U = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80`
+
+// Heights + gradients cycled through for admin-uploaded items so they slot into
+// the masonry layout like the built-in samples.
+const H_POOL = [260, 210, 300, 230, 270, 200]
+const GRAD_POOL = [
+  'linear-gradient(160deg,#0e2a5e,#1450c8)',
+  'linear-gradient(160deg,#0a1f44,#2563eb)',
+  'linear-gradient(160deg,#13316c,#4f86f7)',
+]
 
 const IMAGES = [
   { emoji: '🏛️', title: 'Main Building', cat: 'Campus', h: 260, img: U('photo-1562774053-701939374585'), grad: 'linear-gradient(160deg,#0e2a5e,#1450c8)' },
@@ -17,10 +28,36 @@ const IMAGES = [
 
 export default function Gallery() {
   const [lightbox, setLightbox] = useState(null)
+  const [uploaded, setUploaded] = useState([])
+
+  // Pull admin-uploaded media (newest first) and slot it ahead of the samples.
+  useEffect(() => {
+    if (!isFirebaseConfigured) return
+    let alive = true
+    fetchMedia()
+      .then((rows) => {
+        if (!alive) return
+        setUploaded(
+          rows.map((m, i) => ({
+            title: m.title || 'Untitled',
+            cat: m.category || 'Campus',
+            img: m.url,
+            type: m.type || 'image',
+            h: H_POOL[i % H_POOL.length],
+            grad: GRAD_POOL[i % GRAD_POOL.length],
+            emoji: m.type === 'video' ? '▶' : '🖼️',
+          }))
+        )
+      })
+      .catch(() => {})
+    return () => { alive = false }
+  }, [])
+
+  const items = [...uploaded, ...IMAGES]
 
   const move = useCallback((dir) => {
-    setLightbox((i) => (i === null ? i : (i + dir + IMAGES.length) % IMAGES.length))
-  }, [])
+    setLightbox((i) => (i === null ? i : (i + dir + items.length) % items.length))
+  }, [items.length])
 
   useEffect(() => {
     if (lightbox === null) return
@@ -50,10 +87,10 @@ export default function Gallery() {
 
         <Reveal>
           <div className="gallery-grid">
-            {IMAGES.map((img, i) => (
+            {items.map((img, i) => (
               <figure
                 className="gallery-item"
-                key={img.title}
+                key={(img.title || '') + i}
                 onClick={() => setLightbox(i)}
                 role="button"
                 tabIndex={0}
@@ -61,7 +98,11 @@ export default function Gallery() {
                 aria-label={`View ${img.title}`}
               >
                 <div className="gallery-thumb" style={{ height: img.h, background: img.grad }}>
-                  <img className="g-img" src={img.img} alt={img.title} loading="lazy" />
+                  {img.type === 'video' ? (
+                    <video className="g-img" src={img.img} muted playsInline preload="metadata" />
+                  ) : (
+                    <img className="g-img" src={img.img} alt={img.title} loading="lazy" />
+                  )}
                   <span className="g-emoji">{img.emoji}</span>
                 </div>
                 <figcaption className="gallery-overlay">
@@ -77,15 +118,19 @@ export default function Gallery() {
 
       {lightbox !== null && (
         <div className="lightbox" onClick={() => setLightbox(null)} role="dialog" aria-modal="true">
-          <div className="lightbox-content" style={{ background: IMAGES[lightbox].grad }} onClick={(e) => e.stopPropagation()}>
+          <div className="lightbox-content" style={{ background: items[lightbox].grad }} onClick={(e) => e.stopPropagation()}>
             <button className="lightbox-close" onClick={() => setLightbox(null)} aria-label="Close">✕</button>
             <button className="lightbox-nav prev" onClick={() => move(-1)} aria-label="Previous">‹</button>
             <button className="lightbox-nav next" onClick={() => move(1)} aria-label="Next">›</button>
-            <img className="lb-img" src={IMAGES[lightbox].img} alt={IMAGES[lightbox].title} />
+            {items[lightbox].type === 'video' ? (
+              <video className="lb-img" src={items[lightbox].img} controls autoPlay playsInline />
+            ) : (
+              <img className="lb-img" src={items[lightbox].img} alt={items[lightbox].title} />
+            )}
             <div className="lb-shade" aria-hidden="true" />
             <div className="lightbox-caption">
-              <span>{IMAGES[lightbox].cat}</span>
-              <b>{IMAGES[lightbox].title}</b>
+              <span>{items[lightbox].cat}</span>
+              <b>{items[lightbox].title}</b>
             </div>
           </div>
         </div>

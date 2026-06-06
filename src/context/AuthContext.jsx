@@ -1,11 +1,16 @@
-// Provides the current admin auth state across the app and exposes login/logout.
+// Provides the current admin auth state across the app. Login is Google-only
+// and locked to a single authorized email — any other account is signed out.
 import { createContext, useContext, useEffect, useState } from 'react'
 import {
+  GoogleAuthProvider,
+  signInWithPopup,
   onAuthStateChanged,
-  signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth'
 import { auth } from '../lib/firebase'
+
+// Only this Google account may access the admin panel.
+export const ALLOWED_EMAIL = 'dgionemployee03@gmail.com'
 
 const AuthContext = createContext(null)
 
@@ -14,18 +19,34 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Fires once on load with the restored session, then on every login/logout.
-    const unsub = onAuthStateChanged(auth, (u) => {
-      setUser(u)
+    const unsub = onAuthStateChanged(auth, async (u) => {
+      // Reject any restored session that isn't the authorized account.
+      if (u && u.email !== ALLOWED_EMAIL) {
+        await signOut(auth)
+        setUser(null)
+      } else {
+        setUser(u)
+      }
       setLoading(false)
     })
     return unsub
   }, [])
 
+  const loginWithGoogle = async () => {
+    const provider = new GoogleAuthProvider()
+    provider.setCustomParameters({ prompt: 'select_account' })
+    const cred = await signInWithPopup(auth, provider)
+    if (cred.user.email !== ALLOWED_EMAIL) {
+      await signOut(auth)
+      throw new Error('This Google account is not authorized to access the admin panel.')
+    }
+    return cred
+  }
+
   const value = {
     user,
     loading,
-    login: (email, password) => signInWithEmailAndPassword(auth, email, password),
+    loginWithGoogle,
     logout: () => signOut(auth),
   }
 

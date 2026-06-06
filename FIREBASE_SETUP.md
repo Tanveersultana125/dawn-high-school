@@ -14,25 +14,41 @@ Open project **downhighschool-2181a**, then:
 
 1. **Firestore Database** → *Create database* → Start in **production mode** →
    pick a region (e.g. `asia-south1` / Mumbai).
-2. **Authentication** → *Get started* → **Sign-in method** → enable
-   **Email/Password**.
-3. **Authentication → Users → Add user** → create your admin login
-   (e.g. `admin@dawnhighschool.com` + a password). You log in with this at
-   `/admin/login`.
+2. **Authentication** → *Get started* → **Sign-in method** → enable **Google**
+   (set a support email and save). No need to add users — login is Google-only.
+3. **Authentication → Settings → Authorized domains** → make sure `localhost`
+   is listed (it is by default). Add your live domain when you deploy.
 4. **Firestore → Rules** → paste the rules below → *Publish*.
+
+> Admin access is locked to **dgionemployee03@gmail.com** in code
+> (`src/context/AuthContext.jsx`, `ALLOWED_EMAIL`). Any other Google account is
+> signed out immediately. To change the admin, edit that constant **and** the
+> email in the Firestore rules below.
 
 ### Firestore security rules
 
-Anyone can submit a form (create), but only a logged-in admin can read / edit /
-delete submissions:
+Public can submit forms and view gallery media; only the admin account can read
+enquiries or manage media:
 
 ```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'dgionemployee03@gmail.com';
+    }
+
+    // Contact / admission enquiries
     match /enquiries/{doc} {
-      allow create: if true;
-      allow read, update, delete: if request.auth != null;
+      allow create: if true;            // anyone can submit a form
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Gallery media (images + videos)
+    match /media/{doc} {
+      allow read: if true;              // public gallery
+      allow write: if isAdmin();        // only admin uploads / deletes
     }
   }
 }
@@ -55,8 +71,11 @@ service cloud.firestore {
 | Where | What happens |
 |-------|--------------|
 | `/contact` form | Saves to Firestore `enquiries` (type `contact`); optional file → Cloudinary, URL stored on the doc. |
-| `/admin/login`  | Email/password admin login (Firebase Auth). |
+| `/admin/login`  | Google-only login, restricted to the admin email. |
 | `/admin`        | Protected dashboard — lists submissions, mark done, delete. |
+| `/admin/media`  | Upload images & videos (→ Cloudinary), shown publicly on the Gallery. |
+| `/gallery`      | Public gallery — admin uploads appear first, then the sample images. |
 
-Key files: `src/lib/firebase.js`, `src/lib/enquiries.js`, `src/lib/cloudinary.js`,
-`src/context/AuthContext.jsx`, `src/pages/AdminLogin.jsx`, `src/pages/AdminDashboard.jsx`.
+Key files: `src/lib/firebase.js`, `src/lib/enquiries.js`, `src/lib/media.js`,
+`src/lib/cloudinary.js`, `src/context/AuthContext.jsx`, `src/pages/AdminLogin.jsx`,
+`src/pages/AdminDashboard.jsx`, `src/pages/AdminMedia.jsx`.

@@ -10,6 +10,7 @@ import AdmissionsPage from './pages/AdmissionsPage'
 import ContactPage from './pages/ContactPage'
 import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
+import AdminMedia from './pages/AdminMedia'
 import ProtectedRoute from './components/ProtectedRoute'
 
 export default function App() {
@@ -34,6 +35,14 @@ export default function App() {
         element={
           <ProtectedRoute>
             <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/media"
+        element={
+          <ProtectedRoute>
+            <AdminMedia />
           </ProtectedRoute>
         }
       />

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import {
   fetchEnquiries,
@@ -61,6 +62,7 @@ export default function AdminDashboard() {
           <p>{user?.email}</p>
         </div>
         <div className="admin-dash-actions">
+          <Link className="btn btn-ghost" to="/admin/media">Media Library</Link>
           <button className="btn btn-ghost" onClick={load}>Refresh</button>
           <button className="btn btn-navy" onClick={logout}>Log out</button>
         </div>
