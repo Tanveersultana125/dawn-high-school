@@ -8,6 +8,9 @@ import FacultyPage from './pages/FacultyPage'
 import GalleryPage from './pages/GalleryPage'
 import AdmissionsPage from './pages/AdmissionsPage'
 import ContactPage from './pages/ContactPage'
+import AdminLogin from './pages/AdminLogin'
+import AdminDashboard from './pages/AdminDashboard'
+import ProtectedRoute from './components/ProtectedRoute'
 
 export default function App() {
   return (
@@ -23,6 +26,17 @@ export default function App() {
         <Route path="contact" element={<ContactPage />} />
         <Route path="*" element={<Home />} />
       </Route>
+
+      {/* Admin — bare pages, no public header/footer */}
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   )
 }

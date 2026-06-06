@@ -59,7 +59,15 @@ export default function Hero() {
     const boxInsets = (vw, vh) =>
       vw < 900
         ? { top: 0, left: 0, right: 0, bottom: 0, radius: 0 } // mobile: video is the full-screen backdrop
-        : { top: vh * 0.15, left: vw * 0.5, right: vw * 0.05, bottom: vh * 0.17, radius: 26 }
+        : {
+            // Never start above the fixed header (~150px) so the card/stat badge
+            // is not clipped by the navbar on shorter laptop screens.
+            top: Math.max(vh * 0.15, 150),
+            left: vw * 0.5,
+            right: vw * 0.05,
+            bottom: vh * 0.17,
+            radius: 26,
+          }
 
     const clamp = (n) => Math.min(Math.max(n, 0), 1)
 
@@ -148,6 +156,18 @@ export default function Hero() {
     io.observe(video)
     return () => io.disconnect()
   }, [])
+
+  // EXPLORE / scroll cue → smoothly scroll past the hero film into the first
+  // content section below. Falls back to a one-viewport scroll if it's missing.
+  const exploreDown = (e) => {
+    e.preventDefault()
+    const next = document.getElementById('distinct')
+    if (next) {
+      next.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    } else {
+      window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
+    }
+  }
 
   const togglePlay = () => {
     const video = videoRef.current
@@ -240,14 +260,14 @@ export default function Hero() {
               </p>
             </div>
           </div>
-          <a href="#about" className="statement-scroll" aria-label="Scroll down">
+          <a href="#distinct" onClick={exploreDown} className="statement-scroll" aria-label="Scroll down">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
               <path d="M12 5v14M6 13l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </a>
         </div>
 
-        <a href="#about" className="scroll-cue" ref={cueRef} aria-label="Scroll to explore">
+        <a href="#distinct" onClick={exploreDown} className="scroll-cue" ref={cueRef} aria-label="Scroll to explore">
           <span className="mouse" />
           Explore
         </a>

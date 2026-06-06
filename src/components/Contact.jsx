@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Reveal, SectionHead } from './common'
+import { submitEnquiry } from '../lib/enquiries'
+import { uploadToCloudinary, isCloudinaryConfigured } from '../lib/cloudinary'
 
 const INFO = [
   { icon: '📍', title: 'Visit Us', text: '16-3-993, Malakpet Rd, Opposite Officer Mess, Officers Colony, New Malakpet, Hyderabad – 500036, Telangana' },
@@ -11,12 +13,46 @@ const SOCIALS = ['Fb', 'In', 'X', 'Yt']
 
 export default function Contact() {
   const [sent, setSent] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
-    setSent(true)
-    e.target.reset()
-    setTimeout(() => setSent(false), 5000)
+    setError('')
+    setBusy(true)
+
+    const form = e.target
+    const fd = new FormData(form)
+    const file = fd.get('attachment')
+
+    try {
+      // Optional file → Cloudinary first, store the resulting URL with the doc.
+      let fileUrl = ''
+      if (file && file.size > 0 && isCloudinaryConfigured) {
+        const up = await uploadToCloudinary(file)
+        fileUrl = up.url
+      }
+
+      await submitEnquiry(
+        {
+          name: fd.get('name')?.toString().trim() || '',
+          email: fd.get('email')?.toString().trim() || '',
+          phone: fd.get('phone')?.toString().trim() || '',
+          grade: fd.get('grade')?.toString() || '',
+          message: fd.get('message')?.toString().trim() || '',
+          fileUrl,
+        },
+        'contact'
+      )
+
+      setSent(true)
+      form.reset()
+      setTimeout(() => setSent(false), 6000)
+    } catch (err) {
+      setError(err?.message || 'Something went wrong. Please try again.')
+    } finally {
+      setBusy(false)
+    }
   }
 
   return (
@@ -93,11 +129,22 @@ export default function Contact() {
                 <label htmlFor="message">Your Message</label>
                 <textarea id="message" name="message" placeholder="Tell us how we can help…" required />
               </div>
-              <button type="submit" className="btn btn-navy">Send Message</button>
+              {isCloudinaryConfigured && (
+                <div className="field">
+                  <label htmlFor="attachment">Attachment (optional)</label>
+                  <input id="attachment" name="attachment" type="file" accept="image/*,.pdf" />
+                </div>
+              )}
+              <button type="submit" className="btn btn-navy" disabled={busy}>
+                {busy ? 'Sending…' : 'Send Message'}
+              </button>
               {sent && (
                 <div className="form-success" role="status">
                   ✓ Thank you! Your message has been received — we’ll be in touch shortly.
                 </div>
+              )}
+              {error && (
+                <div className="form-error" role="alert">⚠ {error}</div>
               )}
             </form>
           </Reveal>

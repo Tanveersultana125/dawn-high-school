@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import Crest from './Crest'
+import SearchModal from './SearchModal'
 
 const LINKS = [
   ['About', '/about'],
@@ -23,6 +24,7 @@ const UTILITY = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
@@ -39,67 +41,59 @@ export default function Navbar() {
   return (
     <>
       <header className={`site-header ${scrolled ? 'scrolled' : ''}`}>
-        {/* Utility bar */}
-        <div className="topbar">
-          <div className="container topbar-inner">
-            <div className="topbar-left">
-              <a href="https://maps.google.com/?q=17.36875,78.501016" target="_blank" rel="noreferrer">
-                📍 New Malakpet, Hyderabad, Telangana
-              </a>
-              <span className="topbar-dot">·</span>
-              <a href="tel:+918107666766">📞 +91 81076 66766</a>
-            </div>
-            <div className="topbar-right">
+        <div className="container header-inner">
+          {/* Brand on the left, spanning both rows */}
+          <Link to="/" className="brand" aria-label="Dawn High School — home">
+            <Crest />
+            <span className="brand-text">
+              <b>Dawn High School</b>
+            </span>
+          </Link>
+
+          {/* Right column: utility row on top, main nav below */}
+          <div className="header-right">
+            <div className="utility-row">
               {UTILITY.map(([label, to]) => (
-                <Link key={label} to={to}>{label}</Link>
+                <Link key={label} to={to} className="utility-link">{label}</Link>
               ))}
-              <span className="topbar-sep" />
-              <form className="topbar-search" role="search" onSubmit={(e) => e.preventDefault()}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+              <button
+                type="button"
+                className="utility-search"
+                aria-label="Search the site"
+                onClick={() => setSearchOpen(true)}
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                   <circle cx="11" cy="11" r="7" />
                   <path d="M21 21l-4.3-4.3" strokeLinecap="round" />
                 </svg>
-                <input type="search" placeholder="Search…" aria-label="Search the site" />
-              </form>
-            </div>
-          </div>
-        </div>
-
-        {/* Main bar */}
-        <div className="mainbar">
-          <div className="container mainbar-inner">
-            <Link to="/" className="brand" aria-label="Dawn High School — home">
-              <Crest />
-              <span className="brand-text">
-                <b>Dawn High School</b>
-                <small>Hyderabad, India · Est. 2000</small>
-              </span>
-            </Link>
-
-            <nav className="nav-links" aria-label="Primary">
-              {LINKS.map(([label, to]) => (
-                <NavLink
-                  key={to}
-                  to={to}
-                  className={({ isActive }) => (isActive ? 'active' : undefined)}
-                >
-                  {label}
-                </NavLink>
-              ))}
-            </nav>
-
-            <div className="nav-cta">
-              <Link to="/admissions" className="btn btn-gold">Admissions Open</Link>
-              <button
-                className={`nav-toggle ${open ? 'open' : ''}`}
-                aria-label={open ? 'Close menu' : 'Open menu'}
-                aria-expanded={open}
-                onClick={() => setOpen((v) => !v)}
-              >
-                <span></span><span></span><span></span>
+                <span>Search</span>
               </button>
             </div>
+
+            <div className="nav-row">
+              <nav className="nav-links" aria-label="Primary">
+                {LINKS.map(([label, to]) => (
+                  <NavLink
+                    key={to}
+                    to={to}
+                    className={({ isActive }) => (isActive ? 'active' : undefined)}
+                  >
+                    {label}
+                  </NavLink>
+                ))}
+              </nav>
+            </div>
           </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className={`nav-toggle ${open ? 'open' : ''}`}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span></span><span></span><span></span>
+          </button>
         </div>
       </header>
 
@@ -111,10 +105,12 @@ export default function Navbar() {
             </Link>
           ))}
           <Link to="/admissions" className="btn btn-gold" onClick={() => setOpen(false)}>
-            Admissions Open
+            Apply Now
           </Link>
         </nav>
       )}
+
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )
 }
