@@ -815,6 +815,12 @@ ul {
   padding-left: clamp(28px, 4vw, 60px);
 }
 .hero-copy { max-width: 760px; }
+/* On desktop the video sits as a card starting at ~50% of the viewport, so the
+   copy is capped to the left half (minus a gap) to guarantee no overlap at any
+   width. Below 900px the video becomes a full-screen backdrop, so this lifts. */
+@media (min-width: 901px) {
+  .hero-copy { max-width: min(760px, calc(50vw - 110px)); }
+}
 
 .hero-badge {
   display: inline-flex;
@@ -859,12 +865,13 @@ ul {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 600;
-  font-size: clamp(3.6rem, 9.4vw, 8rem);
-  line-height: 0.9;
+  font-size: clamp(3.2rem, 7vw, 7rem);
+  line-height: 0.92;
   color: var(--gold-400);
   margin: 0.04em 0 0.06em -0.03em;
   letter-spacing: -0.01em;
-  white-space: nowrap;
+  /* Allow the title to wrap so it never spills over the video card. */
+  white-space: normal;
 }
 .ht-rest {
   display: block;
