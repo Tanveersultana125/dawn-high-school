@@ -253,7 +253,7 @@ export default function Hero() {
               aria-label="Campus life at Dawn High School"
             >
               {heroMedia?.url ? (
-                <source src={heroMedia.url} type="video/mp4" />
+                <source src={highQualityVideo(heroMedia.url)} type="video/mp4" />
               ) : (
                 <>
                   <source src={VIDEO_HD} type="video/mp4" media="(min-width: 900px)" />
