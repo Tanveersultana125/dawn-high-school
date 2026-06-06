@@ -33,9 +33,10 @@
   --text-soft: var(--gray-600);
   --text-faint: var(--gray-500);
 
-  /* ---- Typography ---- */
-  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* ---- Typography: SF Pro Display across the whole site ---- */
+  --font-sf: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-sf);
+  --font-body: var(--font-sf);
 
   /* ---- Effects ---- */
   --shadow-sm: 0 2px 10px rgba(10, 31, 68, 0.06);
@@ -65,6 +66,13 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+/* Uniform SF Pro Display weight across the entire site. */
+*,
+*::before,
+*::after {
+  font-weight: 400 !important;
 }
 
 html {
@@ -799,7 +807,12 @@ ul {
   position: relative;
   z-index: 5;
   width: 100%;
+  /* Override the centred .container so hero content hugs the left edge
+     instead of leaving a big gap on wide screens. */
+  max-width: 100%;
+  margin: 0;
   padding-top: var(--nav-h);
+  padding-left: clamp(28px, 4vw, 60px);
 }
 .hero-copy { max-width: 760px; }
 
@@ -3979,6 +3992,101 @@ ul {
   font-size: 0.86rem;
 }
 .admin-warn code { font-family: monospace; }
+
+/* ---- Founder / Leadership (About page) ---- */
+.founder-card {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-top: 12px;
+}
+.founder-photo {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(10, 33, 80, 0.22);
+}
+.founder-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  pointer-events: none;
+}
+.founder-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+.founder-bio h3 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: #0a2150;
+  margin: 0;
+}
+.founder-role {
+  display: inline-block;
+  margin: 6px 0 18px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-500, #b8860b);
+}
+.founder-bio p {
+  color: rgba(10, 33, 80, 0.78);
+  line-height: 1.75;
+  margin: 0 0 14px;
+}
+@media (max-width: 760px) {
+  .founder-card { grid-template-columns: 1fr; gap: 26px; }
+  .founder-photo { max-width: 320px; margin: 0 auto; }
+  .founder-bio { text-align: center; }
+}
+
+/* ---- Recognition / award (About page) ---- */
+.award-card {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 48px;
+  align-items: center;
+}
+.award-photo {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(10, 33, 80, 0.25);
+}
+.award-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.award-copy h2 {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  color: #0a2150;
+  margin: 8px 0 14px;
+  line-height: 1.15;
+}
+.award-copy > p { color: rgba(10, 33, 80, 0.78); line-height: 1.7; margin: 0 0 20px; }
+.award-points { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.award-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: rgba(10, 33, 80, 0.85);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+.award-points i {
+  flex: none;
+  color: var(--gold-500, #b8860b);
+  font-style: normal;
+  margin-top: 1px;
+}
+@media (max-width: 760px) {
+  .award-card { grid-template-columns: 1fr; gap: 26px; }
+  .award-copy h2 { font-size: 1.7rem; }
+}
 
 /* ---- Admin shell: top bar + tabs ---- */
 .admin-shell {

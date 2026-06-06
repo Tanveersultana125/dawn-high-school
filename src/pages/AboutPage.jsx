@@ -57,6 +57,73 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Founder / Leadership */}
+      <section className="section">
+        <div className="container">
+          <SectionHead
+            center
+            eyebrow="Our Leadership"
+            title="The Visionary Behind"
+            accent="Dawn High School"
+          />
+          <Reveal className="founder-card">
+            <div className="founder-photo">
+              <img
+                src="/founder.jpg"
+                alt="Janab Razi-ur-Rahman Sahab, Founder of Dawn High School"
+                loading="lazy"
+              />
+            </div>
+            <div className="founder-bio">
+              <h3>Janab Razi-ur-Rahman Sahab</h3>
+              <span className="founder-role">Founder</span>
+              <p>
+                A visionary educator and the guiding spirit behind Dawn High School,
+                Janab Razi-ur-Rahman Sahab believed that education is the truest path to
+                dignity, opportunity, and lasting change. With unwavering commitment, he
+                laid the foundation of an institution rooted in knowledge, character, and
+                service to the community.
+              </p>
+              <p>
+                His vision was simple yet profound — to create a school where every child,
+                regardless of background, could learn with confidence and grow into a
+                responsible, compassionate citizen. That vision continues to shape the
+                values, culture, and aspirations of Dawn High School to this day.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Recognition / award */}
+      <section className="section section-alt">
+        <div className="container">
+          <div className="award-card">
+            <Reveal className="award-copy">
+              <span className="eyebrow" style={{ color: 'var(--gold-400)' }}>Recognition &amp; Honours</span>
+              <h2>Celebrating Excellence at Dawn</h2>
+              <p>
+                Dawn High School takes pride in recognising and rewarding excellence — among
+                students, educators, and the wider community that makes our mission possible.
+              </p>
+              <ul className="award-points">
+                <li><i>★</i> Honouring outstanding academic and co-curricular achievement</li>
+                <li><i>★</i> Felicitating distinguished guests and community leaders</li>
+                <li><i>★</i> Celebrating the dedication of our teachers and staff</li>
+                <li><i>★</i> Building a culture that values merit, effort, and character</li>
+              </ul>
+            </Reveal>
+            <Reveal className="award-photo" delay={1}>
+              <img
+                src="/dawn-award.jpg"
+                alt="Dawn High School honouring excellence at an award ceremony"
+                loading="lazy"
+              />
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* Journey */}
       <section className="section section-alt">
         <div className="container">
