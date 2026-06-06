@@ -20,5 +20,11 @@ service cloud.firestore {
       allow read: if true;                   // public gallery
       allow write: if isAdmin();             // only admin uploads / deletes
     }
+
+    // Site settings (e.g. homepage hero media).
+    match /settings/{doc} {
+      allow read: if true;                   // public site reads hero
+      allow write: if isAdmin();             // only admin changes settings
+    }
   }
 }

@@ -13,6 +13,18 @@ const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
 export const isCloudinaryConfigured = Boolean(CLOUD_NAME && UPLOAD_PRESET)
 
 /**
+ * Return a Cloudinary delivery URL tuned for the highest quality at native
+ * resolution (up to 4K — Cloudinary never upscales, so the source file must
+ * itself be 4K). `q_auto:best` keeps top quality; no width/height = no
+ * downscaling. Non-Cloudinary URLs are returned unchanged.
+ */
+export function highQualityVideo(url) {
+  if (!url || !url.includes('/upload/')) return url
+  if (/\/upload\/(q_|vc_|w_|h_)/.test(url)) return url // already transformed
+  return url.replace('/upload/', '/upload/q_auto:best,vc_auto/')
+}
+
+/**
  * Upload a single File/Blob to Cloudinary.
  * @param {File} file
  * @param {(pct:number)=>void} [onProgress] optional 0–100 progress callback
@@ -51,7 +63,15 @@ export function uploadToCloudinary(file, onProgress) {
           bytes: res.bytes,
         })
       } else {
-        reject(new Error(`Cloudinary upload failed (${xhr.status})`))
+        // Surface Cloudinary's actual reason (e.g. "Upload preset must be
+        // whitelisted for unsigned uploads") instead of a bare status code.
+        let detail = ''
+        try {
+          detail = JSON.parse(xhr.responseText)?.error?.message || ''
+        } catch {
+          /* response wasn't JSON */
+        }
+        reject(new Error(`Cloudinary upload failed (${xhr.status})${detail ? `: ${detail}` : ''}`))
       }
     }
     xhr.onerror = () => reject(new Error('Cloudinary upload failed (network error)'))

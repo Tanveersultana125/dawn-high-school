@@ -1,6 +1,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Particles from './Particles'
+import { getHeroMedia } from '../lib/settings'
+import { isFirebaseConfigured } from '../lib/firebase'
+import { highQualityVideo } from '../lib/cloudinary'
 
 // Poster (shows instantly before the video loads, or if it can't load)
 const HERO_POSTER =
@@ -44,6 +47,19 @@ export default function Hero() {
   const videoRef = useRef(null)
   const userPausedRef = useRef(false)
   const [playing, setPlaying] = useState(true)
+  // Admin-managed hero media (overrides the default film when set).
+  const [heroMedia, setHeroMedia] = useState(null)
+
+  useEffect(() => {
+    if (!isFirebaseConfigured) return
+    let alive = true
+    getHeroMedia()
+      .then((m) => { if (alive && m?.url) setHeroMedia(m) })
+      .catch(() => {})
+    return () => { alive = false }
+  }, [])
+
+  const heroIsImage = heroMedia?.type === 'image'
 
   // Two-phase scroll: (1) the video card grows into a full-screen background,
   // then (2) the editorial message fades in over the film. Afterwards the next
@@ -217,28 +233,45 @@ export default function Hero() {
         </div>
 
         <div className="hero-media" ref={mediaRef}>
-          <video
-            ref={videoRef}
-            className="hero-video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster={HERO_POSTER}
-            aria-label="Campus life at Dawn High School"
-          >
-            <source src={VIDEO_HD} type="video/mp4" media="(min-width: 900px)" />
-            <source src={VIDEO_SD} type="video/mp4" />
-          </video>
+          {heroIsImage ? (
+            <img
+              className="hero-video"
+              src={heroMedia.url}
+              alt="Campus life at Dawn High School"
+            />
+          ) : (
+            <video
+              ref={videoRef}
+              key={heroMedia?.url || 'default'}
+              className="hero-video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster={HERO_POSTER}
+              aria-label="Campus life at Dawn High School"
+            >
+              {heroMedia?.url ? (
+                <source src={heroMedia.url} type="video/mp4" />
+              ) : (
+                <>
+                  <source src={VIDEO_HD} type="video/mp4" media="(min-width: 900px)" />
+                  <source src={VIDEO_SD} type="video/mp4" />
+                </>
+              )}
+            </video>
+          )}
 
-          <button
-            className="hero-play"
-            onClick={togglePlay}
-            aria-label={playing ? 'Pause campus film' : 'Play campus film'}
-          >
-            {playing ? '❚❚' : '▶'}
-          </button>
+          {!heroIsImage && (
+            <button
+              className="hero-play"
+              onClick={togglePlay}
+              aria-label={playing ? 'Pause campus film' : 'Play campus film'}
+            >
+              {playing ? '❚❚' : '▶'}
+            </button>
+          )}
 
           <div className="hero-media-badge">
             <b>4,200+</b>

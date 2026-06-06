@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
+import AdminShell from '../components/AdminShell'
 import {
   fetchEnquiries,
   setEnquiryStatus,
@@ -18,7 +17,6 @@ const fmt = (ts) => {
 }
 
 export default function AdminDashboard() {
-  const { user, logout } = useAuth()
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -53,20 +51,28 @@ export default function AdminDashboard() {
   }
 
   const shown = rows.filter((r) => filter === 'all' || r.type === filter)
+  const newCount = rows.filter((r) => r.status !== 'done').length
 
   return (
-    <div className="admin-dash">
-      <header className="admin-dash-head">
-        <div>
-          <h1>Enquiries</h1>
-          <p>{user?.email}</p>
+    <AdminShell
+      title="Enquiries"
+      subtitle="Contact & admission submissions"
+      actions={<button className="btn btn-ghost" onClick={load}>↻ Refresh</button>}
+    >
+      <div className="admin-stats">
+        <div className="stat-card">
+          <span className="stat-num">{rows.length}</span>
+          <span className="stat-label">Total</span>
         </div>
-        <div className="admin-dash-actions">
-          <Link className="btn btn-ghost" to="/admin/media">Media Library</Link>
-          <button className="btn btn-ghost" onClick={load}>Refresh</button>
-          <button className="btn btn-navy" onClick={logout}>Log out</button>
+        <div className="stat-card">
+          <span className="stat-num">{newCount}</span>
+          <span className="stat-label">New / unread</span>
         </div>
-      </header>
+        <div className="stat-card">
+          <span className="stat-num">{rows.filter((r) => r.type === 'admission').length}</span>
+          <span className="stat-label">Admission</span>
+        </div>
+      </div>
 
       <div className="admin-filters">
         {['all', 'contact', 'admission'].map((f) => (
@@ -78,7 +84,7 @@ export default function AdminDashboard() {
             {f[0].toUpperCase() + f.slice(1)}
           </button>
         ))}
-        <span className="admin-count">{shown.length} total</span>
+        <span className="admin-count">{shown.length} shown</span>
       </div>
 
       {loading && <p className="admin-muted">Loading enquiries…</p>}
@@ -115,6 +121,6 @@ export default function AdminDashboard() {
           </article>
         ))}
       </div>
-    </div>
+    </AdminShell>
   )
 }
