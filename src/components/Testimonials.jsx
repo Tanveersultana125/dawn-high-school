@@ -20,7 +20,7 @@ const REVIEWS = [
     text: 'From robotics club to leadership camp, every day brought something new. Dawn feels less like a school and more like a launchpad.',
     name: 'Aisha Rahman',
     role: 'Student · Grade 11',
-    grad: 'linear-gradient(160deg,#13316c,#4f86f7)',
+    grad: 'linear-gradient(160deg,#103374,#4f86f7)',
     initials: 'AR',
   },
   {

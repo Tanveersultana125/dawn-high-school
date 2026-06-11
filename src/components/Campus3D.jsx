@@ -1,84 +1,70 @@
-import { useRef } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { Reveal, SectionHead } from './common'
 
-const CAMPUS_IMG =
-  'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1400&q=80'
-
-// Interactive markers placed over the campus photo (x/y are % of the stage)
-const HOTSPOTS = [
-  { icon: '🏛️', title: 'Academic Block', desc: '60 smart classrooms across four floors.', x: '50%', y: '40%' },
-  { icon: '🔬', title: 'Innovation Center', desc: 'Robotics, AI, and STEM laboratories.', x: '24%', y: '54%' },
-  { icon: '📚', title: 'Library & Media', desc: 'Digital research and reading commons.', x: '76%', y: '50%' },
-  { icon: '⚽', title: 'Sports Complex', desc: 'Indoor arena, pool, and athletic fields.', x: '50%', y: '74%' },
-]
+// Heavy WebGL scene (three.js) — loaded only when the section nears the viewport
+const Campus3DScene = lazy(() => import('./Campus3DScene'))
 
 const POINTS = [
   { icon: '🏛️', title: 'Academic Block', desc: '60 smart classrooms across four floors.' },
-  { icon: '🔬', title: 'Innovation Center', desc: 'Robotics, AI, and STEM laboratories.' },
-  { icon: '📚', title: 'Library & Media', desc: 'Digital research and reading commons.' },
-  { icon: '⚽', title: 'Sports Complex', desc: 'Indoor arena, pool, and athletic fields.' },
+  { icon: '🔬', title: 'Innovation Center', desc: 'Robotics, AI & STEM laboratories.' },
+  { icon: '📚', title: 'Library & Media', desc: 'Digital research & reading commons.' },
+  { icon: '⚽', title: 'Sports Complex', desc: 'Indoor arena, pool & athletic fields.' },
 ]
 
+function Loader() {
+  return (
+    <div className="r3d-stage r3d-loading">
+      <span className="r3d-spinner" aria-hidden="true" />
+      <p>Loading interactive campus…</p>
+    </div>
+  )
+}
+
 export default function Campus3D() {
-  const stageRef = useRef(null)
-  const imgRef = useRef(null)
+  const ref = useRef(null)
+  const [show, setShow] = useState(false)
 
-  const handleMove = (e) => {
-    const stage = stageRef.current
-    const img = imgRef.current
-    if (!stage || !img) return
-    const rect = stage.getBoundingClientRect()
-    const px = (e.clientX - rect.left) / rect.width - 0.5
-    const py = (e.clientY - rect.top) / rect.height - 0.5
-    img.style.transform = `scale(1.1) translate(${px * -22}px, ${py * -16}px)`
-  }
-
-  const handleLeave = () => {
-    if (imgRef.current) imgRef.current.style.transform = 'scale(1.1) translate(0, 0)'
-  }
+  // Mount the 3D canvas once the section gets close to the viewport, so it
+  // never blocks first paint or the hero experience.
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    if (typeof IntersectionObserver === 'undefined') {
+      setShow(true)
+      return
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShow(true)
+          io.disconnect()
+        }
+      },
+      { rootMargin: '300px 0px' }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   return (
-    <section className="section section-dark campus3d" id="campus-3d">
+    <section className="section section-dark campus3d" id="campus-3d" ref={ref}>
       <div className="container">
         <SectionHead
           center
           eyebrow="Immersive Experience"
-          title="Explore Our Campus"
-          accent="Up Close"
-          lead="Move your cursor across the scene and hover the glowing markers to discover the spaces where your child will learn, play, and grow."
+          title="Explore Our Campus in"
+          accent="Interactive 3D"
+          lead="Drag to spin the campus, scroll to zoom, and tap the glowing markers to discover the spaces where your child will learn, play, and grow."
         />
 
         <Reveal>
-          <div
-            className="campus-map"
-            ref={stageRef}
-            onMouseMove={handleMove}
-            onMouseLeave={handleLeave}
-          >
-            <img
-              className="campus-map-img"
-              ref={imgRef}
-              src={CAMPUS_IMG}
-              alt="Dawn High School campus"
-              loading="lazy"
-            />
-            <div className="campus-map-overlay" aria-hidden="true" />
-
-            {HOTSPOTS.map((h) => (
-              <button className="map-pin" style={{ left: h.x, top: h.y }} key={h.title}>
-                <span className="map-pin-dot" aria-hidden="true" />
-                <span className="map-pin-card">
-                  <span className="mp-ic">{h.icon}</span>
-                  <b>{h.title}</b>
-                  <small>{h.desc}</small>
-                </span>
-              </button>
-            ))}
-
-            <div className="campus3d-hint">
-              <span>🖱️</span> Hover the markers to explore
-            </div>
-          </div>
+          {show ? (
+            <Suspense fallback={<Loader />}>
+              <Campus3DScene />
+            </Suspense>
+          ) : (
+            <Loader />
+          )}
         </Reveal>
 
         <div className="campus3d-points">

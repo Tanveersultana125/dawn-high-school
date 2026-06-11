@@ -4,7 +4,7 @@ const FACULTY = [
   { name: 'Dr. Eleanor Hayes', role: 'Principal', qual: 'Ph.D. Education · 28 yrs', grad: 'linear-gradient(160deg,#0e2a5e,#1450c8)', initials: 'EH' },
   { name: 'Mr. Arjun Mehta', role: 'Head of Science', qual: 'M.Sc. Physics · 18 yrs', grad: 'linear-gradient(160deg,#1450c8,#4f86f7)', initials: 'AM' },
   { name: 'Ms. Sophia Laurent', role: 'Head of Humanities', qual: 'M.A. Literature · 15 yrs', grad: 'linear-gradient(160deg,#0a1f44,#2563eb)', initials: 'SL' },
-  { name: 'Dr. Rajiv Nair', role: 'Director of Technology', qual: 'Ph.D. Computer Sci · 20 yrs', grad: 'linear-gradient(160deg,#13316c,#4f86f7)', initials: 'RN' },
+  { name: 'Dr. Rajiv Nair', role: 'Director of Technology', qual: 'Ph.D. Computer Sci · 20 yrs', grad: 'linear-gradient(160deg,#103374,#4f86f7)', initials: 'RN' },
 ]
 
 export default function Faculty() {

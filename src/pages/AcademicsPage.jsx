@@ -38,8 +38,45 @@ export default function AcademicsPage() {
 
       <Academics />
 
-      {/* Learning philosophy */}
+      {/* Oxford Curriculum Framework */}
       <section className="section section-alt">
+        <div className="container">
+          <SectionHead
+            center
+            eyebrow="Global Excellence, Powered by the British Curriculum"
+            title="Unlocking Potential with the"
+            accent="Oxford Curriculum Framework"
+          />
+          <div className="award-card">
+            <Reveal className="award-copy">
+              <span className="eyebrow" style={{ color: 'var(--gold-400)' }}>UK-Based Global Curriculum</span>
+              <h2>A World-Class British Education</h2>
+              <p>
+                Dawn High School delivers the Oxford Curriculum Framework — a UK-based,
+                globally recognised programme designed by expert boards and refined through
+                cutting-edge research to give every student a strong, future-ready foundation.
+              </p>
+              <ul className="award-points">
+                <li><i>★</i> UK-based, globally recognised curriculum</li>
+                <li><i>★</i> Designed by expert boards &amp; top research centres</li>
+                <li><i>★</i> Structured for strong, measurable student growth</li>
+                <li><i>★</i> Refined through cutting-edge research</li>
+                <li><i>★</i> Future-ready skills: Robotics, Coding &amp; STEM</li>
+              </ul>
+            </Reveal>
+            <Reveal className="award-photo" delay={1}>
+              <img
+                src="/oxford-curriculum.png"
+                alt="Dawn High School — Unlocking potential with the Oxford Curriculum Framework"
+                loading="lazy"
+              />
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* Learning philosophy */}
+      <section className="section">
         <div className="container">
           <SectionHead
             center
@@ -62,7 +99,7 @@ export default function AcademicsPage() {
       </section>
 
       {/* Subjects */}
-      <section className="section">
+      <section className="section section-alt">
         <div className="container">
           <SectionHead
             center
@@ -88,7 +125,7 @@ export default function AcademicsPage() {
       </section>
 
       {/* Assessment */}
-      <section className="section section-alt">
+      <section className="section">
         <div className="container">
           <SectionHead center eyebrow="Assessment" title="How We" accent="Measure Growth" />
           <div className="grid cols-3">
