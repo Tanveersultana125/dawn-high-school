@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
+import Autoplay from 'embla-carousel-autoplay'
 import { Reveal, SectionHead } from './common'
+import TiltCard from './TiltCard'
 
 const REASONS = [
   { icon: '🎯', title: 'Academic Excellence', desc: 'A consistent record of top board results and national-level achievements year after year.' },
@@ -12,7 +14,10 @@ const REASONS = [
 ]
 
 export default function WhyChoose() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' })
+  const autoplay = useRef(
+    Autoplay({ delay: 2600, stopOnInteraction: false, stopOnMouseEnter: true })
+  )
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' }, [autoplay.current])
   const [selected, setSelected] = useState(0)
   const [snaps, setSnaps] = useState([])
 
@@ -48,12 +53,12 @@ export default function WhyChoose() {
             <div className="why-track">
               {REASONS.map((r, i) => (
                 <div className={`why-slide ${selected === i ? 'is-active' : ''}`} key={r.title}>
-                  <div className="why-card">
+                  <TiltCard className="why-card" max={12}>
                     <div className="why-num">0{i + 1}</div>
                     <span className="why-ic">{r.icon}</span>
                     <h3>{r.title}</h3>
                     <p>{r.desc}</p>
-                  </div>
+                  </TiltCard>
                 </div>
               ))}
             </div>

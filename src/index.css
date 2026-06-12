@@ -3083,8 +3083,23 @@ body.no-scroll { overflow: hidden; }
   background: var(--white);
   border: 1px solid var(--gray-200);
   overflow: hidden;
-  transition: transform 0.5s var(--ease-lux), box-shadow 0.5s var(--ease-lux);
+  transition: transform 0.2s var(--ease-lux), box-shadow 0.5s var(--ease-lux);
 }
+.why-card .tilt3d-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(120, 160, 255, 0.22),
+    rgba(255, 255, 255, 0) 62%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.why-card:hover .tilt3d-glare { opacity: 1; }
 .why-card::before {
   content: '';
   position: absolute;
@@ -3097,7 +3112,7 @@ body.no-scroll { overflow: hidden; }
   transition: transform 0.55s var(--ease-lux);
   z-index: 0;
 }
-.why-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.why-card:hover { box-shadow: var(--shadow-lg); }
 .why-card:hover::before { transform: translateY(0); }
 .why-card > * { position: relative; z-index: 1; }
 .why-num {
@@ -3135,6 +3150,7 @@ body.no-scroll { overflow: hidden; }
   flex: 0 0 34%;
   min-width: 0;
   padding: 0 14px;
+  perspective: 1100px;
   transform: scale(0.84);
   opacity: 0.45;
   transition: transform 0.55s var(--ease-lux), opacity 0.55s var(--ease-lux);
@@ -5668,6 +5684,111 @@ body.no-scroll { overflow: hidden; }
   transition: background 0.2s ease;
 }
 .media-del:hover { background: #9b2230; }
+
+/* ============================================================
+   BuildingBlocks — isometric 3D cube grid (brand-adapted)
+   ============================================================ */
+.blocks-section { overflow: hidden; }
+.blocks-layout {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(40px, 6vw, 90px);
+  align-items: center;
+}
+/* stacked / centered format */
+.blocks-stacked .blocks-copy.center {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+.blocks-stacked .blocks-copy.center .eyebrow { justify-content: center; }
+.blocks-stacked .blocks-copy.center .section-lead { margin-left: auto; margin-right: auto; }
+.blocks-stacked .blocks-visual { margin-top: clamp(40px, 6vw, 70px); }
+.blocks-visual {
+  display: grid;
+  place-items: center;
+  min-height: 540px;
+  overflow: hidden;
+}
+
+/* Dense isometric cube cluster — 3 depth layers, tiles tessellate into a
+   big 3D cube (adapted from the Uiverse cube grid). */
+.cube-container {
+  position: relative;
+  width: 0;
+  height: 0;
+  transform: skewY(-20deg) translate(105px, -135px);
+  animation: cubeFloat 9s ease-in-out infinite, cubeHue 11s linear infinite;
+}
+@keyframes cubeFloat {
+  0%, 100% { transform: skewY(-20deg) translate(105px, -135px); }
+  50% { transform: skewY(-20deg) translate(105px, -151px); }
+}
+@keyframes cubeHue {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(360deg); }
+}
+.cube-container .cube { position: relative; z-index: 2; }
+.cube-container .cube:nth-child(2) { z-index: 1; translate: -60px -60px; }
+.cube-container .cube:nth-child(3) { z-index: 3; translate: 60px 60px; }
+.cube-container .cube-col {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  translate: calc(-70px * var(--x)) 0;
+}
+.cube-container span {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: #dcdcdc;
+  z-index: calc(1 * var(--i));
+  transition: 1.4s;
+}
+.cube-container span::before {
+  content: '';
+  position: absolute;
+  left: -40px;
+  width: 40px;
+  height: 100%;
+  background: #ffffff;
+  transform-origin: right;
+  transform: skewY(45deg);
+  transition: 1.4s;
+}
+.cube-container span::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: #f0f0f0;
+  transform-origin: bottom;
+  transform: skewX(45deg);
+  transition: 1.4s;
+}
+/* white by default — colour appears (and cycles) only on hover */
+.cube-container span:hover {
+  transition: 0s;
+  background: #2f7bf6;
+  filter: drop-shadow(0 0 30px rgba(47, 123, 246, 0.85));
+}
+.cube-container span:hover::before { transition: 0s; background: #1f55c4; }
+.cube-container span:hover::after { transition: 0s; background: #79a8fb; }
+
+@media (max-width: 900px) {
+  .blocks-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .blocks-visual { min-height: 360px; }
+  .cube-container { scale: 0.62; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cube-container { animation: none; }
+}
 
 /* ---- FlipWords ---- */
 .flip-words {
