@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Particles from './Particles'
 import { getHeroMedia } from '../lib/settings'
 import { isFirebaseConfigured } from '../lib/firebase'
@@ -38,25 +38,7 @@ const ACTIONS = [
   { label: 'Apply', to: '/admissions', Icon: PenIcon },
 ]
 
-const SEARCH_ROUTES = [
-  { keys: ['admiss', 'apply', 'enrol', 'fee', 'join'], to: '/admissions' },
-  { keys: ['academ', 'curriculum', 'program', 'course', 'subject', 'oxford'], to: '/academics' },
-  { keys: ['campus', 'facilit', 'lab', 'sport', 'library', 'transport'], to: '/campus' },
-  { keys: ['faculty', 'teacher', 'staff', 'mentor'], to: '/faculty' },
-  { keys: ['gallery', 'photo', 'event'], to: '/gallery' },
-  { keys: ['contact', 'visit', 'phone', 'address', 'location'], to: '/contact' },
-  { keys: ['about', 'founder', 'history', 'vision'], to: '/about' },
-]
-const HERO_PILLS = [
-  { label: 'Admissions', to: '/admissions' },
-  { label: 'Academics', to: '/academics' },
-  { label: 'Campus', to: '/campus' },
-  { label: 'Faculty', to: '/faculty' },
-]
-
 export default function Hero() {
-  const navigate = useNavigate()
-  const [query, setQuery] = useState('')
   const trackRef = useRef(null)
   const mediaRef = useRef(null)
   const copyRef = useRef(null)
@@ -203,14 +185,6 @@ export default function Hero() {
     }
   }
 
-  const onSearch = (e) => {
-    e.preventDefault()
-    const q = query.trim().toLowerCase()
-    if (!q) return navigate('/academics')
-    const match = SEARCH_ROUTES.find((r) => r.keys.some((k) => q.includes(k)))
-    navigate(match ? match.to : '/admissions')
-  }
-
   const togglePlay = () => {
     const video = videoRef.current
     if (!video) return
@@ -256,24 +230,6 @@ export default function Hero() {
               ))}
             </div>
 
-            <form className="hero-search reveal in d5" onSubmit={onSearch} role="search">
-              <span className="hero-search-ic" aria-hidden="true">🔍</span>
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search programs, admissions, campus…"
-                aria-label="Search the school website"
-              />
-              <button type="submit" className="hero-search-btn">Search</button>
-            </form>
-
-            <div className="hero-pills reveal in d6">
-              <span className="hero-pills-label">Popular:</span>
-              {HERO_PILLS.map((p) => (
-                <Link className="hero-pill" to={p.to} key={p.label}>{p.label}</Link>
-              ))}
-            </div>
           </div>
         </div>
 

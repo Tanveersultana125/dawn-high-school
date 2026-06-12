@@ -1,5 +1,6 @@
 import PageHero from '../components/PageHero'
 import Admission from '../components/Admission'
+import BetterFuture from '../components/BetterFuture'
 import { Reveal, SectionHead } from '../components/common'
 
 const REQUIREMENTS = [
@@ -109,6 +110,9 @@ export default function AdmissionsPage() {
           </Reveal>
         </div>
       </section>
+
+      {/* Closing call-to-action */}
+      <BetterFuture />
 
       {/* FAQ */}
       <section className="section section-alt">

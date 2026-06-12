@@ -1,11 +1,9 @@
 import FutureHero from '../components/FutureHero'
 import Hero from '../components/Hero'
-import StatsStrip from '../components/StatsStrip'
-import BetterFuture from '../components/BetterFuture'
 import Distinctly from '../components/Distinctly'
 import ProgramExplorer from '../components/ProgramExplorer'
 import Divisions from '../components/Divisions'
-import Campus3D from '../components/Campus3D'
+import Insights from '../components/Insights'
 import Library from '../components/Library'
 import WhyChoose from '../components/WhyChoose'
 import Testimonials from '../components/Testimonials'
@@ -17,12 +15,10 @@ export default function Home() {
     <>
       <FutureHero />
       <Hero />
-      <StatsStrip />
-      <BetterFuture />
       <Distinctly />
       <ProgramExplorer />
       <Divisions />
-      <Campus3D />
+      <Insights />
       <Library alt img="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1100&q=80" />
       <WhyChoose />
       <Testimonials />

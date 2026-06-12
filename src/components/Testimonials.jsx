@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
 import { SectionHead } from './common'
+import InfiniteMovingCards from './InfiniteMovingCards'
 
 const REVIEWS = [
   {
@@ -33,21 +33,6 @@ const REVIEWS = [
 ]
 
 export default function Testimonials() {
-  const [index, setIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
-
-  const go = useCallback((dir) => {
-    setIndex((i) => (i + dir + REVIEWS.length) % REVIEWS.length)
-  }, [])
-
-  useEffect(() => {
-    if (paused) return
-    const id = setInterval(() => setIndex((i) => (i + 1) % REVIEWS.length), 5500)
-    return () => clearInterval(id)
-  }, [paused, index])
-
-  const r = REVIEWS[index]
-
   return (
     <section className="section section-dark" id="testimonials">
       <div className="container">
@@ -58,41 +43,26 @@ export default function Testimonials() {
           accent="Dawn Family"
           lead="Parents, students, and alumni share what makes the Dawn experience truly special."
         />
+      </div>
 
-        <div
-          className="testi-stage"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-        >
-          <div className="testi-card" key={index}>
-            <div className="testi-quotemark">“</div>
-            <div className="testi-stars" aria-label="5 out of 5 stars">★★★★★</div>
-            <p className="testi-text reveal in">{r.text}</p>
-            <div className="testi-person">
-              <span className="testi-avatar" style={{ background: r.grad }}>{r.initials}</span>
-              <div style={{ textAlign: 'left' }}>
+      <InfiniteMovingCards
+        items={REVIEWS}
+        direction="left"
+        speed="slow"
+        renderItem={(r) => (
+          <>
+            <div className="imc-stars" aria-hidden="true">★★★★★</div>
+            <p className="imc-quote">{r.text}</p>
+            <div className="imc-person">
+              <span className="imc-avatar" style={{ background: r.grad }}>{r.initials}</span>
+              <div>
                 <b>{r.name}</b>
                 <span>{r.role}</span>
               </div>
             </div>
-          </div>
-
-          <div className="testi-controls">
-            <button className="testi-arrow" onClick={() => go(-1)} aria-label="Previous testimonial">‹</button>
-            <div className="testi-dots">
-              {REVIEWS.map((_, i) => (
-                <button
-                  key={i}
-                  className={`testi-dot ${i === index ? 'active' : ''}`}
-                  onClick={() => setIndex(i)}
-                  aria-label={`Go to testimonial ${i + 1}`}
-                />
-              ))}
-            </div>
-            <button className="testi-arrow" onClick={() => go(1)} aria-label="Next testimonial">›</button>
-          </div>
-        </div>
-      </div>
+          </>
+        )}
+      />
     </section>
   )
 }

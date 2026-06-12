@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Reveal } from './common'
 
@@ -29,6 +30,8 @@ const DIVISIONS = [
 ]
 
 export default function Divisions() {
+  const [hovered, setHovered] = useState(null)
+
   return (
     <section className="section divisions" id="divisions">
       <div className="container">
@@ -44,7 +47,15 @@ export default function Divisions() {
 
         <div className="div-grid">
           {DIVISIONS.map((d, i) => (
-            <Reveal as={Link} to={d.to} className="div-card" delay={(i % 4) + 1} key={d.name}>
+            <Reveal
+              as={Link}
+              to={d.to}
+              className={`div-card ${hovered !== null && hovered !== i ? 'div-card-dim' : ''}`}
+              delay={(i % 4) + 1}
+              key={d.name}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+            >
               <img src={d.img} alt={d.name} loading="lazy" />
               <span className="div-card-shade" aria-hidden="true" />
               <div className="div-card-cap">

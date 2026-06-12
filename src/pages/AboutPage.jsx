@@ -1,5 +1,6 @@
 import PageHero from '../components/PageHero'
 import About from '../components/About'
+import StatsStrip from '../components/StatsStrip'
 import Achievements from '../components/Achievements'
 import { Reveal, SectionHead } from '../components/common'
 
@@ -30,6 +31,8 @@ export default function AboutPage() {
       />
 
       <About />
+
+      <StatsStrip />
 
       {/* Mission & Vision */}
       <section className="section">

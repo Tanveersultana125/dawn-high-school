@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Crest from './Crest'
 import { Reveal } from './common'
 
@@ -72,6 +72,42 @@ export default function Distinctly() {
   const cards = item.cards
   const open = gIndex !== null
 
+  // Auto-rotation through the items, active only while the section is on screen
+  const sectionRef = useRef(null)
+  const [inView, setInView] = useState(false)
+  const [userPaused, setUserPaused] = useState(false) // paused after a manual click
+  const [hover, setHover] = useState(false)            // paused while engaging the section
+  const resumeTimer = useRef(null)
+
+  // Reveal the rotation only when the section scrolls into view
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setInView(true)
+      return
+    }
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.35 })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  // Cycle to the next item every few seconds while visible & not interacting
+  useEffect(() => {
+    if (!inView || userPaused || hover || open) return
+    const id = setInterval(() => setActive((a) => (a + 1) % ITEMS.length), 4500)
+    return () => clearInterval(id)
+  }, [inView, userPaused, hover, open])
+
+  useEffect(() => () => clearTimeout(resumeTimer.current), [])
+
+  // Manual click: jump there and pause auto-rotation briefly, then resume
+  const selectItem = (i) => {
+    setActive(i)
+    setUserPaused(true)
+    clearTimeout(resumeTimer.current)
+    resumeTimer.current = setTimeout(() => setUserPaused(false), 9000)
+  }
+
   const next = () => setGIndex((i) => (i === null ? i : (i + 1) % cards.length))
   const prev = () => setGIndex((i) => (i === null ? i : (i - 1 + cards.length) % cards.length))
 
@@ -95,18 +131,22 @@ export default function Distinctly() {
   }, [open, paused, gIndex]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <section className="section section-alt" id="distinct">
+    <section className="section section-alt" id="distinct" ref={sectionRef}>
       <div className="container">
         <Reveal className="distinct-head">
           <span className="distinct-kicker">Distinctly</span>
           <h2 className="distinct-title">Dawn</h2>
         </Reveal>
 
-        <div className="distinct-layout">
+        <div
+          className={`distinct-layout ${active % 2 ? 'swapped' : ''}`}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        >
           <Reveal className="distinct-list">
             {ITEMS.map((it, i) => (
               <div className={`distinct-item ${i === active ? 'active' : ''}`} key={it.accent}>
-                <button className="di-head" onClick={() => setActive(i)}>
+                <button className="di-head" onClick={() => selectItem(i)}>
                   {i === active && <Crest className="di-crest" />}
                   <span className="di-accent">{it.accent}</span> {it.rest}
                 </button>
@@ -115,7 +155,7 @@ export default function Distinctly() {
             ))}
           </Reveal>
 
-          <div className="distinct-cards" key={active}>
+          <div className={`distinct-cards ${active % 2 ? 'from-left' : 'from-right'}`} key={active}>
             {item.cards.map((c, i) => (
               <figure
                 className={`di-card c${i + 1}`}
