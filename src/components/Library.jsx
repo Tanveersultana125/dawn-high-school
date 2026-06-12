@@ -8,12 +8,36 @@ const STATS = [
   { value: 7, suffix: '', label: 'Days a Week Open' },
 ]
 
-const FEATURES = [
+// Home (teaser) variant
+const HOME_FEATURES = [
   'Digital catalogue & online book reservations',
   'Silent study zones and group discussion pods',
   'E-learning lab with research databases',
   'Dedicated reading programs led by librarians',
 ]
+
+// Campus (detailed) variant — different wording so the two pages aren't identical
+const CAMPUS_FEATURES = [
+  'Open-stack lending across every subject and grade',
+  'Subscription databases & competitive-exam resources',
+  'Periodicals, archives and student publications',
+  'Librarian-led reading and research programs',
+]
+
+const INTRO = {
+  home: {
+    eyebrow: 'The Library',
+    title: 'A Home for',
+    accent: 'Curious Minds',
+    lead: 'At the heart of campus, our Library & Learning Resource Centre is a calm, light-filled space where students read, research, and discover. From a 30,000-volume collection to a digital research commons, every learner finds room to grow.',
+  },
+  campus: {
+    eyebrow: 'Library & Resource Centre',
+    title: 'Where Every Book',
+    accent: 'Opens a Door',
+    lead: 'Spread across calm, light-filled halls, the Dawn Library invites every student to read, research, and dream. From open-stack lending shelves to a digital research commons and a dedicated children’s reading corner, there is a space here for every kind of learner.',
+  },
+}
 
 // Extra detail shown only on the Campus page (detailed variant)
 const COLLECTIONS = [
@@ -35,6 +59,9 @@ const GALLERY = [
 ]
 
 export default function Library({ alt = false, detailed = false, img = LIBRARY_IMG }) {
+  const intro = detailed ? INTRO.campus : INTRO.home
+  const features = detailed ? CAMPUS_FEATURES : HOME_FEATURES
+
   return (
     <section className={`section library ${alt ? 'section-alt' : ''}`} id="library">
       <div className="container">
@@ -49,10 +76,10 @@ export default function Library({ alt = false, detailed = false, img = LIBRARY_I
 
           <Reveal className="library-copy" delay={1}>
             <SectionHead
-              eyebrow="The Library"
-              title="A Home for"
-              accent="Curious Minds"
-              lead="At the heart of campus, our Library & Learning Resource Centre is a calm, light-filled space where students read, research, and discover. From a 30,000-volume collection to a digital research commons, every learner finds room to grow."
+              eyebrow={intro.eyebrow}
+              title={intro.title}
+              accent={intro.accent}
+              lead={intro.lead}
             />
 
             <div className="library-stats">
@@ -65,7 +92,7 @@ export default function Library({ alt = false, detailed = false, img = LIBRARY_I
             </div>
 
             <ul className="library-features">
-              {FEATURES.map((f) => (
+              {features.map((f) => (
                 <li key={f}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
                     <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />

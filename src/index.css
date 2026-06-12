@@ -3126,6 +3126,73 @@ body.no-scroll { overflow: hidden; }
 .why-card:hover h3 { color: var(--white); }
 .why-card:hover p { color: rgba(255, 255, 255, 0.8); }
 
+/* ---- Why Choose — center-focus carousel ---- */
+.why-carousel { position: relative; margin-top: clamp(40px, 5vw, 64px); }
+.why-viewport { overflow: hidden; padding: 14px 0 34px; }
+.why-track { display: flex; align-items: stretch; }
+.why-slide {
+  position: relative;
+  flex: 0 0 34%;
+  min-width: 0;
+  padding: 0 14px;
+  transform: scale(0.84);
+  opacity: 0.45;
+  transition: transform 0.55s var(--ease-lux), opacity 0.55s var(--ease-lux);
+}
+.why-slide.is-active {
+  transform: scale(1);
+  opacity: 1;
+}
+.why-slide .why-card { height: 100%; }
+
+.why-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+.why-arrow {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+  color: var(--navy-800);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.3s var(--ease-lux), color 0.3s var(--ease-lux), transform 0.3s var(--ease-lux);
+}
+.why-arrow:hover {
+  background: var(--gradient-navy);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.why-dots { display: flex; align-items: center; gap: 8px; }
+.why-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: none;
+  background: var(--gray-300);
+  cursor: pointer;
+  transition: width 0.3s var(--ease-lux), background 0.3s var(--ease-lux), border-radius 0.3s var(--ease-lux);
+}
+.why-dot.active {
+  width: 26px;
+  border-radius: 100px;
+  background: var(--gradient-gold);
+}
+@media (max-width: 900px) {
+  .why-slide { flex-basis: 56%; }
+}
+@media (max-width: 560px) {
+  .why-slide { flex-basis: 84%; }
+}
+
 /* ============================================================
    ACHIEVEMENTS / TIMELINE
    ============================================================ */
@@ -4421,6 +4488,38 @@ body.no-scroll { overflow: hidden; }
 /* ============================================================
    Library — "A Home for Curious Minds"
    ============================================================ */
+.section.library {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(760px circle at 90% 10%, rgba(212, 175, 55, 0.12), transparent 58%),
+    radial-gradient(700px circle at 6% 92%, rgba(37, 99, 235, 0.10), transparent 58%),
+    radial-gradient(620px circle at 50% 50%, rgba(99, 102, 241, 0.05), transparent 62%),
+    linear-gradient(180deg, #f7f9fc 0%, #eef2f8 100%);
+}
+.section.library > .container { position: relative; z-index: 1; }
+.section.library::before {
+  content: '';
+  position: absolute;
+  width: 460px;
+  height: 460px;
+  top: -150px;
+  right: -120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.22), transparent 70%);
+  filter: blur(70px);
+  z-index: 0;
+  pointer-events: none;
+  animation: libGlow 19s ease-in-out infinite;
+}
+@keyframes libGlow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-46px, 40px) scale(1.16); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .section.library::before { animation: none; }
+}
+
 .library-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -5569,6 +5668,16 @@ body.no-scroll { overflow: hidden; }
   transition: background 0.2s ease;
 }
 .media-del:hover { background: #9b2230; }
+
+/* ---- FlipWords ---- */
+.flip-words {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+}
+.flip-words-inner { display: inline-block; }
+.flip-letter { display: inline-block; }
+.insights-title .insights-flip { color: var(--royal-400); }
 
 /* ============================================================
    InfiniteMovingCards — testimonials marquee

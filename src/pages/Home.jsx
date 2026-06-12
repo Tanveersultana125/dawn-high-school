@@ -6,7 +6,6 @@ import Divisions from '../components/Divisions'
 import Insights from '../components/Insights'
 import Library from '../components/Library'
 import WhyChoose from '../components/WhyChoose'
-import Testimonials from '../components/Testimonials'
 import FAQ from '../components/FAQ'
 import News from '../components/News'
 
@@ -21,7 +20,6 @@ export default function Home() {
       <Insights />
       <Library alt img="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1100&q=80" />
       <WhyChoose />
-      <Testimonials />
       <FAQ />
       <News />
     </>

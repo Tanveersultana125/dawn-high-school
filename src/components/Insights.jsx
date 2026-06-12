@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Reveal } from './common'
+import FlipWords from './FlipWords'
 
 const TABS = ['Overview', 'Attendance', 'Grades', 'Reports', 'Fees']
 
@@ -167,7 +168,7 @@ export default function Insights() {
           <Reveal>
             <span className="eyebrow">Dawn Smart Campus</span>
             <h2 className="insights-title">
-              Innovate Your <span className="muted">Classroom</span>
+              Innovate Your <FlipWords words={['Classroom', 'Learning', 'Curiosity', 'Future']} className="insights-flip" />
               <br />
               Exploring Dawn <span className="accent">Features</span>
             </h2>

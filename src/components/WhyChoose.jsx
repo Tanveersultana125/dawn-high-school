@@ -1,3 +1,5 @@
+import { useCallback, useEffect, useState } from 'react'
+import useEmblaCarousel from 'embla-carousel-react'
 import { Reveal, SectionHead } from './common'
 
 const REASONS = [
@@ -10,6 +12,26 @@ const REASONS = [
 ]
 
 export default function WhyChoose() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' })
+  const [selected, setSelected] = useState(0)
+  const [snaps, setSnaps] = useState([])
+
+  const onSelect = useCallback((api) => {
+    setSelected(api.selectedScrollSnap())
+  }, [])
+
+  useEffect(() => {
+    if (!emblaApi) return
+    setSnaps(emblaApi.scrollSnapList())
+    onSelect(emblaApi)
+    emblaApi.on('select', onSelect)
+    emblaApi.on('reInit', onSelect)
+    return () => {
+      emblaApi.off('select', onSelect)
+      emblaApi.off('reInit', onSelect)
+    }
+  }, [emblaApi, onSelect])
+
   return (
     <section className="section" id="why-us">
       <div className="container">
@@ -21,16 +43,37 @@ export default function WhyChoose() {
           lead="Choosing a school is one of life’s most important decisions. Here is why thousands of families choose Dawn High School."
         />
 
-        <div className="why-grid">
-          {REASONS.map((r, i) => (
-            <Reveal className="why-card" delay={(i % 3) + 1} key={r.title}>
-              <div className="why-num">0{i + 1}</div>
-              <span className="why-ic">{r.icon}</span>
-              <h3>{r.title}</h3>
-              <p>{r.desc}</p>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal className="why-carousel">
+          <div className="why-viewport" ref={emblaRef}>
+            <div className="why-track">
+              {REASONS.map((r, i) => (
+                <div className={`why-slide ${selected === i ? 'is-active' : ''}`} key={r.title}>
+                  <div className="why-card">
+                    <div className="why-num">0{i + 1}</div>
+                    <span className="why-ic">{r.icon}</span>
+                    <h3>{r.title}</h3>
+                    <p>{r.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="why-controls">
+            <button className="why-arrow" onClick={() => emblaApi?.scrollPrev()} aria-label="Previous">‹</button>
+            <div className="why-dots">
+              {snaps.map((_, i) => (
+                <button
+                  key={i}
+                  className={`why-dot ${selected === i ? 'active' : ''}`}
+                  onClick={() => emblaApi?.scrollTo(i)}
+                  aria-label={`Go to reason ${i + 1}`}
+                />
+              ))}
+            </div>
+            <button className="why-arrow" onClick={() => emblaApi?.scrollNext()} aria-label="Next">›</button>
+          </div>
+        </Reveal>
       </div>
     </section>
   )
