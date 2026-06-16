@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Reveal } from './common'
+import SmartImage from './SmartImage'
 
 const DIVISIONS = [
   {
@@ -56,7 +57,7 @@ export default function Divisions() {
               onMouseEnter={() => setHovered(i)}
               onMouseLeave={() => setHovered(null)}
             >
-              <img src={d.img} alt={d.name} loading="lazy" />
+              <SmartImage src={d.img} alt={d.name} loading="lazy" />
               <span className="div-card-shade" aria-hidden="true" />
               <div className="div-card-cap">
                 <span className="div-card-label">{d.label}</span>

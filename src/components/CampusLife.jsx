@@ -1,4 +1,5 @@
 import { Reveal, SectionHead } from './common'
+import SmartImage from './SmartImage'
 
 const U = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80`
 
@@ -31,7 +32,7 @@ export default function CampusLife() {
               className={`life-card ${c.cls || ''}`}
               style={{ '--bg-gradient': c.grad }}
             >
-              <img className="life-img" src={c.img} alt={c.title} loading="lazy" />
+              <SmartImage className="life-img" src={c.img} alt={c.title} loading="lazy" />
               <div className="life-top">
                 <span className="life-ic">{c.icon}</span>
                 <span className="life-stat">{c.stat}</span>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import SmartImage from './SmartImage'
 
 // Stagger the card's children in as it scrolls into view.
 const containerVariants = {
@@ -49,7 +50,7 @@ export default function FeatureHighlightCard({
       <span className="fhc-glow" aria-hidden="true" />
 
       <motion.div className="fhc-img" variants={imageVariants}>
-        <img src={imageSrc} alt={imageAlt} loading="lazy" />
+        <SmartImage src={imageSrc} alt={imageAlt} loading="lazy" />
       </motion.div>
 
       <motion.h2 className="fhc-title" variants={itemVariants}>{title}</motion.h2>

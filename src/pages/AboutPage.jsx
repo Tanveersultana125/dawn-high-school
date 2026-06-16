@@ -3,6 +3,7 @@ import About from '../components/About'
 import StatsStrip from '../components/StatsStrip'
 import Achievements from '../components/Achievements'
 import { Reveal, SectionHead } from '../components/common'
+import SmartImage from '../components/SmartImage'
 
 const JOURNEY = [
   { year: '2000', title: 'Founded', desc: 'Dawn High School opens its doors with 120 students and a bold vision.' },
@@ -71,7 +72,7 @@ export default function AboutPage() {
           />
           <Reveal className="founder-card">
             <div className="founder-photo">
-              <img
+              <SmartImage
                 src="/founder.jpg"
                 alt="Janab Razi-ur-Rahman Sahab, Founder of Dawn High School"
                 loading="lazy"
@@ -117,7 +118,7 @@ export default function AboutPage() {
               </ul>
             </Reveal>
             <Reveal className="award-photo" delay={1}>
-              <img
+              <SmartImage
                 src="/dawn-award.jpg"
                 alt="Dawn High School honouring excellence at an award ceremony"
                 loading="lazy"

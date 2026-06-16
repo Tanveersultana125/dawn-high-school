@@ -13,7 +13,7 @@ export default function FAQ() {
   const [open, setOpen] = useState(0)
 
   return (
-    <section className="section" id="faq">
+    <section className="section section-dark" id="faq">
       <div className="container faq-container">
         <SectionHead
           center

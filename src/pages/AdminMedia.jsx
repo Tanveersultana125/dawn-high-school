@@ -3,6 +3,7 @@ import AdminShell from '../components/AdminShell'
 import { uploadToCloudinary, isCloudinaryConfigured } from '../lib/cloudinary'
 import { addMedia, fetchMedia, deleteMedia } from '../lib/media'
 import { getHeroMedia, setHeroMedia } from '../lib/settings'
+import SmartImage from '../components/SmartImage'
 
 const CATEGORIES = ['Campus', 'Academics', 'Athletics', 'Arts', 'Events', 'Innovation']
 
@@ -138,7 +139,7 @@ export default function AdminMedia() {
           {hero?.type === 'video' ? (
             <video src={hero.url} muted loop autoPlay playsInline />
           ) : hero?.type === 'image' ? (
-            <img src={hero.url} alt="Current hero" />
+            <SmartImage src={hero.url} alt="Current hero" />
           ) : (
             <span className="hero-preview-empty">Using default video</span>
           )}
@@ -207,7 +208,7 @@ export default function AdminMedia() {
               {m.type === 'video' ? (
                 <video src={m.url} muted playsInline preload="metadata" />
               ) : (
-                <img src={m.url} alt={m.title} loading="lazy" />
+                <SmartImage src={m.url} alt={m.title} loading="lazy" />
               )}
               <span className={`tag tag-${m.type}`}>{m.type}</span>
             </div>

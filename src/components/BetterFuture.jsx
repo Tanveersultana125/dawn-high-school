@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Reveal } from './common'
+import SmartImage from './SmartImage'
 
 // Swap this with your own happy-student photo any time.
 const STUDENT_IMG = '/student-kid.png'
@@ -56,7 +57,7 @@ export default function BetterFuture() {
           <span className="bf-block bf-block-gold" />
 
           <div className="bf-photo-frame">
-            <img src={STUDENT_IMG} alt="A happy Dawn High School student" loading="lazy" />
+            <SmartImage src={STUDENT_IMG} alt="A happy Dawn High School student" loading="lazy" />
           </div>
 
           {/* decorations */}

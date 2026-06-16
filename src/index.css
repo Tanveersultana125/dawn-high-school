@@ -618,6 +618,29 @@ ul {
 }
 .site-header.scrolled .crest { width: 48px; }
 .brand:hover .crest { transform: translateY(-3px) rotate(-2deg); }
+/* Text crest shown only if both logo images fail to load. */
+.crest-fallback {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--gradient-gold);
+  color: var(--navy-900);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+.site-header.scrolled .crest-fallback { width: 48px; height: 48px; font-size: 1rem; }
+
+/* Branded placeholder shown by <SmartImage> when a photo fails to load.
+   Guarantees the slot stays filled instead of collapsing to a broken icon. */
+.img-fallback {
+  object-fit: cover;
+  background: var(--navy-800);
+  min-height: 160px;
+}
 .brand-text {
   display: block;
 }
@@ -2732,6 +2755,22 @@ body.no-scroll { overflow: hidden; }
   font-size: 0.95rem;
   line-height: 1.7;
 }
+
+/* ---- FAQ on a dark navy section: glass cards with gold accents ---- */
+.section-dark .faq-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+}
+.section-dark .faq-item.open {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(212, 175, 55, 0.55);
+  box-shadow: 0 18px 50px rgba(6, 17, 40, 0.45);
+}
+.section-dark .faq-q { color: rgba(255, 255, 255, 0.92); }
+.section-dark .faq-q:hover { color: #fff; }
+.section-dark .faq-item.open .faq-q { color: var(--gold-400); }
+.section-dark .faq-a p { color: rgba(255, 255, 255, 0.72); }
 
 /* ---- Future hero (3D blobs) ---- */
 .future-hero {

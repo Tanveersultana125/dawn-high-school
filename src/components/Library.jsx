@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Reveal, SectionHead, Counter } from './common'
+import SmartImage from './SmartImage'
 
 const STATS = [
   { value: 30000, suffix: '+', label: 'Books & Volumes' },
@@ -67,7 +68,7 @@ export default function Library({ alt = false, detailed = false, img = LIBRARY_I
       <div className="container">
         <div className="library-grid">
           <Reveal className="library-media">
-            <img src={img} alt="The Dawn Library reading hall" loading="lazy" />
+            <SmartImage src={img} alt="The Dawn Library reading hall" loading="lazy" />
             <div className="library-badge">
               <b>30,000+</b>
               <span>Volumes On Shelf</span>
@@ -114,7 +115,7 @@ export default function Library({ alt = false, detailed = false, img = LIBRARY_I
           <div className="library-gallery">
             {GALLERY.map((g, i) => (
               <Reveal className="library-shot" delay={(i % 3) + 1} key={g.cap}>
-                <img src={g.src} alt={g.cap} loading="lazy" />
+                <SmartImage src={g.src} alt={g.cap} loading="lazy" />
                 <span className="library-shot-cap">{g.cap}</span>
               </Reveal>
             ))}
@@ -126,7 +127,7 @@ export default function Library({ alt = false, detailed = false, img = LIBRARY_I
             {COLLECTIONS.map((c, i) => (
               <Reveal className="library-collection" delay={(i % 4) + 1} key={c.t}>
                 <div className="lc-media">
-                  <img src={c.img} alt={c.t} loading="lazy" />
+                  <SmartImage src={c.img} alt={c.t} loading="lazy" />
                 </div>
                 <span className="lc-ic">{c.ic}</span>
                 <h4>{c.t}</h4>

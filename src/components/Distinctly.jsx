@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Crest from './Crest'
 import { Reveal } from './common'
+import SmartImage from './SmartImage'
 
 const IMG = {
   classroom: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80',
@@ -166,7 +167,7 @@ export default function Distinctly() {
                 onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setGIndex(i)}
                 aria-label={`Open ${c.cap}`}
               >
-                <img src={c.img} alt={c.cap} loading="lazy" />
+                <SmartImage src={c.img} alt={c.cap} loading="lazy" />
                 <button
                   className="di-plus"
                   aria-label={`More about ${c.cap}`}
@@ -191,7 +192,7 @@ export default function Distinctly() {
           >
             <button className="di-modal-close" onClick={() => setGIndex(null)} aria-label="Close">✕</button>
             <div className="di-modal-img">
-              <img key={gIndex} src={cards[gIndex].img} alt={cards[gIndex].cap} />
+              <SmartImage key={gIndex} src={cards[gIndex].img} alt={cards[gIndex].cap} />
             </div>
             <div className="di-modal-body">
               <span className="tag">{cards[gIndex].tag}</span>

@@ -4,6 +4,7 @@ import Particles from './Particles'
 import { getHeroMedia } from '../lib/settings'
 import { isFirebaseConfigured } from '../lib/firebase'
 import { highQualityVideo } from '../lib/cloudinary'
+import SmartImage from './SmartImage'
 
 // Poster (shows instantly before the video loads, or if it can't load)
 const HERO_POSTER =
@@ -235,7 +236,7 @@ export default function Hero() {
 
         <div className="hero-media" ref={mediaRef}>
           {heroIsImage ? (
-            <img
+            <SmartImage
               className="hero-video"
               src={heroMedia.url}
               alt="Campus life at Dawn High School"

@@ -1,4 +1,5 @@
 import { Reveal, SectionHead, Counter } from './common'
+import SmartImage from './SmartImage'
 
 const POINTS = [
   ['Holistic Curriculum', 'A balanced blend of academics, arts, athletics, and character education.'],
@@ -20,7 +21,7 @@ export default function About() {
         <div className="about-grid">
           <Reveal className="about-visual">
             <div className="about-frame">
-              <img
+              <SmartImage
                 className="about-photo"
                 src="https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=1100"
                 alt="Dawn High School campus building"

@@ -2,6 +2,7 @@ import PageHero from '../components/PageHero'
 import Academics from '../components/Academics'
 import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
+import SmartImage from '../components/SmartImage'
 
 const PHILOSOPHY = [
   { ic: '🔍', t: 'Inquiry-Based', d: 'Students learn by questioning, exploring, and discovering — not memorising.' },
@@ -65,7 +66,7 @@ export default function AcademicsPage() {
               </ul>
             </Reveal>
             <Reveal className="award-photo" delay={1}>
-              <img
+              <SmartImage
                 src="/oxford-curriculum.png"
                 alt="Dawn High School — Unlocking potential with the Oxford Curriculum Framework"
                 loading="lazy"

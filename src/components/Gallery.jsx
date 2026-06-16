@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Reveal, SectionHead } from './common'
 import { fetchMedia } from '../lib/media'
 import { isFirebaseConfigured } from '../lib/firebase'
+import SmartImage from './SmartImage'
 
 const U = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80`
 
@@ -101,7 +102,7 @@ export default function Gallery() {
                   {img.type === 'video' ? (
                     <video className="g-img" src={img.img} muted playsInline preload="metadata" />
                   ) : (
-                    <img className="g-img" src={img.img} alt={img.title} loading="lazy" />
+                    <SmartImage className="g-img" src={img.img} alt={img.title} loading="lazy" />
                   )}
                   <span className="g-emoji">{img.emoji}</span>
                 </div>
@@ -125,7 +126,7 @@ export default function Gallery() {
             {items[lightbox].type === 'video' ? (
               <video className="lb-img" src={items[lightbox].img} controls autoPlay playsInline />
             ) : (
-              <img className="lb-img" src={items[lightbox].img} alt={items[lightbox].title} />
+              <SmartImage className="lb-img" src={items[lightbox].img} alt={items[lightbox].title} />
             )}
             <div className="lb-shade" aria-hidden="true" />
             <div className="lightbox-caption">
