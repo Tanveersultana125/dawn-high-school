@@ -4,8 +4,13 @@ import { useEffect, useRef } from 'react'
  * Lightweight canvas particle field with subtle connecting lines.
  * Density and motion are tuned down on small screens and disabled for
  * users who prefer reduced motion, keeping the hero buttery on mobile.
+ *
+ * Props:
+ *  - className   class for the <canvas> (default 'hero-particles')
+ *  - interactive when true, particles drift toward the cursor and link
+ *               to it, giving a depth / parallax feel on mouse-over.
  */
-export default function Particles() {
+export default function Particles({ className = 'hero-particles', interactive = false }) {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -16,6 +21,8 @@ export default function Particles() {
     const ctx = canvas.getContext('2d')
     let width, height, particles, raf
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    // Pointer lives in CSS pixels; -1 means "no pointer over the canvas".
+    const pointer = { x: -1, y: -1 }
 
     const resize = () => {
       width = canvas.clientWidth
@@ -44,6 +51,27 @@ export default function Particles() {
         if (p.x < 0 || p.x > width) p.vx *= -1
         if (p.y < 0 || p.y > height) p.vy *= -1
 
+        // Cursor interaction: gentle pull + a glowing link line when close.
+        if (interactive && pointer.x >= 0) {
+          const mdx = pointer.x - p.x
+          const mdy = pointer.y - p.y
+          const mdist = Math.sqrt(mdx * mdx + mdy * mdy)
+          if (mdist < 170 && mdist > 0.01) {
+            const pull = (1 - mdist / 170) * 0.04
+            p.vx += (mdx / mdist) * pull
+            p.vy += (mdy / mdist) * pull
+            ctx.beginPath()
+            ctx.moveTo(p.x, p.y)
+            ctx.lineTo(pointer.x, pointer.y)
+            ctx.strokeStyle = `rgba(212,175,55,${0.22 * (1 - mdist / 170)})`
+            ctx.lineWidth = 0.7
+            ctx.stroke()
+          }
+          // keep speed from running away after repeated pulls
+          p.vx *= 0.99
+          p.vy *= 0.99
+        }
+
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
         ctx.fillStyle = p.gold ? 'rgba(212,175,55,0.85)' : 'rgba(140,180,255,0.55)'
@@ -67,14 +95,29 @@ export default function Particles() {
       raf = requestAnimationFrame(draw)
     }
 
+    const onMove = (e) => {
+      const rect = canvas.getBoundingClientRect()
+      pointer.x = e.clientX - rect.left
+      pointer.y = e.clientY - rect.top
+    }
+    const onLeave = () => { pointer.x = -1; pointer.y = -1 }
+
     resize()
     draw()
     window.addEventListener('resize', resize)
+    if (interactive) {
+      window.addEventListener('mousemove', onMove, { passive: true })
+      canvas.addEventListener('mouseleave', onLeave)
+    }
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', resize)
+      if (interactive) {
+        window.removeEventListener('mousemove', onMove)
+        canvas.removeEventListener('mouseleave', onLeave)
+      }
     }
-  }, [])
+  }, [interactive])
 
-  return <canvas ref={canvasRef} className="hero-particles" aria-hidden="true" />
+  return <canvas ref={canvasRef} className={className} aria-hidden="true" />
 }

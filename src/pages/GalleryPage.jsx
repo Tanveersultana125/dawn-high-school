@@ -8,6 +8,8 @@ export default function GalleryPage() {
   return (
     <>
       <PageHero
+        variant="gallery"
+        image="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1600&q=80"
         kicker="Gallery"
         title="A Glimpse Into Campus Moments"
         subtitle="From classrooms and labs to celebrations and championships — explore life at Dawn."

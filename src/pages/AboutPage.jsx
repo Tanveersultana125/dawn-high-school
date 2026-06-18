@@ -25,6 +25,8 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
+        variant="about"
+        image="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1600&q=80"
         kicker="About Us"
         title="A Legacy of Learning, A Vision for Tomorrow"
         subtitle="For over two decades, Dawn High School has shaped confident, compassionate, and capable global citizens."

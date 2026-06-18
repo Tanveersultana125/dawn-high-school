@@ -31,6 +31,8 @@ export default function AcademicsPage() {
   return (
     <>
       <PageHero
+        variant="academics"
+        image="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80"
         kicker="Academic Excellence"
         title="Programs for Every Stage of Growth"
         subtitle="From first steps to final exams, our academic pathways challenge, inspire, and empower students at every level."

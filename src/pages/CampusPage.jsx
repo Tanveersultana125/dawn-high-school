@@ -20,6 +20,8 @@ export default function CampusPage() {
   return (
     <>
       <PageHero
+        variant="campus"
+        image="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80"
         kicker="Campus Life"
         title="Where Learning Extends Beyond the Classroom"
         subtitle="A vibrant 12-acre campus where every passion finds a home — sports, arts, science, and service."

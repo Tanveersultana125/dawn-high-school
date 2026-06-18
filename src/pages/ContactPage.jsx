@@ -18,6 +18,8 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
+        variant="contact"
+        image="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80"
         kicker="Get in Touch"
         title="We'd Love to Hear From You"
         subtitle="Have a question or ready to apply? Our team responds within one business day."

@@ -22,6 +22,8 @@ export default function FacultyPage() {
   return (
     <>
       <PageHero
+        variant="faculty"
+        image="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80"
         kicker="Our Faculty"
         title="Mentors Who Inspire Greatness"
         subtitle="Behind every great student is a great teacher. Meet the educators shaping tomorrow’s leaders."

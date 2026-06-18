@@ -608,6 +608,7 @@ ul {
   z-index: 2;
   flex: none;
   text-align: center;
+  cursor: default;
 }
 .crest {
   width: 60px;
@@ -1078,29 +1079,22 @@ ul {
 .page-hero {
   position: relative;
   padding: calc(var(--nav-h) + 56px) 0 72px;
-  background: radial-gradient(ellipse at 70% 0%, #103374 0%, transparent 55%),
-    linear-gradient(160deg, #061128 0%, #0a1f44 60%, #0e2a5e 100%);
+  background: radial-gradient(ellipse at 78% -10%, rgba(46, 84, 170, 0.55) 0%, transparent 52%),
+    radial-gradient(ellipse at 12% 110%, rgba(20, 52, 120, 0.5) 0%, transparent 50%),
+    linear-gradient(160deg, #050d20 0%, #081a3a 55%, #0a2350 100%);
   color: var(--white);
   overflow: hidden;
   text-align: center;
 }
-.page-hero-overlay {
+/* Live, mouse-interactive particle backdrop (replaces the old photo). */
+.page-hero-particles {
   position: absolute;
   inset: 0;
-  background: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80')
-    center / cover no-repeat;
-  opacity: 0.14;
+  z-index: 1;
+  opacity: 0.85;
 }
-.page-hero-overlay::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
-}
+/* Shared decorative pattern removed — each page now defines its own
+   via the .page-hero--{variant} rules below. */
 .page-hero-inner {
   position: relative;
   z-index: 2;
@@ -1136,6 +1130,131 @@ ul {
   margin: 18px auto 0;
   color: rgba(255, 255, 255, 0.74);
   font-size: clamp(1rem, 1.4vw, 1.15rem);
+}
+
+/* ============================================================
+   PAGE-HERO VARIANTS — a distinct style + pattern per page.
+   (Home page hero is a separate component and untouched.)
+   Patterns live on .page-hero::before (z-index 1) so they sit
+   above the dimmed photo overlay but below the text (z-index 2).
+   ============================================================ */
+.page-hero::before { z-index: 1; }
+
+/* Left-aligned pages share these alignment tweaks */
+.page-hero--about,
+.page-hero--admissions,
+.page-hero--campus,
+.page-hero--contact { text-align: left; }
+.page-hero--about .crumb,
+.page-hero--admissions .crumb,
+.page-hero--campus .crumb,
+.page-hero--contact .crumb { justify-content: flex-start; }
+.page-hero--about .page-hero-sub,
+.page-hero--admissions .page-hero-sub,
+.page-hero--campus .page-hero-sub,
+.page-hero--contact .page-hero-sub { margin-left: 0; margin-right: 0; }
+
+/* ---- ABOUT — clean editorial, left-aligned ---- */
+.page-hero--about .page-hero-inner {
+  max-width: 880px;
+}
+
+/* ---- ACADEMICS — clean particle backdrop + gold underline ---- */
+.page-hero--academics .page-hero-title::after {
+  content: '';
+  display: block;
+  width: 86px;
+  height: 4px;
+  margin: 20px auto 0;
+  border-radius: 4px;
+  background: var(--gradient-gold);
+}
+
+/* ---- ADMISSIONS — confident dots + solid gold pill eyebrow ---- */
+.page-hero--admissions::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1.5px, transparent 1.6px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(105deg, black 35%, transparent 80%);
+  mask-image: linear-gradient(105deg, black 35%, transparent 80%);
+}
+.page-hero--admissions .eyebrow {
+  background: var(--gradient-gold);
+  color: var(--navy-900);
+  padding: 7px 16px;
+  border-radius: 100px;
+}
+.page-hero--admissions .eyebrow::before { display: none; }
+
+/* ---- CAMPUS — cinematic, deep base gradient ---- */
+.page-hero--campus::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(6, 17, 40, 0.55) 0%, rgba(6, 17, 40, 0.25) 42%, rgba(6, 17, 40, 0.9) 100%);
+}
+.page-hero--campus .page-hero-title { font-size: clamp(2.8rem, 6.2vw, 5rem); }
+
+/* ---- FACULTY — minimal, framed inside a thin gold card ---- */
+.page-hero--faculty .page-hero-inner {
+  max-width: 900px;
+  margin-inline: auto;
+  padding: 42px 36px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(2px);
+}
+
+/* ---- GALLERY — checkerboard mosaic + gold corner brackets ---- */
+.page-hero--gallery::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(45deg, rgba(212, 175, 55, 0.07) 25%, transparent 25%,
+      transparent 75%, rgba(212, 175, 55, 0.07) 75%),
+    linear-gradient(45deg, rgba(212, 175, 55, 0.07) 25%, transparent 25%,
+      transparent 75%, rgba(212, 175, 55, 0.07) 75%);
+  background-size: 42px 42px;
+  background-position: 0 0, 21px 21px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 22%, transparent 80%);
+  mask-image: radial-gradient(ellipse at center, black 22%, transparent 80%);
+}
+.page-hero--gallery .page-hero-inner { padding: 26px 30px; }
+.page-hero--gallery .page-hero-inner::before,
+.page-hero--gallery .page-hero-inner::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--gold-500);
+}
+.page-hero--gallery .page-hero-inner::before {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+.page-hero--gallery .page-hero-inner::after {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+
+/* ---- CONTACT — left copy with a radial dot-map on the right ---- */
+.page-hero--contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.14) 1.5px, transparent 1.7px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(circle at 90% 50%, black 0%, transparent 46%);
+  mask-image: radial-gradient(circle at 90% 50%, black 0%, transparent 46%);
 }
 
 /* ============================================================
@@ -5756,16 +5875,15 @@ body.no-scroll { overflow: hidden; }
   position: relative;
   width: 0;
   height: 0;
-  transform: skewY(-20deg) translate(105px, -135px);
-  animation: cubeFloat 9s ease-in-out infinite, cubeHue 11s linear infinite;
+  transform: skewY(-20deg) translate(105px, -135px) rotate(0deg);
+  animation: cubeSpin 26s linear infinite;
 }
-@keyframes cubeFloat {
-  0%, 100% { transform: skewY(-20deg) translate(105px, -135px); }
-  50% { transform: skewY(-20deg) translate(105px, -151px); }
-}
-@keyframes cubeHue {
-  from { filter: hue-rotate(0deg); }
-  to { filter: hue-rotate(360deg); }
+/* Auto-rotates; pause on hover so tiles are easy to click */
+.cube-container:hover { animation-play-state: paused; }
+@keyframes cubeSpin {
+  0%   { transform: skewY(-20deg) translate(105px, -135px) rotate(0deg); }
+  50%  { transform: skewY(-20deg) translate(105px, -148px) rotate(180deg); }
+  100% { transform: skewY(-20deg) translate(105px, -135px) rotate(360deg); }
 }
 .cube-container .cube { position: relative; z-index: 2; }
 .cube-container .cube:nth-child(2) { z-index: 1; translate: -60px -60px; }
@@ -5782,8 +5900,12 @@ body.no-scroll { overflow: hidden; }
   display: inline-block;
   width: 50px;
   height: 50px;
-  background: #dcdcdc;
+  background-color: #dcdcdc;
+  background-image: var(--img);
+  background-size: cover;
+  background-position: center;
   z-index: calc(1 * var(--i));
+  cursor: pointer;
   transition: 1.4s;
 }
 .cube-container span::before {
@@ -5792,7 +5914,7 @@ body.no-scroll { overflow: hidden; }
   left: -40px;
   width: 40px;
   height: 100%;
-  background: #ffffff;
+  background: #c9c2ad; /* left side kept plain (no photo) for a clean 3D edge */
   transform-origin: right;
   transform: skewY(45deg);
   transition: 1.4s;
@@ -5804,19 +5926,25 @@ body.no-scroll { overflow: hidden; }
   left: 0;
   width: 100%;
   height: 40px;
-  background: #f0f0f0;
+  background-color: #e6e6e6;
+  background-image: var(--img); /* same photo as the front face */
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.85); /* slightly shaded top face */
   transform-origin: bottom;
   transform: skewX(45deg);
   transition: 1.4s;
 }
-/* white by default — colour appears (and cycles) only on hover */
+/* photo shows by default — hover lights the tile with a gold accent */
 .cube-container span:hover {
   transition: 0s;
-  background: #2f7bf6;
-  filter: drop-shadow(0 0 30px rgba(47, 123, 246, 0.85));
+  filter: drop-shadow(0 0 26px rgba(212, 175, 55, 0.8));
+  outline: 2px solid var(--gold-400);
+  outline-offset: -2px;
+  z-index: 99;
 }
-.cube-container span:hover::before { transition: 0s; background: #1f55c4; }
-.cube-container span:hover::after { transition: 0s; background: #79a8fb; }
+.cube-container span:hover::before { transition: 0s; filter: brightness(0.8); }
+.cube-container span:hover::after { transition: 0s; filter: brightness(1); }
 
 @media (max-width: 900px) {
   .blocks-layout { grid-template-columns: 1fr; }
@@ -5828,6 +5956,44 @@ body.no-scroll { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .cube-container { animation: none; }
 }
+
+/* Full-size photo opened when a cube tile is clicked */
+.cube-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: 5vmin;
+  background: rgba(6, 17, 40, 0.88);
+  backdrop-filter: blur(6px);
+  animation: searchFade 0.25s ease;
+}
+.cube-lightbox img {
+  max-width: min(92vw, 1100px);
+  max-height: 86vh;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+  cursor: default;
+}
+.cube-lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.15rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+}
+.cube-lightbox-close:hover { background: var(--gold-500); color: var(--navy-900); }
 
 /* ---- FlipWords ---- */
 .flip-words {

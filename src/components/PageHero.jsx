@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom'
+import Particles from './Particles'
 
-/** Banner shown at the top of every interior page. */
-export default function PageHero({ kicker, title, subtitle, crumb }) {
+/** Banner shown at the top of every interior page.
+ *  The backdrop is a live, mouse-interactive particle field (no photo)
+ *  so every page gets a clean, professional, animated look.
+ *  Pass `variant` to switch the layout/accent pattern per page. */
+export default function PageHero({ kicker, title, subtitle, crumb, variant }) {
   return (
-    <section className="page-hero">
-      <div className="page-hero-overlay" aria-hidden="true" />
+    <section className={`page-hero${variant ? ` page-hero--${variant}` : ''}`}>
+      <Particles className="page-hero-particles" interactive />
       <div className="container page-hero-inner">
         <nav className="crumb" aria-label="Breadcrumb">
           <Link to="/">Home</Link>
