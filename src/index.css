@@ -6068,54 +6068,53 @@ body.no-scroll { overflow: hidden; }
 }
 .cube-lightbox-close:hover { background: var(--gold-500); color: var(--navy-900); }
 
-/* ---- Scattered full-image gallery (opens when a cube is clicked) ---- */
+/* ---- Scroll-driven gallery: scattered/skewed → clean grid (cube click) ---- */
 .gallery-spread {
   position: fixed;
   inset: 0;
   z-index: 1900;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: clamp(60px, 9vh, 120px) clamp(24px, 5vw, 80px);
   background: #0a0a0c;
   animation: searchFade 0.3s ease;
 }
-.gallery-spread-inner {
-  column-count: 4;
-  column-gap: clamp(20px, 2.4vw, 38px);
-  max-width: 1500px;
+/* Tall track gives scroll room to scrub the arrange animation */
+.gs-track { height: 240vh; }
+/* The grid is pinned while you scroll the track */
+.gs-grid {
+  --p: 0; /* 0 = scattered, 1 = grid (driven by scroll in JS) */
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: calc(6px + var(--p) * 8px);
+  align-content: center;
+  max-width: 1600px;
   margin: 0 auto;
-  transform: skewY(-7deg);
+  padding: clamp(18px, 4vh, 56px) clamp(16px, 3vw, 60px);
 }
-.spread-img {
+.gs-img {
+  position: relative;
   display: block;
-  width: 100%;
-  margin: 0 0 clamp(20px, 2.4vw, 38px);
   padding: 0;
   border: 0;
   background: none;
   cursor: pointer;
-  break-inside: avoid;
-  border-radius: 4px;
+  border-radius: 3px;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(26px);
-  animation: spreadIn 0.6s var(--ease-lux) forwards;
-  animation-delay: var(--d, 0s);
-  transition: filter 0.3s ease, transform 0.3s ease;
+  aspect-ratio: 4 / 3;
+  /* Scatter resolves to identity as --p goes 0 → 1 */
+  transform:
+    translate(calc(var(--dx, 0px) * (1 - var(--p))), calc(var(--dy, 0px) * (1 - var(--p))))
+    skewY(calc(var(--sk, 0deg) * (1 - var(--p))))
+    scale(calc(1 - 0.1 * (1 - var(--p))));
+  transition: transform 0.12s linear, filter 0.3s ease;
+  will-change: transform;
 }
-/* Lift every other column a touch for the loose, floating scatter */
-.gallery-spread-inner .spread-img:nth-child(3n) { margin-top: clamp(28px, 5vw, 80px); }
-.gallery-spread-inner .spread-img:nth-child(4n) { margin-top: clamp(14px, 3vw, 46px); }
-.spread-img img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.spread-img:hover {
-  filter: brightness(1.12);
-  transform: translateY(0) scale(1.03);
-  z-index: 2;
-}
+.gs-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.gs-img:hover { filter: brightness(1.14); z-index: 3; }
+
 .gallery-spread-close {
   position: fixed;
   top: 22px;
@@ -6134,20 +6133,36 @@ body.no-scroll { overflow: hidden; }
   transition: background 0.25s, color 0.25s;
 }
 .gallery-spread-close:hover { background: var(--gold-500); color: var(--navy-900); }
-@keyframes spreadIn {
-  to { opacity: 1; transform: translateY(0); }
+/* Scroll hint, fades out as you start arranging */
+.gs-hint {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  z-index: 1910;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  pointer-events: none;
+  animation: gsHintBob 1.8s var(--ease-lux) infinite;
+}
+@keyframes gsHintBob {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.55; }
+  50% { transform: translateX(-50%) translateY(6px); opacity: 1; }
 }
 /* The single zoom (cube-lightbox) must sit above the spread */
 .cube-lightbox { z-index: 2000; }
 
 @media (max-width: 1024px) {
-  .gallery-spread-inner { column-count: 3; }
+  .gs-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 640px) {
-  .gallery-spread-inner { column-count: 2; transform: skewY(-5deg); }
+  .gs-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .spread-img { opacity: 1; transform: none; animation: none; }
+  .gs-grid { --p: 1; }
+  .gs-img { transition: filter 0.3s ease; }
 }
 
 /* ---- FlipWords ---- */

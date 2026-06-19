@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Reveal } from './common'
 import SmartImage from './SmartImage'
@@ -24,6 +24,18 @@ const TILE_IMAGES = [
   { thumb: '/student-kid.png', full: '/student-kid.png' }, // a Dawn student
 ]
 
+// Deterministic per-tile scatter (offset + skew) for the scroll-arrange gallery.
+// Seeded by index so it never jitters between renders.
+const seeded = (n) => {
+  const x = Math.sin(n * 127.1) * 43758.5453
+  return x - Math.floor(x) // 0..1
+}
+const SCATTER = TILE_IMAGES.map((_, i) => ({
+  dx: `${(seeded(i + 1) * 2 - 1) * 200}px`,
+  dy: `${(seeded(i + 41) * 2 - 1) * 150}px`,
+  sk: `${(seeded(i + 77) * 2 - 1) * 9}deg`,
+}))
+
 // Isometric block field — adapted from the Uiverse cube grid to the brand.
 // Static cluster; click any tile to open that photo full-size.
 export default function BuildingBlocks({
@@ -39,6 +51,17 @@ export default function BuildingBlocks({
   const reverse = layout === 'reverse'
   const [spreadOpen, setSpreadOpen] = useState(false) // scattered full-image gallery
   const [openImg, setOpenImg] = useState(null)        // single image zoomed from the spread
+  const gridRef = useRef(null)
+  const hintRef = useRef(null)
+
+  // Scroll the overlay to scrub the scattered → grid arrange animation.
+  const onSpreadScroll = (e) => {
+    const el = e.currentTarget
+    const max = el.scrollHeight - el.clientHeight
+    const p = max > 0 ? Math.min(1, Math.max(0, el.scrollTop / max)) : 1
+    if (gridRef.current) gridRef.current.style.setProperty('--p', p)
+    if (hintRef.current) hintRef.current.style.opacity = p > 0.04 ? '0' : ''
+  }
 
   // Lock body scroll while an overlay is open; Esc closes the topmost layer.
   useEffect(() => {
@@ -101,23 +124,27 @@ export default function BuildingBlocks({
     <Reveal className="blocks-visual" delay={reverse || stacked ? 0 : 1}>{grid}</Reveal>
   )
 
-  // Scattered, skewed full-image gallery that floats in when a cube is clicked.
+  // Scroll-driven gallery: images start scattered/skewed and arrange into a
+  // clean grid as you scroll. Click any image to zoom it full-size.
   const spread = spreadOpen && (
-    <div className="gallery-spread" role="dialog" aria-modal="true" onClick={() => setSpreadOpen(false)}>
+    <div className="gallery-spread" role="dialog" aria-modal="true" onScroll={onSpreadScroll}>
       <button className="gallery-spread-close" aria-label="Close gallery" onClick={() => setSpreadOpen(false)}>✕</button>
-      <div className="gallery-spread-inner" onClick={(e) => e.stopPropagation()}>
-        {TILE_IMAGES.map((img, idx) => (
-          <button
-            key={idx}
-            className="spread-img"
-            style={{ '--d': `${idx * 0.06}s` }}
-            aria-label="Open photo full-size"
-            onClick={() => setOpenImg(img.full)}
-          >
-            <SmartImage src={img.full} alt="Campus moment at Dawn High School" />
-          </button>
-        ))}
+      <div className="gs-track">
+        <div className="gs-grid" ref={gridRef}>
+          {TILE_IMAGES.map((img, idx) => (
+            <button
+              key={idx}
+              className="gs-img"
+              style={{ '--dx': SCATTER[idx].dx, '--dy': SCATTER[idx].dy, '--sk': SCATTER[idx].sk }}
+              aria-label="Open photo full-size"
+              onClick={() => setOpenImg(img.full)}
+            >
+              <SmartImage src={img.full} alt="Campus moment at Dawn High School" />
+            </button>
+          ))}
+        </div>
       </div>
+      <span className="gs-hint" ref={hintRef}>Scroll to arrange ↓</span>
     </div>
   )
 
