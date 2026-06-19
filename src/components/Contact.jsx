@@ -98,7 +98,11 @@ export default function Contact() {
           lead="Have a question or ready to apply? Reach out and our admissions team will respond within one business day."
         />
 
-        <div className="contact-layout contact-layout--single">
+        <div className="contact-layout">
+          <Reveal className="contact-collage">
+            <img src="/contact-collage.png" alt="Dawn students learning and achieving together" loading="lazy" />
+          </Reveal>
+
           <Reveal className="contact-form-wrap" delay={2}>
             <form className="contact-form" onSubmit={onSubmit}>
               <div className="form-row">

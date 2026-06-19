@@ -3948,12 +3948,14 @@ body.no-scroll { overflow: hidden; }
   display: grid;
   grid-template-columns: 1fr 1.1fr;
   gap: 50px;
+  align-items: center;
 }
-/* Form-only layout (map removed) — centered single column */
-.contact-layout--single {
-  grid-template-columns: 1fr;
-  max-width: 720px;
-  margin: 0 auto;
+/* Collage image beside the form */
+.contact-collage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
 }
 /* "Contact" page title above the cards */
 .contact-page-title {
