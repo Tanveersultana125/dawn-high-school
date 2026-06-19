@@ -1276,10 +1276,16 @@ ul {
   -webkit-mask-image: radial-gradient(circle at 90% 50%, black 0%, transparent 46%);
   mask-image: radial-gradient(circle at 90% 50%, black 0%, transparent 46%);
 }
-/* Contact breadcrumb: show only "Contact", centered (no Home / separator) */
+/* Contact breadcrumb: show only "Contact", centered + enlarged */
 .page-hero--contact .crumb { justify-content: center; margin-bottom: 0; }
 .page-hero--contact .crumb a,
 .page-hero--contact .crumb span { display: none; }
+.page-hero--contact .crumb b {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
 /* Taller hero so more of the photo shows (text was removed) */
 .page-hero--contact {
   min-height: clamp(420px, 60vh, 600px);
