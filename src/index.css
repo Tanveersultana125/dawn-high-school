@@ -1277,9 +1277,17 @@ ul {
   mask-image: radial-gradient(circle at 90% 50%, black 0%, transparent 46%);
 }
 /* Contact breadcrumb: show only "Contact", centered (no Home / separator) */
-.page-hero--contact .crumb { justify-content: center; }
+.page-hero--contact .crumb { justify-content: center; margin-bottom: 0; }
 .page-hero--contact .crumb a,
 .page-hero--contact .crumb span { display: none; }
+/* Taller hero so more of the photo shows (text was removed) */
+.page-hero--contact {
+  min-height: clamp(420px, 60vh, 600px);
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.page-hero--contact .page-hero-inner { width: 100%; }
 
 /* ============================================================
    STATEMENT — full-screen editorial scene after the hero
