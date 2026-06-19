@@ -23,7 +23,7 @@ export default function PageHero({ kicker, title, subtitle, crumb, variant, phot
           <b>{crumb || title}</b>
         </nav>
         {kicker && <span className="eyebrow">{kicker}</span>}
-        <h1 className="page-hero-title">{title}</h1>
+        {title && <h1 className="page-hero-title">{title}</h1>}
         {subtitle && <p className="page-hero-sub">{subtitle}</p>}
       </div>
     </section>
