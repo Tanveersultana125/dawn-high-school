@@ -1093,6 +1093,26 @@ ul {
   z-index: 1;
   opacity: 0.85;
 }
+/* Optional dimmed background photo (e.g. Contact) — sits below particles + text,
+   with a navy scrim layered on top so the headline stays crisp. */
+.page-hero-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.page-hero-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(5, 13, 32, 0.92) 0%,
+      rgba(6, 17, 40, 0.78) 45%, rgba(8, 27, 62, 0.62) 100%),
+    radial-gradient(ellipse at 78% -10%, rgba(46, 84, 170, 0.4) 0%, transparent 55%);
+}
+/* When a photo is present, soften the particles a touch */
+.page-hero--photo .page-hero-particles { opacity: 0.5; }
 /* Shared decorative pattern removed — each page now defines its own
    via the .page-hero--{variant} rules below. */
 .page-hero-inner {
