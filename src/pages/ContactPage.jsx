@@ -7,12 +7,12 @@ const DEPTS = [
     ic: '🏫', t: 'Malakpet Campus', e: '+91 81076 66766',
     d: '16-3-993, Malakpet Rd, Opp. Officer Mess, Officers Colony, New Malakpet, Hyderabad – 500036',
     map: 'https://www.google.com/maps?q=16-3-993%20Malakpet%20Road%20New%20Malakpet%20Hyderabad%20500036&z=15&output=embed',
+    reverse: true,
   },
   {
     ic: '🏛️', t: 'Purani Haveli Campus', e: '040 6671 4228',
     d: 'Mir Chowk Rd, Opp. ACP, Purani Haveli, Pathar Gatti, Hyderabad – 500002',
     map: 'https://www.google.com/maps?q=Purani%20Haveli%20Pathar%20Gatti%20Hyderabad%20500002&z=15&output=embed',
-    reverse: true,
   },
   { ic: '💬', t: 'General Enquiries', d: 'info@dawnhighschool.com · www.dawnhighschool.com', e: 'admin@dawnhighschool.com' },
 ]
