@@ -46,11 +46,11 @@ export default function ContactPage() {
 
             <Reveal delay={1}>
               <SectionHead eyebrow="Departments" title="Direct" accent="Contacts" />
-              <div className="grid" style={{ gap: 16 }}>
+              <div className="grid dept-cards" style={{ gap: 16 }}>
                 {DEPTS.map((d) => (
-                  <div className="card" key={d.t} style={{ padding: 22 }}>
+                  <div className="card dept-card" key={d.t} style={{ padding: 22 }}>
                     <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
-                      <span style={{ fontSize: '1.6rem' }}>{d.ic}</span>
+                      <span className="dept-ic" style={{ fontSize: '1.6rem' }}>{d.ic}</span>
                       <div style={{ minWidth: 0 }}>
                         <b style={{ color: 'var(--navy-800)', fontFamily: 'var(--font-display)', fontSize: '1.15rem' }}>{d.t}</b>
                         <p style={{ color: 'var(--text-soft)', fontSize: '0.88rem', overflowWrap: 'anywhere' }}>{d.d}</p>
