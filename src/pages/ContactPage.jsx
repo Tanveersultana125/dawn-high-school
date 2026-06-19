@@ -12,6 +12,7 @@ const DEPTS = [
     ic: '🏛️', t: 'Purani Haveli Campus', e: '040 6671 4228',
     d: 'Mir Chowk Rd, Opp. ACP, Purani Haveli, Pathar Gatti, Hyderabad – 500002',
     map: 'https://www.google.com/maps?q=Purani%20Haveli%20Pathar%20Gatti%20Hyderabad%20500002&z=15&output=embed',
+    reverse: true,
   },
   { ic: '💬', t: 'General Enquiries', d: 'info@dawnhighschool.com · www.dawnhighschool.com', e: 'admin@dawnhighschool.com' },
 ]
@@ -34,7 +35,7 @@ export default function ContactPage() {
           </Reveal>
           <Reveal delay={1} className="dept-list">
             {DEPTS.map((d) => (
-              <div className={`card dept-card${d.map ? ' dept-card--map' : ''}`} key={d.t}>
+              <div className={`card dept-card${d.map ? ' dept-card--map' : ''}${d.reverse ? ' dept-card--reverse' : ''}`} key={d.t}>
                 <div className="dept-card-info">
                   <span className="dept-ic">{d.ic}</span>
                   <div className="dept-card-text">
