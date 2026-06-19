@@ -77,15 +77,7 @@ export default function Contact() {
   return (
     <section className="section section-dark" id="contact">
       <div className="container">
-        <SectionHead
-          center
-          eyebrow="Get in Touch"
-          title="We'd Love to"
-          accent="Hear From You"
-          lead="Have a question or ready to apply? Reach out and our admissions team will respond within one business day."
-        />
-
-        {/* Info cards — white, icon-on-top, in a row */}
+        {/* Info cards — white, icon-on-top, in a row (above the heading) */}
         <Reveal className="contact-cards">
           {INFO.map((info) => (
             <div className="contact-card" key={info.title}>
@@ -95,6 +87,14 @@ export default function Contact() {
             </div>
           ))}
         </Reveal>
+
+        <SectionHead
+          center
+          eyebrow="Get in Touch"
+          title="We'd Love to"
+          accent="Hear From You"
+          lead="Have a question or ready to apply? Reach out and our admissions team will respond within one business day."
+        />
 
         <div className="contact-layout">
           <Reveal className="contact-aside">
