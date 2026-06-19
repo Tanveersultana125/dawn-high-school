@@ -2,12 +2,6 @@ import PageHero from '../components/PageHero'
 import Contact from '../components/Contact'
 import { Reveal, SectionHead } from '../components/common'
 
-const HOURS = [
-  ['Monday – Friday', '8:00 AM – 4:00 PM'],
-  ['Saturday', '9:00 AM – 1:00 PM'],
-  ['Sunday & Holidays', 'Closed'],
-]
-
 const DEPTS = [
   {
     ic: '🏫', t: 'Malakpet Campus', e: '+91 81076 66766',
@@ -31,23 +25,6 @@ export default function ContactPage() {
       />
 
       <Contact />
-
-      {/* Office hours */}
-      <section className="section">
-        <div className="container">
-          <Reveal>
-            <SectionHead center eyebrow="Office Hours" title="When to" accent="Reach Us" />
-            <div className="date-list date-list--row">
-              {HOURS.map(([day, time]) => (
-                <div className="date-row" key={day}>
-                  <span className="d-date">{day}</span>
-                  <span className="d-label">{time}</span>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
       {/* Departments + campus maps */}
       <section className="section section-alt">

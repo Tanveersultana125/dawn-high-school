@@ -7,6 +7,7 @@ const INFO = [
   { key: 'pin', title: 'Visit Us', text: '16-3-993, Malakpet Rd, Opposite Officer Mess, Officers Colony, New Malakpet, Hyderabad – 500036, Telangana' },
   { key: 'phone', title: 'Call Us', text: '+91 81076 66766 (Malakpet) · 040 6671 4228 (Purani Haveli)' },
   { key: 'mail', title: 'Email Us', text: 'info@dawnhighschool.com' },
+  { key: 'clock', title: 'Office Hours', lines: ['Mon – Fri · 8:00 AM – 4:00 PM', 'Saturday · 9:00 AM – 1:00 PM', 'Sun & Holidays · Closed'] },
 ]
 
 // Clean line icons (stroke = currentColor) for the contact cards.
@@ -26,6 +27,12 @@ const ICONS = {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="m3 7 9 6 9-6" />
+    </svg>
+  ),
+  clock: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3.5 2" />
     </svg>
   ),
 }
@@ -85,7 +92,9 @@ export default function Contact() {
             <div className="contact-card" key={info.title}>
               <span className="contact-card-ic">{ICONS[info.key]}</span>
               <b>{info.title}</b>
-              <p>{info.text}</p>
+              {info.lines
+                ? info.lines.map((l) => <p key={l}>{l}</p>)
+                : <p>{info.text}</p>}
             </div>
           ))}
         </Reveal>
