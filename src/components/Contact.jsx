@@ -100,7 +100,7 @@ export default function Contact() {
 
         <div className="contact-layout">
           <Reveal className="contact-collage">
-            <img src="/contact-collage.png" alt="Dawn students learning and achieving together" loading="lazy" />
+            <img src="/contact-collage-v2.png" alt="Dawn students learning and achieving together" loading="lazy" />
           </Reveal>
 
           <Reveal className="contact-form-wrap" delay={2}>
