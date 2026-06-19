@@ -25,7 +25,7 @@ const TILE_IMAGES = [
 ]
 
 // Isometric block field — adapted from the Uiverse cube grid to the brand.
-// Cluster auto-rotates; click any tile to open that photo full-size.
+// Static cluster; click any tile to open that photo full-size.
 export default function BuildingBlocks({
   layout = 'split', // 'split' (text | cubes) | 'reverse' (cubes | text) | 'stacked' (centered)
   eyebrow = 'Innovation at Dawn',
