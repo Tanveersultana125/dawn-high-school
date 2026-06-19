@@ -3949,6 +3949,12 @@ body.no-scroll { overflow: hidden; }
   grid-template-columns: 1fr 1.1fr;
   gap: 50px;
 }
+/* Form-only layout (map removed) — centered single column */
+.contact-layout--single {
+  grid-template-columns: 1fr;
+  max-width: 720px;
+  margin: 0 auto;
+}
 /* "Contact" page title above the cards */
 .contact-page-title {
   text-align: center;

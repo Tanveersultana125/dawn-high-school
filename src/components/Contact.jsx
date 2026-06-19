@@ -98,22 +98,7 @@ export default function Contact() {
           lead="Have a question or ready to apply? Reach out and our admissions team will respond within one business day."
         />
 
-        <div className="contact-layout">
-          <Reveal className="contact-aside">
-            <div className="contact-map">
-              <iframe
-                title="Dawn Model High School location"
-                src="https://www.google.com/maps?q=17.36875,78.501016&z=14&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-          </Reveal>
-
+        <div className="contact-layout contact-layout--single">
           <Reveal className="contact-form-wrap" delay={2}>
             <form className="contact-form" onSubmit={onSubmit}>
               <div className="form-row">
