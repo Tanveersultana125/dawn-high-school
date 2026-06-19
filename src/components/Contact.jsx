@@ -77,6 +77,8 @@ export default function Contact() {
   return (
     <section className="section section-dark" id="contact">
       <div className="container">
+        <h2 className="contact-page-title">Contact</h2>
+
         {/* Info cards — white, icon-on-top, in a row (above the heading) */}
         <Reveal className="contact-cards">
           {INFO.map((info) => (

@@ -3949,6 +3949,17 @@ body.no-scroll { overflow: hidden; }
   grid-template-columns: 1fr 1.1fr;
   gap: 50px;
 }
+/* "Contact" page title above the cards */
+.contact-page-title {
+  text-align: center;
+  color: var(--gold-400);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  letter-spacing: -0.01em;
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
 /* Info cards — white, icon-on-top, in a row (matches site navy + gold) */
 .contact-cards {
   display: grid;
