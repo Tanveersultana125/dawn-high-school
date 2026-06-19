@@ -4,10 +4,31 @@ import { submitEnquiry } from '../lib/enquiries'
 import { uploadToCloudinary, isCloudinaryConfigured } from '../lib/cloudinary'
 
 const INFO = [
-  { icon: '📍', title: 'Visit Us', text: '16-3-993, Malakpet Rd, Opposite Officer Mess, Officers Colony, New Malakpet, Hyderabad – 500036, Telangana' },
-  { icon: '📞', title: 'Call Us', text: '+91 81076 66766 (Malakpet) · 040 6671 4228 (Purani Haveli)' },
-  { icon: '✉️', title: 'Email Us', text: 'info@dawnhighschool.com' },
+  { key: 'pin', title: 'Visit Us', text: '16-3-993, Malakpet Rd, Opposite Officer Mess, Officers Colony, New Malakpet, Hyderabad – 500036, Telangana' },
+  { key: 'phone', title: 'Call Us', text: '+91 81076 66766 (Malakpet) · 040 6671 4228 (Purani Haveli)' },
+  { key: 'mail', title: 'Email Us', text: 'info@dawnhighschool.com' },
 ]
+
+// Clean line icons (stroke = currentColor) for the contact cards.
+const ICONS = {
+  pin: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  ),
+  phone: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z" />
+    </svg>
+  ),
+  mail: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  ),
+}
 
 const SOCIALS = ['Fb', 'In', 'X', 'Yt']
 
@@ -66,18 +87,19 @@ export default function Contact() {
           lead="Have a question or ready to apply? Reach out and our admissions team will respond within one business day."
         />
 
+        {/* Info cards — white, icon-on-top, in a row */}
+        <Reveal className="contact-cards">
+          {INFO.map((info) => (
+            <div className="contact-card" key={info.title}>
+              <span className="contact-card-ic">{ICONS[info.key]}</span>
+              <b>{info.title}</b>
+              <p>{info.text}</p>
+            </div>
+          ))}
+        </Reveal>
+
         <div className="contact-layout">
           <Reveal className="contact-aside">
-            {INFO.map((info) => (
-              <div className="contact-info-card" key={info.title}>
-                <span className="ic">{info.icon}</span>
-                <div>
-                  <b>{info.title}</b>
-                  <p>{info.text}</p>
-                </div>
-              </div>
-            ))}
-
             <div className="contact-socials">
               {SOCIALS.map((s) => (
                 <a href="#contact" key={s} aria-label={`Dawn on ${s}`}>{s}</a>
