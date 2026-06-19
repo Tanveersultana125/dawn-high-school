@@ -17,11 +17,13 @@ export default function PageHero({ kicker, title, subtitle, crumb, variant, phot
       )}
       <Particles className="page-hero-particles" interactive />
       <div className="container page-hero-inner">
-        <nav className="crumb" aria-label="Breadcrumb">
-          <Link to="/">Home</Link>
-          <span>/</span>
-          <b>{crumb || title}</b>
-        </nav>
+        {(crumb || title) && (
+          <nav className="crumb" aria-label="Breadcrumb">
+            <Link to="/">Home</Link>
+            <span>/</span>
+            <b>{crumb || title}</b>
+          </nav>
+        )}
         {kicker && <span className="eyebrow">{kicker}</span>}
         {title && <h1 className="page-hero-title">{title}</h1>}
         {subtitle && <p className="page-hero-sub">{subtitle}</p>}

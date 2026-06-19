@@ -20,7 +20,6 @@ export default function ContactPage() {
       <PageHero
         variant="contact"
         photo="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1600&q=80"
-        crumb="Contact"
       />
 
       <Contact />
