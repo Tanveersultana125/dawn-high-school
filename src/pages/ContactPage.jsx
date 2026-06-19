@@ -9,8 +9,16 @@ const HOURS = [
 ]
 
 const DEPTS = [
-  { ic: '🏫', t: 'Malakpet Campus', d: '16-3-993, Malakpet Rd, Opp. Officer Mess, Officers Colony, New Malakpet, Hyderabad – 500036', e: '+91 81076 66766' },
-  { ic: '🏛️', t: 'Purani Haveli Campus', d: 'Mir Chowk Rd, Opp. ACP, Purani Haveli, Pathar Gatti, Hyderabad – 500002', e: '040 6671 4228' },
+  {
+    ic: '🏫', t: 'Malakpet Campus', e: '+91 81076 66766',
+    d: '16-3-993, Malakpet Rd, Opp. Officer Mess, Officers Colony, New Malakpet, Hyderabad – 500036',
+    map: 'https://www.google.com/maps?q=16-3-993%20Malakpet%20Road%20New%20Malakpet%20Hyderabad%20500036&z=15&output=embed',
+  },
+  {
+    ic: '🏛️', t: 'Purani Haveli Campus', e: '040 6671 4228',
+    d: 'Mir Chowk Rd, Opp. ACP, Purani Haveli, Pathar Gatti, Hyderabad – 500002',
+    map: 'https://www.google.com/maps?q=Purani%20Haveli%20Pathar%20Gatti%20Hyderabad%20500002&z=15&output=embed',
+  },
   { ic: '💬', t: 'General Enquiries', d: 'info@dawnhighschool.com · www.dawnhighschool.com', e: 'admin@dawnhighschool.com' },
 ]
 
@@ -24,40 +32,54 @@ export default function ContactPage() {
 
       <Contact />
 
-      {/* Office hours + departments */}
+      {/* Office hours */}
       <section className="section">
         <div className="container">
-          <div className="about-grid">
-            <Reveal>
-              <SectionHead eyebrow="Office Hours" title="When to" accent="Reach Us" />
-              <div className="date-list">
-                {HOURS.map(([day, time]) => (
-                  <div className="date-row" key={day}>
-                    <span className="d-date">{day}</span>
-                    <span className="d-label">{time}</span>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
+          <Reveal>
+            <SectionHead center eyebrow="Office Hours" title="When to" accent="Reach Us" />
+            <div className="date-list date-list--row">
+              {HOURS.map(([day, time]) => (
+                <div className="date-row" key={day}>
+                  <span className="d-date">{day}</span>
+                  <span className="d-label">{time}</span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
-            <Reveal delay={1}>
-              <SectionHead eyebrow="Departments" title="Direct" accent="Contacts" />
-              <div className="grid dept-cards" style={{ gap: 16 }}>
-                {DEPTS.map((d) => (
-                  <div className="card dept-card" key={d.t} style={{ padding: 22 }}>
-                    <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
-                      <span className="dept-ic" style={{ fontSize: '1.6rem' }}>{d.ic}</span>
-                      <div style={{ minWidth: 0 }}>
-                        <b style={{ color: 'var(--navy-800)', fontFamily: 'var(--font-display)', fontSize: '1.15rem' }}>{d.t}</b>
-                        <p style={{ color: 'var(--text-soft)', fontSize: '0.88rem', overflowWrap: 'anywhere' }}>{d.d}</p>
-                        <p style={{ color: 'var(--royal-600)', fontSize: '0.88rem', fontWeight: 600 }}>{d.e}</p>
-                      </div>
-                    </div>
+      {/* Departments + campus maps */}
+      <section className="section section-alt">
+        <div className="container">
+          <Reveal>
+            <SectionHead center eyebrow="Departments" title="Direct" accent="Contacts" />
+          </Reveal>
+          <Reveal delay={1} className="dept-list">
+            {DEPTS.map((d) => (
+              <div className={`card dept-card${d.map ? ' dept-card--map' : ''}`} key={d.t}>
+                <div className="dept-card-info">
+                  <span className="dept-ic">{d.ic}</span>
+                  <div className="dept-card-text">
+                    <b>{d.t}</b>
+                    <p>{d.d}</p>
+                    <p className="dept-contact">{d.e}</p>
                   </div>
-                ))}
+                </div>
+                {d.map && (
+                  <div className="dept-map">
+                    <iframe
+                      title={`${d.t} location`}
+                      src={d.map}
+                      loading="lazy"
+                      allowFullScreen
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+                  </div>
+                )}
               </div>
-            </Reveal>
-          </div>
+            ))}
+          </Reveal>
         </div>
       </section>
     </>
