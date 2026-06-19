@@ -3948,14 +3948,23 @@ body.no-scroll { overflow: hidden; }
   display: grid;
   grid-template-columns: 1fr 1.1fr;
   gap: 50px;
-  align-items: center;
+  align-items: stretch;
 }
-/* Collage image beside the form */
+/* Collage image beside the form — matched to the form's height */
+.contact-collage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: #131d55; /* same navy as the image so any letterbox blends */
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
 .contact-collage img {
   display: block;
   width: 100%;
-  height: auto;
-  border-radius: var(--radius-lg);
+  height: 100%;
+  object-fit: contain;
 }
 /* "Contact" page title above the cards */
 .contact-page-title {
