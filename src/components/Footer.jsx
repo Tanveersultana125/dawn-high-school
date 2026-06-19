@@ -17,6 +17,13 @@ const RESOURCES = [
   ['Careers', '/contact'],
 ]
 
+const SOCIALS = [
+  ['Facebook', 'Fb', 'https://facebook.com'],
+  ['Instagram', 'In', 'https://instagram.com'],
+  ['X', 'X', 'https://x.com'],
+  ['YouTube', 'Yt', 'https://youtube.com'],
+]
+
 export default function Footer() {
   return (
     <footer className="footer">
@@ -35,6 +42,19 @@ export default function Footer() {
               A premier institution committed to academic distinction, character,
               and innovation.
             </p>
+            <div className="footer-socials">
+              {SOCIALS.map(([name, label, href]) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Dawn High School on ${name}`}
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
           </div>
 
           <div>

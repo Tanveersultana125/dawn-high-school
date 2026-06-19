@@ -30,8 +30,6 @@ const ICONS = {
   ),
 }
 
-const SOCIALS = ['Fb', 'In', 'X', 'Yt']
-
 export default function Contact() {
   const [sent, setSent] = useState(false)
   const [busy, setBusy] = useState(false)
@@ -100,12 +98,6 @@ export default function Contact() {
 
         <div className="contact-layout">
           <Reveal className="contact-aside">
-            <div className="contact-socials">
-              {SOCIALS.map((s) => (
-                <a href="#contact" key={s} aria-label={`Dawn on ${s}`}>{s}</a>
-              ))}
-            </div>
-
             <div className="contact-map">
               <iframe
                 title="Dawn Model High School location"
