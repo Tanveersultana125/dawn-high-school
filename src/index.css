@@ -5987,6 +5987,88 @@ body.no-scroll { overflow: hidden; }
 }
 .cube-lightbox-close:hover { background: var(--gold-500); color: var(--navy-900); }
 
+/* ---- Scattered full-image gallery (opens when a cube is clicked) ---- */
+.gallery-spread {
+  position: fixed;
+  inset: 0;
+  z-index: 1900;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: clamp(60px, 9vh, 120px) clamp(24px, 5vw, 80px);
+  background: #0a0a0c;
+  animation: searchFade 0.3s ease;
+}
+.gallery-spread-inner {
+  column-count: 4;
+  column-gap: clamp(20px, 2.4vw, 38px);
+  max-width: 1500px;
+  margin: 0 auto;
+  transform: skewY(-7deg);
+}
+.spread-img {
+  display: block;
+  width: 100%;
+  margin: 0 0 clamp(20px, 2.4vw, 38px);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  break-inside: avoid;
+  border-radius: 4px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(26px);
+  animation: spreadIn 0.6s var(--ease-lux) forwards;
+  animation-delay: var(--d, 0s);
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+/* Lift every other column a touch for the loose, floating scatter */
+.gallery-spread-inner .spread-img:nth-child(3n) { margin-top: clamp(28px, 5vw, 80px); }
+.gallery-spread-inner .spread-img:nth-child(4n) { margin-top: clamp(14px, 3vw, 46px); }
+.spread-img img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.spread-img:hover {
+  filter: brightness(1.12);
+  transform: translateY(0) scale(1.03);
+  z-index: 2;
+}
+.gallery-spread-close {
+  position: fixed;
+  top: 22px;
+  right: 26px;
+  z-index: 1910;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.15rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+}
+.gallery-spread-close:hover { background: var(--gold-500); color: var(--navy-900); }
+@keyframes spreadIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+/* The single zoom (cube-lightbox) must sit above the spread */
+.cube-lightbox { z-index: 2000; }
+
+@media (max-width: 1024px) {
+  .gallery-spread-inner { column-count: 3; }
+}
+@media (max-width: 640px) {
+  .gallery-spread-inner { column-count: 2; transform: skewY(-5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spread-img { opacity: 1; transform: none; animation: none; }
+}
+
 /* ---- FlipWords ---- */
 .flip-words {
   position: relative;

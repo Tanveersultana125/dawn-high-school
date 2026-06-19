@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Reveal } from './common'
 import SmartImage from './SmartImage'
@@ -37,7 +37,24 @@ export default function BuildingBlocks({
 }) {
   const stacked = layout === 'stacked'
   const reverse = layout === 'reverse'
-  const [openImg, setOpenImg] = useState(null)
+  const [spreadOpen, setSpreadOpen] = useState(false) // scattered full-image gallery
+  const [openImg, setOpenImg] = useState(null)        // single image zoomed from the spread
+
+  // Lock body scroll while an overlay is open; Esc closes the topmost layer.
+  useEffect(() => {
+    const anyOpen = spreadOpen || openImg
+    document.body.style.overflow = anyOpen ? 'hidden' : ''
+    const onKey = (e) => {
+      if (e.key !== 'Escape') return
+      if (openImg) setOpenImg(null)
+      else if (spreadOpen) setSpreadOpen(false)
+    }
+    if (anyOpen) window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [spreadOpen, openImg])
 
   // 3 depth layers, each a grid of isometric cube tiles → one big 3D cube
   const grid = (
@@ -55,8 +72,8 @@ export default function BuildingBlocks({
                     tabIndex={0}
                     aria-label="Open photo"
                     style={{ '--i': i + 1, '--img': `url('${img.thumb}')` }}
-                    onClick={() => setOpenImg(img.full)}
-                    onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setOpenImg(img.full)}
+                    onClick={() => setSpreadOpen(true)}
+                    onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setSpreadOpen(true)}
                   />
                 )
               })}
@@ -84,6 +101,26 @@ export default function BuildingBlocks({
     <Reveal className="blocks-visual" delay={reverse || stacked ? 0 : 1}>{grid}</Reveal>
   )
 
+  // Scattered, skewed full-image gallery that floats in when a cube is clicked.
+  const spread = spreadOpen && (
+    <div className="gallery-spread" role="dialog" aria-modal="true" onClick={() => setSpreadOpen(false)}>
+      <button className="gallery-spread-close" aria-label="Close gallery" onClick={() => setSpreadOpen(false)}>✕</button>
+      <div className="gallery-spread-inner" onClick={(e) => e.stopPropagation()}>
+        {TILE_IMAGES.map((img, idx) => (
+          <button
+            key={idx}
+            className="spread-img"
+            style={{ '--d': `${idx * 0.06}s` }}
+            aria-label="Open photo full-size"
+            onClick={() => setOpenImg(img.full)}
+          >
+            <SmartImage src={img.full} alt="Campus moment at Dawn High School" />
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+
   const lightbox = openImg && (
     <div className="cube-lightbox" role="dialog" aria-modal="true" onClick={() => setOpenImg(null)}>
       <button className="cube-lightbox-close" aria-label="Close" onClick={() => setOpenImg(null)}>✕</button>
@@ -98,6 +135,7 @@ export default function BuildingBlocks({
           {copy}
           {visual}
         </div>
+        {spread}
         {lightbox}
       </section>
     )
@@ -118,6 +156,7 @@ export default function BuildingBlocks({
           </>
         )}
       </div>
+      {spread}
       {lightbox}
     </section>
   )
