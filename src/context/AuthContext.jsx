@@ -19,6 +19,11 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // No Firebase config yet → skip auth wiring so the public site still loads.
+    if (!auth) {
+      setLoading(false)
+      return
+    }
     const unsub = onAuthStateChanged(auth, async (u) => {
       // Reject any restored session that isn't the authorized account.
       if (u && u.email !== ALLOWED_EMAIL) {

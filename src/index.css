@@ -4042,6 +4042,33 @@ body.no-scroll { overflow: hidden; }
   transition: background 0.45s var(--ease-lux);
 }
 .contact-card:hover::after { background: var(--gradient-gold); }
+
+/* Interactive 3D tilt + glare on the contact cards */
+.contact-card-wrap { perspective: 1000px; height: 100%; }
+.contact-card {
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-lux), box-shadow 0.4s var(--ease-lux);
+}
+.contact-card .tilt3d-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(120, 160, 255, 0.18),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-lux);
+  pointer-events: none;
+}
+.contact-card:hover .tilt3d-glare { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .contact-card { transform: none !important; }
+}
 @media (max-width: 980px) {
   .contact-cards { grid-template-columns: repeat(2, 1fr); }
 }
@@ -5239,7 +5266,26 @@ body.no-scroll { overflow: hidden; }
 @media (max-width: 700px) { .date-list--row { grid-template-columns: 1fr; } }
 
 /* Department cards with campus maps */
-.dept-list { display: grid; gap: 20px; }
+.dept-list { display: grid; gap: 40px; }
+/* Professional faded divider + centered gold diamond between campus blocks */
+.dept-list > *:not(:first-child) {
+  position: relative;
+  border-top: 1px solid;
+  border-image: linear-gradient(90deg, transparent, var(--gray-300) 22%, var(--gray-300) 78%, transparent) 1;
+  padding-top: 40px;
+}
+.dept-list > *:not(:first-child)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: var(--gradient-gold);
+  border-radius: 2px;
+  box-shadow: 0 0 0 6px var(--bg-alt), 0 4px 12px rgba(184, 134, 11, 0.4);
+}
 .dept-card { padding: 22px; }
 .dept-card-info { display: flex; gap: 14px; align-items: center; }
 .dept-card-text { min-width: 0; }
@@ -5251,29 +5297,157 @@ body.no-scroll { overflow: hidden; }
 }
 .dept-card-text p { color: var(--text-soft); font-size: 0.9rem; overflow-wrap: anywhere; }
 .dept-card-text .dept-contact { color: var(--royal-600); font-weight: 600; margin-top: 2px; }
-/* Campus card: info left, map right */
-.dept-card--map {
+/* ── Campus block: dark info panel on one side, large map on the other ── */
+.campus-row {
   display: grid;
-  grid-template-columns: 1fr 1.25fr;
+  grid-template-columns: 1fr 1fr;
   gap: 24px;
-  align-items: center;
+  align-items: stretch;
 }
-.dept-map {
-  height: 230px;
-  border-radius: 14px;
+.campus-row--reverse { grid-template-columns: 1fr 1fr; }
+.campus-row--reverse .campus-info { order: 2; }
+.campus-row--reverse .campus-card-map { order: 1; }
+
+.campus-info {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 420px;
+  background: var(--gradient-navy);
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 28px 28px;
+  box-shadow: var(--shadow-md);
+}
+.campus-info::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 0%, rgba(79, 134, 247, 0.28), transparent 55%),
+    radial-gradient(circle at 0% 100%, rgba(212, 175, 55, 0.12), transparent 50%);
+  pointer-events: none;
+}
+.campus-info > * { position: relative; z-index: 1; }
+
+.campus-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-size: clamp(1.2rem, 1.9vw, 1.65rem);
+  margin-bottom: 18px;
+  white-space: nowrap;
+}
+.campus-title span { display: inline; }
+.campus-title-accent {
+  margin-right: 0.3em;
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.campus-contacts {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+.campus-contacts li { display: flex; gap: 12px; align-items: center; }
+.campus-c-ic {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.campus-c-ic--phone { background: rgba(34, 197, 94, 0.18); border-color: rgba(34, 197, 94, 0.4); }
+.campus-c-ic--mail { background: rgba(212, 175, 55, 0.18); border-color: rgba(212, 175, 55, 0.42); }
+.campus-contacts small {
+  display: block;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.78rem;
+  margin-bottom: 2px;
+}
+.campus-contacts a {
+  color: var(--gold-400);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: color 0.25s var(--ease-lux);
+}
+.campus-contacts a:hover { color: var(--white); }
+
+.campus-address { margin-bottom: 14px; }
+.campus-address h4 {
+  color: var(--gold-400);
+  font-size: 0.98rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.campus-address p {
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.55;
+  font-size: 0.88rem;
+  overflow-wrap: anywhere;
+}
+
+.campus-socials { display: flex; gap: 10px; margin-bottom: 16px; }
+.campus-socials a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-decoration: none;
+  transition: transform 0.25s var(--ease-lux), background 0.25s var(--ease-lux), color 0.25s var(--ease-lux);
+}
+.campus-socials a:hover {
+  background: var(--gradient-gold);
+  color: var(--navy-900);
+  transform: translateY(-3px);
+}
+
+.campus-btn { margin-top: auto; padding: 12px 26px; font-size: 0.9rem; }
+
+.campus-card-map {
+  position: relative;
+  height: 420px;
+  margin-top: 0;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-md);
+  cursor: default;
 }
-.dept-map iframe { width: 100%; height: 100%; border: 0; display: block; }
-/* Alternate (zig-zag): map on the left, info on the right */
-.dept-card--reverse { grid-template-columns: 1.25fr 1fr; }
-.dept-card--reverse .dept-map { order: 1; }
-.dept-card--reverse .dept-card-info { order: 2; }
-@media (max-width: 760px) {
-  .dept-card--map { grid-template-columns: 1fr; }
-  .dept-card--reverse .dept-map { order: 2; }
-  .dept-card--reverse .dept-card-info { order: 1; }
-  .dept-map { height: 200px; }
+.campus-card-map iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+@media (max-width: 860px) {
+  .campus-row,
+  .campus-row--reverse { grid-template-columns: 1fr; }
+  .campus-row--reverse .campus-info { order: 1; }
+  .campus-row--reverse .campus-card-map { order: 2; }
+  .campus-info { padding: 30px 24px; height: auto; min-height: 340px; }
+  .campus-card-map { height: 300px; }
 }
 .date-row {
   position: relative;
@@ -5374,6 +5548,35 @@ body.no-scroll { overflow: hidden; }
 .dept-card:hover .dept-ic {
   transform: rotate(-6deg) scale(1.08);
   background: linear-gradient(150deg, var(--navy-800), var(--royal-600));
+}
+/* Interactive 3D tilt + glare on the General Enquiries card */
+.dept-card-wrap { perspective: 900px; }
+.dept-card {
+  will-change: transform;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-lux), box-shadow 0.4s var(--ease-lux),
+    border-color 0.45s var(--ease-lux);
+}
+/* Deeper, dynamic shadow on hover for a real 3D lift */
+.dept-card:hover {
+  box-shadow: 0 36px 70px -18px rgba(10, 31, 68, 0.4);
+}
+.dept-card .tilt3d-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(120, 160, 255, 0.2),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-lux);
+  pointer-events: none;
+}
+.dept-card:hover .tilt3d-glare { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .dept-card { transform: none !important; }
 }
 
 /* FAQ accordion */
@@ -6501,6 +6704,191 @@ body.no-scroll { overflow: hidden; }
 }
 @media (min-width: 600px) {
   .fhc-btn { width: auto; }
+}
+
+/* ── About Us (image left, content right, light on-brand bg) ── */
+.about2 {
+  background: var(--bg-alt);
+  color: var(--ink);
+}
+.about2-grid {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: clamp(28px, 4vw, 60px);
+  align-items: center;
+}
+.about2-visual {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.22);
+}
+.about2-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 560px;
+  object-fit: cover;
+}
+.about2-kicker {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  color: var(--royal-600);
+}
+.about2-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.7rem, 3.2vw, 2.6rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--navy-800);
+  margin-bottom: 20px;
+}
+.about2-title strong { font-weight: 800; color: var(--navy-900); }
+.about2-copy p {
+  color: var(--text-soft);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.about2-copy p strong { font-weight: 700; color: var(--navy-800); }
+.about2-h {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--navy-800);
+  margin: 22px 0 14px;
+}
+.about2-list {
+  list-style: none;
+  display: grid;
+  gap: 11px;
+  margin-bottom: 28px;
+}
+.about2-list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  color: var(--text);
+  font-size: 1rem;
+}
+.about2-list li i {
+  color: var(--gold-600);
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.5;
+}
+.about2-btn strong { font-weight: 700; }
+@media (max-width: 860px) {
+  .about2-grid { grid-template-columns: 1fr; }
+  .about2-visual img { max-height: 360px; }
+}
+
+/* ── Vision & Mission (content left, image right) ── */
+.vm-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+.vm-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  letter-spacing: -0.01em;
+  color: var(--navy-800);
+  margin-bottom: 26px;
+}
+.vm-title .accent {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.vm-block { margin-bottom: 24px; }
+.vm-block:last-child { margin-bottom: 0; }
+.vm-block h4 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--royal-600);
+  margin-bottom: 10px;
+}
+.vm-block p {
+  display: flex;
+  gap: 12px;
+  color: var(--text-soft);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+.vm-block p i {
+  color: var(--gold-500);
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.6;
+}
+.vm-visual {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-lg);
+}
+.vm-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+@media (max-width: 860px) {
+  .vm-grid { grid-template-columns: 1fr; }
+  .vm-visual img { max-height: 300px; }
+}
+
+/* ── Core Values (3 + 2 centered cards) ── */
+.values-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(18px, 2vw, 28px);
+}
+.value-card {
+  flex: 0 1 clamp(260px, 30%, 360px);
+  text-align: center;
+  padding: 34px 26px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux),
+    border-color 0.4s var(--ease-lux);
+}
+.value-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(212, 175, 55, 0.45);
+}
+.value-ic {
+  font-size: 2.6rem;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.value-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  color: var(--navy-800);
+  margin-bottom: 10px;
+}
+.value-card p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+@media (max-width: 640px) {
+  .value-card { flex-basis: 100%; }
 }
 
 /* ============================================================

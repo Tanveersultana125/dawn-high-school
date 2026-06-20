@@ -1,4 +1,4 @@
-import PageHero from '../components/PageHero'
+import { motion } from 'framer-motion'
 import About from '../components/About'
 import StatsStrip from '../components/StatsStrip'
 import Achievements from '../components/Achievements'
@@ -13,53 +13,78 @@ const JOURNEY = [
 ]
 
 const VALUES = [
-  { ic: '⚖️', t: 'Integrity', d: 'We act with honesty and hold ourselves to the highest ethical standards.' },
-  { ic: '🏆', t: 'Excellence', d: 'We pursue mastery in everything — from academics to character.' },
-  { ic: '🤝', t: 'Respect', d: 'We honour diversity and treat every individual with dignity and care.' },
-  { ic: '💡', t: 'Innovation', d: 'We embrace curiosity, creativity, and a future-focused mindset.' },
-  { ic: '🌍', t: 'Community', d: 'We grow together — students, parents, and faculty as one family.' },
-  { ic: '🌱', t: 'Growth', d: 'We nurture lifelong learners who never stop reaching higher.' },
+  { ic: '🫶', t: 'Empathy', d: 'We teach our students to understand and care for others, fostering kindness and respect in every interaction.' },
+  { ic: '🏅', t: 'Excellence', d: 'Pursuing high standards in academics, arts, and personal growth is part of our everyday culture.' },
+  { ic: '✊', t: 'Courage', d: 'We encourage bold thinking, resilience, and the confidence to take on new challenges.' },
+  { ic: '💡', t: 'Innovation', d: 'We nurture curiosity and creativity, integrating modern tools and teaching methods to prepare students for the future.' },
+  { ic: '🧩', t: 'Integrity', d: 'Honesty and strong moral principles form the cornerstone of our community.' },
 ]
+
+// Vision & Mission reveal: container fires once in view, then plays its children
+// in order — text first, image afterwards (controlled, never simultaneous).
+const vmContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 2.5 } },
+}
+const vmCopyV = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+}
+const vmImgV = {
+  hidden: { opacity: 0, x: 90 },
+  visible: { opacity: 1, x: 0, transition: { duration: 1.3, ease: [0.22, 1, 0.36, 1] } },
+}
 
 export default function AboutPage() {
   return (
     <>
-      <PageHero
-        variant="about"
-        image="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1600&q=80"
-        kicker="About Us"
-        title="A Legacy of Learning, A Vision for Tomorrow"
-        subtitle="For over two decades, Dawn High School has shaped confident, compassionate, and capable global citizens."
-        crumb="About"
-      />
-
       <About />
 
       <StatsStrip />
 
-      {/* Mission & Vision */}
+      {/* Vision & Mission */}
       <section className="section">
         <div className="container">
-          <div className="grid cols-2">
-            <Reveal className="card">
-              <div className="card-icon">🎯</div>
-              <h3>Our Mission</h3>
-              <p>
-                To deliver a world-class, values-driven education that empowers every student
-                to think critically, act compassionately, and lead boldly — preparing them to
-                thrive in a rapidly changing world.
-              </p>
-            </Reveal>
-            <Reveal className="card" delay={1}>
-              <div className="card-icon">🌟</div>
-              <h3>Our Vision</h3>
-              <p>
-                To be the most trusted institution of learning in the region — where academic
-                excellence, character, and innovation come together to shape the leaders and
-                changemakers of tomorrow.
-              </p>
-            </Reveal>
-          </div>
+          <motion.div
+            className="vm-grid"
+            variants={vmContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <motion.div className="vm-copy" variants={vmCopyV}>
+              <h2 className="vm-title">
+                Our <span className="accent">Vision &amp; Mission</span>
+              </h2>
+
+              <div className="vm-block">
+                <h4>Vision</h4>
+                <p>
+                  <i aria-hidden="true">❯</i>
+                  To be the most trusted institution of learning in the region — empowering
+                  students through knowledge, character, and global readiness.
+                </p>
+              </div>
+
+              <div className="vm-block">
+                <h4>Mission</h4>
+                <p>
+                  <i aria-hidden="true">❯</i>
+                  Rooted in tradition, Dawn fosters compassionate, competent, and future-ready
+                  citizens by providing a nurturing, inclusive, and innovative learning
+                  environment.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div className="vm-visual" variants={vmImgV}>
+              <SmartImage
+                src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1100&q=80"
+                alt="Dawn High School students learning together"
+                loading="lazy"
+              />
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -152,14 +177,14 @@ export default function AboutPage() {
           <SectionHead
             center
             eyebrow="Core Values"
-            title="What We"
-            accent="Stand For"
-            lead="Six principles that guide every decision, every lesson, and every relationship at Dawn."
+            title="Our Core"
+            accent="Values"
+            lead="We believe values are the foundation of meaningful education. At Dawn, our core values are reflected in every aspect of school life — from classrooms and curriculum to community initiatives."
           />
-          <div className="grid cols-3">
+          <div className="values-wrap">
             {VALUES.map((v, i) => (
-              <Reveal className="card" delay={(i % 3) + 1} key={v.t}>
-                <div className="card-icon">{v.ic}</div>
+              <Reveal className="value-card" delay={(i % 3) + 1} key={v.t}>
+                <div className="value-ic">{v.ic}</div>
                 <h3>{v.t}</h3>
                 <p>{v.d}</p>
               </Reveal>

@@ -7,6 +7,7 @@ const heroRef = () => doc(db, 'settings', 'hero')
 
 /** @returns {Promise<{url:string, type:'image'|'video', publicId?:string}|null>} */
 export async function getHeroMedia() {
+  if (!db) return null // No Firebase config → fall back to default hero media.
   const snap = await getDoc(heroRef())
   return snap.exists() ? snap.data() : null
 }

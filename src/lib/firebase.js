@@ -26,8 +26,11 @@ if (!isFirebaseConfigured) {
   )
 }
 
-const app = initializeApp(firebaseConfig)
+// Only initialize when configured. Calling initializeApp/getAuth with empty
+// values throws (auth/invalid-api-key) and crashes the whole app, so we guard
+// it and export nulls until a real .env is provided.
+const app = isFirebaseConfigured ? initializeApp(firebaseConfig) : null
 
-export const db = getFirestore(app)
-export const auth = getAuth(app)
+export const db = app ? getFirestore(app) : null
+export const auth = app ? getAuth(app) : null
 export default app
