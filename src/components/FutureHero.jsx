@@ -1,17 +1,22 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 // Heavy WebGL blobs — loaded after the headline so text paints instantly
 const FutureHeroScene = lazy(() => import('./FutureHeroScene'))
 
 export default function FutureHero() {
+  const sectionRef = useRef(null)
+
   const toVideo = (e) => {
     e.preventDefault()
-    document.getElementById('home')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    // Prefer the page's #home anchor; otherwise scroll to whatever follows the hero.
+    const target = document.getElementById('home') || sectionRef.current?.nextElementSibling
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    else window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
   }
 
   return (
-    <section className="future-hero" id="future">
+    <section className="future-hero" id="future" ref={sectionRef}>
       <div className="future-hero-canvas" aria-hidden="true">
         <Suspense fallback={null}>
           <FutureHeroScene />

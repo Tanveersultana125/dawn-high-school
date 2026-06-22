@@ -1,4 +1,4 @@
-import PageHero from '../components/PageHero'
+import FutureHero from '../components/FutureHero'
 import Admission from '../components/Admission'
 import BetterFuture from '../components/BetterFuture'
 import { Reveal, SectionHead } from '../components/common'
@@ -36,14 +36,7 @@ const FAQ = [
 export default function AdmissionsPage() {
   return (
     <>
-      <PageHero
-        variant="admissions"
-        image="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1600&q=80"
-        kicker="Admissions"
-        title="Your Journey Starts Here"
-        subtitle="Admissions for 2026–27 are now open. Secure your child's place in four simple steps."
-        crumb="Admissions"
-      />
+      <FutureHero />
 
       <Admission />
 

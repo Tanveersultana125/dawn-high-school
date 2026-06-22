@@ -1,4 +1,3 @@
-import FutureHero from '../components/FutureHero'
 import Hero from '../components/Hero'
 import Distinctly from '../components/Distinctly'
 import ProgramExplorer from '../components/ProgramExplorer'
@@ -12,7 +11,6 @@ import News from '../components/News'
 export default function Home() {
   return (
     <>
-      <FutureHero />
       <Hero />
       <Distinctly />
       <ProgramExplorer />
