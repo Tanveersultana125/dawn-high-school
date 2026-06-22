@@ -1,7 +1,20 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { Reveal, SectionHead } from './common'
+import TiltCard from './TiltCard'
 import { submitEnquiry } from '../lib/enquiries'
 import { uploadToCloudinary, isCloudinaryConfigured } from '../lib/cloudinary'
+
+// Scroll-reveal effect for the contact cards: container fades in and staggers
+// its children, each card slides up + fades in.
+const cardsContainer = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
+}
+const cardItem = {
+  hidden: { y: 24, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] } },
+}
 
 const INFO = [
   { key: 'pin', title: 'Visit Us', text: '16-3-993, Malakpet Rd, Opposite Officer Mess, Officers Colony, New Malakpet, Hyderabad – 500036, Telangana' },
@@ -87,17 +100,25 @@ export default function Contact() {
         <h2 className="contact-page-title">Contact</h2>
 
         {/* Info cards — white, icon-on-top, in a row (above the heading) */}
-        <Reveal className="contact-cards">
+        <motion.div
+          className="contact-cards"
+          variants={cardsContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {INFO.map((info) => (
-            <div className="contact-card" key={info.title}>
-              <span className="contact-card-ic">{ICONS[info.key]}</span>
-              <b>{info.title}</b>
-              {info.lines
-                ? info.lines.map((l) => <p key={l}>{l}</p>)
-                : <p>{info.text}</p>}
-            </div>
+            <motion.div className="contact-card-wrap" key={info.title} variants={cardItem}>
+              <TiltCard className="contact-card" max={10}>
+                <span className="contact-card-ic">{ICONS[info.key]}</span>
+                <b>{info.title}</b>
+                {info.lines
+                  ? info.lines.map((l) => <p key={l}>{l}</p>)
+                  : <p>{info.text}</p>}
+              </TiltCard>
+            </motion.div>
           ))}
-        </Reveal>
+        </motion.div>
 
         <SectionHead
           center

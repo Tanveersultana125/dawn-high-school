@@ -1,84 +1,77 @@
-import { Reveal, SectionHead, Counter } from './common'
+import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import SmartImage from './SmartImage'
 
-const POINTS = [
-  ['Holistic Curriculum', 'A balanced blend of academics, arts, athletics, and character education.'],
-  ['Globally Benchmarked', 'Standards aligned with leading international education frameworks.'],
-  ['Future-Ready Skills', 'Critical thinking, coding, communication, and leadership from day one.'],
-]
-
-const STATS = [
-  { value: 25, suffix: '+', label: 'Years of Excellence' },
-  { value: 4200, suffix: '+', label: 'Student Strength' },
-  { value: 320, suffix: '+', label: 'Qualified Faculty' },
-  { value: 180, suffix: '+', label: 'Academic Awards' },
+const HIGHLIGHTS = [
+  'Trusted by families for more than two decades',
+  'A strong balance of academics and character building',
+  'Two welcoming campuses across Hyderabad',
+  'A modern, future-ready and globally informed curriculum',
+  'A nurturing environment where every student belongs',
 ]
 
 export default function About() {
   return (
-    <section className="section section-alt" id="about">
+    <section className="section about2" id="about">
       <div className="container">
-        <div className="about-grid">
-          <Reveal className="about-visual">
-            <div className="about-frame">
-              <SmartImage
-                className="about-photo"
-                src="https://images.pexels.com/photos/207692/pexels-photo-207692.jpeg?auto=compress&cs=tinysrgb&w=1100"
-                alt="Dawn High School campus building"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="about-frame-overlay" aria-hidden="true" />
-              <div className="scene-tag">
-                <span className="eyebrow" style={{ color: 'var(--gold-400)' }}>Est. 2000</span>
-                <div>
-                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.9rem', lineHeight: 1.15 }}>
-                    A Legacy of Learning, A Vision for Tomorrow
-                  </h3>
-                </div>
-              </div>
-            </div>
-            <div className="about-quote">
-              <span className="quote-mark" aria-hidden="true">“</span>
-              <p>We don&apos;t just teach subjects — we nurture leaders.</p>
-              <div className="quote-author">
-                <span className="qa-avatar" aria-hidden="true">EH</span>
-                <span className="qa-meta">
-                  <b>Dr. Eleanor Hayes</b>
-                  <small>Principal</small>
-                </span>
-              </div>
-            </div>
-          </Reveal>
-
-          <div className="about-copy">
-            <SectionHead
-              eyebrow="About Our School"
-              title="Where Ambition Meets"
-              accent="Achievement"
-              lead="For over two decades, Dawn High School has been a beacon of educational excellence — combining a rich heritage with cutting-edge teaching to shape confident, compassionate, and capable global citizens."
+        <div className="about2-grid">
+          <motion.div
+            className="about2-visual"
+            initial={{ opacity: 0, x: -90 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <SmartImage
+              src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1100&q=80"
+              alt="Dawn High School students with their teacher"
+              loading="lazy"
+              decoding="async"
             />
-            <Reveal className="about-points" delay={2}>
-              {POINTS.map(([title, desc]) => (
-                <div className="about-point" key={title}>
-                  <i>✓</i>
-                  <div>
-                    <b>{title}</b>
-                    <p>{desc}</p>
-                  </div>
-                </div>
-              ))}
-            </Reveal>
-          </div>
-        </div>
+          </motion.div>
 
-        <div className="stats-strip">
-          {STATS.map((s, i) => (
-            <Reveal className="stat" delay={i + 1} key={s.label}>
-              <Counter value={s.value} suffix={s.suffix} />
-              <span>{s.label}</span>
-            </Reveal>
-          ))}
+          <motion.div
+            className="about2-copy"
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+          >
+            <span className="about2-kicker">About Us</span>
+
+            <h2 className="about2-title">
+              Inspiring <strong>Excellence</strong>, Nurturing{' '}
+              <strong>Character</strong>, Shaping <strong>Leaders</strong>
+            </h2>
+
+            <p>
+              Since 2000, Dawn High School has been more than a place of study — it is a
+              community where <strong>curiosity is encouraged</strong>, effort is celebrated,
+              and every child is known by name. Over the years we have grown into a modern
+              institution while holding firmly to the values we started with.
+            </p>
+
+            <p>
+              We believe real education goes far beyond marks. It is about raising thoughtful,
+              kind and capable young people who can <strong>think for themselves and care for
+              others</strong>. Through strong academics, creative learning and a culture of
+              respect, we prepare students for life — not just for exams.
+            </p>
+
+            <h3 className="about2-h">Highlights of Our Journey:</h3>
+            <ul className="about2-list">
+              {HIGHLIGHTS.map((h) => (
+                <li key={h}>
+                  <i aria-hidden="true">❯</i>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+
+            <Link to="/admissions" className="btn btn-gold about2-btn">
+              Admissions Open 2025–26&nbsp;<strong>Register Now</strong>
+            </Link>
+          </motion.div>
         </div>
       </div>
     </section>

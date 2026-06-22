@@ -1,5 +1,16 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import Particles from './Particles'
+
+// Staggered fade + slide-up entrance for the hero content.
+const heroContainer = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.14, delayChildren: 0.1 } },
+}
+const heroItem = {
+  hidden: { opacity: 0, y: 26 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+}
 
 /** Banner shown at the top of every interior page.
  *  By default the backdrop is a live, mouse-interactive particle field.
@@ -16,18 +27,23 @@ export default function PageHero({ kicker, title, subtitle, crumb, variant, phot
         />
       )}
       <Particles className="page-hero-particles" interactive />
-      <div className="container page-hero-inner">
+      <motion.div
+        className="container page-hero-inner"
+        variants={heroContainer}
+        initial="hidden"
+        animate="visible"
+      >
         {(crumb || title) && (
-          <nav className="crumb" aria-label="Breadcrumb">
+          <motion.nav className="crumb" aria-label="Breadcrumb" variants={heroItem}>
             <Link to="/">Home</Link>
             <span>/</span>
             <b>{crumb || title}</b>
-          </nav>
+          </motion.nav>
         )}
-        {kicker && <span className="eyebrow">{kicker}</span>}
-        {title && <h1 className="page-hero-title">{title}</h1>}
-        {subtitle && <p className="page-hero-sub">{subtitle}</p>}
-      </div>
+        {kicker && <motion.span className="eyebrow" variants={heroItem}>{kicker}</motion.span>}
+        {title && <motion.h1 className="page-hero-title" variants={heroItem}>{title}</motion.h1>}
+        {subtitle && <motion.p className="page-hero-sub" variants={heroItem}>{subtitle}</motion.p>}
+      </motion.div>
     </section>
   )
 }
