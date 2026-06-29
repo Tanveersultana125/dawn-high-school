@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import Chatbot from './Chatbot'
 
 /** Thin gold progress bar that tracks scroll position. */
 function ScrollProgress() {
@@ -52,6 +53,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <Chatbot />
     </>
   )
 }
