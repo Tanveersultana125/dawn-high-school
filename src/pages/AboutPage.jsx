@@ -123,6 +123,30 @@ export default function AboutPage() {
               </p>
             </div>
           </Reveal>
+
+          <Reveal className="founder-card alt" delay={1}>
+            <div className="founder-photo">
+              <SmartImage
+                src="/khurram.png"
+                alt="Mr. Fazlur Rahman Khurram, Dawn High School"
+                loading="lazy"
+              />
+            </div>
+            <div className="founder-bio">
+              <h3>Mr. Fazlur Rahman Khurram</h3>
+              <span className="founder-role">Leadership</span>
+              <p>
+                A dedicated leader carrying forward the founding vision of Dawn High School,
+                Mr. Fazlur Rahman Khurram brings warmth, discipline, and a deep commitment
+                to nurturing every student's potential.
+              </p>
+              <p>
+                Under his guidance, the school continues to uphold its tradition of academic
+                excellence, strong values, and care for the community — ensuring that the
+                legacy of Dawn grows stronger with each passing year.
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 

@@ -2,75 +2,106 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import SmartImage from './SmartImage'
 
-const HIGHLIGHTS = [
-  'Trusted by families for more than two decades',
-  'A strong balance of academics and character building',
-  'Two welcoming campuses across Hyderabad',
-  'A modern, future-ready and globally informed curriculum',
-  'A nurturing environment where every student belongs',
+const U = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80`
+
+const FEATURES = [
+  {
+    ic: '🎓',
+    t: 'Two Decades of Trust',
+    d: 'A nurturing institution since 2000, shaping thousands of confident, capable and caring students.',
+  },
+  {
+    ic: '🌍',
+    t: 'Globally Connected Learning',
+    d: 'An Oxford University Press partner with an internationally informed, future-ready curriculum.',
+  },
 ]
+
+const ease = [0.22, 1, 0.36, 1]
 
 export default function About() {
   return (
-    <section className="section about2" id="about">
+    <section className="section abx" id="about">
       <div className="container">
-        <div className="about2-grid">
+        <div className="abx-grid">
+          {/* ---- Image collage ---- */}
           <motion.div
-            className="about2-visual"
-            initial={{ opacity: 0, x: -90 }}
+            className="abx-visual"
+            initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 1, ease }}
           >
-            <SmartImage
-              src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1100&q=80"
-              alt="Dawn High School students with their teacher"
-              loading="lazy"
-              decoding="async"
-            />
+            <div className="abx-img abx-main">
+              <SmartImage src={U('photo-1588072432836-e10032774350')} alt="Dawn High School students with their teacher" loading="lazy" />
+            </div>
+            <div className="abx-img abx-oval">
+              <SmartImage src={U('photo-1523580494863-6f3031224c94')} alt="Dawn students celebrating success" loading="lazy" />
+            </div>
+            <div className="abx-img abx-blob">
+              <SmartImage src={U('photo-1532094349884-543bc11b234d')} alt="Students in the Dawn science laboratory" loading="lazy" />
+            </div>
+
+            <div className="abx-badge">
+              <span className="abx-badge-ic">🏆</span>
+              <span className="abx-badge-txt">
+                <b>25 Years</b>
+                <i>Of Excellence</i>
+              </span>
+            </div>
           </motion.div>
 
+          {/* ---- Copy ---- */}
           <motion.div
-            className="about2-copy"
-            initial={{ opacity: 0, x: 60 }}
+            className="abx-copy"
+            initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 1, ease, delay: 0.1 }}
           >
-            <span className="about2-kicker">About Us</span>
+            <span className="abx-kicker">
+              <span className="abx-kicker-ic" aria-hidden="true">🏫</span> About Our School
+            </span>
 
-            <h2 className="about2-title">
-              Inspiring <strong>Excellence</strong>, Nurturing{' '}
-              <strong>Character</strong>, Shaping <strong>Leaders</strong>
+            <h2 className="abx-title">
+              Welcome To <span className="accent">Dawn High School</span>
             </h2>
 
-            <p>
-              Since 2000, Dawn High School has been more than a place of study — it is a
-              community where <strong>curiosity is encouraged</strong>, effort is celebrated,
-              and every child is known by name. Over the years we have grown into a modern
-              institution while holding firmly to the values we started with.
+            <p className="abx-lead">
+              A trusted name in education since 2000, offering a rich and versatile academic
+              framework that balances strong academics, character, and global readiness.
             </p>
 
-            <p>
-              We believe real education goes far beyond marks. It is about raising thoughtful,
-              kind and capable young people who can <strong>think for themselves and care for
-              others</strong>. Through strong academics, creative learning and a culture of
-              respect, we prepare students for life — not just for exams.
-            </p>
+            <div className="abx-midgrid">
+              <div className="abx-feats">
+                {FEATURES.map((f) => (
+                  <div className="abx-feat" key={f.t}>
+                    <span className="abx-feat-ic" aria-hidden="true">{f.ic}</span>
+                    <div>
+                      <h4>{f.t}</h4>
+                      <p>{f.d}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-            <h3 className="about2-h">Highlights of Our Journey:</h3>
-            <ul className="about2-list">
-              {HIGHLIGHTS.map((h) => (
-                <li key={h}>
-                  <i aria-hidden="true">❯</i>
-                  <span>{h}</span>
-                </li>
-              ))}
-            </ul>
+              <blockquote className="abx-quote">
+                Our commitment to excellence and strong values ensures every child receives a
+                world-class education rooted in character.
+                <span className="abx-quote-mark" aria-hidden="true">”</span>
+              </blockquote>
+            </div>
 
-            <Link to="/admissions" className="btn btn-gold about2-btn">
-              Admissions Open 2025–26&nbsp;<strong>Register Now</strong>
-            </Link>
+            <div className="abx-cta">
+              <Link to="/admissions" className="btn btn-gold">Admission Process&nbsp;→</Link>
+              <a href="tel:+918107666766" className="abx-help">
+                <span className="abx-help-ic" aria-hidden="true">📞</span>
+                <span className="abx-help-txt">
+                  <i>Admission Helpline</i>
+                  <b>+91 81076 66766</b>
+                </span>
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>
