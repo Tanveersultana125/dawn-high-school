@@ -6997,20 +6997,20 @@ body.no-scroll { overflow: hidden; }
   border-radius: 0;
   z-index: 1;
 }
-/* angled brand-coloured shape behind the main photo */
+/* elegant gold outline frame, gently offset to the bottom-right */
 .abx-main::before {
   content: '';
   position: absolute;
-  inset: -16px -14px -20px -22px;
-  z-index: -1;
-  background: var(--gradient-navy);
-  border-radius: 34px 34px 34px 84px;
-  transform: rotate(-4deg);
-  box-shadow: 0 36px 80px rgba(10, 33, 80, 0.32);
+  inset: 18px -18px -18px 18px;
+  z-index: 0;
+  border: 2px solid var(--gold-500);
+  border-radius: 26px;
 }
 .abx-main img {
+  position: relative;
+  z-index: 1;
   border-radius: 26px;
-  box-shadow: 0 24px 56px rgba(10, 33, 80, 0.3);
+  box-shadow: 0 30px 70px rgba(10, 33, 80, 0.2);
 }
 .abx-oval {
   grid-column: 2;
