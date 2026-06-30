@@ -30,7 +30,9 @@ function Stat({ icon, value, suffix, label, active, delay }) {
 }
 
 export default function RecognitionRibbon() {
-  const [ref, inView] = useInView({ once: true, threshold: 0.35 })
+  // Trigger only once the band is well within the viewport (not on first paint,
+  // since it sits just below the tall slider) so the count-up is always seen.
+  const [ref, inView] = useInView({ once: true, threshold: 0.2, rootMargin: '0px 0px -28% 0px' })
 
   return (
     <section className={`trust ${inView ? 'in' : ''}`} ref={ref} aria-label="Key highlights">
