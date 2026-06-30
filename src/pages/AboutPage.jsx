@@ -180,12 +180,12 @@ export default function AboutPage() {
       </section>
 
       {/* Journey */}
-      <section className="section section-alt">
+      <section className="section section-dark journey-section">
         <div className="container">
           <SectionHead center eyebrow="Our Journey" title="Two Decades of" accent="Growth" />
           <div className="grid cols-4">
             {JOURNEY.map((j, i) => (
-              <Reveal className="card" delay={(i % 4) + 1} key={j.year}>
+              <Reveal className="card journey-card" delay={(i % 4) + 1} key={j.year}>
                 <div className="why-num">{j.year}</div>
                 <h3>{j.title}</h3>
                 <p>{j.desc}</p>

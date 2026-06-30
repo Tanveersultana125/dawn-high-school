@@ -8270,3 +8270,27 @@ body.no-scroll { overflow: hidden; }
   .ann-tag { padding: 0 14px; font-size: 0.72rem; }
   .ann .imc-track { padding: 11px 0; }
 }
+
+/* ============================================================
+   Our Journey — timeline cards on a navy section
+   ============================================================ */
+.journey-section {
+  position: relative;
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(37, 99, 235, 0.18), transparent 70%),
+    var(--gradient-navy);
+}
+.journey-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
+}
+.journey-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 28px 64px rgba(0, 0, 0, 0.42);
+}
+.journey-card .why-num { color: var(--gold-400); }
+.journey-card h3 { color: #fff; }
+.journey-card p { color: rgba(255, 255, 255, 0.72); }
