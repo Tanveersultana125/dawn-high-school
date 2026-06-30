@@ -8189,3 +8189,62 @@ body.no-scroll { overflow: hidden; }
 @media (max-width: 480px) {
   .cbot-panel { right: 8px; left: 8px; width: auto; bottom: 82px; height: min(70vh, 540px); }
 }
+
+/* ============================================================
+   Announcement ticker — scrolling school highlights
+   ============================================================ */
+.ann {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--gradient-navy);
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  overflow: hidden;
+}
+.ann-tag {
+  flex-shrink: 0;
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 22px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy-900);
+  background: var(--gradient-gold);
+  box-shadow: 6px 0 18px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+.ann .imc-scroller { margin-top: 0; flex: 1 1 auto; min-width: 0; }
+.ann .imc-track { gap: 0; padding: 13px 0; }
+.ann .imc-card {
+  width: auto;
+  max-width: none;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+.ann-item {
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: clamp(0.88rem, 1vw, 0.98rem);
+  white-space: nowrap;
+}
+.ann-sep {
+  margin: 0 26px;
+  color: var(--gold-400);
+  font-size: 0.6rem;
+}
+
+@media (max-width: 560px) {
+  .ann-tag { padding: 0 14px; font-size: 0.72rem; }
+  .ann .imc-track { padding: 11px 0; }
+}

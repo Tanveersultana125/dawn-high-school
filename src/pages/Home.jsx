@@ -1,6 +1,7 @@
 import Hero from '../components/Hero'
 import Distinctly from '../components/Distinctly'
 import Recognition from '../components/Recognition'
+import AnnounceTicker from '../components/AnnounceTicker'
 import RecognitionRibbon from '../components/RecognitionRibbon'
 import ProgramExplorer from '../components/ProgramExplorer'
 import Divisions from '../components/Divisions'
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <>
       <Recognition />
+      <AnnounceTicker />
       <RecognitionRibbon />
       <Hero />
       <Distinctly />
