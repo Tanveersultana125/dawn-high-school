@@ -1,18 +1,18 @@
 import { Reveal, Counter } from './common'
 import AnimatedGradient from './AnimatedGradient'
 
-// On-brand navy → gold live gradient that sits behind the stat cards.
+// Soft, airy live gradient that sits behind the stat cards.
 const STATS_GRADIENT = {
   preset: 'custom',
-  color1: '#061128', // navy-900
-  color2: '#0e2a5e', // navy-700
-  color3: '#d4af37', // gold-500
+  color1: '#eaf1fb', // light blue tint
+  color2: '#f3e2a9', // soft light gold
+  color3: '#ffffff', // white
   rotation: -40,
-  proportion: 24,
+  proportion: 34,
   scale: 0.42,
-  speed: 14,
+  speed: 12,
   distortion: 3,
-  swirl: 48,
+  swirl: 46,
   swirlIterations: 6,
   softness: 100,
   offset: -120,

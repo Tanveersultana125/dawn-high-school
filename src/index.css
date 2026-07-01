@@ -2497,21 +2497,21 @@ ul {
 .stats-section--live {
   position: relative;
   isolation: isolate;            /* keep the canvas's z-index:-1 inside this section */
-  background: var(--navy-900);   /* fallback if WebGL is unavailable */
+  background: var(--gray-100);   /* light fallback if WebGL is unavailable */
 }
 .stats-section--live .stat {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(14px) saturate(120%);
-  -webkit-backdrop-filter: blur(14px) saturate(120%);
-  box-shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.62);
+  border-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px) saturate(115%);
+  -webkit-backdrop-filter: blur(12px) saturate(115%);
+  box-shadow: 0 22px 50px -28px rgba(10, 31, 68, 0.32);
 }
-.stats-section--live .stat b { color: #fff; }
-.stats-section--live .stat b .suffix { color: var(--gold-400); }
-.stats-section--live .stat span { color: rgba(255, 255, 255, 0.72); }
+.stats-section--live .stat b { color: var(--navy-800); }
+.stats-section--live .stat b .suffix { color: var(--gold-600); }
+.stats-section--live .stat span { color: var(--text-faint); }
 .stats-section--live .stat-ic {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.75);
+  border-color: var(--gray-200);
 }
 .stat-ic {
   width: 56px;
