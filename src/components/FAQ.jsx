@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Reveal, SectionHead } from './common'
+import SplitText from './SplitText'
 
 const FAQS = [
   { q: 'What is the admission process at Dawn High School?', a: 'Admissions open with an online inquiry, followed by a campus visit, a friendly interaction for the child, and document submission. Our team guides you through every step.' },
@@ -36,7 +37,25 @@ export default function FAQ() {
               </button>
               <div className="faq-a">
                 <div className="faq-a-inner">
-                  <p>{f.a}</p>
+                  {open === i ? (
+                    <SplitText
+                      key={`faq-split-${i}`}
+                      text={f.a}
+                      tag="p"
+                      className="faq-split"
+                      splitType="words"
+                      delay={16}
+                      duration={0.5}
+                      ease="power3.out"
+                      from={{ opacity: 0, y: 16 }}
+                      to={{ opacity: 1, y: 0 }}
+                      threshold={0.1}
+                      rootMargin="0px"
+                      textAlign="left"
+                    />
+                  ) : (
+                    <p>{f.a}</p>
+                  )}
                 </div>
               </div>
             </Reveal>

@@ -2964,6 +2964,10 @@ body.no-scroll { overflow: hidden; }
   font-size: 0.95rem;
   line-height: 1.7;
 }
+/* SplitText renders the answer as an inline-block <p>; keep it full-width so
+   the animated words wrap exactly like the static paragraph. */
+.faq-a p.faq-split { display: block !important; width: 100%; }
+.faq-a p.faq-split .split-word { will-change: transform, opacity; }
 
 /* ---- FAQ on a dark navy section: glass cards with gold accents ---- */
 .section-dark .faq-item {
