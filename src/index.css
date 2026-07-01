@@ -2459,8 +2459,39 @@ ul {
    ============================================================ */
 
 /* ---- Home stats strip ---- */
-.stats-section { padding-top: clamp(48px, 6vw, 80px); padding-bottom: 0; }
+.stats-section {
+  padding-top: clamp(48px, 6vw, 80px);
+  padding-bottom: clamp(48px, 6vw, 80px);
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 120% at 12% 0%, rgba(212, 175, 55, 0.10), transparent 60%),
+    radial-gradient(55% 120% at 90% 100%, rgba(14, 42, 94, 0.08), transparent 60%),
+    linear-gradient(180deg, #ffffff 0%, var(--gray-50) 55%, var(--gray-100) 100%);
+}
+.stats-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(14, 42, 94, 0.06) 1px, transparent 1.4px);
+  background-size: 26px 26px;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 40%, #000 60%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 40%, #000 60%, transparent);
+  pointer-events: none;
+}
+.stats-section .container { position: relative; z-index: 1; }
 .stats-section .stats-strip { margin-top: 0; }
+.stats-section .stat {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 18px 40px -24px rgba(10, 31, 68, 0.35);
+}
+.stats-section .stat:hover {
+  box-shadow: 0 26px 55px -22px rgba(10, 31, 68, 0.45);
+}
 .stat-ic {
   width: 56px;
   height: 56px;
