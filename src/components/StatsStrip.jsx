@@ -9,7 +9,7 @@ const STATS_GRADIENT = {
   preset: 'custom',
   color1: '#f6efda', // warm cream
   color2: '#ecd9a3', // soft gold
-  color3: '#fffdf6', // warm white
+  color3: '#dbe7fb', // soft royal-blue tint
   rotation: -40,
   proportion: 34,
   scale: 0.42,
