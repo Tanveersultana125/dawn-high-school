@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { SectionHead } from './common'
 import { NewsCard, NewsSpotlight } from './NewsMagic'
+import { ViewMagnifier } from './ViewMagnifier'
 
 const EVENTS = [
   {
@@ -49,7 +50,9 @@ export default function News() {
         <NewsSpotlight gridRef={gridRef} />
         <div className="news-grid" ref={gridRef}>
           {EVENTS.map((e, i) => (
-            <NewsCard event={e} delay={i + 1} key={e.title} />
+            <ViewMagnifier className="news-magnifier" key={e.title}>
+              <NewsCard event={e} delay={i + 1} />
+            </ViewMagnifier>
           ))}
         </div>
       </div>

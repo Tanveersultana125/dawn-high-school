@@ -4263,6 +4263,75 @@ body.no-scroll { overflow: hidden; }
   max-width: 460px;
 }
 
+/* ---- View Magnifier (drag-to-zoom cards) ---- */
+.view-magnifier {
+  position: relative;
+  width: 100%;
+}
+.view-magnifier__overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 40;
+}
+.view-magnifier__scaler {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  transform-origin: center center;
+  will-change: transform;
+}
+.view-magnifier__content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+/* soft lift shadow that fades in as the card zooms */
+.view-magnifier__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: 0 24px 48px -8px rgba(10, 31, 68, 0.22), 0 8px 24px -4px rgba(10, 31, 68, 0.12);
+  z-index: 1;
+}
+.view-magnifier__handle {
+  position: absolute;
+  top: 50%;
+  right: -14px;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 56px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #94a3b8;
+  cursor: grab;
+  z-index: 3;
+  transition: background 0.3s ease, height 0.3s ease;
+}
+.view-magnifier__handle::after {
+  content: '';
+  position: absolute;
+  inset: 0 -8px;
+}
+.view-magnifier__handle:hover { background: #64748b; height: 68px; }
+.view-magnifier__handle.is-grabbing { cursor: grabbing; background: #475569; }
+.view-magnifier__handle:focus-visible {
+  outline: 2px solid var(--royal-500);
+  outline-offset: 3px;
+}
+@media (max-width: 767px) {
+  .view-magnifier__handle { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .view-magnifier__overlay { backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
 /* ============================================================
    CONTACT
    ============================================================ */
