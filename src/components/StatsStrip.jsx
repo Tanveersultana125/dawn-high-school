@@ -3,12 +3,13 @@ import { Counter } from './common'
 import AnimatedGradient from './AnimatedGradient'
 import { MagicCard, MagicSpotlight } from './MagicGlow'
 
-// Soft, airy live gradient that sits behind the stat cards.
+// Soft, airy live gradient that sits behind the stat cards — warm cream + gold
+// so it matches the cards' gold accents (star, suffixes, glow).
 const STATS_GRADIENT = {
   preset: 'custom',
-  color1: '#eaf1fb', // light blue tint
-  color2: '#f3e2a9', // soft light gold
-  color3: '#ffffff', // white
+  color1: '#f6efda', // warm cream
+  color2: '#ecd9a3', // soft gold
+  color3: '#fffdf6', // warm white
   rotation: -40,
   proportion: 34,
   scale: 0.42,

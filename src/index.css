@@ -2497,7 +2497,9 @@ ul {
 .stats-section--live {
   position: relative;
   isolation: isolate;            /* keep the canvas's z-index:-1 inside this section */
-  background: var(--gray-100);   /* light fallback if WebGL is unavailable */
+  background:                    /* warm cream + gold fallback if WebGL is unavailable */
+    radial-gradient(60% 120% at 15% 0%, rgba(212, 175, 55, 0.16), transparent 60%),
+    linear-gradient(180deg, #fffdf6 0%, #f6efda 55%, #efe3c2 100%);
 }
 .stats-section--live .stat {
   background: rgba(255, 255, 255, 0.62);
