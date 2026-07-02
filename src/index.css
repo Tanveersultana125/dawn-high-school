@@ -4061,6 +4061,7 @@ body.no-scroll { overflow: hidden; }
   gap: 26px;
 }
 .news-card {
+  height: 100%;
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--white);
@@ -4069,6 +4070,7 @@ body.no-scroll { overflow: hidden; }
   flex-direction: column;
   transition: transform 0.5s var(--ease-lux), box-shadow 0.5s var(--ease-lux);
 }
+.news-media { flex: none; }
 .news-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
 .news-media {
   height: 180px;
