@@ -4177,6 +4177,92 @@ body.no-scroll { overflow: hidden; }
   .news-card--glow::after { display: none; }
 }
 
+/* ---- Card Spotlight (WebGL canvas-reveal) ---- */
+.canvas-reveal {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+}
+.canvas-reveal--transparent {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+}
+.canvas-reveal__canvas {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+.card-spotlight {
+  position: relative;
+  overflow: hidden;
+  padding: 40px;
+  border-radius: 8px;
+  border: 1px solid #262626;
+  background: #000;
+}
+.card-spotlight__mask {
+  pointer-events: none;
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.card-spotlight:hover .card-spotlight__mask { opacity: 1; }
+.card-spotlight__title {
+  position: relative;
+  z-index: 20;
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+.card-spotlight__list {
+  position: relative;
+  z-index: 20;
+  list-style: none;
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.card-spotlight__item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: #fff;
+  font-size: 0.98rem;
+}
+.card-spotlight__check {
+  height: 18px;
+  width: 18px;
+  margin-top: 3px;
+  flex-shrink: 0;
+  color: #3b82f6;
+}
+.card-spotlight__note {
+  position: relative;
+  z-index: 20;
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: #d4d4d4;
+}
+.admission-spotlight-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 46px;
+}
+.admission-spotlight {
+  width: 100%;
+  max-width: 460px;
+}
+
 /* ============================================================
    CONTACT
    ============================================================ */
