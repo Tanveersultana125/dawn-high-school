@@ -22,6 +22,9 @@ const STATS_GRADIENT = {
   shapeSize: 40,
 }
 
+// Brand gold (--gold-500 #d4af37) so the glow matches the section's gold accents.
+const STAT_GLOW = '212, 175, 55'
+
 const STATS = [
   { value: 4200, suffix: '+', label: 'Bright Students', icon: '🎓' },
   { value: 98, suffix: '%', label: 'University Placement', icon: '🏛️' },
@@ -36,10 +39,10 @@ export default function StatsStrip() {
     <section className="section stats-section stats-section--live" id="stats">
       <AnimatedGradient config={STATS_GRADIENT} noise={{ opacity: 0.35 }} />
       <div className="container">
-        <MagicSpotlight gridRef={stripRef} />
+        <MagicSpotlight gridRef={stripRef} glowColor={STAT_GLOW} />
         <div className="stats-strip" ref={stripRef}>
           {STATS.map((s, i) => (
-            <MagicCard className="stat" delay={(i % 4) + 1} key={s.label}>
+            <MagicCard className="stat" delay={(i % 4) + 1} glowColor={STAT_GLOW} key={s.label}>
               <div className="stat-ic">{s.icon}</div>
               <Counter value={s.value} suffix={s.suffix} />
               <span>{s.label}</span>
