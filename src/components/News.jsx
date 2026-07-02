@@ -1,4 +1,6 @@
-import { Reveal, SectionHead } from './common'
+import { useRef } from 'react'
+import { SectionHead } from './common'
+import { NewsCard, NewsSpotlight } from './NewsMagic'
 
 const EVENTS = [
   {
@@ -31,6 +33,8 @@ const EVENTS = [
 ]
 
 export default function News() {
+  const gridRef = useRef(null)
+
   return (
     <section className="section" id="news">
       <div className="container">
@@ -42,28 +46,10 @@ export default function News() {
           lead="Stay connected with the latest announcements, upcoming events, and celebrations across our vibrant campus."
         />
 
-        <div className="news-grid">
+        <NewsSpotlight gridRef={gridRef} />
+        <div className="news-grid" ref={gridRef}>
           {EVENTS.map((e, i) => (
-            <Reveal className="news-card" delay={i + 1} key={e.title}>
-              <div className="news-media" style={{ background: e.grad }}>
-                <span className="news-tag">{e.tag}</span>
-                {e.emoji}
-                <div className="news-date">
-                  <b>{e.day}</b>
-                  <span>{e.month}</span>
-                </div>
-              </div>
-              <div className="news-body">
-                <h3>{e.title}</h3>
-                <p>{e.desc}</p>
-                <a href="#news" className="news-link">
-                  Read More
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.4">
-                    <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-              </div>
-            </Reveal>
+            <NewsCard event={e} delay={i + 1} key={e.title} />
           ))}
         </div>
       </div>

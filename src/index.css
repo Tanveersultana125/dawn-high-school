@@ -4124,6 +4124,59 @@ body.no-scroll { overflow: hidden; }
 }
 .news-card:hover .news-link { gap: 14px; }
 
+/* ---- MagicBento interactive effects (cursor glow / tilt / particles) ---- */
+.news-card--magic {
+  position: relative;
+  transition: box-shadow 0.5s var(--ease-lux);
+  transform-style: preserve-3d;
+  will-change: transform;
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 300px;
+  --glow-color: 20, 80, 200;
+}
+.news-card--magic:hover {
+  box-shadow: 0 12px 34px rgba(10, 31, 68, 0.14), 0 0 26px rgba(var(--glow-color), 0.18);
+}
+/* keep the media / body above the particles & glow ring */
+.news-card--magic .news-media,
+.news-card--magic .news-body {
+  position: relative;
+  z-index: 2;
+}
+/* cursor-following border glow */
+.news-card--glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 5px;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(var(--glow-color), calc(var(--glow-intensity) * 0.7)) 0%,
+    rgba(var(--glow-color), calc(var(--glow-intensity) * 0.3)) 30%,
+    transparent 60%
+  );
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 3;
+  transition: opacity 0.3s ease;
+}
+.news-spotlight {
+  will-change: transform, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .news-card--glow::after { display: none; }
+}
+
 /* ============================================================
    CONTACT
    ============================================================ */
