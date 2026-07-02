@@ -4177,6 +4177,55 @@ body.no-scroll { overflow: hidden; }
   .news-card--glow::after { display: none; }
 }
 
+/* ---- Generic MagicBento glow (reusable across cards) ---- */
+.magic-glow {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 260px;
+  --glow-color: 20, 80, 200;
+}
+/* let GSAP own the transform; don't animate it via CSS */
+.stat.magic-glow { transition: box-shadow 0.5s var(--ease-lux); }
+.stat.magic-glow:hover {
+  box-shadow: 0 12px 30px rgba(10, 31, 68, 0.12), 0 0 24px rgba(var(--glow-color), 0.16);
+}
+/* keep card content above the particles / glow ring */
+.magic-glow > * {
+  position: relative;
+  z-index: 2;
+}
+.magic-glow--border::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 4px;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(var(--glow-color), calc(var(--glow-intensity) * 0.7)) 0%,
+    rgba(var(--glow-color), calc(var(--glow-intensity) * 0.3)) 30%,
+    transparent 60%
+  );
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 3;
+  transition: opacity 0.3s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .magic-glow--border::after { display: none; }
+}
+
 /* ---- Card Spotlight (WebGL canvas-reveal) ---- */
 .canvas-reveal {
   position: relative;

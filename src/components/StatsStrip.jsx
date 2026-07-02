@@ -1,5 +1,7 @@
-import { Reveal, Counter } from './common'
+import { useRef } from 'react'
+import { Counter } from './common'
 import AnimatedGradient from './AnimatedGradient'
+import { MagicCard, MagicSpotlight } from './MagicGlow'
 
 // Soft, airy live gradient that sits behind the stat cards.
 const STATS_GRADIENT = {
@@ -28,17 +30,20 @@ const STATS = [
 ]
 
 export default function StatsStrip() {
+  const stripRef = useRef(null)
+
   return (
     <section className="section stats-section stats-section--live" id="stats">
       <AnimatedGradient config={STATS_GRADIENT} noise={{ opacity: 0.35 }} />
       <div className="container">
-        <div className="stats-strip">
+        <MagicSpotlight gridRef={stripRef} />
+        <div className="stats-strip" ref={stripRef}>
           {STATS.map((s, i) => (
-            <Reveal className="stat" delay={(i % 4) + 1} key={s.label}>
+            <MagicCard className="stat" delay={(i % 4) + 1} key={s.label}>
               <div className="stat-ic">{s.icon}</div>
               <Counter value={s.value} suffix={s.suffix} />
               <span>{s.label}</span>
-            </Reveal>
+            </MagicCard>
           ))}
         </div>
       </div>
