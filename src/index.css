@@ -4928,16 +4928,16 @@ body.no-scroll { overflow: hidden; }
   background-color: #f3f6fc;
   background-image:
     radial-gradient(circle at 1px 1px, rgba(10, 31, 68, 0.05) 1px, transparent 0),
-    radial-gradient(680px circle at 0% 45%, rgba(140, 26, 56, 0.20), transparent 60%),
+    radial-gradient(680px circle at 0% 45%, rgba(37, 99, 235, 0.20), transparent 60%),
     radial-gradient(680px circle at 100% 55%, rgba(184, 134, 11, 0.22), transparent 60%),
-    radial-gradient(620px circle at 100% 8%, rgba(140, 26, 56, 0.14), transparent 60%),
-    radial-gradient(620px circle at 0% 95%, rgba(184, 134, 11, 0.14), transparent 60%);
+    radial-gradient(620px circle at 100% 8%, rgba(184, 134, 11, 0.14), transparent 60%),
+    radial-gradient(620px circle at 0% 95%, rgba(37, 99, 235, 0.14), transparent 60%);
   background-size: 26px 26px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   overflow: hidden;
 }
 /* keep all section content above the decorative background */
 #distinct > .container { position: relative; z-index: 1; }
-/* drifting side glows — maroon (left) & yellow (right) */
+/* drifting side glows — blue (left) & yellow (right) */
 #distinct::before,
 #distinct::after {
   content: '';
@@ -4952,7 +4952,7 @@ body.no-scroll { overflow: hidden; }
 #distinct::before {
   top: 30%;
   left: -180px;
-  background: radial-gradient(circle, rgba(140, 26, 56, 0.4), transparent 70%);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.4), transparent 70%);
   animation: distinctGlow 18s ease-in-out infinite;
 }
 #distinct::after {
