@@ -5098,14 +5098,14 @@ body.no-scroll { overflow: hidden; }
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(1100px 340px at 50% -6%, rgba(140, 26, 56, 0.34), transparent 70%),
-    radial-gradient(1100px 360px at 50% 106%, rgba(140, 26, 56, 0.30), transparent 70%),
-    radial-gradient(460px circle at 0% 0%, rgba(140, 26, 56, 0.28), transparent 60%),
-    radial-gradient(460px circle at 100% 0%, rgba(140, 26, 56, 0.28), transparent 60%),
-    radial-gradient(460px circle at 0% 100%, rgba(140, 26, 56, 0.26), transparent 60%),
-    radial-gradient(460px circle at 100% 100%, rgba(140, 26, 56, 0.26), transparent 60%),
-    radial-gradient(560px circle at 6% 50%, rgba(37, 99, 235, 0.12), transparent 62%),
-    radial-gradient(560px circle at 94% 50%, rgba(184, 134, 11, 0.14), transparent 62%),
+    radial-gradient(1100px 340px at 50% -6%, rgba(20, 80, 200, 0.30), transparent 70%),
+    radial-gradient(1100px 360px at 50% 106%, rgba(10, 31, 68, 0.26), transparent 70%),
+    radial-gradient(460px circle at 0% 0%, rgba(37, 99, 235, 0.24), transparent 60%),
+    radial-gradient(460px circle at 100% 0%, rgba(184, 134, 11, 0.20), transparent 60%),
+    radial-gradient(460px circle at 0% 100%, rgba(184, 134, 11, 0.18), transparent 60%),
+    radial-gradient(460px circle at 100% 100%, rgba(37, 99, 235, 0.22), transparent 60%),
+    radial-gradient(560px circle at 6% 50%, rgba(37, 99, 235, 0.14), transparent 62%),
+    radial-gradient(560px circle at 94% 50%, rgba(184, 134, 11, 0.16), transparent 62%),
     linear-gradient(180deg, #dde6f4 0%, #c6d3eb 100%);
 }
 /* drifting colour blobs */
@@ -5124,7 +5124,7 @@ body.no-scroll { overflow: hidden; }
   height: 360px;
   top: -150px;
   left: 22%;
-  background: radial-gradient(circle, rgba(140, 26, 56, 0.5), transparent 70%);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.45), transparent 70%);
   animation: divBlob 16s ease-in-out infinite;
 }
 .divisions::after {
@@ -5132,7 +5132,7 @@ body.no-scroll { overflow: hidden; }
   height: 380px;
   bottom: -170px;
   right: 22%;
-  background: radial-gradient(circle, rgba(120, 20, 48, 0.5), transparent 70%);
+  background: radial-gradient(circle, rgba(184, 134, 11, 0.42), transparent 70%);
   animation: divBlob 21s ease-in-out infinite reverse;
 }
 @keyframes divBlob {
