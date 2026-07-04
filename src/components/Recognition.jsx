@@ -4,6 +4,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import SmartImage from './SmartImage'
 import TiltCard from './TiltCard'
+import { usePageImageResolver } from '../context/PageImagesContext'
 
 /**
  * Recognition Hero — a full-width, full-bleed banner slider showcasing Dawn
@@ -15,6 +16,7 @@ import TiltCard from './TiltCard'
 const SLIDES = [
   {
     img: '/achievements/oxford-quality.png',
+    slot: 'home.award.1',
     pos: 'center 30%',
     tag: "Oxford University Press Partner",
     title: ['Officially Partnered with', 'Oxford'],
@@ -24,6 +26,7 @@ const SLIDES = [
   },
   {
     img: '/achievements/global-education-award.png',
+    slot: 'home.award.2',
     pos: 'center 28%',
     tag: 'National Honour',
     title: ['Global Education', 'Excellence Award'],
@@ -33,6 +36,7 @@ const SLIDES = [
   },
   {
     img: '/achievements/education-certificate.png',
+    slot: 'home.award.3',
     pos: 'center 25%',
     tag: 'Certified Excellence',
     title: ['An Institution of', 'Distinction'],
@@ -42,6 +46,7 @@ const SLIDES = [
   },
   {
     img: '/achievements/turkey-consulate.png',
+    slot: 'home.award.4',
     pos: 'center 22%',
     tag: 'International Ties',
     title: ['Building Global', 'Academic Bridges'],
@@ -51,6 +56,7 @@ const SLIDES = [
   },
   {
     img: '/achievements/dawn-recognition.png',
+    slot: 'home.award.5',
     pos: 'center 30%',
     tag: 'Civic Honour',
     title: ['Recognised by', 'Civic Leadership'],
@@ -60,6 +66,7 @@ const SLIDES = [
   },
   {
     img: '/achievements/sahitya-academy.png',
+    slot: 'home.award.6',
     pos: 'center 28%',
     tag: 'Inspiring Minds',
     title: ['Hosting Literary', 'Laureates'],
@@ -70,6 +77,7 @@ const SLIDES = [
 ]
 
 export default function Recognition() {
+  const pick = usePageImageResolver()
   const autoplay = useRef(
     Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })
   )
@@ -95,10 +103,12 @@ export default function Recognition() {
     <section className="recog-hero" id="recognition" aria-label="Awards & Recognition">
       <div className="recog-vp" ref={emblaRef}>
         <div className="recog-track">
-          {SLIDES.map((s, i) => (
+          {SLIDES.map((s, i) => {
+            const src = pick(s.slot, s.img)
+            return (
             <div className="recog-slide" key={s.tag}>
               {/* immersive full-bleed ambient backdrop (blurred copy of the photo) */}
-              <SmartImage src={s.img} alt="" aria-hidden="true" className="recog-ambient" loading={i === 0 ? 'eager' : 'lazy'} />
+              <SmartImage src={src} alt="" aria-hidden="true" className="recog-ambient" loading={i === 0 ? 'eager' : 'lazy'} />
               <span className="recog-veil" />
 
               <div className={`recog-inner ${i % 2 === 1 ? 'rev' : ''}`}>
@@ -117,12 +127,13 @@ export default function Recognition() {
                 {/* the full, sharp photo in a 3D tilt frame — never cropped */}
                 <div className={`recog-figcol ${selected === i ? 'on' : ''}`}>
                   <TiltCard className="recog-figure" max={9}>
-                    <SmartImage src={s.img} alt={s.title.join(' ')} className="recog-photo" loading={i === 0 ? 'eager' : 'lazy'} />
+                    <SmartImage src={src} alt={s.title.join(' ')} className="recog-photo" loading={i === 0 ? 'eager' : 'lazy'} />
                   </TiltCard>
                 </div>
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
       </div>
 

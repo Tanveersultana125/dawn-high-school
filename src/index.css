@@ -6677,6 +6677,82 @@ body.no-scroll { overflow: hidden; }
   .hero-manager-preview { width: 100%; }
 }
 
+/* ---- Page images manager (admin) ---- */
+.page-images {
+  background: #fff;
+  border-radius: 14px;
+  padding: 22px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 18px rgba(10, 33, 80, 0.07);
+  border-left: 4px solid var(--gold-400, #d4a017);
+}
+.page-images-head h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: #0a2150;
+  margin: 0 0 4px;
+}
+.page-images-head p { color: rgba(10, 33, 80, 0.6); font-size: 0.88rem; margin: 0 0 8px; }
+.pi-group { margin-top: 20px; }
+.pi-group-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--royal-600, #1450c8);
+  margin: 0 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e4e9f3;
+}
+.pi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+.pi-card {
+  border: 1px solid #e4e9f3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+}
+.pi-card.is-custom { border-color: var(--gold-400, #d4a017); }
+.pi-thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: #0a1f44;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.pi-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.pi-thumb-empty { color: rgba(255, 255, 255, 0.6); font-size: 0.72rem; text-align: center; padding: 0 10px; }
+.pi-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--gold-500, #d4af37);
+  color: #0a1f44;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+.pi-info {
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.pi-info b { font-size: 0.82rem; color: #0a2150; line-height: 1.3; }
+.pi-actions { display: flex; gap: 8px; margin-top: auto; }
+.btn-sm { padding: 6px 12px; font-size: 0.78rem; }
+
 /* ---- Media library (admin) ---- */
 .media-upload {
   background: #fff;

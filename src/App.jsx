@@ -12,9 +12,11 @@ import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminMedia from './pages/AdminMedia'
 import ProtectedRoute from './components/ProtectedRoute'
+import { PageImagesProvider } from './context/PageImagesContext'
 
 export default function App() {
   return (
+    <PageImagesProvider>
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Home />} />
@@ -47,5 +49,6 @@ export default function App() {
         }
       />
     </Routes>
+    </PageImagesProvider>
   )
 }

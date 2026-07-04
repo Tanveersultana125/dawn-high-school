@@ -22,7 +22,7 @@ export default function Home() {
       <ProgramExplorer />
       <Divisions />
       <Insights />
-      <Library alt img="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1100&q=80" />
+      <Library alt slot="home.library" img="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1100&q=80" />
       <WhyChoose />
       <FAQ />
       <News />

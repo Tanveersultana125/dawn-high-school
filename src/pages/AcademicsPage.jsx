@@ -3,6 +3,7 @@ import Academics from '../components/Academics'
 import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
 import SmartImage from '../components/SmartImage'
+import { usePageImage } from '../context/PageImagesContext'
 
 const PHILOSOPHY = [
   { ic: '🔍', t: 'Inquiry-Based', d: 'Students learn by questioning, exploring, and discovering — not memorising.' },
@@ -28,11 +29,13 @@ const ASSESS = [
 ]
 
 export default function AcademicsPage() {
+  const heroPhoto = usePageImage('academics.hero', '')
+  const oxfordImg = usePageImage('academics.oxfordCurriculum', '/oxford-curriculum.png')
   return (
     <>
       <PageHero
         variant="academics"
-        image="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80"
+        photo={heroPhoto}
         kicker="Academic Excellence"
         title="Programs for Every Stage of Growth"
         subtitle="From first steps to final exams, our academic pathways challenge, inspire, and empower students at every level."
@@ -69,7 +72,7 @@ export default function AcademicsPage() {
             </Reveal>
             <Reveal className="award-photo" delay={1}>
               <SmartImage
-                src="/oxford-curriculum.png"
+                src={oxfordImg}
                 alt="Dawn High School — Unlocking potential with the Oxford Curriculum Framework"
                 loading="lazy"
               />

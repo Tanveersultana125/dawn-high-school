@@ -4,6 +4,7 @@ import StatsStrip from '../components/StatsStrip'
 import Achievements from '../components/Achievements'
 import { Reveal, SectionHead } from '../components/common'
 import SmartImage from '../components/SmartImage'
+import { usePageImage } from '../context/PageImagesContext'
 
 const JOURNEY = [
   { year: '2000', title: 'Founded', desc: 'Dawn High School opens its doors with 120 students and a bold vision.' },
@@ -36,6 +37,10 @@ const vmImgV = {
 }
 
 export default function AboutPage() {
+  const visionImg = usePageImage('about.vision', 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1100&q=80')
+  const founderImg = usePageImage('about.founder', '/founder.jpg')
+  const leadershipImg = usePageImage('about.leadership', '/khurram.png')
+  const awardImg = usePageImage('about.award', '/dawn-award.jpg')
   return (
     <>
       <About />
@@ -79,7 +84,7 @@ export default function AboutPage() {
 
             <motion.div className="vm-visual" variants={vmImgV}>
               <SmartImage
-                src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1100&q=80"
+                src={visionImg}
                 alt="Dawn High School students learning together"
                 loading="lazy"
               />
@@ -100,7 +105,7 @@ export default function AboutPage() {
           <Reveal className="founder-card">
             <div className="founder-photo">
               <SmartImage
-                src="/founder.jpg"
+                src={founderImg}
                 alt="Janab Razi-ur-Rahman Sahab, Founder of Dawn High School"
                 loading="lazy"
               />
@@ -127,7 +132,7 @@ export default function AboutPage() {
           <Reveal className="founder-card alt" delay={1}>
             <div className="founder-photo">
               <SmartImage
-                src="/khurram.png"
+                src={leadershipImg}
                 alt="Mr. Fazlur Rahman Khurram, Dawn High School"
                 loading="lazy"
               />
@@ -170,7 +175,7 @@ export default function AboutPage() {
             </Reveal>
             <Reveal className="award-photo" delay={1}>
               <SmartImage
-                src="/dawn-award.jpg"
+                src={awardImg}
                 alt="Dawn High School honouring excellence at an award ceremony"
                 loading="lazy"
               />

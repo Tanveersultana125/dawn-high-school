@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import SmartImage from './SmartImage'
+import { usePageImageResolver } from '../context/PageImagesContext'
 
 const U = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80`
 
@@ -20,6 +21,7 @@ const FEATURES = [
 const ease = [0.22, 1, 0.36, 1]
 
 export default function About() {
+  const pick = usePageImageResolver()
   return (
     <section className="section abx" id="about">
       <div className="container">
@@ -33,13 +35,13 @@ export default function About() {
             transition={{ duration: 1, ease }}
           >
             <div className="abx-img abx-main">
-              <SmartImage src={U('photo-1588072432836-e10032774350')} alt="Dawn High School students with their teacher" loading="lazy" />
+              <SmartImage src={pick('about.collage.1', U('photo-1588072432836-e10032774350'))} alt="Dawn High School students with their teacher" loading="lazy" />
             </div>
             <div className="abx-img abx-oval">
-              <SmartImage src={U('photo-1523580494863-6f3031224c94')} alt="Dawn students celebrating success" loading="lazy" />
+              <SmartImage src={pick('about.collage.2', U('photo-1523580494863-6f3031224c94'))} alt="Dawn students celebrating success" loading="lazy" />
             </div>
             <div className="abx-img abx-blob">
-              <SmartImage src={U('photo-1532094349884-543bc11b234d')} alt="Students in the Dawn science laboratory" loading="lazy" />
+              <SmartImage src={pick('about.collage.3', U('photo-1532094349884-543bc11b234d'))} alt="Students in the Dawn science laboratory" loading="lazy" />
             </div>
 
             <div className="abx-badge">

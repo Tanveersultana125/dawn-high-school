@@ -4,6 +4,7 @@ import { uploadToCloudinary, isCloudinaryConfigured } from '../lib/cloudinary'
 import { addMedia, fetchMedia, deleteMedia } from '../lib/media'
 import { getHeroMedia, setHeroMedia } from '../lib/settings'
 import SmartImage from '../components/SmartImage'
+import PageImagesManager from '../components/PageImagesManager'
 
 const CATEGORIES = ['Campus', 'Academics', 'Athletics', 'Arts', 'Events', 'Innovation']
 
@@ -145,6 +146,9 @@ export default function AdminMedia() {
           )}
         </div>
       </section>
+
+      {/* Per-page section images (Home / About / Academics / Campus) */}
+      <PageImagesManager />
 
       {/* Gallery upload box */}
       <div className="media-upload">

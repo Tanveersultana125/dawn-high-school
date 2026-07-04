@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Reveal, SectionHead, Counter } from './common'
 import SmartImage from './SmartImage'
+import { usePageImage } from '../context/PageImagesContext'
 
 const STATS = [
   { value: 30000, suffix: '+', label: 'Books & Volumes' },
@@ -59,16 +60,17 @@ const GALLERY = [
   { src: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=800&q=80', cap: 'Curated Collections' },
 ]
 
-export default function Library({ alt = false, detailed = false, img = LIBRARY_IMG }) {
+export default function Library({ alt = false, detailed = false, img = LIBRARY_IMG, slot }) {
   const intro = detailed ? INTRO.campus : INTRO.home
   const features = detailed ? CAMPUS_FEATURES : HOME_FEATURES
+  const mainImg = usePageImage(slot, img)
 
   return (
     <section className={`section library ${alt ? 'section-alt' : ''}`} id="library">
       <div className="container">
         <div className="library-grid">
           <Reveal className="library-media">
-            <SmartImage src={img} alt="The Dawn Library reading hall" loading="lazy" />
+            <SmartImage src={mainImg} alt="The Dawn Library reading hall" loading="lazy" />
             <div className="library-badge">
               <b>30,000+</b>
               <span>Volumes On Shelf</span>

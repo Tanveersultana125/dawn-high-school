@@ -4,6 +4,7 @@ import Campus3D from '../components/Campus3D'
 import Library from '../components/Library'
 import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
+import { usePageImage } from '../context/PageImagesContext'
 
 const FACILITIES = [
   { ic: '🏫', t: 'Smart Classrooms', d: '60 air-conditioned rooms with interactive smart boards.' },
@@ -17,11 +18,12 @@ const FACILITIES = [
 ]
 
 export default function CampusPage() {
+  const heroPhoto = usePageImage('campus.hero', '')
   return (
     <>
       <PageHero
         variant="campus"
-        image="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80"
+        photo={heroPhoto}
         kicker="Campus Life"
         title="Where Learning Extends Beyond the Classroom"
         subtitle="A vibrant 12-acre campus where every passion finds a home — sports, arts, science, and service."
@@ -54,7 +56,7 @@ export default function CampusPage() {
         </div>
       </section>
 
-      <Library alt detailed />
+      <Library alt detailed slot="campus.library" />
 
       <Campus3D />
     </>
