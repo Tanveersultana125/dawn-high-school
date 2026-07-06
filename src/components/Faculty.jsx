@@ -1,4 +1,7 @@
 import { Reveal, SectionHead } from './common'
+import SmartImage from './SmartImage'
+import { usePageImageResolver } from '../context/PageImagesContext'
+import { usePageTextResolver } from '../context/PageTextContext'
 
 const FACULTY = [
   { name: 'Dr. Eleanor Hayes', role: 'Principal', qual: 'Ph.D. Education · 28 yrs', grad: 'linear-gradient(160deg,#0e2a5e,#1450c8)', initials: 'EH' },
@@ -8,35 +11,45 @@ const FACULTY = [
 ]
 
 export default function Faculty() {
+  const txt = usePageTextResolver()
+  const pick = usePageImageResolver()
   return (
     <section className="section section-alt" id="faculty">
       <div className="container">
         <SectionHead
           center
-          eyebrow="Our Faculty"
-          title="Mentors Who"
-          accent="Inspire Greatness"
-          lead="Behind every great student is a great teacher. Meet a few of the dedicated educators shaping the leaders of tomorrow."
+          eyebrow={txt('faculty.head.eyebrow', 'Our Faculty')}
+          title={txt('faculty.head.title', 'Mentors Who')}
+          accent={txt('faculty.head.accent', 'Inspire Greatness')}
+          lead={txt('faculty.head.lead', 'Behind every great student is a great teacher. Meet a few of the dedicated educators shaping the leaders of tomorrow.')}
         />
 
         <div className="faculty-grid">
-          {FACULTY.map((f, i) => (
-            <Reveal className="faculty-card" delay={(i % 4) + 1} key={f.name}>
-              <div className="faculty-photo" style={{ background: f.grad }}>
-                <span className="avatar">{f.initials}</span>
-                <div className="faculty-social">
-                  <a href="#faculty" aria-label={`${f.name} on LinkedIn`}>in</a>
-                  <a href="#faculty" aria-label={`Email ${f.name}`}>@</a>
-                  <a href="#faculty" aria-label={`${f.name} profile`}>↗</a>
+          {FACULTY.map((f, i) => {
+            const name = txt(`faculty.member.${i + 1}.name`, f.name)
+            const photo = pick(`faculty.member.${i + 1}`, '')
+            return (
+              <Reveal className="faculty-card" delay={(i % 4) + 1} key={f.name}>
+                <div className="faculty-photo" style={{ background: f.grad }}>
+                  {photo ? (
+                    <SmartImage className="faculty-img" src={photo} alt={name} loading="lazy" />
+                  ) : (
+                    <span className="avatar">{f.initials}</span>
+                  )}
+                  <div className="faculty-social">
+                    <a href="#faculty" aria-label={`${name} on LinkedIn`}>in</a>
+                    <a href="#faculty" aria-label={`Email ${name}`}>@</a>
+                    <a href="#faculty" aria-label={`${name} profile`}>↗</a>
+                  </div>
                 </div>
-              </div>
-              <div className="faculty-info">
-                <b>{f.name}</b>
-                <div className="role">{f.role}</div>
-                <div className="qual">{f.qual}</div>
-              </div>
-            </Reveal>
-          ))}
+                <div className="faculty-info">
+                  <b>{name}</b>
+                  <div className="role">{txt(`faculty.member.${i + 1}.role`, f.role)}</div>
+                  <div className="qual">{txt(`faculty.member.${i + 1}.qual`, f.qual)}</div>
+                </div>
+              </Reveal>
+            )
+          })}
         </div>
       </div>
     </section>

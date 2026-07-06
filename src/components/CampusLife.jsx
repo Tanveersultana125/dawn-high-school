@@ -1,6 +1,7 @@
 import { Reveal, SectionHead } from './common'
 import SmartImage from './SmartImage'
 import { usePageImageResolver } from '../context/PageImagesContext'
+import { usePageTextResolver } from '../context/PageTextContext'
 
 const U = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80`
 
@@ -15,15 +16,16 @@ const CARDS = [
 
 export default function CampusLife() {
   const pick = usePageImageResolver()
+  const txt = usePageTextResolver()
   return (
     <section className="section section-alt" id="campus-life">
       <div className="container">
         <SectionHead
           center
-          eyebrow="Campus Life"
-          title="Where Learning Extends"
-          accent="Beyond the Classroom"
-          lead="A vibrant campus where every passion finds a home — building well-rounded individuals through sports, arts, science, and service."
+          eyebrow={txt('campus.life.eyebrow', 'Campus Life')}
+          title={txt('campus.life.title', 'Where Learning Extends')}
+          accent={txt('campus.life.accent', 'Beyond the Classroom')}
+          lead={txt('campus.life.lead', 'A vibrant campus where every passion finds a home — building well-rounded individuals through sports, arts, science, and service.')}
         />
 
         <div className="life-grid">
@@ -37,11 +39,11 @@ export default function CampusLife() {
               <SmartImage className="life-img" src={pick(c.slot, c.img)} alt={c.title} loading="lazy" />
               <div className="life-top">
                 <span className="life-ic">{c.icon}</span>
-                <span className="life-stat">{c.stat}</span>
+                <span className="life-stat">{txt(`campus.life.${i + 1}.stat`, c.stat)}</span>
               </div>
               <div className="life-body">
-                <h3>{c.title}</h3>
-                <p>{c.desc}</p>
+                <h3>{txt(`campus.life.${i + 1}.title`, c.title)}</h3>
+                <p>{txt(`campus.life.${i + 1}.desc`, c.desc)}</p>
                 <span className="life-more">Explore <i aria-hidden="true">→</i></span>
               </div>
             </Reveal>

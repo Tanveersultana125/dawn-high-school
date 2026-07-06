@@ -22,6 +22,7 @@ const ADMIN_PAGES = [
   { path: 'about',      page: 'About',      title: 'About Page',      subtitle: 'Intro collage, vision, founder & leadership photos' },
   { path: 'academics',  page: 'Academics',  title: 'Academics Page',  subtitle: 'Hero banner & curriculum image' },
   { path: 'campus',     page: 'Campus',     title: 'Campus Page',     subtitle: 'Hero banner, campus-life photos & library image' },
+  { path: 'faculty',    page: 'Faculty',    title: 'Faculty Page',    subtitle: 'Hero, faculty members, photos & departments' },
   { path: 'admissions', page: 'Admissions', title: 'Admissions Page', subtitle: 'Optional hero background photo' },
   { path: 'contact',    page: 'Contact',    title: 'Contact Page',    subtitle: 'Hero banner background photo' },
 ]

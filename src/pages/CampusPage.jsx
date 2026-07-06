@@ -5,6 +5,7 @@ import Library from '../components/Library'
 import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
 import { usePageImage } from '../context/PageImagesContext'
+import { usePageTextResolver } from '../context/PageTextContext'
 
 const FACILITIES = [
   { ic: '🏫', t: 'Smart Classrooms', d: '60 air-conditioned rooms with interactive smart boards.' },
@@ -19,14 +20,15 @@ const FACILITIES = [
 
 export default function CampusPage() {
   const heroPhoto = usePageImage('campus.hero', '')
+  const txt = usePageTextResolver()
   return (
     <>
       <PageHero
         variant="campus"
         photo={heroPhoto}
-        kicker="Campus Life"
-        title="Where Learning Extends Beyond the Classroom"
-        subtitle="A vibrant 12-acre campus where every passion finds a home — sports, arts, science, and service."
+        kicker={txt('campus.hero.kicker', 'Campus Life')}
+        title={txt('campus.hero.title', 'Where Learning Extends Beyond the Classroom')}
+        subtitle={txt('campus.hero.subtitle', 'A vibrant 12-acre campus where every passion finds a home — sports, arts, science, and service.')}
         crumb="Campus"
       />
 
@@ -37,18 +39,18 @@ export default function CampusPage() {
         <div className="container">
           <SectionHead
             center
-            eyebrow="World-Class Facilities"
-            title="Built for"
-            accent="Every Ambition"
-            lead="State-of-the-art infrastructure designed for safety, comfort, and inspired learning."
+            eyebrow={txt('campus.fac.eyebrow', 'World-Class Facilities')}
+            title={txt('campus.fac.title', 'Built for')}
+            accent={txt('campus.fac.accent', 'Every Ambition')}
+            lead={txt('campus.fac.lead', 'State-of-the-art infrastructure designed for safety, comfort, and inspired learning.')}
           />
           <div className="grid cols-4">
             {FACILITIES.map((f, i) => (
               <Reveal className="philo-cell" delay={(i % 4) + 1} key={f.t}>
                 <TiltCard className="card philosophy-card">
                   <div className="card-icon">{f.ic}</div>
-                  <h3>{f.t}</h3>
-                  <p>{f.d}</p>
+                  <h3>{txt(`campus.fac.${i + 1}.t`, f.t)}</h3>
+                  <p>{txt(`campus.fac.${i + 1}.d`, f.d)}</p>
                 </TiltCard>
               </Reveal>
             ))}
@@ -56,7 +58,7 @@ export default function CampusPage() {
         </div>
       </section>
 
-      <Library alt detailed slot="campus.library" />
+      <Library alt detailed slot="campus.library" textPrefix="campus.library" />
 
       <Campus3D />
     </>

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import SmartImage from './SmartImage'
 import { usePageImageResolver } from '../context/PageImagesContext'
+import { usePageTextResolver } from '../context/PageTextContext'
 
 const U = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80`
 
@@ -22,6 +23,7 @@ const ease = [0.22, 1, 0.36, 1]
 
 export default function About() {
   const pick = usePageImageResolver()
+  const txt = usePageTextResolver()
   return (
     <section className="section abx" id="about">
       <div className="container">
@@ -62,45 +64,43 @@ export default function About() {
             transition={{ duration: 1, ease, delay: 0.1 }}
           >
             <span className="abx-kicker">
-              <span className="abx-kicker-ic" aria-hidden="true">🏫</span> About Our School
+              <span className="abx-kicker-ic" aria-hidden="true">🏫</span> {txt('about.intro.kicker', 'About Our School')}
             </span>
 
             <h2 className="abx-title">
-              Welcome To <span className="accent">Dawn High School</span>
+              {txt('about.intro.title', 'Welcome To')} <span className="accent">{txt('about.intro.accent', 'Dawn High School')}</span>
             </h2>
 
             <p className="abx-lead">
-              A trusted name in education since 2000, offering a rich and versatile academic
-              framework that balances strong academics, character, and global readiness.
+              {txt('about.intro.lead', 'A trusted name in education since 2000, offering a rich and versatile academic framework that balances strong academics, character, and global readiness.')}
             </p>
 
             <div className="abx-midgrid">
               <div className="abx-feats">
-                {FEATURES.map((f) => (
+                {FEATURES.map((f, i) => (
                   <div className="abx-feat" key={f.t}>
                     <span className="abx-feat-ic" aria-hidden="true">{f.ic}</span>
                     <div>
-                      <h4>{f.t}</h4>
-                      <p>{f.d}</p>
+                      <h4>{txt(`about.intro.feat.${i + 1}.t`, f.t)}</h4>
+                      <p>{txt(`about.intro.feat.${i + 1}.d`, f.d)}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
               <blockquote className="abx-quote">
-                Our commitment to excellence and strong values ensures every child receives a
-                world-class education rooted in character.
+                {txt('about.intro.quote', 'Our commitment to excellence and strong values ensures every child receives a world-class education rooted in character.')}
                 <span className="abx-quote-mark" aria-hidden="true">”</span>
               </blockquote>
             </div>
 
             <div className="abx-cta">
-              <Link to="/admissions" className="btn btn-gold">Admission Process&nbsp;→</Link>
+              <Link to="/admissions" className="btn btn-gold">{txt('about.intro.cta', 'Admission Process')}&nbsp;→</Link>
               <a href="tel:+918107666766" className="abx-help">
                 <span className="abx-help-ic" aria-hidden="true">📞</span>
                 <span className="abx-help-txt">
-                  <i>Admission Helpline</i>
-                  <b>+91 81076 66766</b>
+                  <i>{txt('about.intro.helpLabel', 'Admission Helpline')}</i>
+                  <b>{txt('about.intro.helpNum', '+91 81076 66766')}</b>
                 </span>
               </a>
             </div>

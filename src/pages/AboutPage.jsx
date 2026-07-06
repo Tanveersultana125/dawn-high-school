@@ -5,6 +5,7 @@ import Achievements from '../components/Achievements'
 import { Reveal, SectionHead } from '../components/common'
 import SmartImage from '../components/SmartImage'
 import { usePageImage } from '../context/PageImagesContext'
+import { usePageTextResolver } from '../context/PageTextContext'
 
 const JOURNEY = [
   { year: '2000', title: 'Founded', desc: 'Dawn High School opens its doors with 120 students and a bold vision.' },
@@ -41,6 +42,7 @@ export default function AboutPage() {
   const founderImg = usePageImage('about.founder', '/founder.jpg')
   const leadershipImg = usePageImage('about.leadership', '/khurram.png')
   const awardImg = usePageImage('about.award', '/dawn-award.jpg')
+  const txt = usePageTextResolver()
   return (
     <>
       <About />
@@ -59,15 +61,14 @@ export default function AboutPage() {
           >
             <motion.div className="vm-copy" variants={vmCopyV}>
               <h2 className="vm-title">
-                Our <span className="accent">Vision &amp; Mission</span>
+                {txt('about.vm.title', 'Our')} <span className="accent">{txt('about.vm.accent', 'Vision & Mission')}</span>
               </h2>
 
               <div className="vm-block">
                 <h4>Vision</h4>
                 <p>
                   <i aria-hidden="true">❯</i>
-                  To be the most trusted institution of learning in the region — empowering
-                  students through knowledge, character, and global readiness.
+                  {txt('about.vm.vision', 'To be the most trusted institution of learning in the region — empowering students through knowledge, character, and global readiness.')}
                 </p>
               </div>
 
@@ -75,9 +76,7 @@ export default function AboutPage() {
                 <h4>Mission</h4>
                 <p>
                   <i aria-hidden="true">❯</i>
-                  Rooted in tradition, Dawn fosters compassionate, competent, and future-ready
-                  citizens by providing a nurturing, inclusive, and innovative learning
-                  environment.
+                  {txt('about.vm.mission', 'Rooted in tradition, Dawn fosters compassionate, competent, and future-ready citizens by providing a nurturing, inclusive, and innovative learning environment.')}
                 </p>
               </div>
             </motion.div>
@@ -98,9 +97,9 @@ export default function AboutPage() {
         <div className="container">
           <SectionHead
             center
-            eyebrow="Our Leadership"
-            title="The Visionary Behind"
-            accent="Dawn High School"
+            eyebrow={txt('about.lead.eyebrow', 'Our Leadership')}
+            title={txt('about.lead.title', 'The Visionary Behind')}
+            accent={txt('about.lead.accent', 'Dawn High School')}
           />
           <Reveal className="founder-card">
             <div className="founder-photo">
@@ -111,20 +110,13 @@ export default function AboutPage() {
               />
             </div>
             <div className="founder-bio">
-              <h3>Janab Razi-ur-Rahman Sahab</h3>
-              <span className="founder-role">Founder</span>
+              <h3>{txt('about.founder.name', 'Janab Razi-ur-Rahman Sahab')}</h3>
+              <span className="founder-role">{txt('about.founder.role', 'Founder')}</span>
               <p>
-                A visionary educator and the guiding spirit behind Dawn High School,
-                Janab Razi-ur-Rahman Sahab believed that education is the truest path to
-                dignity, opportunity, and lasting change. With unwavering commitment, he
-                laid the foundation of an institution rooted in knowledge, character, and
-                service to the community.
+                {txt('about.founder.p1', 'A visionary educator and the guiding spirit behind Dawn High School, Janab Razi-ur-Rahman Sahab believed that education is the truest path to dignity, opportunity, and lasting change. With unwavering commitment, he laid the foundation of an institution rooted in knowledge, character, and service to the community.')}
               </p>
               <p>
-                His vision was simple yet profound — to create a school where every child,
-                regardless of background, could learn with confidence and grow into a
-                responsible, compassionate citizen. That vision continues to shape the
-                values, culture, and aspirations of Dawn High School to this day.
+                {txt('about.founder.p2', 'His vision was simple yet profound — to create a school where every child, regardless of background, could learn with confidence and grow into a responsible, compassionate citizen. That vision continues to shape the values, culture, and aspirations of Dawn High School to this day.')}
               </p>
             </div>
           </Reveal>
@@ -138,17 +130,13 @@ export default function AboutPage() {
               />
             </div>
             <div className="founder-bio">
-              <h3>Mr. Fazlur Rahman Khurram</h3>
-              <span className="founder-role">Leadership</span>
+              <h3>{txt('about.leader.name', 'Mr. Fazlur Rahman Khurram')}</h3>
+              <span className="founder-role">{txt('about.leader.role', 'Leadership')}</span>
               <p>
-                A dedicated leader carrying forward the founding vision of Dawn High School,
-                Mr. Fazlur Rahman Khurram brings warmth, discipline, and a deep commitment
-                to nurturing every student's potential.
+                {txt('about.leader.p1', "A dedicated leader carrying forward the founding vision of Dawn High School, Mr. Fazlur Rahman Khurram brings warmth, discipline, and a deep commitment to nurturing every student's potential.")}
               </p>
               <p>
-                Under his guidance, the school continues to uphold its tradition of academic
-                excellence, strong values, and care for the community — ensuring that the
-                legacy of Dawn grows stronger with each passing year.
+                {txt('about.leader.p2', 'Under his guidance, the school continues to uphold its tradition of academic excellence, strong values, and care for the community — ensuring that the legacy of Dawn grows stronger with each passing year.')}
               </p>
             </div>
           </Reveal>
@@ -160,17 +148,16 @@ export default function AboutPage() {
         <div className="container">
           <div className="award-card">
             <Reveal className="award-copy">
-              <span className="eyebrow" style={{ color: 'var(--gold-400)' }}>Recognition &amp; Honours</span>
-              <h2>Celebrating Excellence at Dawn</h2>
+              <span className="eyebrow" style={{ color: 'var(--gold-400)' }}>{txt('about.rec.eyebrow', 'Recognition & Honours')}</span>
+              <h2>{txt('about.rec.title', 'Celebrating Excellence at Dawn')}</h2>
               <p>
-                Dawn High School takes pride in recognising and rewarding excellence — among
-                students, educators, and the wider community that makes our mission possible.
+                {txt('about.rec.desc', 'Dawn High School takes pride in recognising and rewarding excellence — among students, educators, and the wider community that makes our mission possible.')}
               </p>
               <ul className="award-points">
-                <li><i>★</i> Honouring outstanding academic and co-curricular achievement</li>
-                <li><i>★</i> Felicitating distinguished guests and community leaders</li>
-                <li><i>★</i> Celebrating the dedication of our teachers and staff</li>
-                <li><i>★</i> Building a culture that values merit, effort, and character</li>
+                <li><i>★</i> {txt('about.rec.point.1', 'Honouring outstanding academic and co-curricular achievement')}</li>
+                <li><i>★</i> {txt('about.rec.point.2', 'Felicitating distinguished guests and community leaders')}</li>
+                <li><i>★</i> {txt('about.rec.point.3', 'Celebrating the dedication of our teachers and staff')}</li>
+                <li><i>★</i> {txt('about.rec.point.4', 'Building a culture that values merit, effort, and character')}</li>
               </ul>
             </Reveal>
             <Reveal className="award-photo" delay={1}>
@@ -187,13 +174,18 @@ export default function AboutPage() {
       {/* Journey */}
       <section className="section section-dark journey-section">
         <div className="container">
-          <SectionHead center eyebrow="Our Journey" title="Two Decades of" accent="Growth" />
+          <SectionHead
+            center
+            eyebrow={txt('about.journey.eyebrow', 'Our Journey')}
+            title={txt('about.journey.title', 'Two Decades of')}
+            accent={txt('about.journey.accent', 'Growth')}
+          />
           <div className="grid cols-4">
             {JOURNEY.map((j, i) => (
               <Reveal className="card journey-card" delay={(i % 4) + 1} key={j.year}>
-                <div className="why-num">{j.year}</div>
-                <h3>{j.title}</h3>
-                <p>{j.desc}</p>
+                <div className="why-num">{txt(`about.journey.${i + 1}.year`, j.year)}</div>
+                <h3>{txt(`about.journey.${i + 1}.title`, j.title)}</h3>
+                <p>{txt(`about.journey.${i + 1}.desc`, j.desc)}</p>
               </Reveal>
             ))}
           </div>
@@ -205,17 +197,17 @@ export default function AboutPage() {
         <div className="container">
           <SectionHead
             center
-            eyebrow="Core Values"
-            title="Our Core"
-            accent="Values"
-            lead="We believe values are the foundation of meaningful education. At Dawn, our core values are reflected in every aspect of school life — from classrooms and curriculum to community initiatives."
+            eyebrow={txt('about.values.eyebrow', 'Core Values')}
+            title={txt('about.values.title', 'Our Core')}
+            accent={txt('about.values.accent', 'Values')}
+            lead={txt('about.values.lead', 'We believe values are the foundation of meaningful education. At Dawn, our core values are reflected in every aspect of school life — from classrooms and curriculum to community initiatives.')}
           />
           <div className="values-wrap">
             {VALUES.map((v, i) => (
               <Reveal className="value-card" delay={(i % 3) + 1} key={v.t}>
                 <div className="value-ic">{v.ic}</div>
-                <h3>{v.t}</h3>
-                <p>{v.d}</p>
+                <h3>{txt(`about.values.${i + 1}.t`, v.t)}</h3>
+                <p>{txt(`about.values.${i + 1}.d`, v.d)}</p>
               </Reveal>
             ))}
           </div>
@@ -231,13 +223,11 @@ export default function AboutPage() {
           <Reveal className="big-quote">
             <div className="q-mark">“</div>
             <p className="q">
-              At Dawn, we don’t just prepare students for examinations — we prepare them for
-              life. Every child who walks through our gates carries the potential to change the
-              world, and it is our privilege to help them discover it.
+              {txt('about.principal.quote', 'At Dawn, we don’t just prepare students for examinations — we prepare them for life. Every child who walks through our gates carries the potential to change the world, and it is our privilege to help them discover it.')}
             </p>
             <div className="who">
-              Dr. Eleanor Hayes
-              <small>Principal, Dawn High School</small>
+              {txt('about.principal.name', 'Dr. Eleanor Hayes')}
+              <small>{txt('about.principal.role', 'Principal, Dawn High School')}</small>
             </div>
           </Reveal>
         </div>

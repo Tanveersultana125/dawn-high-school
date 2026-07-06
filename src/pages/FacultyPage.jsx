@@ -1,6 +1,8 @@
 import PageHero from '../components/PageHero'
 import Faculty from '../components/Faculty'
 import { Reveal, SectionHead, Counter } from '../components/common'
+import { usePageImage } from '../context/PageImagesContext'
+import { usePageTextResolver } from '../context/PageTextContext'
 
 const STATS = [
   { value: 320, suffix: '+', label: 'Qualified Educators' },
@@ -19,14 +21,16 @@ const DEPARTMENTS = [
 ]
 
 export default function FacultyPage() {
+  const heroPhoto = usePageImage('faculty.hero', 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80')
+  const txt = usePageTextResolver()
   return (
     <>
       <PageHero
         variant="faculty"
-        image="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80"
-        kicker="Our Faculty"
-        title="Mentors Who Inspire Greatness"
-        subtitle="Behind every great student is a great teacher. Meet the educators shaping tomorrow’s leaders."
+        photo={heroPhoto}
+        kicker={txt('faculty.hero.kicker', 'Our Faculty')}
+        title={txt('faculty.hero.title', 'Mentors Who Inspire Greatness')}
+        subtitle={txt('faculty.hero.subtitle', 'Behind every great student is a great teacher. Meet the educators shaping tomorrow’s leaders.')}
         crumb="Faculty"
       />
 
@@ -37,7 +41,7 @@ export default function FacultyPage() {
             {STATS.map((s, i) => (
               <Reveal className="stat" delay={i + 1} key={s.label}>
                 <Counter value={s.value} suffix={s.suffix} prefix={s.prefix} />
-                <span>{s.label}</span>
+                <span>{txt(`faculty.stat.${i + 1}.label`, s.label)}</span>
               </Reveal>
             ))}
           </div>
@@ -51,17 +55,17 @@ export default function FacultyPage() {
         <div className="container">
           <SectionHead
             center
-            eyebrow="Departments"
-            title="Expertise Across"
-            accent="Every Discipline"
-            lead="Our faculty is organised into specialised departments, each led by experienced heads."
+            eyebrow={txt('faculty.dept.eyebrow', 'Departments')}
+            title={txt('faculty.dept.title', 'Expertise Across')}
+            accent={txt('faculty.dept.accent', 'Every Discipline')}
+            lead={txt('faculty.dept.lead', 'Our faculty is organised into specialised departments, each led by experienced heads.')}
           />
           <div className="grid cols-3">
             {DEPARTMENTS.map((d, i) => (
               <Reveal className="card" delay={(i % 3) + 1} key={d.t}>
                 <div className="card-icon">{d.ic}</div>
-                <h3>{d.t}</h3>
-                <p>{d.d}</p>
+                <h3>{txt(`faculty.dept.${i + 1}.t`, d.t)}</h3>
+                <p>{txt(`faculty.dept.${i + 1}.d`, d.d)}</p>
               </Reveal>
             ))}
           </div>

@@ -57,6 +57,16 @@ export const PAGE_IMAGE_GROUPS = [
     ],
   },
   {
+    page: 'Faculty',
+    slots: [
+      { key: 'faculty.hero', label: 'Hero banner background photo', def: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80' },
+      { key: 'faculty.member.1', label: 'Faculty member 1 photo (optional — replaces the initials avatar)', def: '' },
+      { key: 'faculty.member.2', label: 'Faculty member 2 photo (optional — replaces the initials avatar)', def: '' },
+      { key: 'faculty.member.3', label: 'Faculty member 3 photo (optional — replaces the initials avatar)', def: '' },
+      { key: 'faculty.member.4', label: 'Faculty member 4 photo (optional — replaces the initials avatar)', def: '' },
+    ],
+  },
+  {
     page: 'Admissions',
     slots: [
       { key: 'admissions.hero', label: 'Hero background photo (optional — layers softly behind the 3D scene)', def: '' },

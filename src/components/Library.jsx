@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Reveal, SectionHead, Counter } from './common'
 import SmartImage from './SmartImage'
 import { usePageImage } from '../context/PageImagesContext'
+import { usePageTextResolver } from '../context/PageTextContext'
 
 const STATS = [
   { value: 30000, suffix: '+', label: 'Books & Volumes' },
@@ -60,10 +61,20 @@ const GALLERY = [
   { src: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=800&q=80', cap: 'Curated Collections' },
 ]
 
-export default function Library({ alt = false, detailed = false, img = LIBRARY_IMG, slot }) {
-  const intro = detailed ? INTRO.campus : INTRO.home
+export default function Library({ alt = false, detailed = false, img = LIBRARY_IMG, slot, textPrefix }) {
+  const base = detailed ? INTRO.campus : INTRO.home
   const features = detailed ? CAMPUS_FEATURES : HOME_FEATURES
   const mainImg = usePageImage(slot, img)
+  const txt = usePageTextResolver()
+  // When a page passes `textPrefix`, the intro heading becomes admin-editable.
+  const intro = textPrefix
+    ? {
+        eyebrow: txt(`${textPrefix}.eyebrow`, base.eyebrow),
+        title: txt(`${textPrefix}.title`, base.title),
+        accent: txt(`${textPrefix}.accent`, base.accent),
+        lead: txt(`${textPrefix}.lead`, base.lead),
+      }
+    : base
 
   return (
     <section className={`section library ${alt ? 'section-alt' : ''}`} id="library">

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Reveal, SectionHead } from './common'
+import { usePageTextResolver } from '../context/PageTextContext'
 
 const PROGRAMS = [
   {
@@ -57,16 +58,18 @@ const PROGRAMS = [
 export default function Academics() {
   const [active, setActive] = useState(0)
   const p = PROGRAMS[active]
+  const txt = usePageTextResolver()
+  const an = active + 1
 
   return (
     <section className="section" id="academics">
       <div className="container">
         <SectionHead
           center
-          eyebrow="Academic Excellence"
-          title="Programs Designed for Every"
-          accent="Stage of Growth"
-          lead="From first steps to final exams, our carefully crafted academic pathways challenge, inspire, and empower students at every level."
+          eyebrow={txt('academics.programs.eyebrow', 'Academic Excellence')}
+          title={txt('academics.programs.title', 'Programs Designed for Every')}
+          accent={txt('academics.programs.accent', 'Stage of Growth')}
+          lead={txt('academics.programs.lead', 'From first steps to final exams, our carefully crafted academic pathways challenge, inspire, and empower students at every level.')}
         />
 
         <div className="academics-layout">
@@ -81,8 +84,8 @@ export default function Academics() {
                 <span className="num">0{i + 1}</span>
                 <span className="tab-ic">{prog.icon}</span>
                 <span>
-                  <b>{prog.name}</b>
-                  <small>{prog.grades}</small>
+                  <b>{txt(`academics.program.${i + 1}.name`, prog.name)}</b>
+                  <small>{txt(`academics.program.${i + 1}.grades`, prog.grades)}</small>
                 </span>
               </button>
             ))}
@@ -90,12 +93,12 @@ export default function Academics() {
 
           <Reveal className="academic-panel" delay={1} key={active}>
             <div>
-              <span className="panel-tag">{p.tag}</span>
-              <h3>{p.title}</h3>
-              <p>{p.desc}</p>
+              <span className="panel-tag">{txt(`academics.program.${an}.tag`, p.tag)}</span>
+              <h3>{txt(`academics.program.${an}.title`, p.title)}</h3>
+              <p>{txt(`academics.program.${an}.desc`, p.desc)}</p>
               <ul className="panel-features">
-                {p.features.map((f) => (
-                  <li key={f}>{f}</li>
+                {p.features.map((f, fi) => (
+                  <li key={f}>{txt(`academics.program.${an}.feat.${fi + 1}`, f)}</li>
                 ))}
               </ul>
             </div>

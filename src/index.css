@@ -3706,6 +3706,15 @@ body.no-scroll { overflow: hidden; }
   color: var(--white);
   z-index: 2;
 }
+/* Admin-uploaded faculty photo fills the square, replacing the initials avatar. */
+.faculty-photo .faculty-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
 .faculty-photo::after {
   content: '';
   position: absolute;
