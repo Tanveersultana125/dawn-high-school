@@ -14,6 +14,7 @@ import AdminMedia from './pages/AdminMedia'
 import AdminPage from './pages/AdminPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import { PageImagesProvider } from './context/PageImagesContext'
+import { PageTextProvider } from './context/PageTextContext'
 
 // Per-page editors shown in the admin sidebar (Gallery is handled by AdminMedia).
 const ADMIN_PAGES = [
@@ -28,6 +29,7 @@ const ADMIN_PAGES = [
 export default function App() {
   return (
     <PageImagesProvider>
+    <PageTextProvider>
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Home />} />
@@ -73,6 +75,7 @@ export default function App() {
       {/* Legacy path — the old bundled Media Library now lives at /admin/gallery */}
       <Route path="/admin/media" element={<Navigate to="/admin/gallery" replace />} />
     </Routes>
+    </PageTextProvider>
     </PageImagesProvider>
   )
 }

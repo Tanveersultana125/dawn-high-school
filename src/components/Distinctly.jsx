@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import Crest from './Crest'
 import { Reveal } from './common'
 import SmartImage from './SmartImage'
+import { usePageTextResolver } from '../context/PageTextContext'
 
 const IMG = {
   classroom: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80',
@@ -66,6 +67,7 @@ const ITEMS = [
 ]
 
 export default function Distinctly() {
+  const txt = usePageTextResolver()
   const [active, setActive] = useState(0)
   const [gIndex, setGIndex] = useState(null) // null = closed; else current slide
   const [paused, setPaused] = useState(false)
@@ -135,8 +137,8 @@ export default function Distinctly() {
     <section className="section section-alt" id="distinct" ref={sectionRef}>
       <div className="container">
         <Reveal className="distinct-head">
-          <span className="distinct-kicker">Distinctly</span>
-          <h2 className="distinct-title">Dawn</h2>
+          <span className="distinct-kicker">{txt('home.distinct.kicker', 'Distinctly')}</span>
+          <h2 className="distinct-title">{txt('home.distinct.title', 'Dawn')}</h2>
         </Reveal>
 
         <div
@@ -149,15 +151,18 @@ export default function Distinctly() {
               <div className={`distinct-item ${i === active ? 'active' : ''}`} key={it.accent}>
                 <button className="di-head" onClick={() => selectItem(i)}>
                   {i === active && <Crest className="di-crest" />}
-                  <span className="di-accent">{it.accent}</span> {it.rest}
+                  <span className="di-accent">{txt(`home.distinct.${i + 1}.accent`, it.accent)}</span>{' '}
+                  {txt(`home.distinct.${i + 1}.rest`, it.rest)}
                 </button>
-                {i === active && <p className="di-body">{it.desc}</p>}
+                {i === active && <p className="di-body">{txt(`home.distinct.${i + 1}.desc`, it.desc)}</p>}
               </div>
             ))}
           </Reveal>
 
           <div className={`distinct-cards ${active % 2 ? 'from-left' : 'from-right'}`} key={active}>
-            {item.cards.map((c, i) => (
+            {item.cards.map((c, i) => {
+              const cap = txt(`home.distinct.${active + 1}.cap${i + 1}`, c.cap)
+              return (
               <figure
                 className={`di-card c${i + 1}`}
                 key={c.cap}
@@ -165,19 +170,20 @@ export default function Distinctly() {
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setGIndex(i)}
-                aria-label={`Open ${c.cap}`}
+                aria-label={`Open ${cap}`}
               >
-                <SmartImage src={c.img} alt={c.cap} loading="lazy" />
+                <SmartImage src={c.img} alt={cap} loading="lazy" />
                 <button
                   className="di-plus"
-                  aria-label={`More about ${c.cap}`}
+                  aria-label={`More about ${cap}`}
                   onClick={(e) => { e.stopPropagation(); setGIndex(i) }}
                 >
                   +
                 </button>
-                <figcaption>{c.cap}</figcaption>
+                <figcaption>{cap}</figcaption>
               </figure>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>
@@ -192,11 +198,11 @@ export default function Distinctly() {
           >
             <button className="di-modal-close" onClick={() => setGIndex(null)} aria-label="Close">✕</button>
             <div className="di-modal-img">
-              <SmartImage key={gIndex} src={cards[gIndex].img} alt={cards[gIndex].cap} />
+              <SmartImage key={gIndex} src={cards[gIndex].img} alt={txt(`home.distinct.${active + 1}.cap${gIndex + 1}`, cards[gIndex].cap)} />
             </div>
             <div className="di-modal-body">
               <span className="tag">{cards[gIndex].tag}</span>
-              <h3>{cards[gIndex].cap}</h3>
+              <h3>{txt(`home.distinct.${active + 1}.cap${gIndex + 1}`, cards[gIndex].cap)}</h3>
               <p>{cards[gIndex].text}</p>
               <div className="di-modal-nav">
                 <button className="di-modal-arrow" onClick={prev} aria-label="Previous image">‹</button>

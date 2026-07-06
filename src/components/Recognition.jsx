@@ -5,6 +5,7 @@ import Autoplay from 'embla-carousel-autoplay'
 import SmartImage from './SmartImage'
 import TiltCard from './TiltCard'
 import { usePageImageResolver } from '../context/PageImagesContext'
+import { usePageTextResolver } from '../context/PageTextContext'
 
 /**
  * Recognition Hero — a full-width, full-bleed banner slider showcasing Dawn
@@ -78,6 +79,7 @@ const SLIDES = [
 
 export default function Recognition() {
   const pick = usePageImageResolver()
+  const txt = usePageTextResolver()
   const autoplay = useRef(
     Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })
   )
@@ -105,6 +107,11 @@ export default function Recognition() {
         <div className="recog-track">
           {SLIDES.map((s, i) => {
             const src = pick(s.slot, s.img)
+            const n = i + 1
+            const tag = txt(`home.awards.${n}.tag`, s.tag)
+            const t0 = txt(`home.awards.${n}.t0`, s.title[0])
+            const t1 = txt(`home.awards.${n}.t1`, s.title[1])
+            const desc = txt(`home.awards.${n}.desc`, s.desc)
             return (
             <div className="recog-slide" key={s.tag}>
               {/* immersive full-bleed ambient backdrop (blurred copy of the photo) */}
@@ -113,11 +120,11 @@ export default function Recognition() {
 
               <div className={`recog-inner ${i % 2 === 1 ? 'rev' : ''}`}>
                 <div className={`recog-text ${selected === i ? 'on' : ''}`}>
-                  <span className="recog-eyebrow">{s.tag}</span>
+                  <span className="recog-eyebrow">{tag}</span>
                   <h2 className="recog-h">
-                    {s.title[0]} <span className="recog-h-accent">{s.title[1]}</span>
+                    {t0} <span className="recog-h-accent">{t1}</span>
                   </h2>
-                  <p className="recog-p">{s.desc}</p>
+                  <p className="recog-p">{desc}</p>
                   <div className="recog-actions">
                     <Link to={s.primary.to} className="recog-btn">{s.primary.label}</Link>
                     <Link to={s.secondary.to} className="recog-btn ghost">{s.secondary.label}</Link>
@@ -127,7 +134,7 @@ export default function Recognition() {
                 {/* the full, sharp photo in a 3D tilt frame — never cropped */}
                 <div className={`recog-figcol ${selected === i ? 'on' : ''}`}>
                   <TiltCard className="recog-figure" max={9}>
-                    <SmartImage src={src} alt={s.title.join(' ')} className="recog-photo" loading={i === 0 ? 'eager' : 'lazy'} />
+                    <SmartImage src={src} alt={`${t0} ${t1}`} className="recog-photo" loading={i === 0 ? 'eager' : 'lazy'} />
                   </TiltCard>
                 </div>
               </div>
