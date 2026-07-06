@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import AdminShell from '../components/AdminShell'
 import { uploadToCloudinary, isCloudinaryConfigured } from '../lib/cloudinary'
 import { addMedia, fetchMedia, deleteMedia } from '../lib/media'
-import { getHeroMedia, setHeroMedia } from '../lib/settings'
 import SmartImage from '../components/SmartImage'
-import PageImagesManager from '../components/PageImagesManager'
 
 const CATEGORIES = ['Campus', 'Academics', 'Athletics', 'Arts', 'Events', 'Innovation']
 
@@ -12,17 +10,11 @@ const stripExt = (name) => name.replace(/\.[^/.]+$/, '')
 
 export default function AdminMedia() {
   const fileRef = useRef(null)
-  const heroRef = useRef(null)
   const [category, setCategory] = useState('Campus')
   const [queue, setQueue] = useState([]) // { name, progress, status, error }
   const [media, setMedia] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-
-  // Homepage hero media (single video/image).
-  const [hero, setHero] = useState(null)
-  const [heroBusy, setHeroBusy] = useState(false)
-  const [heroProgress, setHeroProgress] = useState(0)
 
   const load = async () => {
     setLoading(true)
@@ -38,26 +30,7 @@ export default function AdminMedia() {
 
   useEffect(() => {
     load()
-    getHeroMedia().then((m) => m && setHero(m)).catch(() => {})
   }, [])
-
-  const onHeroFile = async (e) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    setHeroBusy(true)
-    setHeroProgress(0)
-    try {
-      const type = file.type.startsWith('video/') ? 'video' : 'image'
-      const up = await uploadToCloudinary(file, setHeroProgress)
-      await setHeroMedia({ url: up.url, type, publicId: up.publicId })
-      setHero({ url: up.url, type, publicId: up.publicId })
-    } catch (err) {
-      setError(err?.message || 'Hero upload failed.')
-    } finally {
-      setHeroBusy(false)
-      if (heroRef.current) heroRef.current.value = ''
-    }
-  }
 
   const onFiles = async (e) => {
     const files = Array.from(e.target.files || [])
@@ -105,7 +78,7 @@ export default function AdminMedia() {
 
   return (
     <AdminShell
-      title="Media Library"
+      title="Gallery"
       subtitle="Upload images & videos for the public gallery"
     >
       {!isCloudinaryConfigured && (
@@ -114,41 +87,6 @@ export default function AdminMedia() {
           <code>VITE_CLOUDINARY_UPLOAD_PRESET</code> in <code>.env</code>, then restart the dev server.
         </div>
       )}
-
-      {/* Homepage hero */}
-      <section className="hero-manager">
-        <div className="hero-manager-info">
-          <h2>Homepage Hero</h2>
-          <p>The big video or image at the top of the homepage. Upload a new file to replace it.</p>
-          <button
-            type="button"
-            className="btn btn-gold"
-            onClick={() => heroRef.current?.click()}
-            disabled={!isCloudinaryConfigured || heroBusy}
-          >
-            {heroBusy ? `Uploading… ${heroProgress}%` : hero ? 'Replace hero media' : 'Upload hero media'}
-          </button>
-          <input
-            ref={heroRef}
-            type="file"
-            accept="image/*,video/*"
-            hidden
-            onChange={onHeroFile}
-          />
-        </div>
-        <div className="hero-manager-preview">
-          {hero?.type === 'video' ? (
-            <video src={hero.url} muted loop autoPlay playsInline />
-          ) : hero?.type === 'image' ? (
-            <SmartImage src={hero.url} alt="Current hero" />
-          ) : (
-            <span className="hero-preview-empty">Using default video</span>
-          )}
-        </div>
-      </section>
-
-      {/* Per-page section images (Home / About / Academics / Campus) */}
-      <PageImagesManager />
 
       {/* Gallery upload box */}
       <div className="media-upload">

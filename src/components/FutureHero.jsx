@@ -1,11 +1,14 @@
 import { lazy, Suspense, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { usePageImage } from '../context/PageImagesContext'
 
 // Heavy WebGL blobs — loaded after the headline so text paints instantly
 const FutureHeroScene = lazy(() => import('./FutureHeroScene'))
 
 export default function FutureHero() {
   const sectionRef = useRef(null)
+  // Optional admin-managed photo layered softly behind the 3D scene.
+  const bgPhoto = usePageImage('admissions.hero', '')
 
   const toVideo = (e) => {
     e.preventDefault()
@@ -17,6 +20,13 @@ export default function FutureHero() {
 
   return (
     <section className="future-hero" id="future" ref={sectionRef}>
+      {bgPhoto && (
+        <div
+          className="future-hero-photo"
+          aria-hidden="true"
+          style={{ backgroundImage: `url('${bgPhoto}')` }}
+        />
+      )}
       <div className="future-hero-canvas" aria-hidden="true">
         <Suspense fallback={null}>
           <FutureHeroScene />

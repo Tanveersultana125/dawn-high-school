@@ -2,6 +2,7 @@ import PageHero from '../components/PageHero'
 import Contact from '../components/Contact'
 import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
+import { usePageImage } from '../context/PageImagesContext'
 
 const DEPTS = [
   {
@@ -21,12 +22,13 @@ const DEPTS = [
 ]
 
 export default function ContactPage() {
+  const heroPhoto = usePageImage(
+    'contact.hero',
+    'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1600&q=80'
+  )
   return (
     <>
-      <PageHero
-        variant="contact"
-        photo="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1600&q=80"
-      />
+      <PageHero variant="contact" photo={heroPhoto} />
 
       <Contact />
 

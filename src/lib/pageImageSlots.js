@@ -56,4 +56,16 @@ export const PAGE_IMAGE_GROUPS = [
       { key: 'campus.library',label: 'Library main image',              def: 'https://images.unsplash.com/photo-1568667256549-094345857637?auto=format&fit=crop&w=1100&q=80' },
     ],
   },
+  {
+    page: 'Admissions',
+    slots: [
+      { key: 'admissions.hero', label: 'Hero background photo (optional — layers softly behind the 3D scene)', def: '' },
+    ],
+  },
+  {
+    page: 'Contact',
+    slots: [
+      { key: 'contact.hero', label: 'Hero banner background photo', def: 'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1600&q=80' },
+    ],
+  },
 ]

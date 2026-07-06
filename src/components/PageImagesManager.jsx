@@ -5,11 +5,15 @@ import { PAGE_IMAGE_GROUPS } from '../lib/pageImageSlots'
 import SmartImage from './SmartImage'
 
 /**
- * Admin panel section: replace the images used across the public pages
- * (Home, About, Academics, Campus). Each slot uploads to Cloudinary and stores
- * the URL in Firestore; the matching page component picks it up automatically.
+ * Admin panel section: replace the images used across the public pages.
+ * Each slot uploads to Cloudinary and stores the URL in Firestore; the matching
+ * page component picks it up automatically.
+ *
+ * Pass `page` (e.g. "About") to show only that one page's slots — used by the
+ * per-page editors in the admin sidebar. With no `page` prop it shows every
+ * group (legacy all-in-one view).
  */
-export default function PageImagesManager() {
+export default function PageImagesManager({ page }) {
   const [images, setImages] = useState({}) // { [key]: {url,...} }
   const [busyKey, setBusyKey] = useState('')
   const [progress, setProgress] = useState(0)
@@ -60,21 +64,32 @@ export default function PageImagesManager() {
     }
   }
 
+  // When a single page is requested, render just that group; otherwise all.
+  const groups = page
+    ? PAGE_IMAGE_GROUPS.filter((g) => g.page === page)
+    : PAGE_IMAGE_GROUPS
+
   return (
     <section className="page-images">
-      <div className="page-images-head">
-        <h2>Page Images</h2>
-        <p>Replace the photos shown on the Home, About, Academics and Campus pages. Uploads appear on the live site instantly.</p>
-      </div>
+      {!page && (
+        <div className="page-images-head">
+          <h2>Page Images</h2>
+          <p>Replace the photos shown across the public pages. Uploads appear on the live site instantly.</p>
+        </div>
+      )}
 
       {error && <div className="admin-error">{error}</div>}
+
+      {groups.length === 0 && (
+        <p className="admin-muted">No editable images on this page yet.</p>
+      )}
 
       {/* one shared hidden input, reused for whichever slot was clicked */}
       <input ref={inputRef} type="file" accept="image/*" hidden onChange={onFile} />
 
-      {PAGE_IMAGE_GROUPS.map((group) => (
+      {groups.map((group) => (
         <div className="pi-group" key={group.page}>
-          <h3 className="pi-group-title">{group.page} page</h3>
+          {!page && <h3 className="pi-group-title">{group.page} page</h3>}
           <div className="pi-grid">
             {group.slots.map((slot) => {
               const managed = images[slot.key]?.url
