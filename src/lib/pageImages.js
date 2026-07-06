@@ -22,7 +22,20 @@ export async function getPageImages() {
 export function setPageImage(key, { url, type = 'image', publicId = '' }) {
   return setDoc(
     ref(),
-    { images: { [key]: { url, type, publicId } }, updatedAt: serverTimestamp() },
+    { images: { [key]: { url, type, publicId, hidden: false } }, updatedAt: serverTimestamp() },
+    { merge: true }
+  )
+}
+
+/**
+ * Hide a slot so nothing shows on the public site (a "delete"), even if the page
+ * has a built-in default. Stored as a marker the resolver honours; `clearPageImage`
+ * removes it and brings the default back.
+ */
+export function hidePageImage(key) {
+  return setDoc(
+    ref(),
+    { images: { [key]: { url: '', type: 'image', publicId: '', hidden: true } }, updatedAt: serverTimestamp() },
     { merge: true }
   )
 }

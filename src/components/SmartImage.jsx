@@ -31,11 +31,15 @@ const FALLBACK = `data:image/svg+xml,${encodeURIComponent(SVG)}`
 export default function SmartImage({ src, alt = '', className, fallback = FALLBACK, onError, ...rest }) {
   const [failed, setFailed] = useState(false)
 
+  // An empty src (e.g. a slot deleted in the admin) would render a broken /
+  // empty <img>; show the branded placeholder instead.
+  const missing = failed || !src
+
   return (
     <img
-      src={failed ? fallback : src}
+      src={missing ? fallback : src}
       alt={alt}
-      className={[className, failed ? 'img-fallback' : ''].filter(Boolean).join(' ') || undefined}
+      className={[className, missing ? 'img-fallback' : ''].filter(Boolean).join(' ') || undefined}
       onError={(e) => {
         if (!failed) setFailed(true)
         onError?.(e)

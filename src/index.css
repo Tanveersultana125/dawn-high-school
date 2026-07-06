@@ -6797,6 +6797,8 @@ body.no-scroll { overflow: hidden; }
   flex-direction: column;
 }
 .pi-card.is-custom { border-color: var(--gold-400, #d4a017); }
+.pi-card.is-hidden { border-color: #e5b3b3; background: #fdf4f4; }
+.pi-card.is-hidden .pi-thumb { background: #7a1f1f; }
 .pi-thumb {
   position: relative;
   aspect-ratio: 16 / 10;
@@ -6821,6 +6823,18 @@ body.no-scroll { overflow: hidden; }
   padding: 3px 8px;
   border-radius: 999px;
 }
+.pi-badge-off { background: #dc2626; color: #fff; }
+.pi-actions { flex-wrap: wrap; }
+/* Ghost buttons sit on light admin cards — override the dark-bg defaults. */
+.admin-main .btn-ghost {
+  background: #fff;
+  color: #0a2150;
+  border: 1.5px solid #d3dced;
+  backdrop-filter: none;
+}
+.admin-main .btn-ghost:hover { background: #eef2fb; border-color: #b9c6e0; transform: none; }
+.admin-main .pi-del { color: #dc2626; border-color: #f0c6c6; }
+.admin-main .pi-del:hover { background: #fbeaea; border-color: #e5a3a3; }
 .pi-info {
   padding: 10px 12px 12px;
   display: flex;

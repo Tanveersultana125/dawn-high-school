@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { uploadToCloudinary, isCloudinaryConfigured } from '../lib/cloudinary'
-import { getPageImages, setPageImage, clearPageImage } from '../lib/pageImages'
+import { getPageImages, setPageImage, clearPageImage, hidePageImage } from '../lib/pageImages'
 import { PAGE_IMAGE_GROUPS } from '../lib/pageImageSlots'
 import SmartImage from './SmartImage'
 
@@ -42,7 +42,7 @@ export default function PageImagesManager({ page }) {
     try {
       const up = await uploadToCloudinary(file, setProgress)
       await setPageImage(key, { url: up.url, type: 'image', publicId: up.publicId })
-      setImages((m) => ({ ...m, [key]: { url: up.url, type: 'image', publicId: up.publicId } }))
+      setImages((m) => ({ ...m, [key]: { url: up.url, type: 'image', publicId: up.publicId, hidden: false } }))
     } catch (err) {
       setError(err?.message || 'Upload failed.')
     } finally {
@@ -50,8 +50,19 @@ export default function PageImagesManager({ page }) {
     }
   }
 
-  const onReset = async (key) => {
-    if (!window.confirm('Reset this image back to the site default?')) return
+  // Delete = remove this image from the public site (hide it).
+  const onDelete = async (key) => {
+    if (!window.confirm('Remove this image from the website? You can restore the default later.')) return
+    try {
+      await hidePageImage(key)
+      setImages((m) => ({ ...m, [key]: { url: '', type: 'image', publicId: '', hidden: true } }))
+    } catch (err) {
+      setError(err?.message || 'Could not remove the image.')
+    }
+  }
+
+  // Restore = drop any custom/hidden override so the built-in default returns.
+  const onRestore = async (key) => {
     try {
       await clearPageImage(key)
       setImages((m) => {
@@ -60,7 +71,7 @@ export default function PageImagesManager({ page }) {
         return next
       })
     } catch (err) {
-      setError(err?.message || 'Could not reset.')
+      setError(err?.message || 'Could not restore the default.')
     }
   }
 
@@ -92,18 +103,23 @@ export default function PageImagesManager({ page }) {
           {!page && <h3 className="pi-group-title">{group.page} page</h3>}
           <div className="pi-grid">
             {group.slots.map((slot) => {
-              const managed = images[slot.key]?.url
-              const preview = managed || slot.def
+              const entry = images[slot.key]
+              const hidden = !!entry?.hidden
+              const managed = !hidden && !!entry?.url
+              const preview = hidden ? '' : (entry?.url || slot.def)
               const busy = busyKey === slot.key
               return (
-                <div className={`pi-card ${managed ? 'is-custom' : ''}`} key={slot.key}>
+                <div className={`pi-card ${managed ? 'is-custom' : ''} ${hidden ? 'is-hidden' : ''}`} key={slot.key}>
                   <div className="pi-thumb">
-                    {preview ? (
+                    {hidden ? (
+                      <span className="pi-thumb-empty">Removed — not shown on the site</span>
+                    ) : preview ? (
                       <SmartImage src={preview} alt={slot.label} loading="lazy" />
                     ) : (
                       <span className="pi-thumb-empty">Animated backdrop (no image)</span>
                     )}
                     {managed && <span className="pi-badge">Custom</span>}
+                    {hidden && <span className="pi-badge pi-badge-off">Removed</span>}
                   </div>
                   <div className="pi-info">
                     <b>{slot.label}</b>
@@ -116,9 +132,16 @@ export default function PageImagesManager({ page }) {
                       >
                         {busy ? `Uploading… ${progress}%` : managed ? 'Replace' : 'Upload'}
                       </button>
-                      {managed && (
-                        <button type="button" className="btn btn-ghost btn-sm" onClick={() => onReset(slot.key)}>
-                          Reset
+                      {/* Delete: hide from the site. Shown when something is currently visible. */}
+                      {!hidden && (managed || slot.def) && (
+                        <button type="button" className="btn btn-ghost btn-sm pi-del" onClick={() => onDelete(slot.key)}>
+                          Delete
+                        </button>
+                      )}
+                      {/* Restore the built-in default (undo a custom upload or a delete). */}
+                      {(managed || hidden) && (
+                        <button type="button" className="btn btn-ghost btn-sm" onClick={() => onRestore(slot.key)}>
+                          Restore default
                         </button>
                       )}
                     </div>

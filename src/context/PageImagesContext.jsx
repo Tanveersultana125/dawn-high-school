@@ -26,15 +26,25 @@ export function PageImagesProvider({ children }) {
   )
 }
 
+// Resolve one slot: a hidden slot ("deleted" in the admin) yields an empty
+// string so the component shows nothing; otherwise the custom URL, else the
+// built-in default.
+function resolve(images, key, fallback) {
+  const entry = images?.[key]
+  if (!entry) return fallback
+  if (entry.hidden) return ''
+  return entry.url || fallback
+}
+
 /**
  * Resolve a single managed image slot, falling back to the supplied default.
  * @param {string} key      slot key, e.g. 'about.hero'
  * @param {string} fallback the image baked into the component
- * @returns {string} the URL to render
+ * @returns {string} the URL to render ('' when the slot was deleted/hidden)
  */
 export function usePageImage(key, fallback) {
   const { images } = useContext(PageImagesContext)
-  return images?.[key]?.url || fallback
+  return resolve(images, key, fallback)
 }
 
 /**
@@ -43,5 +53,5 @@ export function usePageImage(key, fallback) {
  */
 export function usePageImageResolver() {
   const { images } = useContext(PageImagesContext)
-  return (key, fallback) => images?.[key]?.url || fallback
+  return (key, fallback) => resolve(images, key, fallback)
 }
