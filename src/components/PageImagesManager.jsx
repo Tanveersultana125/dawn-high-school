@@ -132,6 +132,17 @@ export default function PageImagesManager({ page }) {
                       >
                         {busy ? `Uploading… ${progress}%` : managed ? 'Replace' : 'Upload'}
                       </button>
+                      {/* Edit: same as upload — pick a new image to swap in. Shown when something is visible. */}
+                      {!hidden && (managed || slot.def) && (
+                        <button
+                          type="button"
+                          className="btn btn-ghost btn-sm"
+                          disabled={!isCloudinaryConfigured || busy}
+                          onClick={() => openPicker(slot.key)}
+                        >
+                          Edit
+                        </button>
+                      )}
                       {/* Delete: hide from the site. Shown when something is currently visible. */}
                       {!hidden && (managed || slot.def) && (
                         <button type="button" className="btn btn-ghost btn-sm pi-del" onClick={() => onDelete(slot.key)}>
