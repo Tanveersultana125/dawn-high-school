@@ -7918,6 +7918,15 @@ body.no-scroll { overflow: hidden; }
   gap: clamp(28px, 5vw, 64px);
   align-items: center;
 }
+/* Vision, Mission and the photo — three equal-size cards in a row */
+.vm-tri {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+  align-items: stretch;
+}
+.vm-tri .vm-visual { height: 100%; }
+.vm-tri .vm-visual img { height: 100%; max-height: none; }
 .vm-title {
   font-family: var(--font-display);
   font-weight: 800;
@@ -8009,8 +8018,15 @@ body.no-scroll { overflow: hidden; }
   .vm-grid { grid-template-columns: 1fr; }
   .vm-visual img { max-height: 300px; }
 }
-@media (max-width: 520px) {
-  .vm-blocks { grid-template-columns: 1fr; gap: 22px; }
+/* Tablet: photo full-width on top, Vision & Mission equal below it */
+@media (max-width: 960px) {
+  .vm-tri { grid-template-columns: 1fr 1fr; }
+  .vm-tri .vm-visual { grid-column: 1 / -1; order: -1; }
+  .vm-tri .vm-visual img { max-height: 340px; }
+}
+/* Phone: everything stacks */
+@media (max-width: 560px) {
+  .vm-tri { grid-template-columns: 1fr; }
 }
 
 /* ── Core Values (3 + 2 centered cards) ── */
