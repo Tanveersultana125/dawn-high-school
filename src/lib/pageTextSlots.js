@@ -291,7 +291,7 @@ const academicsSections = [
         ['Sciences', 'Physics · Chemistry · Biology'],
         ['Languages', 'English · Urdu · Telugu · Hindi'],
         ['Humanities', 'History · Geography · Civics'],
-        ['Computer Science', 'Indian Syllabus'],
+        ['Computer Science', 'Computer Basics · MS Office · Coding'],
         ['Visual & Performing Arts', 'Art · Music · Theatre'],
         ['Commerce', 'Economics · Business · Accounts'],
         ['Physical Education', 'Athletics · Wellness · Teamwork'],
