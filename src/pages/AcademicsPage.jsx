@@ -8,11 +8,11 @@ import { usePageTextResolver } from '../context/PageTextContext'
 
 // Achiever gallery: the first is a wide banner, the rest a 2×2 grid of photos.
 const EXCEL_IMAGES = [
-  { key: 'academics.excel.1', def: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1100&q=80', wide: true },
-  { key: 'academics.excel.2', def: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80' },
-  { key: 'academics.excel.3', def: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80' },
-  { key: 'academics.excel.4', def: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80' },
-  { key: 'academics.excel.5', def: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80' },
+  { key: 'academics.excel.1', def: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1100&q=80', wide: true },
+  { key: 'academics.excel.2', def: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80' },
+  { key: 'academics.excel.3', def: 'https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=600&q=80' },
+  { key: 'academics.excel.4', def: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80' },
+  { key: 'academics.excel.5', def: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80' },
 ]
 
 const PHILOSOPHY = [
