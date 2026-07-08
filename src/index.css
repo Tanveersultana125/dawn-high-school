@@ -6904,6 +6904,7 @@ body.no-scroll { overflow: hidden; }
   margin: 0 0 4px;
 }
 .page-images-head p { color: rgba(10, 33, 80, 0.6); font-size: 0.88rem; margin: 0 0 8px; }
+.pi-toolbar { display: flex; justify-content: flex-end; margin: 4px 0 -4px; }
 .pi-group { margin-top: 20px; }
 .pi-group-title {
   font-size: 0.82rem;

@@ -18,6 +18,7 @@ export default function PageImagesManager({ page }) {
   const [busyKey, setBusyKey] = useState('')
   const [progress, setProgress] = useState(0)
   const [error, setError] = useState('')
+  const [showRemoved, setShowRemoved] = useState(false) // reveal deleted cards
   const inputRef = useRef(null)
   const pendingKey = useRef('')
 
@@ -80,6 +81,14 @@ export default function PageImagesManager({ page }) {
     ? PAGE_IMAGE_GROUPS.filter((g) => g.page === page)
     : PAGE_IMAGE_GROUPS
 
+  // A "deleted" card is one that's been hidden. Hide such cards from the panel
+  // entirely; the "Show removed items" toggle brings them back for restoring.
+  const isRemoved = (key) => !!images[key]?.hidden
+  const removedCount = groups.reduce(
+    (n, g) => n + g.slots.filter((s) => isRemoved(s.key)).length,
+    0
+  )
+
   return (
     <section className="page-images">
       {!page && (
@@ -95,14 +104,32 @@ export default function PageImagesManager({ page }) {
         <p className="admin-muted">No editable images on this page yet.</p>
       )}
 
+      {removedCount > 0 && (
+        <div className="pi-toolbar">
+          <button
+            type="button"
+            className="btn btn-ghost btn-sm"
+            onClick={() => setShowRemoved((v) => !v)}
+          >
+            {showRemoved
+              ? `Hide removed items (${removedCount})`
+              : `Show removed items (${removedCount})`}
+          </button>
+        </div>
+      )}
+
       {/* one shared hidden input, reused for whichever slot was clicked */}
       <input ref={inputRef} type="file" accept="image/*" hidden onChange={onFile} />
 
-      {groups.map((group) => (
+      {groups.map((group) => {
+        // Drop deleted cards unless the user is peeking at removed items.
+        const slots = group.slots.filter((s) => showRemoved || !isRemoved(s.key))
+        if (slots.length === 0) return null
+        return (
         <div className="pi-group" key={group.page}>
           {!page && <h3 className="pi-group-title">{group.page} page</h3>}
           <div className="pi-grid">
-            {group.slots.map((slot) => {
+            {slots.map((slot) => {
               const entry = images[slot.key]
               const hidden = !!entry?.hidden
               const managed = !hidden && !!entry?.url
@@ -162,7 +189,8 @@ export default function PageImagesManager({ page }) {
             })}
           </div>
         </div>
-      ))}
+        )
+      })}
     </section>
   )
 }
