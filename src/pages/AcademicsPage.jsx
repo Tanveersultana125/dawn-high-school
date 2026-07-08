@@ -48,25 +48,25 @@ export default function AcademicsPage() {
       <Academics />
 
       {/* Our Academic Excellence — achievers & results */}
-      <section className="section">
+      <section className="section excel-section">
         <div className="container">
-          <SectionHead
-            center
-            eyebrow={txt('academics.excel.eyebrow', 'Our Achievers')}
-            title={txt('academics.excel.title', 'Our Academic')}
-            accent={txt('academics.excel.accent', 'Excellence')}
-          />
-          <div className="award-card">
-            <Reveal className="award-copy">
+          <div className="excel-grid">
+            <Reveal className="excel-copy">
+              <span className="excel-eyebrow">{txt('academics.excel.eyebrow', 'Our Achievers')}</span>
+              <h2 className="excel-title">
+                {txt('academics.excel.title', 'Our Academic')}{' '}
+                <span className="excel-accent">{txt('academics.excel.accent', 'Excellence')}</span>
+              </h2>
+              <span className="excel-rule" aria-hidden="true" />
               <p className="excel-lead">
                 {txt('academics.excel.desc', "Dawn's incredible recognition worldwide with premier results in International GCSE examinations.")}
               </p>
-              <h2>{txt('academics.excel.sub', 'Outstanding Pearson Learner Awards 2022–2023')}</h2>
-              <p>
+              <h3 className="excel-sub">{txt('academics.excel.sub', 'Outstanding Pearson Learner Awards 2022–2023')}</h3>
+              <p className="excel-body">
                 {txt('academics.excel.body', 'These awards are presented to the learners with the highest marks and highest grades in their subject in each exam series. By winning one of these awards, a learner has competed against thousands of other learners who have taken the same subject in their country and globally. The Highest Mark in the World award is given to the learner who has achieved the highest standard mark in the world.')}
               </p>
             </Reveal>
-            <Reveal className="award-photo is-excel" delay={1}>
+            <Reveal className="excel-figure" delay={1}>
               <SmartImage
                 src={excellenceImg}
                 alt="Dawn High School — our academic achievers and results"
