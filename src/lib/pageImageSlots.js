@@ -41,7 +41,11 @@ export const PAGE_IMAGE_GROUPS = [
     slots: [
       { key: 'academics.hero', label: 'Hero banner background (optional)', def: '' },
       { key: 'academics.oxfordCurriculum', label: 'Oxford Curriculum image', def: '/oxford-curriculum.png' },
-      { key: 'academics.excellence', label: 'Academic Excellence — achievers image', def: U('photo-1523580494863-6f3031224c94') },
+      { key: 'academics.excel.1', label: 'Academic Excellence — main banner (wide)', def: U('photo-1523580494863-6f3031224c94') },
+      { key: 'academics.excel.2', label: 'Academic Excellence — achiever photo 2', def: U('photo-1500648767791-00dcc994a43e') },
+      { key: 'academics.excel.3', label: 'Academic Excellence — achiever photo 3', def: U('photo-1494790108377-be9c29b29330') },
+      { key: 'academics.excel.4', label: 'Academic Excellence — achiever photo 4', def: U('photo-1507003211169-0a1dd7228f2d') },
+      { key: 'academics.excel.5', label: 'Academic Excellence — achiever photo 5', def: U('photo-1544005313-94ddf0286df2') },
     ],
   },
   {

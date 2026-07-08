@@ -3,8 +3,17 @@ import Academics from '../components/Academics'
 import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
 import SmartImage from '../components/SmartImage'
-import { usePageImage } from '../context/PageImagesContext'
+import { usePageImage, usePageImageResolver } from '../context/PageImagesContext'
 import { usePageTextResolver } from '../context/PageTextContext'
+
+// Achiever gallery: the first is a wide banner, the rest a 2×2 grid of photos.
+const EXCEL_IMAGES = [
+  { key: 'academics.excel.1', def: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1100&q=80', wide: true },
+  { key: 'academics.excel.2', def: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80' },
+  { key: 'academics.excel.3', def: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80' },
+  { key: 'academics.excel.4', def: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80' },
+  { key: 'academics.excel.5', def: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80' },
+]
 
 const PHILOSOPHY = [
   { ic: '🔍', t: 'Inquiry-Based', d: 'Students learn by questioning, exploring, and discovering — not memorising.' },
@@ -32,7 +41,7 @@ const ASSESS = [
 export default function AcademicsPage() {
   const heroPhoto = usePageImage('academics.hero', '')
   const oxfordImg = usePageImage('academics.oxfordCurriculum', '/oxford-curriculum.png')
-  const excellenceImg = usePageImage('academics.excellence', 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80')
+  const pickImg = usePageImageResolver()
   const txt = usePageTextResolver()
   return (
     <>
@@ -66,12 +75,16 @@ export default function AcademicsPage() {
                 {txt('academics.excel.body', 'These awards are presented to the learners with the highest marks and highest grades in their subject in each exam series. By winning one of these awards, a learner has competed against thousands of other learners who have taken the same subject in their country and globally. The Highest Mark in the World award is given to the learner who has achieved the highest standard mark in the world.')}
               </p>
             </Reveal>
-            <Reveal className="excel-figure" delay={1}>
-              <SmartImage
-                src={excellenceImg}
-                alt="Dawn High School — our academic achievers and results"
-                loading="lazy"
-              />
+            <Reveal className="excel-gallery" delay={1}>
+              {EXCEL_IMAGES.map((img, i) => {
+                const src = pickImg(img.key, img.def)
+                if (!src) return null // slot deleted in admin → drop the tile
+                return (
+                  <div className={`excel-cell ${img.wide ? 'is-wide' : ''}`} key={img.key}>
+                    <SmartImage src={src} alt={`Dawn High School achiever ${i + 1}`} loading="lazy" />
+                  </div>
+                )
+              })}
             </Reveal>
           </div>
         </div>

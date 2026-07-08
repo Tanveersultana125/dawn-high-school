@@ -230,9 +230,9 @@ const academicsSections = [
       F('academics.excel.eyebrow', 'Eyebrow', "Our Achievers"),
       F('academics.excel.title', 'Title', "Our Academic"),
       F('academics.excel.accent', 'Highlighted word', "Excellence"),
-      F('academics.excel.desc', 'Intro line', "Dawn's incredible recognition worldwide with premier results in International GCSE examinations.", true),
-      F('academics.excel.sub', 'Sub-heading', "Outstanding Pearson Learner Awards 2022–2023"),
-      F('academics.excel.body', 'Description', "These awards are presented to the learners with the highest marks and highest grades in their subject in each exam series. By winning one of these awards, a learner has competed against thousands of other learners who have taken the same subject in their country and globally. The Highest Mark in the World award is given to the learner who has achieved the highest standard mark in the world.", true),
+      F('academics.excel.desc', 'Intro line', "Dawn High School's outstanding recognition, with top ranks and distinctions in the SSC Board examinations.", true),
+      F('academics.excel.sub', 'Sub-heading', "Celebrating Our SSC Toppers 2022–2023"),
+      F('academics.excel.body', 'Description', "Every year, our students shine in the SSC (Secondary School Certificate) Board examinations — earning distinctions, top grades, and remarkable ranks. These results reflect the hard work of our students and the dedication of our teachers, who together bring out the very best in every learner.", true),
     ],
   },
   {
