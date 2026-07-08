@@ -51,30 +51,11 @@ export default function BetterFuture() {
         </Reveal>
 
         <Reveal className="bf-visual" delay={1}>
-          {/* colourful blocks behind the photo */}
-          <span className="bf-block bf-block-teal" />
-          <span className="bf-block bf-block-coral" />
-          <span className="bf-block bf-block-gold" />
-
+          {/* The photo is a complete composed graphic (blocks, sparkles and the
+              "admission completed" card are already part of the image), so we
+              simply present it in a clean frame — no duplicate decorations. */}
           <div className="bf-photo-frame">
             <SmartImage src={STUDENT_IMG} alt="A happy Dawn High School student" loading="lazy" />
-          </div>
-
-          {/* decorations */}
-          <span className="bf-deco bf-spark">✦</span>
-          <span className="bf-deco bf-rocket">🚀</span>
-          <svg className="bf-arrow" viewBox="0 0 120 80" fill="none" aria-hidden="true">
-            <path d="M5 70 C 40 75, 90 55, 110 12" stroke="#ef4444" strokeWidth="4" strokeLinecap="round" strokeDasharray="2 9" />
-            <path d="M110 12 l -14 6 M110 12 l -4 15" stroke="#ef4444" strokeWidth="4" strokeLinecap="round" />
-          </svg>
-
-          {/* floating success card */}
-          <div className="bf-badge">
-            <span className="bf-badge-ic">✉️</span>
-            <div>
-              <b>Congratulations <i className="bf-check">✓</i></b>
-              <small>Your admission completed</small>
-            </div>
           </div>
         </Reveal>
       </div>
