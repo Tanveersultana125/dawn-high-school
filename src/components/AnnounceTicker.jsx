@@ -1,8 +1,10 @@
 import InfiniteMovingCards from './InfiniteMovingCards'
+import { usePageTextResolver } from '../context/PageTextContext'
 
 /**
  * Slim scrolling announcement ticker — a "breaking news" strip of school
  * highlights that loops seamlessly across the width. Navy/gold themed.
+ * Each message is admin-editable via the "Announcement Ticker" text slots.
  */
 
 const NEWS = [
@@ -14,11 +16,13 @@ const NEWS = [
 ]
 
 export default function AnnounceTicker() {
+  const txt = usePageTextResolver()
+  const items = NEWS.map((def, i) => txt(`home.ticker.${i + 1}`, def))
   return (
     <div className="ann" role="marquee" aria-label="School announcements">
       <span className="ann-tag">📣 Latest</span>
       <InfiniteMovingCards
-        items={NEWS}
+        items={items}
         speed="normal"
         renderItem={(text) => (
           <span className="ann-item">

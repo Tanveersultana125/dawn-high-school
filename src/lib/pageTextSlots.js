@@ -68,6 +68,18 @@ const distinctFields = [
   }),
 ]
 
+// --- Home: Announcement ticker (AnnounceTicker.jsx) --------------------------
+// The slim scrolling "Latest" strip at the top of the homepage. Keep these
+// defaults in sync with the NEWS array in AnnounceTicker.jsx.
+const TICKER = [
+  '🎉 Admissions Open 2026–27 — Enroll Now at Dawn High School!',
+  '🏆 Congratulations to our Top Achievers!',
+  '📘 Now an Oxford University Press — Quality Partner',
+  '🌟 New Activity Programs Launched',
+  '🏅 Ranked Among Hyderabad’s Top Schools',
+]
+const tickerFields = TICKER.map((t, i) => F(`home.ticker.${i + 1}`, `Message ${i + 1}`, t))
+
 // =============================================================================
 // ABOUT PAGE (About.jsx + AboutPage.jsx)
 // =============================================================================
@@ -461,6 +473,11 @@ export const PAGE_TEXT_GROUPS = [
   {
     page: 'Home',
     sections: [
+      {
+        title: 'Announcement Ticker',
+        note: 'The scrolling “Latest” news strip at the very top of the homepage.',
+        fields: tickerFields,
+      },
       {
         title: 'Awards Slider',
         note: 'The full-width slider at the very top of the homepage (Oxford, awards, partnerships).',
