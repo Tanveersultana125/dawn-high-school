@@ -7932,32 +7932,65 @@ body.no-scroll { overflow: hidden; }
   background-clip: text;
   color: transparent;
 }
-/* Vision & Mission sit side by side */
+/* Vision & Mission — side-by-side premium cards */
 .vm-blocks {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(20px, 3vw, 36px);
+  gap: clamp(16px, 2vw, 22px);
+  margin-top: 6px;
 }
-.vm-block { margin-bottom: 0; }
+.vm-block {
+  position: relative;
+  margin: 0;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 2.2vw, 28px);
+  box-shadow: 0 14px 34px -22px rgba(10, 33, 80, 0.35);
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux), border-color 0.4s;
+}
+/* gold accent bar sweeps in along the top on hover */
+.vm-block::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gradient-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease-lux);
+}
+.vm-block:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 26px 50px -26px rgba(10, 33, 80, 0.42);
+  border-color: transparent;
+}
+.vm-block:hover::before { transform: scaleX(1); }
+.vm-ic {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  background: linear-gradient(150deg, rgba(20, 80, 200, 0.12), rgba(212, 175, 55, 0.18));
+  border: 1px solid var(--gray-200);
+}
 .vm-block h4 {
   font-family: var(--font-display);
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: var(--royal-600);
-  margin-bottom: 10px;
+  color: var(--navy-800);
+  margin-bottom: 9px;
 }
 .vm-block p {
-  display: flex;
-  gap: 12px;
   color: var(--text-soft);
-  font-size: 1.02rem;
-  line-height: 1.75;
-}
-.vm-block p i {
-  color: var(--gold-500);
-  font-style: normal;
-  font-weight: 800;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.72;
 }
 .vm-visual {
   border-radius: var(--radius-lg);

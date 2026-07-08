@@ -66,17 +66,17 @@ export default function AboutPage() {
 
               <div className="vm-blocks">
                 <div className="vm-block">
+                  <span className="vm-ic" aria-hidden="true">🎯</span>
                   <h4>Vision</h4>
                   <p>
-                    <i aria-hidden="true">❯</i>
                     {txt('about.vm.vision', 'To be the most trusted institution of learning in the region — empowering students through knowledge, character, and global readiness.')}
                   </p>
                 </div>
 
                 <div className="vm-block">
+                  <span className="vm-ic" aria-hidden="true">🧭</span>
                   <h4>Mission</h4>
                   <p>
-                    <i aria-hidden="true">❯</i>
                     {txt('about.vm.mission', 'Rooted in tradition, Dawn fosters compassionate, competent, and future-ready citizens by providing a nurturing, inclusive, and innovative learning environment.')}
                   </p>
                 </div>
