@@ -6536,6 +6536,20 @@ body.no-scroll { overflow: hidden; }
   font-style: normal;
   margin-top: 1px;
 }
+/* Academic Excellence variant — show the achievers graphic in full (no crop) */
+.award-copy .excel-lead {
+  color: var(--gold-600, #b8860b);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+.award-photo.is-excel {
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  box-shadow: 0 20px 44px rgba(10, 33, 80, 0.14);
+}
+.award-photo.is-excel img { height: auto; object-fit: contain; }
 @media (max-width: 760px) {
   .award-card { grid-template-columns: 1fr; gap: 26px; }
   .award-copy h2 { font-size: 1.7rem; }

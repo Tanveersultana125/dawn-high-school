@@ -32,6 +32,7 @@ const ASSESS = [
 export default function AcademicsPage() {
   const heroPhoto = usePageImage('academics.hero', '')
   const oxfordImg = usePageImage('academics.oxfordCurriculum', '/oxford-curriculum.png')
+  const excellenceImg = usePageImage('academics.excellence', 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80')
   const txt = usePageTextResolver()
   return (
     <>
@@ -45,6 +46,36 @@ export default function AcademicsPage() {
       />
 
       <Academics />
+
+      {/* Our Academic Excellence — achievers & results */}
+      <section className="section">
+        <div className="container">
+          <SectionHead
+            center
+            eyebrow={txt('academics.excel.eyebrow', 'Our Achievers')}
+            title={txt('academics.excel.title', 'Our Academic')}
+            accent={txt('academics.excel.accent', 'Excellence')}
+          />
+          <div className="award-card">
+            <Reveal className="award-copy">
+              <p className="excel-lead">
+                {txt('academics.excel.desc', "Dawn's incredible recognition worldwide with premier results in International GCSE examinations.")}
+              </p>
+              <h2>{txt('academics.excel.sub', 'Outstanding Pearson Learner Awards 2022–2023')}</h2>
+              <p>
+                {txt('academics.excel.body', 'These awards are presented to the learners with the highest marks and highest grades in their subject in each exam series. By winning one of these awards, a learner has competed against thousands of other learners who have taken the same subject in their country and globally. The Highest Mark in the World award is given to the learner who has achieved the highest standard mark in the world.')}
+              </p>
+            </Reveal>
+            <Reveal className="award-photo is-excel" delay={1}>
+              <SmartImage
+                src={excellenceImg}
+                alt="Dawn High School — our academic achievers and results"
+                loading="lazy"
+              />
+            </Reveal>
+          </div>
+        </div>
+      </section>
 
       {/* Oxford Curriculum Framework */}
       <section className="section section-alt">

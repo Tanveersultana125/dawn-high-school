@@ -41,6 +41,7 @@ export const PAGE_IMAGE_GROUPS = [
     slots: [
       { key: 'academics.hero', label: 'Hero banner background (optional)', def: '' },
       { key: 'academics.oxfordCurriculum', label: 'Oxford Curriculum image', def: '/oxford-curriculum.png' },
+      { key: 'academics.excellence', label: 'Academic Excellence — achievers image', def: U('photo-1523580494863-6f3031224c94') },
     ],
   },
   {

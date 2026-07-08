@@ -224,6 +224,18 @@ const academicsSections = [
     ],
   },
   {
+    title: 'Our Academic Excellence',
+    note: 'The achievers / results highlight section (text on the left, image on the right).',
+    fields: [
+      F('academics.excel.eyebrow', 'Eyebrow', "Our Achievers"),
+      F('academics.excel.title', 'Title', "Our Academic"),
+      F('academics.excel.accent', 'Highlighted word', "Excellence"),
+      F('academics.excel.desc', 'Intro line', "Dawn's incredible recognition worldwide with premier results in International GCSE examinations.", true),
+      F('academics.excel.sub', 'Sub-heading', "Outstanding Pearson Learner Awards 2022–2023"),
+      F('academics.excel.body', 'Description', "These awards are presented to the learners with the highest marks and highest grades in their subject in each exam series. By winning one of these awards, a learner has competed against thousands of other learners who have taken the same subject in their country and globally. The Highest Mark in the World award is given to the learner who has achieved the highest standard mark in the world.", true),
+    ],
+  },
+  {
     title: 'Programs (tabbed section)',
     note: 'The interactive tabs listing each academic program.',
     fields: [
