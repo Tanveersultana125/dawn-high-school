@@ -55,3 +55,12 @@ export function usePageImageResolver() {
   const { images } = useContext(PageImagesContext)
   return (key, fallback) => resolve(images, key, fallback)
 }
+
+/**
+ * Returns a `(key, fallback) => objectPosition` resolver for the admin-set focal
+ * point of a slot (e.g. "50% 30%"), falling back to the component's default.
+ */
+export function usePageImagePosResolver() {
+  const { images } = useContext(PageImagesContext)
+  return (key, fallback = '') => images?.[key]?.pos || fallback
+}

@@ -28,6 +28,19 @@ export function setPageImage(key, { url, type = 'image', publicId = '' }) {
 }
 
 /**
+ * Save the focal position (CSS object-position, e.g. "50% 30%") for a slot so the
+ * admin can control how a `cover`-cropped image is framed. Merges into the entry,
+ * preserving the url / hidden flags.
+ */
+export function setPageImagePosition(key, pos) {
+  return setDoc(
+    ref(),
+    { images: { [key]: { pos } }, updatedAt: serverTimestamp() },
+    { merge: true }
+  )
+}
+
+/**
  * Hide a slot so nothing shows on the public site (a "delete"), even if the page
  * has a built-in default. Stored as a marker the resolver honours; `clearPageImage`
  * removes it and brings the default back.

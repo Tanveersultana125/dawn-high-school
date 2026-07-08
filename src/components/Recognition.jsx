@@ -4,7 +4,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import SmartImage from './SmartImage'
 import TiltCard from './TiltCard'
-import { usePageImageResolver } from '../context/PageImagesContext'
+import { usePageImageResolver, usePageImagePosResolver } from '../context/PageImagesContext'
 import { usePageTextResolver } from '../context/PageTextContext'
 
 /**
@@ -79,6 +79,7 @@ const SLIDES = [
 
 export default function Recognition() {
   const pick = usePageImageResolver()
+  const posOf = usePageImagePosResolver()
   const txt = usePageTextResolver()
   const autoplay = useRef(
     Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })
@@ -107,6 +108,7 @@ export default function Recognition() {
         <div className="recog-track">
           {SLIDES.map((s, i) => {
             const src = pick(s.slot, s.img)
+            const objPos = posOf(s.slot, s.pos)
             const n = i + 1
             const tag = txt(`home.awards.${n}.tag`, s.tag)
             const t0 = txt(`home.awards.${n}.t0`, s.title[0])
@@ -115,7 +117,7 @@ export default function Recognition() {
             return (
             <div className="recog-slide" key={s.tag}>
               {/* immersive full-bleed ambient backdrop (blurred copy of the photo) */}
-              <SmartImage src={src} alt="" aria-hidden="true" className="recog-ambient" loading={i === 0 ? 'eager' : 'lazy'} />
+              <SmartImage src={src} alt="" aria-hidden="true" className="recog-ambient" style={{ objectPosition: objPos }} loading={i === 0 ? 'eager' : 'lazy'} />
               <span className="recog-veil" />
 
               <div className={`recog-inner ${i % 2 === 1 ? 'rev' : ''}`}>

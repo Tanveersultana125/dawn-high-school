@@ -6958,6 +6958,19 @@ body.no-scroll { overflow: hidden; }
 }
 .pi-badge-off { background: #dc2626; color: #fff; }
 .pi-actions { flex-wrap: wrap; }
+
+/* Framing adjuster (the "Edit" panel) */
+.pi-card.is-editing { outline: 2px solid var(--gold-500, #d4af37); outline-offset: -1px; }
+.pi-adjust { margin-top: 6px; }
+.pi-adjust-hint { margin: 0 0 8px; font-size: 0.74rem; color: rgba(10, 33, 80, 0.6); }
+.pi-slider { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.pi-slider > span {
+  flex: 0 0 74px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #0a2150;
+}
+.pi-slider input[type="range"] { flex: 1; accent-color: var(--gold-500, #d4af37); cursor: pointer; }
 /* Ghost buttons sit on light admin cards — override the dark-bg defaults. */
 .admin-main .btn-ghost {
   background: #fff;

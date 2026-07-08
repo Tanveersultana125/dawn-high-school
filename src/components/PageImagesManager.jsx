@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { uploadToCloudinary, isCloudinaryConfigured } from '../lib/cloudinary'
-import { getPageImages, setPageImage, clearPageImage, hidePageImage } from '../lib/pageImages'
+import { getPageImages, setPageImage, clearPageImage, hidePageImage, setPageImagePosition } from '../lib/pageImages'
 import { PAGE_IMAGE_GROUPS } from '../lib/pageImageSlots'
 import SmartImage from './SmartImage'
 
@@ -19,8 +19,39 @@ export default function PageImagesManager({ page }) {
   const [progress, setProgress] = useState(0)
   const [error, setError] = useState('')
   const [showRemoved, setShowRemoved] = useState(false) // reveal deleted cards
+  const [editKey, setEditKey] = useState('') // slot whose framing is being adjusted
+  const [pos, setPos] = useState({ x: 50, y: 50 }) // live focal point while editing (%)
+  const [savingPos, setSavingPos] = useState(false)
   const inputRef = useRef(null)
   const pendingKey = useRef('')
+
+  // Parse a stored object-position ("50% 30%") back into {x, y} percentages.
+  const parsePos = (str) => {
+    const [x, y] = String(str || '').split(/\s+/)
+    const px = parseFloat(x), py = parseFloat(y)
+    return { x: Number.isFinite(px) ? px : 50, y: Number.isFinite(py) ? py : 50 }
+  }
+
+  // Open the framing adjuster for a slot, seeded with its current position.
+  const openEditor = (key) => {
+    setPos(parsePos(images[key]?.pos))
+    setEditKey(key)
+  }
+
+  const savePos = async (key) => {
+    const value = `${Math.round(pos.x)}% ${Math.round(pos.y)}%`
+    setSavingPos(true)
+    setError('')
+    try {
+      await setPageImagePosition(key, value)
+      setImages((m) => ({ ...m, [key]: { ...(m[key] || {}), pos: value } }))
+      setEditKey('')
+    } catch (err) {
+      setError(err?.message || 'Could not save the framing.')
+    } finally {
+      setSavingPos(false)
+    }
+  }
 
   useEffect(() => {
     getPageImages().then(setImages).catch(() => {})
@@ -43,7 +74,10 @@ export default function PageImagesManager({ page }) {
     try {
       const up = await uploadToCloudinary(file, setProgress)
       await setPageImage(key, { url: up.url, type: 'image', publicId: up.publicId })
-      setImages((m) => ({ ...m, [key]: { url: up.url, type: 'image', publicId: up.publicId, hidden: false } }))
+      setImages((m) => ({
+        ...m,
+        [key]: { ...(m[key] || {}), url: up.url, type: 'image', publicId: up.publicId, hidden: false },
+      }))
     } catch (err) {
       setError(err?.message || 'Upload failed.')
     } finally {
@@ -135,13 +169,16 @@ export default function PageImagesManager({ page }) {
               const managed = !hidden && !!entry?.url
               const preview = hidden ? '' : (entry?.url || slot.def)
               const busy = busyKey === slot.key
+              const editing = editKey === slot.key
+              // Live focal point while adjusting this slot; else its saved value.
+              const thumbPos = editing ? `${pos.x}% ${pos.y}%` : entry?.pos || undefined
               return (
-                <div className={`pi-card ${managed ? 'is-custom' : ''} ${hidden ? 'is-hidden' : ''}`} key={slot.key}>
+                <div className={`pi-card ${managed ? 'is-custom' : ''} ${hidden ? 'is-hidden' : ''} ${editing ? 'is-editing' : ''}`} key={slot.key}>
                   <div className="pi-thumb">
                     {hidden ? (
                       <span className="pi-thumb-empty">Removed — not shown on the site</span>
                     ) : preview ? (
-                      <SmartImage src={preview} alt={slot.label} loading="lazy" />
+                      <SmartImage src={preview} alt={slot.label} loading="lazy" style={{ objectPosition: thumbPos }} />
                     ) : (
                       <span className="pi-thumb-empty">Animated backdrop (no image)</span>
                     )}
@@ -150,6 +187,38 @@ export default function PageImagesManager({ page }) {
                   </div>
                   <div className="pi-info">
                     <b>{slot.label}</b>
+
+                    {editing ? (
+                      /* Framing adjuster: drag the sliders to move the photo inside the frame. */
+                      <div className="pi-adjust">
+                        <p className="pi-adjust-hint">Move the photo so the important part is visible.</p>
+                        <label className="pi-slider">
+                          <span>Up / Down</span>
+                          <input
+                            type="range" min="0" max="100" value={pos.y}
+                            onChange={(e) => setPos((p) => ({ ...p, y: +e.target.value }))}
+                          />
+                        </label>
+                        <label className="pi-slider">
+                          <span>Left / Right</span>
+                          <input
+                            type="range" min="0" max="100" value={pos.x}
+                            onChange={(e) => setPos((p) => ({ ...p, x: +e.target.value }))}
+                          />
+                        </label>
+                        <div className="pi-actions">
+                          <button type="button" className="btn btn-gold btn-sm" disabled={savingPos} onClick={() => savePos(slot.key)}>
+                            {savingPos ? 'Saving…' : 'Save framing'}
+                          </button>
+                          <button type="button" className="btn btn-ghost btn-sm" onClick={() => setPos({ x: 50, y: 50 })}>
+                            Center
+                          </button>
+                          <button type="button" className="btn btn-ghost btn-sm" onClick={() => setEditKey('')}>
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
                     <div className="pi-actions">
                       <button
                         type="button"
@@ -159,13 +228,13 @@ export default function PageImagesManager({ page }) {
                       >
                         {busy ? `Uploading… ${progress}%` : managed ? 'Replace' : 'Upload'}
                       </button>
-                      {/* Edit: same as upload — pick a new image to swap in. Shown when something is visible. */}
-                      {!hidden && (managed || slot.def) && (
+                      {/* Edit: adjust how the photo is framed so it isn't cut off. */}
+                      {!hidden && preview && (
                         <button
                           type="button"
                           className="btn btn-ghost btn-sm"
-                          disabled={!isCloudinaryConfigured || busy}
-                          onClick={() => openPicker(slot.key)}
+                          disabled={busy}
+                          onClick={() => openEditor(slot.key)}
                         >
                           Edit
                         </button>
@@ -183,6 +252,7 @@ export default function PageImagesManager({ page }) {
                         </button>
                       )}
                     </div>
+                    )}
                   </div>
                 </div>
               )
