@@ -57,27 +57,29 @@ export default function AboutPage() {
           </h2>
 
           <motion.div
-            className="vm-tri"
+            className="vm-grid"
             variants={vmContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <motion.div className="vm-block" variants={vmCardV}>
-              <span className="vm-ic" aria-hidden="true">🎯</span>
-              <h4>Vision</h4>
-              <p>
-                {txt('about.vm.vision', 'To be the most trusted institution of learning in the region — empowering students through knowledge, character, and global readiness.')}
-              </p>
-            </motion.div>
+            <div className="vm-copy">
+              <motion.div className="vm-block" variants={vmCardV}>
+                <span className="vm-ic" aria-hidden="true">🎯</span>
+                <h4>Vision</h4>
+                <p>
+                  {txt('about.vm.vision', 'To be the most trusted institution of learning in the region — empowering students through knowledge, character, and global readiness.')}
+                </p>
+              </motion.div>
 
-            <motion.div className="vm-block" variants={vmCardV}>
-              <span className="vm-ic" aria-hidden="true">🧭</span>
-              <h4>Mission</h4>
-              <p>
-                {txt('about.vm.mission', 'Rooted in tradition, Dawn fosters compassionate, competent, and future-ready citizens by providing a nurturing, inclusive, and innovative learning environment.')}
-              </p>
-            </motion.div>
+              <motion.div className="vm-block" variants={vmCardV}>
+                <span className="vm-ic" aria-hidden="true">🧭</span>
+                <h4>Mission</h4>
+                <p>
+                  {txt('about.vm.mission', 'Rooted in tradition, Dawn fosters compassionate, competent, and future-ready citizens by providing a nurturing, inclusive, and innovative learning environment.')}
+                </p>
+              </motion.div>
+            </div>
 
             <motion.div className="vm-visual" variants={vmImgV}>
               <SmartImage

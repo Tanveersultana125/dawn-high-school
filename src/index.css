@@ -7912,21 +7912,21 @@ body.no-scroll { overflow: hidden; }
 }
 
 /* ── Vision & Mission (content left, image right) ── */
+/* Vision & Mission stacked on the left, photo on the right */
 .vm-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(28px, 5vw, 64px);
-  align-items: center;
-}
-/* Vision, Mission and the photo — three equal-size cards in a row */
-.vm-tri {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(16px, 2vw, 24px);
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(20px, 3vw, 40px);
   align-items: stretch;
 }
-.vm-tri .vm-visual { height: 100%; }
-.vm-tri .vm-visual img { height: 100%; max-height: none; }
+.vm-copy {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vw, 22px);
+}
+.vm-copy .vm-block { flex: 1; }
+.vm-grid .vm-visual { height: 100%; }
+.vm-grid .vm-visual img { height: 100%; max-height: none; }
 .vm-title {
   font-family: var(--font-display);
   font-weight: 800;
@@ -8014,19 +8014,10 @@ body.no-scroll { overflow: hidden; }
   max-height: 400px;
   object-fit: cover;
 }
+/* Tablet & below: photo drops below the stacked Vision/Mission cards */
 @media (max-width: 860px) {
   .vm-grid { grid-template-columns: 1fr; }
-  .vm-visual img { max-height: 300px; }
-}
-/* Tablet: photo full-width on top, Vision & Mission equal below it */
-@media (max-width: 960px) {
-  .vm-tri { grid-template-columns: 1fr 1fr; }
-  .vm-tri .vm-visual { grid-column: 1 / -1; order: -1; }
-  .vm-tri .vm-visual img { max-height: 340px; }
-}
-/* Phone: everything stacks */
-@media (max-width: 560px) {
-  .vm-tri { grid-template-columns: 1fr; }
+  .vm-grid .vm-visual img { height: auto; max-height: 340px; }
 }
 
 /* ── Core Values (3 + 2 centered cards) ── */
