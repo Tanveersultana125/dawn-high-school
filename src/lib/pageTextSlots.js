@@ -289,7 +289,7 @@ const academicsSections = [
       ...[
         ['Mathematics', 'Algebra · Calculus · Statistics'],
         ['Sciences', 'Physics · Chemistry · Biology'],
-        ['Languages', 'English · French · Spanish'],
+        ['Languages', 'English · Urdu · Telugu · Hindi'],
         ['Humanities', 'History · Geography · Civics'],
         ['Computer Science', 'Coding · AI · Robotics'],
         ['Visual & Performing Arts', 'Art · Music · Theatre'],
@@ -454,7 +454,7 @@ const facultySections = [
       ...[
         ['Science & Technology', '38 specialists across physics, chemistry, biology, and computer science.'],
         ['Mathematics', '24 educators making numbers intuitive, logical, and fun.'],
-        ['Languages', 'Native and certified teachers in English, French, and Spanish.'],
+        ['Languages', 'Native and certified teachers in English, Urdu, Telugu, and Hindi.'],
         ['Humanities', 'Bringing history, geography, and civics to life through inquiry.'],
         ['Arts & Music', 'Professional artists, musicians, and performers mentoring talent.'],
         ['Physical Education', 'Certified coaches building fitness, discipline, and teamwork.'],

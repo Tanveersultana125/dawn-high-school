@@ -15,7 +15,7 @@ const PHILOSOPHY = [
 const SUBJECTS = [
   { ic: '🔢', b: 'Mathematics', s: 'Algebra · Calculus · Statistics' },
   { ic: '🧪', b: 'Sciences', s: 'Physics · Chemistry · Biology' },
-  { ic: '🌐', b: 'Languages', s: 'English · French · Spanish' },
+  { ic: '🌐', b: 'Languages', s: 'English · Urdu · Telugu · Hindi' },
   { ic: '📜', b: 'Humanities', s: 'History · Geography · Civics' },
   { ic: '💻', b: 'Computer Science', s: 'Coding · AI · Robotics' },
   { ic: '🎨', b: 'Visual & Performing Arts', s: 'Art · Music · Theatre' },

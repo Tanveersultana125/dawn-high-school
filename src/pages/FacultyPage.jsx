@@ -14,7 +14,7 @@ const STATS = [
 const DEPARTMENTS = [
   { ic: '🧪', t: 'Science & Technology', d: '38 specialists across physics, chemistry, biology, and computer science.' },
   { ic: '🔢', t: 'Mathematics', d: '24 educators making numbers intuitive, logical, and fun.' },
-  { ic: '🌐', t: 'Languages', d: 'Native and certified teachers in English, French, and Spanish.' },
+  { ic: '🌐', t: 'Languages', d: 'Native and certified teachers in English, Urdu, Telugu, and Hindi.' },
   { ic: '📜', t: 'Humanities', d: 'Bringing history, geography, and civics to life through inquiry.' },
   { ic: '🎨', t: 'Arts & Music', d: 'Professional artists, musicians, and performers mentoring talent.' },
   { ic: '⚽', t: 'Physical Education', d: 'Certified coaches building fitness, discipline, and teamwork.' },
