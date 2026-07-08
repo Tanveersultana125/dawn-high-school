@@ -230,9 +230,9 @@ const academicsSections = [
       F('academics.excel.eyebrow', 'Eyebrow', "Our Achievers"),
       F('academics.excel.title', 'Title', "Our Academic"),
       F('academics.excel.accent', 'Highlighted word', "Excellence"),
-      F('academics.excel.desc', 'Intro line', "Dawn High School's outstanding recognition, with top ranks and distinctions in the SSC Board examinations.", true),
+      F('academics.excel.desc', 'Intro line', "Dawn High School's outstanding recognition, with top ranks and distinctions in the SSC Telangana State Board examinations.", true),
       F('academics.excel.sub', 'Sub-heading', "Celebrating Our SSC Toppers 2022–2023"),
-      F('academics.excel.body', 'Description', "Every year, our students shine in the SSC (Secondary School Certificate) Board examinations — earning distinctions, top grades, and remarkable ranks. These results reflect the hard work of our students and the dedication of our teachers, who together bring out the very best in every learner.", true),
+      F('academics.excel.body', 'Description', "Every year, our students shine in the SSC (Telangana State Board) examinations — earning distinctions, top grades, and remarkable ranks. These results reflect the hard work of our students and the dedication of our teachers, who together bring out the very best in every learner.", true),
     ],
   },
   {
