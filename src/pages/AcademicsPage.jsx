@@ -17,7 +17,7 @@ const SUBJECTS = [
   { ic: '🧪', b: 'Sciences', s: 'Physics · Chemistry · Biology' },
   { ic: '🌐', b: 'Languages', s: 'English · Urdu · Telugu · Hindi' },
   { ic: '📜', b: 'Humanities', s: 'History · Geography · Civics' },
-  { ic: '💻', b: 'Computer Science', s: 'Coding · AI · Robotics' },
+  { ic: '💻', b: 'Computer Science', s: 'Indian Syllabus' },
   { ic: '🎨', b: 'Visual & Performing Arts', s: 'Art · Music · Theatre' },
   { ic: '📈', b: 'Commerce', s: 'Economics · Business · Accounts' },
   { ic: '⚽', b: 'Physical Education', s: 'Athletics · Wellness · Teamwork' },
