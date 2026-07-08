@@ -4428,9 +4428,10 @@ body.no-scroll { overflow: hidden; }
   position: relative;
   overflow: hidden;
   padding: 40px;
-  border-radius: 8px;
-  border: 1px solid #262626;
-  background: #000;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--gradient-navy);
+  box-shadow: var(--shadow-lg);
 }
 .card-spotlight__mask {
   pointer-events: none;
