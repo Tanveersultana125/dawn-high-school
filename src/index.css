@@ -3353,10 +3353,13 @@ body.no-scroll { overflow: hidden; }
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 460px;
+  max-width: 420px;
   margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(10, 31, 68, 0.2);
 }
-/* show the full composed graphic — never crop its baked-in card */
+/* full composed graphic inside a neat rounded card — nothing cropped */
 .bf-photo-frame img { width: 100%; height: auto; display: block; }
 .bf-deco { position: absolute; z-index: 3; pointer-events: none; }
 .bf-spark { left: 2%; top: 40%; font-size: 1.8rem; color: #8b5cf6; animation: fhFloat 5s ease-in-out infinite; }
