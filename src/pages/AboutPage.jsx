@@ -22,19 +22,23 @@ const VALUES = [
   { ic: '🧩', t: 'Integrity', d: 'Honesty and strong moral principles form the cornerstone of our community.' },
 ]
 
-// Vision & Mission reveal: container fires once in view, then plays its children
-// in order — text first, image afterwards (controlled, never simultaneous).
+// Vision & Mission reveal: Vision slides in from the left, the photo rises in the
+// middle, Mission slides in from the right — staggered so they arrive in sequence.
 const vmContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 2.5 } },
+  visible: { transition: { staggerChildren: 0.18 } },
 }
-const vmCopyV = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+const vmLeftV = {
+  hidden: { opacity: 0, x: -40 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 }
 const vmImgV = {
-  hidden: { opacity: 0, x: 90 },
-  visible: { opacity: 1, x: 0, transition: { duration: 1.3, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 40, scale: 0.96 },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] } },
+}
+const vmRightV = {
+  hidden: { opacity: 0, x: 40 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 }
 
 export default function AboutPage() {
@@ -52,35 +56,23 @@ export default function AboutPage() {
       {/* Vision & Mission */}
       <section className="section">
         <div className="container">
+          <h2 className="vm-title">
+            {txt('about.vm.title', 'Our')} <span className="accent">{txt('about.vm.accent', 'Vision & Mission')}</span>
+          </h2>
+
           <motion.div
-            className="vm-grid"
+            className="vm-tri"
             variants={vmContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <motion.div className="vm-copy" variants={vmCopyV}>
-              <h2 className="vm-title">
-                {txt('about.vm.title', 'Our')} <span className="accent">{txt('about.vm.accent', 'Vision & Mission')}</span>
-              </h2>
-
-              <div className="vm-blocks">
-                <div className="vm-block">
-                  <span className="vm-ic" aria-hidden="true">🎯</span>
-                  <h4>Vision</h4>
-                  <p>
-                    {txt('about.vm.vision', 'To be the most trusted institution of learning in the region — empowering students through knowledge, character, and global readiness.')}
-                  </p>
-                </div>
-
-                <div className="vm-block">
-                  <span className="vm-ic" aria-hidden="true">🧭</span>
-                  <h4>Mission</h4>
-                  <p>
-                    {txt('about.vm.mission', 'Rooted in tradition, Dawn fosters compassionate, competent, and future-ready citizens by providing a nurturing, inclusive, and innovative learning environment.')}
-                  </p>
-                </div>
-              </div>
+            <motion.div className="vm-block" variants={vmLeftV}>
+              <span className="vm-ic" aria-hidden="true">🎯</span>
+              <h4>Vision</h4>
+              <p>
+                {txt('about.vm.vision', 'To be the most trusted institution of learning in the region — empowering students through knowledge, character, and global readiness.')}
+              </p>
             </motion.div>
 
             <motion.div className="vm-visual" variants={vmImgV}>
@@ -89,6 +81,14 @@ export default function AboutPage() {
                 alt="Dawn High School students learning together"
                 loading="lazy"
               />
+            </motion.div>
+
+            <motion.div className="vm-block" variants={vmRightV}>
+              <span className="vm-ic" aria-hidden="true">🧭</span>
+              <h4>Mission</h4>
+              <p>
+                {txt('about.vm.mission', 'Rooted in tradition, Dawn fosters compassionate, competent, and future-ready citizens by providing a nurturing, inclusive, and innovative learning environment.')}
+              </p>
             </motion.div>
           </motion.div>
         </div>

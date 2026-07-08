@@ -7918,6 +7918,13 @@ body.no-scroll { overflow: hidden; }
   gap: clamp(28px, 5vw, 64px);
   align-items: center;
 }
+/* Vision | Photo | Mission — three balanced columns */
+.vm-tri {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr 1fr;
+  gap: clamp(18px, 2.4vw, 30px);
+  align-items: stretch;
+}
 .vm-title {
   font-family: var(--font-display);
   font-weight: 800;
@@ -8009,8 +8016,15 @@ body.no-scroll { overflow: hidden; }
   .vm-grid { grid-template-columns: 1fr; }
   .vm-visual img { max-height: 300px; }
 }
-@media (max-width: 520px) {
-  .vm-blocks { grid-template-columns: 1fr; gap: 22px; }
+/* Tablet: photo moves to the top (full width), Vision & Mission sit below it */
+@media (max-width: 960px) {
+  .vm-tri { grid-template-columns: 1fr 1fr; }
+  .vm-tri .vm-visual { grid-column: 1 / -1; order: -1; }
+  .vm-tri .vm-visual img { max-height: 340px; }
+}
+/* Phone: everything stacks */
+@media (max-width: 560px) {
+  .vm-tri { grid-template-columns: 1fr; }
 }
 
 /* ── Core Values (3 + 2 centered cards) ── */
