@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Crest from './Crest'
 
@@ -25,6 +26,17 @@ const SOCIALS = [
 ]
 
 export default function Footer() {
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+
+  const onSubscribe = (e) => {
+    e.preventDefault()
+    if (!email) return
+    setSubscribed(true)
+    setEmail('')
+    setTimeout(() => setSubscribed(false), 4000)
+  }
+
   return (
     <footer className="footer">
       <div className="container">
@@ -78,10 +90,19 @@ export default function Footer() {
           <div className="footer-newsletter">
             <h5>Stay Updated</h5>
             <p>Subscribe to our newsletter for the latest news, events, and admissions updates.</p>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Your email address" aria-label="Email address" required />
+            <form onSubmit={onSubscribe}>
+              <input
+                type="email"
+                placeholder="Your email address"
+                aria-label="Email address"
+                required
+                value={email}
+                /* strip any spaces as they type so the browser doesn't reject it */
+                onChange={(e) => setEmail(e.target.value.replace(/\s/g, ''))}
+              />
               <button type="submit" aria-label="Subscribe">→</button>
             </form>
+            {subscribed && <p className="footer-sub-ok">✓ Thanks for subscribing!</p>}
           </div>
         </div>
 

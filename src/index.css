@@ -4894,6 +4894,12 @@ body.no-scroll { overflow: hidden; }
   font-size: 1.1rem;
   flex: none;
 }
+.footer-sub-ok {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold-400, #e6c35c);
+}
 .footer-bottom {
   display: flex;
   align-items: center;
