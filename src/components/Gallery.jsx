@@ -27,9 +27,14 @@ const IMAGES = [
   { emoji: '🌳', title: 'Green Courtyard', cat: 'Campus', h: 240, img: U('photo-1622397333309-3056849bc70b'), grad: 'linear-gradient(160deg,#103374,#2563eb)' },
 ]
 
+// How many photos to show at first, and how many more each "load more" click adds.
+const INITIAL_SHOWN = 6
+const LOAD_STEP = 3
+
 export default function Gallery() {
   const [lightbox, setLightbox] = useState(null)
   const [uploaded, setUploaded] = useState([])
+  const [shown, setShown] = useState(INITIAL_SHOWN)
 
   // Pull admin-uploaded media (newest first) and slot it ahead of the samples.
   useEffect(() => {
@@ -55,6 +60,8 @@ export default function Gallery() {
   }, [])
 
   const items = [...uploaded, ...IMAGES]
+  const visibleItems = items.slice(0, shown)
+  const hasMore = shown < items.length
 
   const move = useCallback((dir) => {
     setLightbox((i) => (i === null ? i : (i + dir + items.length) % items.length))
@@ -88,7 +95,7 @@ export default function Gallery() {
 
         <Reveal>
           <div className="gallery-grid">
-            {items.map((img, i) => (
+            {visibleItems.map((img, i) => (
               <figure
                 className="gallery-item"
                 key={(img.title || '') + i}
@@ -115,6 +122,19 @@ export default function Gallery() {
             ))}
           </div>
         </Reveal>
+
+        {hasMore && (
+          <div className="gallery-more">
+            <button
+              type="button"
+              className="gallery-more-btn"
+              onClick={() => setShown((n) => n + LOAD_STEP)}
+            >
+              Click here for more pictures
+              <span className="gallery-more-arrow" aria-hidden="true">↓</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {lightbox !== null && (
