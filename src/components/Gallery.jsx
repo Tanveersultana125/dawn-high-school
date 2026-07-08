@@ -43,8 +43,9 @@ export default function Gallery() {
     fetchMedia()
       .then((rows) => {
         if (!alive) return
+        // Photos only — videos have their own section below the gallery.
         setUploaded(
-          rows.map((m, i) => ({
+          rows.filter((m) => (m.type || 'image') !== 'video').map((m, i) => ({
             title: m.title || 'Untitled',
             cat: m.category || 'Campus',
             img: m.url,

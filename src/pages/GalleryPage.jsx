@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import PageHero from '../components/PageHero'
 import Gallery from '../components/Gallery'
+import VideoGallery from '../components/VideoGallery'
 import BuildingBlocks from '../components/BuildingBlocks'
 import { Reveal } from '../components/common'
 
@@ -27,6 +28,8 @@ export default function GalleryPage() {
       />
 
       <Gallery />
+
+      <VideoGallery />
 
       <section className="section section-alt">
         <div className="container">
