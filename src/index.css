@@ -7281,22 +7281,19 @@ body.no-scroll { overflow: hidden; }
   background: #0a0a0c;
   animation: searchFade 0.3s ease;
 }
-/* Tall track gives scroll room to scrub the arrange animation */
-.gs-track { height: 240vh; }
-/* The grid is pinned while you scroll the track */
+/* The grid centers in the viewport; tiles start scattered then settle. */
 .gs-grid {
-  --p: 0; /* 0 = scattered, 1 = grid (driven by scroll in JS) */
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  --p: 0; /* 0 = scattered, 1 = arranged grid (toggled by the .on class) */
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: calc(6px + var(--p) * 8px);
   align-content: center;
+  min-height: 100vh;
   max-width: 1600px;
   margin: 0 auto;
   padding: clamp(18px, 4vh, 56px) clamp(16px, 3vw, 60px);
 }
+.gs-grid.on { --p: 1; }
 .gs-img {
   position: relative;
   display: block;
@@ -7312,7 +7309,8 @@ body.no-scroll { overflow: hidden; }
     translate(calc(var(--dx, 0px) * (1 - var(--p))), calc(var(--dy, 0px) * (1 - var(--p))))
     skewY(calc(var(--sk, 0deg) * (1 - var(--p))))
     scale(calc(1 - 0.1 * (1 - var(--p))));
-  transition: transform 0.12s linear, filter 0.3s ease;
+  /* Auto-arrange: each tile eases into place with a small staggered delay. */
+  transition: transform 1.15s cubic-bezier(0.22, 0.61, 0.36, 1) var(--d, 0ms), filter 0.3s ease;
   will-change: transform;
 }
 .gs-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -7336,24 +7334,6 @@ body.no-scroll { overflow: hidden; }
   transition: background 0.25s, color 0.25s;
 }
 .gallery-spread-close:hover { background: var(--gold-500); color: var(--navy-900); }
-/* Scroll hint, fades out as you start arranging */
-.gs-hint {
-  position: fixed;
-  left: 50%;
-  bottom: 26px;
-  transform: translateX(-50%);
-  z-index: 1910;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  pointer-events: none;
-  animation: gsHintBob 1.8s var(--ease-lux) infinite;
-}
-@keyframes gsHintBob {
-  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.55; }
-  50% { transform: translateX(-50%) translateY(6px); opacity: 1; }
-}
 /* The single zoom (cube-lightbox) must sit above the spread */
 .cube-lightbox { z-index: 2000; }
 
