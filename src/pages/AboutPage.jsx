@@ -64,20 +64,22 @@ export default function AboutPage() {
                 {txt('about.vm.title', 'Our')} <span className="accent">{txt('about.vm.accent', 'Vision & Mission')}</span>
               </h2>
 
-              <div className="vm-block">
-                <h4>Vision</h4>
-                <p>
-                  <i aria-hidden="true">❯</i>
-                  {txt('about.vm.vision', 'To be the most trusted institution of learning in the region — empowering students through knowledge, character, and global readiness.')}
-                </p>
-              </div>
+              <div className="vm-blocks">
+                <div className="vm-block">
+                  <h4>Vision</h4>
+                  <p>
+                    <i aria-hidden="true">❯</i>
+                    {txt('about.vm.vision', 'To be the most trusted institution of learning in the region — empowering students through knowledge, character, and global readiness.')}
+                  </p>
+                </div>
 
-              <div className="vm-block">
-                <h4>Mission</h4>
-                <p>
-                  <i aria-hidden="true">❯</i>
-                  {txt('about.vm.mission', 'Rooted in tradition, Dawn fosters compassionate, competent, and future-ready citizens by providing a nurturing, inclusive, and innovative learning environment.')}
-                </p>
+                <div className="vm-block">
+                  <h4>Mission</h4>
+                  <p>
+                    <i aria-hidden="true">❯</i>
+                    {txt('about.vm.mission', 'Rooted in tradition, Dawn fosters compassionate, competent, and future-ready citizens by providing a nurturing, inclusive, and innovative learning environment.')}
+                  </p>
+                </div>
               </div>
             </motion.div>
 

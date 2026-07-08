@@ -7932,8 +7932,13 @@ body.no-scroll { overflow: hidden; }
   background-clip: text;
   color: transparent;
 }
-.vm-block { margin-bottom: 24px; }
-.vm-block:last-child { margin-bottom: 0; }
+/* Vision & Mission sit side by side */
+.vm-blocks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 3vw, 36px);
+}
+.vm-block { margin-bottom: 0; }
 .vm-block h4 {
   font-family: var(--font-display);
   font-size: 1.3rem;
@@ -7970,6 +7975,9 @@ body.no-scroll { overflow: hidden; }
 @media (max-width: 860px) {
   .vm-grid { grid-template-columns: 1fr; }
   .vm-visual img { max-height: 300px; }
+}
+@media (max-width: 520px) {
+  .vm-blocks { grid-template-columns: 1fr; gap: 22px; }
 }
 
 /* ── Core Values (3 + 2 centered cards) ── */
