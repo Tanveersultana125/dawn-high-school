@@ -252,7 +252,7 @@ export default function Chatbot() {
           >
             <header className="cbot-head">
               <span className="cbot-logo" aria-hidden="true">
-                <img src="/dawn-logo.png" alt="" width="44" height="44" />
+                <img src="/dawn-logo-badge.png" alt="" width="46" height="46" />
               </span>
               <div className="cbot-head-txt">
                 <b>Dawn High School</b>
