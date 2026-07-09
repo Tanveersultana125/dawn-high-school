@@ -6507,8 +6507,10 @@ body.no-scroll { overflow: hidden; }
   gap: 48px;
   align-items: center;
 }
-/* image-first variant — photo (wider) on the left, copy on the right */
-.award-card.is-reverse { grid-template-columns: 1.1fr 1fr; }
+/* image-first variant — photo on the left, copy on the right.
+   Image takes the narrower column so its height matches the text block. */
+.award-card.is-reverse { grid-template-columns: 1fr 1.18fr; align-items: center; }
+.award-card.is-reverse .award-photo { max-width: 520px; }
 .award-photo {
   border-radius: 16px;
   overflow: hidden;
