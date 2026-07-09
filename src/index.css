@@ -6596,89 +6596,19 @@ body.no-scroll { overflow: hidden; }
   font-size: 1.1rem;
   margin: 0;
 }
-/* Achiever board — featured topper + banner, then a grid of small passport
-   photos with names, like a school "toppers" display board */
+/* Achiever board — a single toppers / SSC results poster image */
 .excel-board { width: 100%; }
-
-/* featured topper + congratulations banner */
-.excel-feature {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 16px;
-  align-items: center;
-  margin-bottom: 18px;
-}
-.excel-topper { margin: 0; text-align: center; }
-.excel-banner {
-  border-radius: 12px;
-  padding: 14px 18px;
-  color: #fff;
-  background: linear-gradient(135deg, #c81d25 0%, #9b1414 100%);
-  box-shadow: 0 16px 34px -20px rgba(155, 20, 20, 0.7);
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.excel-banner-top { font-size: 0.74rem; font-weight: 600; opacity: 0.95; }
-.excel-banner-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: 0.01em;
-}
-.excel-banner-sub { font-size: 0.74rem; line-height: 1.35; opacity: 0.95; }
-
-.excel-board-title {
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 800;
-  font-size: 0.95rem;
-  color: var(--navy-800, #0a2150);
-  margin: 4px 0 16px;
-}
-
-/* small passport-style photo grid */
-.excel-grid5 {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 14px 10px;
-}
-.excel-card { margin: 0; text-align: center; }
-.excel-photo {
-  border-radius: 6px;
+.excel-poster {
+  border-radius: 16px;
   overflow: hidden;
   background: #fff;
-  border: 1px solid #d8d0d0;
-  padding: 3px;
-  box-shadow: 0 6px 14px -9px rgba(10, 33, 80, 0.4);
-  aspect-ratio: 3 / 4;
+  border: 1px solid var(--gray-200);
+  box-shadow: 0 24px 54px -30px rgba(10, 33, 80, 0.45);
 }
-/* keep the grid photos small & centered (passport size) instead of stretching */
-.excel-grid5 .excel-photo { max-width: 74px; margin: 0 auto; }
-.excel-photo.is-topper { width: 88px; }
-.excel-photo img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
-.excel-name {
-  margin-top: 7px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.01em;
-  color: #9b1414;
-}
-.excel-topper .excel-name { font-size: 0.82rem; }
-@media (max-width: 1100px) {
-  .excel-grid5 { grid-template-columns: repeat(4, 1fr); }
-}
+.excel-poster img { display: block; width: 100%; height: auto; }
 @media (max-width: 900px) {
   .excel-grid { grid-template-columns: 1fr; gap: 32px; }
-  .excel-board { order: -1; max-width: 540px; margin: 0 auto; }
-}
-@media (max-width: 480px) {
-  .excel-grid5 { grid-template-columns: repeat(3, 1fr); gap: 12px 10px; }
-  .excel-feature { grid-template-columns: 1fr; text-align: center; }
-  .excel-photo.is-topper { margin: 0 auto; }
+  .excel-board { order: -1; max-width: 560px; margin: 0 auto; }
 }
 @media (max-width: 760px) {
   .award-card { grid-template-columns: 1fr; gap: 26px; }
