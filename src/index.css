@@ -8915,17 +8915,22 @@ body.no-scroll { overflow: hidden; }
 .cbot-logo {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
   overflow: hidden;
   flex-shrink: 0;
 }
-/* the logo file already carries a white circle + margin — scale it up so the
-   crest fills the badge instead of floating tiny in the middle */
-.cbot-logo img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.2); }
+/* show the whole crest, centered — `contain` keeps it complete and un-cropped */
+.cbot-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  padding: 3px;
+}
 .cbot-head-txt { display: flex; flex-direction: column; line-height: 1.25; }
 .cbot-head-txt b { font-weight: 700; font-size: 1rem; }
 .cbot-head-txt i {
