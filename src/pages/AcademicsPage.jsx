@@ -3,6 +3,7 @@ import Academics from '../components/Academics'
 import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
 import SmartImage from '../components/SmartImage'
+import PixelCard from '../components/PixelCard'
 import { usePageImage, usePageImageResolver } from '../context/PageImagesContext'
 import { usePageTextResolver } from '../context/PageTextContext'
 
@@ -156,13 +157,21 @@ export default function AcademicsPage() {
           <Reveal>
             <div className="subject-grid">
               {SUBJECTS.map((s, i) => (
-                <div className="subject" key={s.b}>
-                  <span className="s-ic">{s.ic}</span>
-                  <div>
-                    <b>{txt(`academics.subject.${i + 1}.b`, s.b)}</b>
-                    <span>{txt(`academics.subject.${i + 1}.s`, s.s)}</span>
+                <PixelCard
+                  key={s.b}
+                  className="subject-pixel"
+                  gap={7}
+                  speed={45}
+                  colors="#dbeafe,#93c5fd,#1450c8,#d4af37"
+                >
+                  <div className="subject">
+                    <span className="s-ic">{s.ic}</span>
+                    <div>
+                      <b>{txt(`academics.subject.${i + 1}.b`, s.b)}</b>
+                      <span>{txt(`academics.subject.${i + 1}.s`, s.s)}</span>
+                    </div>
                   </div>
-                </div>
+                </PixelCard>
               ))}
             </div>
           </Reveal>

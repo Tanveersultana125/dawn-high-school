@@ -5815,6 +5815,37 @@ body.no-scroll { overflow: hidden; }
 .subject b { color: var(--navy-800); font-size: 0.98rem; }
 .subject span { display: block; font-size: 0.78rem; color: var(--text-faint); }
 
+/* PixelCard wrapper styled as a light subject card */
+.subject-pixel.pixel-card {
+  height: auto;
+  width: auto;
+  aspect-ratio: auto;
+  min-height: 96px;
+  display: block;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux),
+    border-color 0.4s var(--ease-lux);
+}
+.subject-pixel.pixel-card::before { display: none; } /* drop the dark glow */
+.subject-pixel.pixel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--royal-200, #bcd2f5);
+}
+.subject-pixel .pixel-canvas { position: absolute; inset: 0; z-index: 0; }
+.subject-pixel .subject {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: transparent;
+  border: 0;
+  border-radius: inherit;
+}
+/* the wrapper handles the hover lift now */
+.subject-pixel .subject:hover { transform: none; box-shadow: none; }
+
 /* Requirement / checklist */
 .req-list { display: grid; gap: 14px; }
 .req-item { display: flex; gap: 14px; align-items: flex-start; }
