@@ -6541,7 +6541,7 @@ body.no-scroll { overflow: hidden; }
   display: grid;
   grid-template-columns: 1fr 1.05fr;
   gap: clamp(32px, 5vw, 64px);
-  align-items: center;
+  align-items: start;
 }
 .excel-eyebrow {
   display: inline-block;
@@ -6577,23 +6577,23 @@ body.no-scroll { overflow: hidden; }
   margin: 20px 0 22px;
 }
 .excel-lead {
-  font-size: clamp(1.02rem, 1.4vw, 1.16rem);
+  font-size: clamp(1.14rem, 1.5vw, 1.3rem);
   font-weight: 600;
   color: var(--navy-700, #17356b);
-  line-height: 1.6;
-  margin: 0 0 22px;
+  line-height: 1.65;
+  margin: 0 0 26px;
 }
 .excel-sub {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--navy-800, #0a2150);
-  margin: 0 0 12px;
+  margin: 0 0 14px;
 }
 .excel-body {
   color: var(--text-soft, rgba(10, 33, 80, 0.7));
-  line-height: 1.78;
-  font-size: 1rem;
+  line-height: 1.85;
+  font-size: 1.1rem;
   margin: 0;
 }
 /* Achiever board — featured topper + banner, then a grid of small passport
@@ -6656,8 +6656,8 @@ body.no-scroll { overflow: hidden; }
   aspect-ratio: 3 / 4;
 }
 /* keep the grid photos small & centered (passport size) instead of stretching */
-.excel-grid5 .excel-photo { max-width: 84px; margin: 0 auto; }
-.excel-photo.is-topper { width: 96px; }
+.excel-grid5 .excel-photo { max-width: 74px; margin: 0 auto; }
+.excel-photo.is-topper { width: 88px; }
 .excel-photo img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
 .excel-name {
   margin-top: 7px;
