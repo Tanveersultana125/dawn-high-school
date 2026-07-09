@@ -6,18 +6,25 @@ import SmartImage from '../components/SmartImage'
 import { usePageImage, usePageImageResolver } from '../context/PageImagesContext'
 import { usePageTextResolver } from '../context/PageTextContext'
 
-// Achiever gallery: a tidy grid of small student portraits, each with a name
-// caption — like a school "toppers" board. Photos & names are admin-editable.
+// Achiever board — a featured topper + a red congratulations banner, then a
+// grid of small passport-style student photos with names, like a "toppers"
+// display board. Photos & names are admin-editable.
 const P = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=500&q=80`
+const FEATURE = {
+  imgKey: 'academics.excel.topper', imgDef: P('photo-1531123897727-8f129e1688ce'),
+  nameKey: 'academics.excel.topperName', nameDef: 'Anas Muzaffar',
+}
 const ACHIEVERS = [
-  { imgKey: 'academics.excel.1', imgDef: P('photo-1500648767791-00dcc994a43e'), nameKey: 'academics.excel.name1', nameDef: 'Aisha Khan' },
-  { imgKey: 'academics.excel.2', imgDef: P('photo-1494790108377-be9c29b29330'), nameKey: 'academics.excel.name2', nameDef: 'Fatima Noor' },
-  { imgKey: 'academics.excel.3', imgDef: P('photo-1507003211169-0a1dd7228f2d'), nameKey: 'academics.excel.name3', nameDef: 'Mohammed Faiz' },
-  { imgKey: 'academics.excel.4', imgDef: P('photo-1544005313-94ddf0286df2'), nameKey: 'academics.excel.name4', nameDef: 'Sara Ahmed' },
-  { imgKey: 'academics.excel.5', imgDef: P('photo-1506794778202-cad84cf45f1d'), nameKey: 'academics.excel.name5', nameDef: 'Zaid Ali' },
-  { imgKey: 'academics.excel.6', imgDef: P('photo-1534528741775-53994a69daeb'), nameKey: 'academics.excel.name6', nameDef: 'Ayesha Siddiqui' },
-  { imgKey: 'academics.excel.7', imgDef: P('photo-1519085360753-af0119f7cbe7'), nameKey: 'academics.excel.name7', nameDef: 'Ibrahim Shaikh' },
-  { imgKey: 'academics.excel.8', imgDef: P('photo-1573497019940-1c28c88b4f3e'), nameKey: 'academics.excel.name8', nameDef: 'Zunaira Fatima' },
+  { imgKey: 'academics.excel.1', imgDef: P('photo-1544005313-94ddf0286df2'), nameKey: 'academics.excel.name1', nameDef: 'Zubia Muqtadir' },
+  { imgKey: 'academics.excel.2', imgDef: P('photo-1494790108377-be9c29b29330'), nameKey: 'academics.excel.name2', nameDef: 'Juveria Raza' },
+  { imgKey: 'academics.excel.3', imgDef: P('photo-1507003211169-0a1dd7228f2d'), nameKey: 'academics.excel.name3', nameDef: 'Saif Ullah Shareef' },
+  { imgKey: 'academics.excel.4', imgDef: P('photo-1506794778202-cad84cf45f1d'), nameKey: 'academics.excel.name4', nameDef: 'Md. Mujtaba Hussain' },
+  { imgKey: 'academics.excel.5', imgDef: P('photo-1534528741775-53994a69daeb'), nameKey: 'academics.excel.name5', nameDef: 'Junainah Hajar' },
+  { imgKey: 'academics.excel.6', imgDef: P('photo-1573497019940-1c28c88b4f3e'), nameKey: 'academics.excel.name6', nameDef: 'Hafsa Tahreem' },
+  { imgKey: 'academics.excel.7', imgDef: P('photo-1544005313-94ddf0286df2'), nameKey: 'academics.excel.name7', nameDef: 'Syeda Sayema Maheen' },
+  { imgKey: 'academics.excel.8', imgDef: P('photo-1500648767791-00dcc994a43e'), nameKey: 'academics.excel.name8', nameDef: 'Syed Armaan' },
+  { imgKey: 'academics.excel.9', imgDef: P('photo-1531123897727-8f129e1688ce'), nameKey: 'academics.excel.name9', nameDef: 'Zunaira Fatima' },
+  { imgKey: 'academics.excel.10', imgDef: P('photo-1519085360753-af0119f7cbe7'), nameKey: 'academics.excel.name10', nameDef: 'Aisha Khan' },
 ]
 
 const PHILOSOPHY = [
@@ -80,20 +87,45 @@ export default function AcademicsPage() {
                 {txt('academics.excel.body', 'Every year, our students shine in the SSC (Telangana State Board) examinations — earning distinctions, top grades, and remarkable ranks. These results reflect the hard work of our students and the dedication of our teachers, who together bring out the very best in every learner.')}
               </p>
             </Reveal>
-            <Reveal className="excel-gallery" delay={1}>
-              {ACHIEVERS.map((a) => {
-                const src = pickImg(a.imgKey, a.imgDef)
-                if (!src) return null // slot deleted in admin → drop the card
-                const name = txt(a.nameKey, a.nameDef)
-                return (
-                  <figure className="excel-card" key={a.imgKey}>
-                    <div className="excel-photo">
-                      <SmartImage src={src} alt={name} loading="lazy" />
-                    </div>
-                    <figcaption className="excel-name">{name}</figcaption>
-                  </figure>
-                )
-              })}
+            <Reveal className="excel-board" delay={1}>
+              {/* Featured topper + congratulations banner */}
+              <div className="excel-feature">
+                {(() => {
+                  const src = pickImg(FEATURE.imgKey, FEATURE.imgDef)
+                  const name = txt(FEATURE.nameKey, FEATURE.nameDef)
+                  return src ? (
+                    <figure className="excel-topper">
+                      <div className="excel-photo is-topper">
+                        <SmartImage src={src} alt={name} loading="lazy" />
+                      </div>
+                      <figcaption className="excel-name">{name}</figcaption>
+                    </figure>
+                  ) : null
+                })()}
+                <div className="excel-banner">
+                  <span className="excel-banner-top">{txt('academics.excel.bannerTop', 'Congratulations to our students for achieving')}</span>
+                  <strong className="excel-banner-title">{txt('academics.excel.bannerTitle', 'THE HIGHEST MARKS')}</strong>
+                  <span className="excel-banner-sub">{txt('academics.excel.bannerSub', 'in the SSC Telangana State Board Examinations — Dawn High School, Hyderabad.')}</span>
+                </div>
+              </div>
+
+              <h4 className="excel-board-title">{txt('academics.excel.boardTitle', 'Achievers of Highest Marks')}</h4>
+
+              <div className="excel-grid5">
+                {ACHIEVERS.map((a) => {
+                  const src = pickImg(a.imgKey, a.imgDef)
+                  if (!src) return null // slot deleted in admin → drop the card
+                  const name = txt(a.nameKey, a.nameDef)
+                  return (
+                    <figure className="excel-card" key={a.imgKey}>
+                      <div className="excel-photo">
+                        <SmartImage src={src} alt={name} loading="lazy" />
+                      </div>
+                      <figcaption className="excel-name">{name}</figcaption>
+                    </figure>
+                  )
+                })}
+              </div>
             </Reveal>
           </div>
         </div>
