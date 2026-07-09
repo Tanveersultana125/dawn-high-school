@@ -1,9 +1,10 @@
 import PageHero from '../components/PageHero'
 import Academics from '../components/Academics'
-import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
 import SmartImage from '../components/SmartImage'
 import PixelCard from '../components/PixelCard'
+import FlippingCard from '../components/FlippingCard'
+import { Link } from 'react-router-dom'
 import { usePageImage, usePageImageResolver } from '../context/PageImagesContext'
 import { usePageTextResolver } from '../context/PageTextContext'
 
@@ -11,9 +12,9 @@ import { usePageTextResolver } from '../context/PageTextContext'
 // alongside the copy. The poster is admin-editable via one image slot.
 
 const PHILOSOPHY = [
-  { ic: '🔍', t: 'Inquiry-Based', d: 'Students learn by questioning, exploring, and discovering — not memorising.' },
-  { ic: '🎯', t: 'Personalised', d: 'Adaptive pathways and small class sizes meet every learner where they are.' },
-  { ic: '🚀', t: 'Future-Ready', d: 'Coding, critical thinking, and real-world projects from an early age.' },
+  { ic: '🔍', t: 'Inquiry-Based', d: 'Students learn by questioning, exploring, and discovering — not memorising.', back: 'From the first question to the final discovery, our classrooms reward curiosity, critical thinking and independent learning.' },
+  { ic: '🎯', t: 'Personalised', d: 'Adaptive pathways and small class sizes meet every learner where they are.', back: 'Small classes and adaptive pathways mean every child is challenged and supported at just the right level, every single day.' },
+  { ic: '🚀', t: 'Future-Ready', d: 'Coding, critical thinking, and real-world projects from an early age.', back: 'Coding, robotics and real-world projects build the confidence and skills our students need for the careers of tomorrow.' },
 ]
 
 const SUBJECTS = [
@@ -133,11 +134,23 @@ export default function AcademicsPage() {
           <div className="grid cols-3">
             {PHILOSOPHY.map((p, i) => (
               <Reveal className="philo-cell" delay={(i % 3) + 1} key={p.t}>
-                <TiltCard className="card philosophy-card">
-                  <div className="card-icon">{p.ic}</div>
-                  <h3>{txt(`academics.philo.${i + 1}.t`, p.t)}</h3>
-                  <p>{txt(`academics.philo.${i + 1}.d`, p.d)}</p>
-                </TiltCard>
+                <FlippingCard
+                  height={300}
+                  width={340}
+                  frontContent={
+                    <div className="philo-front">
+                      <div className="fc-ic">{p.ic}</div>
+                      <h3>{txt(`academics.philo.${i + 1}.t`, p.t)}</h3>
+                      <p>{txt(`academics.philo.${i + 1}.d`, p.d)}</p>
+                    </div>
+                  }
+                  backContent={
+                    <div className="philo-back">
+                      <p>{txt(`academics.philo.${i + 1}.back`, p.back)}</p>
+                      <Link className="fc-btn" to="/admissions">Learn More</Link>
+                    </div>
+                  }
+                />
               </Reveal>
             ))}
           </div>

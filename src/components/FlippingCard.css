@@ -1,0 +1,36 @@
+.flip-card {
+  perspective: 1000px;
+  width: 100%;
+}
+.flip-card__inner {
+  position: relative;
+  width: 100%;
+  max-width: var(--fc-width, 350px);
+  height: var(--fc-height, 300px);
+  margin: 0 auto;
+  border-radius: 16px;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-style: preserve-3d;
+}
+.flip-card:hover .flip-card__inner,
+.flip-card:focus-within .flip-card__inner {
+  transform: rotateY(180deg);
+}
+.flip-card__face {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: 1px solid var(--gray-200);
+  background: #fff;
+  box-shadow: 0 16px 40px -18px rgba(10, 33, 80, 0.28);
+}
+.flip-card__face--back {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-card__inner { transition: none; }
+}
