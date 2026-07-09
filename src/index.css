@@ -6511,6 +6511,41 @@ body.no-scroll { overflow: hidden; }
    Image takes the narrower column so its height matches the text block. */
 .award-card.is-reverse { grid-template-columns: 1fr 1.18fr; align-items: center; }
 .award-card.is-reverse .award-photo { max-width: 520px; }
+
+/* Oxford Curriculum — professional layered background */
+.oxford-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(90% 120% at 100% 0%, rgba(20, 80, 200, 0.06), transparent 55%),
+    radial-gradient(80% 120% at 0% 100%, rgba(212, 175, 55, 0.08), transparent 55%),
+    linear-gradient(160deg, #f7f9fd 0%, #eef2fa 100%);
+}
+/* soft floating glows */
+.oxford-section::before,
+.oxford-section::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(10px);
+}
+.oxford-section::before {
+  top: -120px;
+  right: -100px;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, rgba(20, 80, 200, 0.14), transparent 70%);
+}
+.oxford-section::after {
+  bottom: -140px;
+  left: -110px;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.16), transparent 70%);
+}
+.oxford-section .container { position: relative; z-index: 1; }
 .award-photo {
   border-radius: 16px;
   overflow: hidden;

@@ -86,7 +86,7 @@ export default function AcademicsPage() {
       </section>
 
       {/* Oxford Curriculum Framework */}
-      <section className="section section-alt">
+      <section className="section section-alt oxford-section">
         <div className="container">
           <SectionHead
             center
