@@ -6545,12 +6545,12 @@ body.no-scroll { overflow: hidden; }
 }
 .excel-eyebrow {
   display: inline-block;
-  font-size: 0.78rem;
+  font-size: 1rem;
   font-weight: 800;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold-600, #b8860b);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 .excel-title {
   font-family: var(--font-display);
