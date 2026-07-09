@@ -6,13 +6,18 @@ import SmartImage from '../components/SmartImage'
 import { usePageImage, usePageImageResolver } from '../context/PageImagesContext'
 import { usePageTextResolver } from '../context/PageTextContext'
 
-// Achiever gallery: the first is a wide banner, the rest a 2×2 grid of photos.
-const EXCEL_IMAGES = [
-  { key: 'academics.excel.1', def: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1100&q=80', wide: true },
-  { key: 'academics.excel.2', def: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80' },
-  { key: 'academics.excel.3', def: 'https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=600&q=80' },
-  { key: 'academics.excel.4', def: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80' },
-  { key: 'academics.excel.5', def: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=600&q=80' },
+// Achiever gallery: a tidy grid of small student portraits, each with a name
+// caption — like a school "toppers" board. Photos & names are admin-editable.
+const P = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=500&q=80`
+const ACHIEVERS = [
+  { imgKey: 'academics.excel.1', imgDef: P('photo-1500648767791-00dcc994a43e'), nameKey: 'academics.excel.name1', nameDef: 'Aisha Khan' },
+  { imgKey: 'academics.excel.2', imgDef: P('photo-1494790108377-be9c29b29330'), nameKey: 'academics.excel.name2', nameDef: 'Fatima Noor' },
+  { imgKey: 'academics.excel.3', imgDef: P('photo-1507003211169-0a1dd7228f2d'), nameKey: 'academics.excel.name3', nameDef: 'Mohammed Faiz' },
+  { imgKey: 'academics.excel.4', imgDef: P('photo-1544005313-94ddf0286df2'), nameKey: 'academics.excel.name4', nameDef: 'Sara Ahmed' },
+  { imgKey: 'academics.excel.5', imgDef: P('photo-1506794778202-cad84cf45f1d'), nameKey: 'academics.excel.name5', nameDef: 'Zaid Ali' },
+  { imgKey: 'academics.excel.6', imgDef: P('photo-1534528741775-53994a69daeb'), nameKey: 'academics.excel.name6', nameDef: 'Ayesha Siddiqui' },
+  { imgKey: 'academics.excel.7', imgDef: P('photo-1519085360753-af0119f7cbe7'), nameKey: 'academics.excel.name7', nameDef: 'Ibrahim Shaikh' },
+  { imgKey: 'academics.excel.8', imgDef: P('photo-1573497019940-1c28c88b4f3e'), nameKey: 'academics.excel.name8', nameDef: 'Zunaira Fatima' },
 ]
 
 const PHILOSOPHY = [
@@ -76,13 +81,17 @@ export default function AcademicsPage() {
               </p>
             </Reveal>
             <Reveal className="excel-gallery" delay={1}>
-              {EXCEL_IMAGES.map((img, i) => {
-                const src = pickImg(img.key, img.def)
-                if (!src) return null // slot deleted in admin → drop the tile
+              {ACHIEVERS.map((a) => {
+                const src = pickImg(a.imgKey, a.imgDef)
+                if (!src) return null // slot deleted in admin → drop the card
+                const name = txt(a.nameKey, a.nameDef)
                 return (
-                  <div className={`excel-cell ${img.wide ? 'is-wide' : ''}`} key={img.key}>
-                    <SmartImage src={src} alt={`Dawn High School achiever ${i + 1}`} loading="lazy" />
-                  </div>
+                  <figure className="excel-card" key={a.imgKey}>
+                    <div className="excel-photo">
+                      <SmartImage src={src} alt={name} loading="lazy" />
+                    </div>
+                    <figcaption className="excel-name">{name}</figcaption>
+                  </figure>
                 )
               })}
             </Reveal>
