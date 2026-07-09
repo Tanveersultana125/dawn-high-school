@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 /**
  * Dawn Assistant — a lightweight, built-in chat assistant.
  * No external API or key: it answers common questions about the school using
- * a small keyword-matched knowledge base, with a polished AI-style chat UI.
+ * a small keyword-matched knowledge base, with a polished, menu-driven chat UI.
  */
 
 // ---- Knowledge base -------------------------------------------------------
@@ -84,7 +84,7 @@ const KB = [
   },
   {
     id: 'curriculum',
-    keywords: ['curriculum', 'syllabus', 'oxford', 'english', 'academics', 'academic', 'subjects', 'teaching', 'cambridge', 'board'],
+    keywords: ['curriculum', 'syllabus', 'oxford', 'english', 'academics', 'academic', 'subjects', 'teaching', 'cambridge', 'board', 'courses', 'course'],
     answer:
       'Our curriculum balances strong academics with character and global readiness. 🌍 We are an Oxford University Press — Oxford Quality partner, delivering an internationally informed, future-ready English curriculum.',
     chips: [{ label: 'Academics', to: '/academics' }],
@@ -123,7 +123,13 @@ const KB = [
 const FALLBACK =
   "I’m not fully sure about that, but our team will gladly help! 📞 Call +91 81076 66766 or email info@dawnhighschool.com. You can also ask me about admissions, fees, grades, campuses, timings or contact details."
 
-const SUGGESTIONS = ['Admissions', 'Fees & scholarships', 'Which grades?', 'Campus location', 'Contact details', 'Timings']
+// Opening menu — mirrors the four quick options a visitor most often needs.
+const MENU = [
+  { label: 'About Us', q: 'about us' },
+  { label: 'Campuses', q: 'campus location' },
+  { label: 'Courses / Curriculum', q: 'curriculum courses' },
+  { label: 'Admissions', q: 'admissions' },
+]
 
 function findAnswer(text) {
   const q = text.toLowerCase()
@@ -143,6 +149,13 @@ function findAnswer(text) {
   return { answer: FALLBACK }
 }
 
+// Format the current time as "05:13 PM" for the message meta line.
+function nowTime() {
+  return new Date()
+    .toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })
+    .toUpperCase()
+}
+
 let idSeq = 0
 const newId = () => `m${++idSeq}`
 
@@ -153,7 +166,15 @@ export default function Chatbot() {
     {
       id: newId(),
       from: 'bot',
-      text: "👋 Hi! I'm the Dawn Assistant. Ask me about admissions, fees, grades, campuses or timings — or tap a suggestion below.",
+      time: nowTime(),
+      text: 'Hello, welcome to Dawn High School online assistance. 👋',
+    },
+    {
+      id: newId(),
+      from: 'bot',
+      time: nowTime(),
+      text: 'How may I assist you today?',
+      menu: true,
     },
   ])
   const bodyRef = useRef(null)
@@ -171,17 +192,19 @@ export default function Chatbot() {
     if (open) setTimeout(() => inputRef.current?.focus(), 250)
   }, [open])
 
-  const send = (raw) => {
-    const text = raw.trim()
-    if (!text) return
-    setMessages((m) => [...m, { id: newId(), from: 'user', text }])
+  // `display` is what the user sees in their bubble; `resolve` is what we match
+  // against the knowledge base (lets menu buttons show a nice label).
+  const send = (display, resolve) => {
+    const shown = (display || '').trim()
+    if (!shown) return
+    setMessages((m) => [...m, { id: newId(), from: 'user', time: nowTime(), text: shown }])
     setTyping(true)
 
     // simulate a short "thinking" delay for a natural feel
     window.setTimeout(() => {
-      const { answer, chips } = findAnswer(text)
+      const { answer, chips } = findAnswer(resolve || shown)
       setTyping(false)
-      setMessages((m) => [...m, { id: newId(), from: 'bot', text: answer, chips }])
+      setMessages((m) => [...m, { id: newId(), from: 'bot', time: nowTime(), text: answer, chips }])
     }, 600)
   }
 
@@ -228,9 +251,11 @@ export default function Chatbot() {
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
           >
             <header className="cbot-head">
-              <span className="cbot-avatar" aria-hidden="true">🎓</span>
+              <span className="cbot-logo" aria-hidden="true">
+                <img src="/dawn-logo.png" alt="" width="34" height="34" />
+              </span>
               <div className="cbot-head-txt">
-                <b>Dawn Assistant</b>
+                <b>Dawn High School</b>
                 <i><span className="cbot-dot" /> Online · replies instantly</i>
               </div>
               <button type="button" className="cbot-x" onClick={() => setOpen(false)} aria-label="Close">✕</button>
@@ -239,7 +264,26 @@ export default function Chatbot() {
             <div className="cbot-body" ref={bodyRef}>
               {messages.map((m) => (
                 <div key={m.id} className={`cbot-msg ${m.from}`}>
+                  <span className="cbot-meta">
+                    {m.from === 'bot' ? 'Dawn' : 'You'} : {m.time}
+                  </span>
                   <div className="cbot-bubble">{m.text}</div>
+
+                  {m.menu && (
+                    <div className="cbot-menu">
+                      {MENU.map((item) => (
+                        <button
+                          key={item.label}
+                          type="button"
+                          className="cbot-menu-btn"
+                          onClick={() => send(item.label, item.q)}
+                        >
+                          {item.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
                   {m.chips && (
                     <div className="cbot-chips">
                       {m.chips.map((c) => (
@@ -259,22 +303,20 @@ export default function Chatbot() {
                   </div>
                 </div>
               )}
-
-              {messages.length <= 1 && (
-                <div className="cbot-suggest">
-                  {SUGGESTIONS.map((s) => (
-                    <button key={s} type="button" className="cbot-chip" onClick={() => send(s)}>
-                      {s}
-                    </button>
-                  ))}
-                </div>
-              )}
             </div>
 
             <form className="cbot-input" onSubmit={onSubmit}>
               <input ref={inputRef} type="text" placeholder="Type your question…" aria-label="Type your message" />
               <button type="submit" aria-label="Send">➤</button>
             </form>
+
+            <div className="cbot-foot">
+              <p className="cbot-disclaimer">
+                By sharing your email and mobile number, you agree to receive updates from Dawn High School
+                via Email / SMS / WhatsApp / Calls.
+              </p>
+              <p className="cbot-powered">Powered By <span>Edullent</span></p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

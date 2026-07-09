@@ -8892,8 +8892,8 @@ body.no-scroll { overflow: hidden; }
   right: clamp(12px, 3vw, 28px);
   bottom: clamp(86px, 11vw, 100px);
   z-index: 1200;
-  width: min(380px, calc(100vw - 24px));
-  height: min(560px, calc(100vh - 130px));
+  width: min(390px, calc(100vw - 24px));
+  height: min(620px, calc(100vh - 120px));
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -8909,19 +8909,21 @@ body.no-scroll { overflow: hidden; }
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  background: var(--gradient-navy);
+  background: linear-gradient(120deg, #1a2fb8 0%, #2352d8 55%, #3f6ff0 130%);
   color: #fff;
 }
-.cbot-avatar {
+.cbot-logo {
   display: grid;
   place-items: center;
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(212, 175, 55, 0.5);
-  font-size: 1.3rem;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  flex-shrink: 0;
 }
+.cbot-logo img { width: 34px; height: 34px; object-fit: contain; }
 .cbot-head-txt { display: flex; flex-direction: column; line-height: 1.25; }
 .cbot-head-txt b { font-weight: 700; font-size: 1rem; }
 .cbot-head-txt i {
@@ -8961,9 +8963,18 @@ body.no-scroll { overflow: hidden; }
     radial-gradient(120% 60% at 50% 0%, rgba(20, 80, 200, 0.05), transparent 60%),
     var(--gray-50);
 }
-.cbot-msg { display: flex; flex-direction: column; max-width: 86%; }
+.cbot-msg { display: flex; flex-direction: column; max-width: 88%; }
 .cbot-msg.bot { align-self: flex-start; align-items: flex-start; }
 .cbot-msg.user { align-self: flex-end; align-items: flex-end; }
+
+/* "Dawn : 05:13 PM" meta line above each bubble */
+.cbot-meta {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--royal-600);
+  margin: 0 4px 4px;
+}
+.cbot-msg.user .cbot-meta { color: var(--gray-500, #7c8aa5); }
 
 .cbot-bubble {
   padding: 11px 15px;
@@ -8983,6 +8994,32 @@ body.no-scroll { overflow: hidden; }
   background: var(--gradient-navy);
   color: #fff;
   border-bottom-right-radius: 5px;
+}
+
+/* opening menu — 2×2 grid of outlined option buttons */
+.cbot-menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+.cbot-menu-btn {
+  padding: 12px 10px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--royal-600);
+  background: #fff;
+  border: 1.5px solid var(--royal-500);
+  border-radius: 12px;
+  text-align: center;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cbot-menu-btn:hover {
+  background: var(--royal-600);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(20, 80, 200, 0.25);
 }
 
 /* quick chips & suggestions */
@@ -9062,9 +9099,37 @@ body.no-scroll { overflow: hidden; }
   transition: transform 0.25s ease;
 }
 .cbot-input button:hover { transform: scale(1.06); }
+/* square blue send button, matching the reference */
+.cbot-input button {
+  width: 46px; height: 46px;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(120deg, #2352d8 0%, #3f6ff0 100%);
+  box-shadow: 0 8px 20px rgba(35, 82, 216, 0.35);
+}
+
+/* footer — disclaimer + powered by */
+.cbot-foot {
+  padding: 10px 14px 12px;
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+}
+.cbot-disclaimer {
+  margin: 0;
+  font-size: 0.7rem;
+  line-height: 1.45;
+  color: var(--gray-500, #7c8aa5);
+}
+.cbot-powered {
+  margin: 6px 0 0;
+  text-align: right;
+  font-size: 0.72rem;
+  color: var(--gray-500, #7c8aa5);
+}
+.cbot-powered span { color: var(--royal-600); font-weight: 700; }
 
 @media (max-width: 480px) {
-  .cbot-panel { right: 8px; left: 8px; width: auto; bottom: 82px; height: min(70vh, 540px); }
+  .cbot-panel { right: 8px; left: 8px; width: auto; bottom: 82px; height: min(78vh, 600px); }
 }
 
 /* ============================================================
