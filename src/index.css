@@ -8923,13 +8923,15 @@ body.no-scroll { overflow: hidden; }
   overflow: hidden;
   flex-shrink: 0;
 }
-/* show the whole crest, centered — `contain` keeps it complete and un-cropped */
+/* the logo file has wide blank margins; zoom in (centered) so the crest fills
+   the badge — the round parent clips the empty margin cleanly */
 .cbot-logo img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center;
-  padding: 3px;
+  transform: scale(1.6);
+  transform-origin: center;
 }
 .cbot-head-txt { display: flex; flex-direction: column; line-height: 1.25; }
 .cbot-head-txt b { font-weight: 700; font-size: 1rem; }
