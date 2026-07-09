@@ -6555,7 +6555,7 @@ body.no-scroll { overflow: hidden; }
 .excel-title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-size: clamp(2.4rem, 4.8vw, 3.8rem);
   line-height: 1.08;
   letter-spacing: -0.015em;
   color: var(--navy-800, #0a2150);
