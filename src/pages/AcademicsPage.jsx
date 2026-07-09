@@ -1,9 +1,9 @@
 import PageHero from '../components/PageHero'
 import Academics from '../components/Academics'
+import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
 import SmartImage from '../components/SmartImage'
 import PixelCard from '../components/PixelCard'
-import GradientCard from '../components/GradientCard'
 import { usePageImage, usePageImageResolver } from '../context/PageImagesContext'
 import { usePageTextResolver } from '../context/PageTextContext'
 
@@ -11,9 +11,9 @@ import { usePageTextResolver } from '../context/PageTextContext'
 // alongside the copy. The poster is admin-editable via one image slot.
 
 const PHILOSOPHY = [
-  { ic: '🔍', t: 'Inquiry-Based', d: 'Students learn by questioning, exploring, and discovering — not memorising.', from: '#03a9f4', to: '#1450c8' },
-  { ic: '🎯', t: 'Personalised', d: 'Adaptive pathways and small class sizes meet every learner where they are.', from: '#ffbc00', to: '#ff0058' },
-  { ic: '🚀', t: 'Future-Ready', d: 'Coding, critical thinking, and real-world projects from an early age.', from: '#4dff03', to: '#00d0ff' },
+  { ic: '🔍', t: 'Inquiry-Based', d: 'Students learn by questioning, exploring, and discovering — not memorising.' },
+  { ic: '🎯', t: 'Personalised', d: 'Adaptive pathways and small class sizes meet every learner where they are.' },
+  { ic: '🚀', t: 'Future-Ready', d: 'Coding, critical thinking, and real-world projects from an early age.' },
 ]
 
 const SUBJECTS = [
@@ -122,7 +122,7 @@ export default function AcademicsPage() {
       </section>
 
       {/* Learning philosophy */}
-      <section className="section philo-dark">
+      <section className="section">
         <div className="container">
           <SectionHead
             center
@@ -133,13 +133,11 @@ export default function AcademicsPage() {
           <div className="grid cols-3">
             {PHILOSOPHY.map((p, i) => (
               <Reveal className="philo-cell" delay={(i % 3) + 1} key={p.t}>
-                <GradientCard
-                  icon={p.ic}
-                  title={txt(`academics.philo.${i + 1}.t`, p.t)}
-                  desc={txt(`academics.philo.${i + 1}.d`, p.d)}
-                  from={p.from}
-                  to={p.to}
-                />
+                <TiltCard className="card philosophy-card">
+                  <div className="card-icon">{p.ic}</div>
+                  <h3>{txt(`academics.philo.${i + 1}.t`, p.t)}</h3>
+                  <p>{txt(`academics.philo.${i + 1}.d`, p.d)}</p>
+                </TiltCard>
               </Reveal>
             ))}
           </div>

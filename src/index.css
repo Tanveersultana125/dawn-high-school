@@ -6611,16 +6611,6 @@ body.no-scroll { overflow: hidden; }
   background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent 70%);
 }
 .subjects-section .container { position: relative; z-index: 1; }
-
-/* Philosophy — dark backdrop so the gradient cards glow */
-.philo-dark {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(160deg, #061128 0%, #0a1f44 55%, #0e2a5e 130%);
-}
-.philo-dark .section-title { color: #fff; }
-.philo-dark .eyebrow { color: var(--gold-400, #e6c768); }
-.philo-dark .section-lead { color: rgba(255, 255, 255, 0.82); }
 .award-photo {
   border-radius: 16px;
   overflow: hidden;
