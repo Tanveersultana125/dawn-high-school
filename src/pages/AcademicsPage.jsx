@@ -94,7 +94,14 @@ export default function AcademicsPage() {
             title={txt('academics.oxford.title', 'Unlocking Potential with the')}
             accent={txt('academics.oxford.accent', 'Oxford Curriculum Framework')}
           />
-          <div className="award-card">
+          <div className="award-card is-reverse">
+            <Reveal className="award-photo" delay={1}>
+              <SmartImage
+                src={oxfordImg}
+                alt="Dawn High School — Unlocking potential with the Oxford Curriculum Framework"
+                loading="lazy"
+              />
+            </Reveal>
             <Reveal className="award-copy">
               <span className="eyebrow" style={{ color: 'var(--gold-400)' }}>{txt('academics.oxford.eyebrow2', 'UK-Based Global Curriculum')}</span>
               <h2>{txt('academics.oxford.title2', 'A World-Class British Education')}</h2>
@@ -108,13 +115,6 @@ export default function AcademicsPage() {
                 <li><i>★</i> {txt('academics.oxford.point.4', 'Refined through cutting-edge research')}</li>
                 <li><i>★</i> {txt('academics.oxford.point.5', 'Future-ready skills: Robotics, Coding & STEM')}</li>
               </ul>
-            </Reveal>
-            <Reveal className="award-photo" delay={1}>
-              <SmartImage
-                src={oxfordImg}
-                alt="Dawn High School — Unlocking potential with the Oxford Curriculum Framework"
-                loading="lazy"
-              />
             </Reveal>
           </div>
         </div>
