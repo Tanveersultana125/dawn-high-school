@@ -144,7 +144,7 @@ export default function AcademicsPage() {
       </section>
 
       {/* Subjects */}
-      <section className="section section-alt">
+      <section className="section section-alt subjects-section">
         <div className="container">
           <SectionHead
             center
