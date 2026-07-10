@@ -7969,27 +7969,27 @@ body.no-scroll { overflow: hidden; }
 .abx-kicker {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.82rem;
+  gap: 13px;
+  font-size: 1.05rem;
   font-weight: 800;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold-600);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   position: relative;
-  padding-bottom: 8px;
+  padding-bottom: 12px;
 }
 .abx-kicker::after {
   content: '';
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 60%;
-  height: 2px;
+  width: 64%;
+  height: 3px;
   background: var(--gradient-gold);
-  border-radius: 2px;
+  border-radius: 3px;
 }
-.abx-kicker-ic { font-size: 1.1rem; }
+.abx-kicker-ic { font-size: 1.4rem; }
 
 .abx-title {
   font-family: var(--font-display);
