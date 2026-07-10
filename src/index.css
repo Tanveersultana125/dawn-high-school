@@ -8972,7 +8972,8 @@ body.no-scroll { overflow: hidden; }
 }
 .cbot-launch:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 22px 50px rgba(184, 134, 11, 0.55); }
 .cbot-launch.is-open { background: var(--gradient-navy); color: #fff; }
-.cbot-launch-ic { line-height: 1; }
+.cbot-launch-ic { display: grid; place-items: center; line-height: 0; }
+.cbot-launch-ic svg { display: block; }
 .cbot-launch-ping {
   position: absolute;
   inset: 0;
