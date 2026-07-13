@@ -24,6 +24,26 @@ const VALUES = [
   { ic: '🧩', t: 'Integrity', d: 'Honesty and strong moral principles form the cornerstone of our community.' },
 ]
 
+// ---- Value-card interactivity: cursor spotlight glow + 3D tilt ----
+// Stateless handlers using e.currentTarget, so they can be shared by every card.
+const onValueMove = (e) => {
+  const el = e.currentTarget
+  const r = el.getBoundingClientRect()
+  const x = e.clientX - r.left
+  const y = e.clientY - r.top
+  el.style.setProperty('--rx', (((y - r.height / 2) / (r.height / 2)) * -7).toFixed(2) + 'deg')
+  el.style.setProperty('--ry', (((x - r.width / 2) / (r.width / 2)) * 7).toFixed(2) + 'deg')
+  el.style.setProperty('--glow-x', ((x / r.width) * 100).toFixed(1) + '%')
+  el.style.setProperty('--glow-y', ((y / r.height) * 100).toFixed(1) + '%')
+}
+const onValueEnter = (e) => e.currentTarget.classList.add('tilting')
+const onValueLeave = (e) => {
+  const el = e.currentTarget
+  el.classList.remove('tilting')
+  el.style.setProperty('--rx', '0deg')
+  el.style.setProperty('--ry', '0deg')
+}
+
 // Vision & Mission reveal: three equal-size cards (Vision, Mission, Photo) that
 // rise into view one after another.
 const vmContainer = {
@@ -207,7 +227,14 @@ export default function AboutPage() {
           />
           <div className="values-wrap">
             {VALUES.map((v, i) => (
-              <Reveal className="value-card" delay={(i % 3) + 1} key={v.t}>
+              <Reveal
+                className="value-card"
+                delay={(i % 3) + 1}
+                key={v.t}
+                onMouseEnter={onValueEnter}
+                onMouseMove={onValueMove}
+                onMouseLeave={onValueLeave}
+              >
                 <BackgroundBoxes rows={26} cols={16} className="value-boxes" />
                 <div className="value-mask" aria-hidden="true" />
                 <div className="value-inner">

@@ -8367,12 +8367,50 @@ body.no-scroll { overflow: hidden; }
 }
 
 /* ---- Interactive Background Boxes INSIDE each value card ---- */
-.value-card { position: relative; overflow: hidden; background: #0a1938; border-color: rgba(255, 255, 255, 0.1); }
+.value-card {
+  position: relative;
+  overflow: hidden;
+  background: #0a1938;
+  border-color: rgba(255, 255, 255, 0.1);
+  transform-style: preserve-3d;
+  will-change: transform;
+  --glow-x: 50%;
+  --glow-y: 50%;
+}
 .value-card:hover { border-color: rgba(212, 175, 55, 0.55); }
+/* 3D cursor-follow tilt (only while hovering, so it never fights the reveal) */
+.value-card.tilting {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-8px);
+  transition: transform 0.12s ease-out, box-shadow 0.3s ease;
+  box-shadow: 0 34px 74px rgba(0, 0, 0, 0.55);
+  border-color: rgba(212, 175, 55, 0.65);
+}
+/* cursor-following spotlight / flashlight glow */
+.value-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-lux);
+  background: radial-gradient(240px circle at var(--glow-x) var(--glow-y),
+    rgba(212, 175, 55, 0.22), rgba(37, 99, 235, 0.12) 40%, transparent 62%);
+}
+.value-card.tilting::before { opacity: 1; }
 /* light text on the dark card */
 .value-card h3 { color: #fff; }
 .value-card p { color: rgba(255, 255, 255, 0.72); }
-.value-inner { position: relative; z-index: 30; }
+.value-inner {
+  position: relative;
+  z-index: 30;
+  transition: transform 0.2s var(--ease-lux);
+}
+/* content pops forward for a layered 3D feel */
+.value-card.tilting .value-inner { transform: translateZ(40px); }
+.value-ic { transition: transform 0.3s var(--ease-lux); }
+.value-card.tilting .value-ic { transform: translateY(-3px) scale(1.1); }
 /* radial fade so the grid dissolves toward the card edges */
 .value-mask {
   position: absolute;
