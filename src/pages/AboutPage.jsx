@@ -196,10 +196,8 @@ export default function AboutPage() {
       </section>
 
       {/* Core Values */}
-      <section className="section values-section">
-        <BackgroundBoxes />
-        <div className="values-mask" aria-hidden="true" />
-        <div className="container values-inner">
+      <section className="section">
+        <div className="container">
           <SectionHead
             center
             eyebrow={txt('about.values.eyebrow', 'Core Values')}
@@ -210,9 +208,13 @@ export default function AboutPage() {
           <div className="values-wrap">
             {VALUES.map((v, i) => (
               <Reveal className="value-card" delay={(i % 3) + 1} key={v.t}>
-                <div className="value-ic">{v.ic}</div>
-                <h3>{txt(`about.values.${i + 1}.t`, v.t)}</h3>
-                <p>{txt(`about.values.${i + 1}.d`, v.d)}</p>
+                <BackgroundBoxes rows={26} cols={16} className="value-boxes" />
+                <div className="value-mask" aria-hidden="true" />
+                <div className="value-inner">
+                  <div className="value-ic">{v.ic}</div>
+                  <h3>{txt(`about.values.${i + 1}.t`, v.t)}</h3>
+                  <p>{txt(`about.values.${i + 1}.d`, v.d)}</p>
+                </div>
               </Reveal>
             ))}
           </div>

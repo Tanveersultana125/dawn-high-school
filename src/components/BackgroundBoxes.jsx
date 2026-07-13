@@ -20,9 +20,9 @@ const COLORS = [
 
 const randomColor = () => COLORS[Math.floor(Math.random() * COLORS.length)]
 
-function BoxesCore({ className = '' }) {
-  const rows = new Array(90).fill(1)
-  const cols = new Array(50).fill(1)
+function BoxesCore({ rows = 90, cols = 50, className = '' }) {
+  const rowArr = new Array(rows).fill(1)
+  const colArr = new Array(cols).fill(1)
 
   return (
     <div
@@ -30,9 +30,9 @@ function BoxesCore({ className = '' }) {
       style={{ transform: 'translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) rotate(0deg) translateZ(0)' }}
       aria-hidden="true"
     >
-      {rows.map((_, i) => (
+      {rowArr.map((_, i) => (
         <div key={`row-${i}`} className="boxes-row">
-          {cols.map((_, j) => (
+          {colArr.map((_, j) => (
             <motion.div
               key={`col-${j}`}
               className="boxes-cell"
