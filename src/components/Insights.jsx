@@ -1,15 +1,62 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Reveal } from './common'
 import FlipWords from './FlipWords'
 
 const TABS = ['Overview', 'Attendance', 'Grades', 'Reports', 'Fees']
 
-const FEATURES = [
-  ['📊', 'Live academic analytics', 'Attendance, grades and test trends update in real time.'],
-  ['🔔', 'Smart alerts', 'Parents are notified the moment something needs attention.'],
-  ['🗂️', 'One unified record', 'Every report card, fee and remark in a single place.'],
-]
+/* How long each screen stays before auto-advancing */
+const CYCLE = 4200
+
+/* Right-side copy that changes together with each dashboard screen */
+const COPY = {
+  Overview: {
+    title: 'Dashboard with all analytical information',
+    text: 'Leverage data-driven insights to enhance decision-making and simplify the everyday workflow — for teachers, parents and students alike.',
+    feats: [
+      ['📊', 'Live academic analytics', 'Attendance, grades and test trends update in real time.'],
+      ['🔔', 'Smart alerts', 'Parents are notified the moment something needs attention.'],
+      ['🗂️', 'One unified record', 'Every report card, fee and remark in a single place.'],
+    ],
+  },
+  Attendance: {
+    title: 'Attendance tracked, effortlessly',
+    text: "See daily presence at a glance and spot patterns early — every entry syncs the moment it's marked.",
+    feats: [
+      ['📅', 'Real-time roll call', 'Presence updates the second a teacher marks it.'],
+      ['🔔', 'Instant absence alerts', 'Parents hear about an absence right away, not days later.'],
+      ['📈', 'Weekly trend insights', 'Early warning when a pattern starts to slip.'],
+    ],
+  },
+  Grades: {
+    title: 'Every grade, clearly in view',
+    text: "Follow each subject's progress with clean, honest numbers — no more chasing scattered mark sheets.",
+    feats: [
+      ['🎯', 'Subject-wise breakdown', 'See exactly where a student is strong or needs help.'],
+      ['🏅', 'Live class ranking', 'Standing and GPA recalculated automatically.'],
+      ['📊', 'Progress at a glance', 'Clean bars replace confusing spreadsheets.'],
+    ],
+  },
+  Reports: {
+    title: 'Report cards, always at hand',
+    text: 'Term reports, assessments and teacher notes gathered in one tidy timeline you can open anytime.',
+    feats: [
+      ['📄', 'One-tap report access', 'Every report card and assessment, ready to view.'],
+      ['🗓️', 'Release reminders', 'Know the moment a new report goes live.'],
+      ['📝', 'Parent–teacher notes', 'Personal remarks kept alongside the record.'],
+    ],
+  },
+  Fees: {
+    title: 'Fees made effortless',
+    text: "Track what's paid, what's pending and what's next — clear balances with zero guesswork.",
+    feats: [
+      ['💳', 'Transparent balances', 'Paid and due amounts always add up cleanly.'],
+      ['⏰', 'Due-date reminders', 'A gentle nudge before a term payment is due.'],
+      ['🧾', 'Instant receipts', 'Every payment logged and receipted on the spot.'],
+    ],
+  },
+}
 
 /* ---------- Per-tab dashboard content ---------- */
 
@@ -159,7 +206,22 @@ const PANELS = { Overview, Attendance, Grades, Reports, Fees }
 
 export default function Insights() {
   const [tab, setTab] = useState('Overview')
+  const [paused, setPaused] = useState(false)
   const Panel = PANELS[tab]
+  const copy = COPY[tab]
+  const timer = useRef(null)
+
+  /* Auto-advance to the next screen unless the visitor is hovering */
+  useEffect(() => {
+    if (paused) return
+    timer.current = setTimeout(() => {
+      setTab((cur) => TABS[(TABS.indexOf(cur) + 1) % TABS.length])
+    }, CYCLE)
+    return () => clearTimeout(timer.current)
+  }, [tab, paused])
+
+  /* Manual pick — jump straight there and restart the cycle */
+  const pick = useCallback((t) => setTab(t), [])
 
   return (
     <section className="section insights" id="insights">
@@ -180,7 +242,11 @@ export default function Insights() {
           </Reveal>
         </div>
 
-        <div className="insights-grid">
+        <div
+          className="insights-grid"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
           {/* Dashboard mock-up */}
           <Reveal className="ip-panel">
             <div className="ip-bar">
@@ -190,7 +256,17 @@ export default function Insights() {
             </div>
 
             <div className="ip-body">
-              <Panel />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={tab}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <Panel />
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             <div className="ip-nav" role="tablist" aria-label="Dashboard sections">
@@ -201,33 +277,43 @@ export default function Insights() {
                   role="tab"
                   aria-selected={tab === t}
                   className={tab === t ? 'on' : ''}
-                  onClick={() => setTab(t)}
+                  onClick={() => pick(t)}
                 >
                   {t}
+                  {tab === t && !paused && (
+                    <span key={`${t}-p`} className="ip-tab-prog" style={{ animationDuration: `${CYCLE}ms` }} />
+                  )}
                 </button>
               ))}
             </div>
           </Reveal>
 
-          {/* Copy */}
-          <Reveal className="insights-copy" delay={1}>
-            <h3>Dashboard with all analytical information</h3>
-            <p>
-              Leverage data-driven insights to enhance decision-making and simplify
-              the everyday workflow — for teachers, parents and students alike.
-            </p>
-            <ul className="insights-feats">
-              {FEATURES.map(([ic, t, d]) => (
-                <li key={t}>
-                  <span className="if-ic">{ic}</span>
-                  <div>
-                    <b>{t}</b>
-                    <p>{d}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+          {/* Copy — swaps together with the active screen */}
+          <div className="insights-copy">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={tab}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -14 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <h3>{copy.title}</h3>
+                <p>{copy.text}</p>
+                <ul className="insights-feats">
+                  {copy.feats.map(([ic, t, d]) => (
+                    <li key={t}>
+                      <span className="if-ic">{ic}</span>
+                      <div>
+                        <b>{t}</b>
+                        <p>{d}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>

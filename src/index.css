@@ -8422,6 +8422,26 @@ body.no-scroll { overflow: hidden; }
   color: var(--navy-900);
   font-weight: 600;
 }
+.ip-nav button { position: relative; overflow: hidden; }
+.ip-tab-prog {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: rgba(15, 23, 42, 0.55);
+  border-radius: 100px;
+  animation: ipTabProg linear forwards;
+}
+@keyframes ipTabProg {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ip-tab-prog { display: none; }
+}
 
 /* ---- Stat row ---- */
 .ip-statrow {
