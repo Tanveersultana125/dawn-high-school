@@ -63,7 +63,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   aria-label={`Dawn High School on ${name}`}
                 >
-                  {label}
+                  {name}
                 </a>
               ))}
             </div>
