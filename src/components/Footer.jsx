@@ -19,8 +19,8 @@ const RESOURCES = [
 ]
 
 const SOCIALS = [
-  ['Facebook', 'Fb', 'https://facebook.com'],
-  ['Instagram', 'In', 'https://instagram.com'],
+  ['Facebook', 'Fb', 'https://www.facebook.com/DawnHighSchoolOfficial'],
+  ['Instagram', 'In', 'https://www.instagram.com/dawnhighschoolofficial'],
   ['X', 'X', 'https://x.com'],
   ['YouTube', 'Yt', 'https://youtube.com'],
 ]
