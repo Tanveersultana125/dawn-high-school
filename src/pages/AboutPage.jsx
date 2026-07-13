@@ -3,6 +3,7 @@ import About from '../components/About'
 import StatsStrip from '../components/StatsStrip'
 import Achievements from '../components/Achievements'
 import { Reveal, SectionHead } from '../components/common'
+import Meteors from '../components/Meteors'
 import SmartImage from '../components/SmartImage'
 import { usePageImage } from '../context/PageImagesContext'
 import { usePageTextResolver } from '../context/PageTextContext'
@@ -183,6 +184,7 @@ export default function AboutPage() {
           <div className="grid cols-4">
             {JOURNEY.map((j, i) => (
               <Reveal className="card journey-card" delay={(i % 4) + 1} key={j.year}>
+                <Meteors number={12} />
                 <div className="why-num">{txt(`about.journey.${i + 1}.year`, j.year)}</div>
                 <h3>{txt(`about.journey.${i + 1}.title`, j.title)}</h3>
                 <p>{txt(`about.journey.${i + 1}.desc`, j.desc)}</p>
