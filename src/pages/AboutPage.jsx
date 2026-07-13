@@ -4,6 +4,7 @@ import StatsStrip from '../components/StatsStrip'
 import Achievements from '../components/Achievements'
 import { Reveal, SectionHead } from '../components/common'
 import Meteors from '../components/Meteors'
+import BackgroundBoxes from '../components/BackgroundBoxes'
 import SmartImage from '../components/SmartImage'
 import { usePageImage } from '../context/PageImagesContext'
 import { usePageTextResolver } from '../context/PageTextContext'
@@ -195,8 +196,10 @@ export default function AboutPage() {
       </section>
 
       {/* Core Values */}
-      <section className="section">
-        <div className="container">
+      <section className="section values-section">
+        <BackgroundBoxes />
+        <div className="values-mask" aria-hidden="true" />
+        <div className="container values-inner">
           <SectionHead
             center
             eyebrow={txt('about.values.eyebrow', 'Core Values')}
