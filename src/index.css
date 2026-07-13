@@ -8068,9 +8068,10 @@ body.no-scroll { overflow: hidden; }
   height: 58px;
   border-radius: 50%;
   background: #fff;
-  font-size: 1.7rem;
+  color: var(--gold-500, #c69214);
   box-shadow: inset 0 0 0 4px rgba(212, 175, 55, 0.25);
 }
+.abx-badge-ic svg { width: 28px; height: 28px; }
 .abx-badge-txt { display: flex; flex-direction: column; line-height: 1.15; color: #fff; }
 .abx-badge-txt b { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; }
 .abx-badge-txt i { font-style: normal; font-size: 0.86rem; color: var(--gold-400); font-weight: 600; }
@@ -8099,7 +8100,8 @@ body.no-scroll { overflow: hidden; }
   background: var(--gradient-gold);
   border-radius: 3px;
 }
-.abx-kicker-ic { font-size: 1.4rem; }
+.abx-kicker-ic { display: inline-grid; place-items: center; color: var(--gold-500, #c69214); }
+.abx-kicker-ic svg { width: 20px; height: 20px; }
 
 .abx-title {
   font-family: var(--font-display);
@@ -8141,9 +8143,10 @@ body.no-scroll { overflow: hidden; }
   height: 56px;
   border-radius: 50%;
   background: var(--gradient-navy);
-  font-size: 1.45rem;
+  color: var(--gold-400, #d4af37);
   box-shadow: 0 12px 28px rgba(10, 33, 80, 0.28);
 }
+.abx-feat-ic svg { width: 26px; height: 26px; }
 .abx-feat h4 {
   font-family: var(--font-display);
   font-size: 1.12rem;
@@ -8191,9 +8194,10 @@ body.no-scroll { overflow: hidden; }
   height: 50px;
   border-radius: 50%;
   background: var(--gradient-gold);
-  font-size: 1.3rem;
+  color: var(--navy-900, #0a2150);
   box-shadow: 0 10px 24px rgba(184, 134, 11, 0.35);
 }
+.abx-help-ic svg { width: 22px; height: 22px; }
 .abx-help-txt { display: flex; flex-direction: column; line-height: 1.2; }
 .abx-help-txt i { font-style: normal; font-size: 0.82rem; color: var(--text-faint); }
 .abx-help-txt b { font-size: 1.12rem; font-weight: 800; color: var(--navy-800); }
