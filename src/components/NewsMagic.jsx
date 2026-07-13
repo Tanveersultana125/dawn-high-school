@@ -67,6 +67,7 @@ const useMobileDetection = () => {
 export function NewsCard({
   event,
   delay = 0,
+  onOpen,
   particleCount = DEFAULT_PARTICLE_COUNT,
   glowColor = DEFAULT_GLOW_COLOR,
   enableTilt = true,
@@ -242,12 +243,12 @@ export function NewsCard({
       <div className="news-body">
         <h3>{event.title}</h3>
         <p>{event.desc}</p>
-        <a href="#news" className="news-link">
+        <button type="button" className="news-link" onClick={() => onOpen?.(event)}>
           Read More
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.4">
             <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </a>
+        </button>
       </div>
     </div>
   )
@@ -346,4 +347,60 @@ export function NewsSpotlight({ gridRef, spotlightRadius = DEFAULT_SPOTLIGHT_RAD
   }, [gridRef, isMobile, spotlightRadius, glowColor])
 
   return null
+}
+
+/**
+ * Details dialog shown when a card's "Read More" is clicked. Closes on
+ * backdrop click, the × button, or Escape; locks body scroll while open.
+ */
+export function NewsModal({ event, onClose }) {
+  useEffect(() => {
+    if (!event) return
+    const onKey = (e) => e.key === 'Escape' && onClose()
+    document.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [event, onClose])
+
+  if (!event) return null
+
+  return (
+    <div className="news-modal-overlay" role="dialog" aria-modal="true" aria-label={event.title} onClick={onClose}>
+      <div className="news-modal" onClick={(e) => e.stopPropagation()}>
+        <button type="button" className="news-modal-close" aria-label="Close" onClick={onClose}>
+          ×
+        </button>
+        <div className="news-modal-media" style={{ background: event.grad }}>
+          <span className="news-tag">{event.tag}</span>
+          <span className="news-modal-emoji">{event.emoji}</span>
+          <div className="news-date">
+            <b>{event.day}</b>
+            <span>{event.month}</span>
+          </div>
+        </div>
+        <div className="news-modal-body">
+          <h3>{event.title}</h3>
+          <ul className="news-modal-meta">
+            {event.when && (
+              <li>
+                <span aria-hidden="true">🗓️</span>
+                {event.when}
+              </li>
+            )}
+            {event.venue && (
+              <li>
+                <span aria-hidden="true">📍</span>
+                {event.venue}
+              </li>
+            )}
+          </ul>
+          <p>{event.body || event.desc}</p>
+        </div>
+      </div>
+    </div>
+  )
 }
