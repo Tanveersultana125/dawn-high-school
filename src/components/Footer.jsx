@@ -21,8 +21,8 @@ const RESOURCES = [
 const SOCIALS = [
   ['Facebook', 'Fb', 'https://www.facebook.com/DawnHighSchoolOfficial'],
   ['Instagram', 'In', 'https://www.instagram.com/dawnhighschoolofficial'],
-  ['X', 'X', 'https://x.com'],
-  ['YouTube', 'Yt', 'https://youtube.com'],
+  ['WhatsApp', 'Wa', 'https://wa.me/918107666766'],
+  ['Website', 'Web', 'https://dawnhighschool.com'],
 ]
 
 export default function Footer() {
