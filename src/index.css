@@ -3617,13 +3617,63 @@ body.no-scroll { overflow: hidden; }
   margin-bottom: 64px;
 }
 .achv-counter {
+  position: relative;
+  overflow: hidden;
   text-align: center;
   padding: 30px 16px;
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
+  transform-style: preserve-3d;
+  will-change: transform;
+  --glow-x: 50%;
+  --glow-y: 50%;
+  transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux),
+    border-color 0.4s var(--ease-lux);
 }
-.achv-counter .ic { font-size: 1.7rem; margin-bottom: 12px; }
+/* 3D cursor-follow tilt (only while hovering) */
+.achv-counter.tilting {
+  transform: perspective(820px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-6px);
+  transition: transform 0.12s ease-out, box-shadow 0.3s ease;
+  border-color: rgba(212, 175, 55, 0.6);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(212, 175, 55, 0.4),
+    0 0 30px rgba(212, 175, 55, 0.22);
+}
+/* cursor-following spotlight glow */
+.achv-counter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-lux);
+  background: radial-gradient(200px circle at var(--glow-x) var(--glow-y),
+    rgba(212, 175, 55, 0.2), rgba(37, 99, 235, 0.1) 42%, transparent 62%);
+}
+.achv-counter.tilting::before { opacity: 1; }
+/* diagonal shine sweep on enter */
+.achv-counter::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 55%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  transform: skewX(-20deg);
+  background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+  opacity: 0;
+}
+.achv-counter.tilting::after { animation: valueShine 0.9s var(--ease-lux); }
+/* content pops forward for depth */
+.achv-counter-in { position: relative; z-index: 3; transition: transform 0.2s var(--ease-lux); }
+.achv-counter.tilting .achv-counter-in { transform: translateZ(34px); }
+.achv-counter .ic { font-size: 1.7rem; margin-bottom: 12px; transition: transform 0.3s var(--ease-lux); }
+.achv-counter.tilting .ic { transform: translateY(-3px) scale(1.12); }
 .achv-counter b {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 3.6vw, 3rem);

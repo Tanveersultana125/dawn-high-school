@@ -1,6 +1,25 @@
 import { Link } from 'react-router-dom'
 import { Reveal, SectionHead, Counter } from './common'
 
+// Shared 3D tilt + cursor spotlight for the stat cards (stateless handlers).
+const onTiltMove = (e) => {
+  const el = e.currentTarget
+  const r = el.getBoundingClientRect()
+  const x = e.clientX - r.left
+  const y = e.clientY - r.top
+  el.style.setProperty('--rx', (((y - r.height / 2) / (r.height / 2)) * -8).toFixed(2) + 'deg')
+  el.style.setProperty('--ry', (((x - r.width / 2) / (r.width / 2)) * 8).toFixed(2) + 'deg')
+  el.style.setProperty('--glow-x', ((x / r.width) * 100).toFixed(1) + '%')
+  el.style.setProperty('--glow-y', ((y / r.height) * 100).toFixed(1) + '%')
+}
+const onTiltEnter = (e) => e.currentTarget.classList.add('tilting')
+const onTiltLeave = (e) => {
+  const el = e.currentTarget
+  el.classList.remove('tilting')
+  el.style.setProperty('--rx', '0deg')
+  el.style.setProperty('--ry', '0deg')
+}
+
 const COUNTERS = [
   { icon: '🏅', value: 180, suffix: '+', label: 'Awards Won' },
   { icon: '🎓', value: 540, suffix: '+', label: 'Board Toppers' },
@@ -29,10 +48,19 @@ export default function Achievements() {
 
         <div className="achv-counters">
           {COUNTERS.map((c, i) => (
-            <Reveal className="achv-counter" delay={i + 1} key={c.label}>
-              <div className="ic">{c.icon}</div>
-              <Counter value={c.value} suffix={c.suffix} />
-              <span>{c.label}</span>
+            <Reveal
+              className="achv-counter"
+              delay={i + 1}
+              key={c.label}
+              onMouseEnter={onTiltEnter}
+              onMouseMove={onTiltMove}
+              onMouseLeave={onTiltLeave}
+            >
+              <div className="achv-counter-in">
+                <div className="ic">{c.icon}</div>
+                <Counter value={c.value} suffix={c.suffix} />
+                <span>{c.label}</span>
+              </div>
             </Reveal>
           ))}
         </div>
