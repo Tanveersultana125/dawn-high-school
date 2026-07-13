@@ -8382,8 +8382,30 @@ body.no-scroll { overflow: hidden; }
 .value-card.tilting {
   transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-8px);
   transition: transform 0.12s ease-out, box-shadow 0.3s ease;
-  box-shadow: 0 34px 74px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 34px 74px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(212, 175, 55, 0.5),
+    0 0 34px rgba(212, 175, 55, 0.25);
   border-color: rgba(212, 175, 55, 0.65);
+}
+/* diagonal shine sweep that runs once each time the pointer enters */
+.value-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 55%;
+  height: 100%;
+  z-index: 26;
+  pointer-events: none;
+  transform: skewX(-20deg);
+  background: linear-gradient(110deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  opacity: 0;
+}
+.value-card.tilting::after { animation: valueShine 0.9s var(--ease-lux); }
+@keyframes valueShine {
+  0% { left: -70%; opacity: 0; }
+  15% { opacity: 1; }
+  100% { left: 130%; opacity: 0; }
 }
 /* cursor-following spotlight / flashlight glow */
 .value-card::before {
@@ -8409,8 +8431,31 @@ body.no-scroll { overflow: hidden; }
 }
 /* content pops forward for a layered 3D feel */
 .value-card.tilting .value-inner { transform: translateZ(40px); }
-.value-ic { transition: transform 0.3s var(--ease-lux); }
+.value-ic { position: relative; transition: transform 0.3s var(--ease-lux); }
 .value-card.tilting .value-ic { transform: translateY(-3px) scale(1.1); }
+/* pulsing halo behind the icon on hover */
+.value-ic::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  z-index: -1;
+  transform: translate(-50%, -50%) scale(0.6);
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.4), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-lux), transform 0.4s var(--ease-lux);
+}
+.value-card.tilting .value-ic::before {
+  opacity: 1;
+  animation: iconHalo 1.8s ease-in-out infinite;
+}
+@keyframes iconHalo {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  50% { transform: translate(-50%, -50%) scale(1.35); opacity: 0.35; }
+}
 /* radial fade so the grid dissolves toward the card edges */
 .value-mask {
   position: absolute;
