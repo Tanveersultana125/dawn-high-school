@@ -4958,10 +4958,10 @@ body.no-scroll { overflow: hidden; }
   background: #25d366;
   box-shadow: 0 10px 24px rgba(37, 211, 102, 0.4);
 }
-.footer-socials .soc--website:hover {
-  background: var(--gradient-gold);
-  color: var(--navy-900);
-  box-shadow: 0 10px 24px rgba(214, 158, 46, 0.4);
+.footer-socials .soc--location:hover {
+  background: #ea4335;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(234, 67, 53, 0.4);
 }
 .footer h5 {
   color: var(--white);
