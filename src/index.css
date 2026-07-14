@@ -1720,7 +1720,7 @@ ul {
    ============================================================ */
 .academics-layout {
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
+  grid-template-columns: 1.15fr 0.85fr;
   gap: 48px;
   align-items: stretch;
 }
@@ -1728,7 +1728,9 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  order: 2; /* numbered list on the right */
 }
+.academic-panel { order: 1; } /* detail card on the left */
 .academic-tab {
   text-align: left;
   display: flex;
@@ -6482,6 +6484,8 @@ body.no-scroll { overflow: hidden; }
   .di-card { position: static; width: 100%; }
   .di-card.c1, .di-card.c2, .di-card.c3 { top: auto; left: auto; right: auto; }
   .academics-layout { grid-template-columns: 1fr; gap: 30px; }
+  .academics-layout .academic-tabs { order: 1; }
+  .academics-layout .academic-panel { order: 2; }
   .achv-layout { grid-template-columns: 1fr; gap: 40px; }
   .contact-layout { grid-template-columns: 1fr; }
   .faculty-grid { grid-template-columns: repeat(2, 1fr); }
