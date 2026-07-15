@@ -44,10 +44,10 @@ export default function CampusPage() {
             accent={txt('campus.fac.accent', 'Every Ambition')}
             lead={txt('campus.fac.lead', 'State-of-the-art infrastructure designed for safety, comfort, and inspired learning.')}
           />
-          <div className="grid cols-4">
+          <div className="grid cols-4 fac-grid">
             {FACILITIES.map((f, i) => (
               <Reveal className="philo-cell" delay={(i % 4) + 1} key={f.t}>
-                <TiltCard className="card philosophy-card">
+                <TiltCard className="card philosophy-card fac-card">
                   <div className="card-icon">{f.ic}</div>
                   <h3>{txt(`campus.fac.${i + 1}.t`, f.t)}</h3>
                   <p>{txt(`campus.fac.${i + 1}.d`, f.d)}</p>
