@@ -1515,6 +1515,131 @@ ul {
   line-height: 1.62;
 }
 
+/* ============================================================
+   Warp Background — animated 3D warp tunnel with light beams
+   Ported from Magic-UI (Tailwind) to plain CSS. Used by
+   src/components/WarpBackground.jsx.
+   ============================================================ */
+.warp-bg {
+  position: relative;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-200);
+  padding: 80px;
+  overflow: hidden;
+}
+.warp-scene {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  clip-path: inset(0);
+  container-type: size;
+  perspective: var(--perspective);
+  transform-style: preserve-3d;
+}
+/* shared grid plane for all four sides */
+.warp-side {
+  position: absolute;
+  transform-style: preserve-3d;
+  container-type: inline-size;
+  height: 100cqmax;
+  background-size: var(--beam-size) var(--beam-size);
+  background:
+    linear-gradient(var(--grid-color) 0 1px, transparent 1px var(--beam-size))
+      50% -0.5px / var(--beam-size) var(--beam-size),
+    linear-gradient(90deg, var(--grid-color) 0 1px, transparent 1px var(--beam-size))
+      50% 50% / var(--beam-size) var(--beam-size);
+}
+.warp-top {
+  width: 100cqi;
+  transform-origin: 50% 0%;
+  transform: rotateX(-90deg);
+}
+.warp-bottom {
+  top: 100%;
+  width: 100cqi;
+  transform-origin: 50% 0%;
+  transform: rotateX(-90deg);
+}
+.warp-left {
+  left: 0;
+  top: 0;
+  width: 100cqh;
+  transform-origin: 0% 0%;
+  transform: rotate(90deg) rotateX(-90deg);
+}
+.warp-right {
+  right: 0;
+  top: 0;
+  width: 100cqh;
+  transform-origin: 100% 0%;
+  transform: rotate(-90deg) rotateX(-90deg);
+}
+.warp-beam {
+  position: absolute;
+  left: var(--x);
+  top: 0;
+  width: var(--width);
+  aspect-ratio: 1 / var(--aspect-ratio);
+  background: var(--beam-bg);
+}
+.warp-content {
+  position: relative;
+}
+@media (prefers-reduced-motion: reduce) {
+  .warp-beam { animation: none !important; }
+}
+@media (max-width: 640px) {
+  .warp-bg { padding: 44px 22px; }
+}
+
+/* ---- Warp CTA panel — dark navy backdrop so the beams glow ---- */
+.warp-cta {
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(20, 80, 200, 0.28), transparent 60%),
+    linear-gradient(160deg, #0a1f44, #071634);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-lg);
+}
+/* brighter grid lines look right on the dark panel */
+.warp-cta .warp-side {
+  --grid-color: rgba(180, 200, 255, 0.12);
+}
+.warp-cta-card {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--white);
+}
+.warp-cta-card .eyebrow {
+  color: var(--gold-400);
+  justify-content: center;
+}
+.warp-cta-card h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 16px 0 14px;
+  color: var(--white);
+}
+.warp-cta-card p {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  margin: 0 auto 30px;
+  max-width: 520px;
+}
+.warp-cta-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .card h3 {
   font-family: var(--font-display);
   font-size: 1.45rem;
