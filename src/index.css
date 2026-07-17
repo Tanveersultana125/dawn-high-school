@@ -3863,10 +3863,9 @@ body.no-scroll { overflow: hidden; }
   text-align: center;
   padding: 34px 18px 30px;
   border-radius: var(--radius-md);
-  background: linear-gradient(168deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.045) 48%, rgba(255, 255, 255, 0.025) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(6px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 24px 50px -30px rgba(0, 0, 0, 0.7);
+  background: linear-gradient(165deg, #2a5fd0 0%, #1e50be 52%, #1543a8 100%);
+  border: 1px solid rgba(120, 160, 255, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 26px 52px -28px rgba(4, 16, 45, 0.85);
   transform-style: preserve-3d;
   will-change: transform;
   --glow-x: 50%;
@@ -3975,7 +3974,7 @@ body.no-scroll { overflow: hidden; }
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .timeline {
