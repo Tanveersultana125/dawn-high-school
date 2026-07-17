@@ -20,11 +20,45 @@ const onTiltLeave = (e) => {
   el.style.setProperty('--ry', '0deg')
 }
 
+// Clean line-icons (lucide-style) for a formal, consistent look — no emoji.
+const ICONS = {
+  award: (
+    <>
+      <circle cx="12" cy="8" r="6" />
+      <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+    </>
+  ),
+  cap: (
+    <>
+      <path d="M22 10 12 5 2 10l10 5 10-5Z" />
+      <path d="M6 12v5c0 1 2.5 2.5 6 2.5s6-1.5 6-2.5v-5" />
+    </>
+  ),
+  trophy: (
+    <>
+      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+      <path d="M4 22h16" />
+      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+    </>
+  ),
+  building: (
+    <>
+      <path d="M3 21h18" />
+      <path d="M5 21V10l7-5 7 5v11" />
+      <path d="M9 21v-6h6v6" />
+      <path d="M9 11h.01M15 11h.01" />
+    </>
+  ),
+}
+
 const COUNTERS = [
-  { icon: '🏅', value: 180, suffix: '+', label: 'Awards Won' },
-  { icon: '🎓', value: 540, suffix: '+', label: 'Board Toppers' },
-  { icon: '🥇', value: 95, suffix: '+', label: 'Competition Wins' },
-  { icon: '🏛️', value: 40, suffix: '+', label: 'University Placements' },
+  { icon: 'award', value: 180, suffix: '+', label: 'Awards Won' },
+  { icon: 'cap', value: 540, suffix: '+', label: 'Board Toppers' },
+  { icon: 'trophy', value: 95, suffix: '+', label: 'Competition Wins' },
+  { icon: 'building', value: 40, suffix: '+', label: 'University Placements' },
 ]
 
 const TIMELINE = [
@@ -57,9 +91,14 @@ export default function Achievements() {
               onMouseLeave={onTiltLeave}
             >
               <div className="achv-counter-in">
-                <div className="ic">{c.icon}</div>
+                <div className="achv-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    {ICONS[c.icon]}
+                  </svg>
+                </div>
                 <Counter value={c.value} suffix={c.suffix} />
-                <span>{c.label}</span>
+                <span className="achv-divider" aria-hidden="true" />
+                <span className="achv-label">{c.label}</span>
               </div>
             </Reveal>
           ))}
