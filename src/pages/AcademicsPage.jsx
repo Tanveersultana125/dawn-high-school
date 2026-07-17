@@ -1,5 +1,6 @@
 import PageHero from '../components/PageHero'
 import Academics from '../components/Academics'
+import ProgramShowcase from '../components/ProgramShowcase'
 import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
 import SmartImage from '../components/SmartImage'
@@ -143,6 +144,9 @@ export default function AcademicsPage() {
           </div>
         </div>
       </section>
+
+      {/* Explore Our Streams — interactive hover slider */}
+      <ProgramShowcase />
 
       {/* Subjects */}
       <section className="section section-alt subjects-section">
