@@ -90,6 +90,7 @@ export default function Achievements() {
               onMouseMove={onTiltMove}
               onMouseLeave={onTiltLeave}
             >
+              <span className="achv-top" aria-hidden="true" />
               <div className="achv-counter-in">
                 <div className="achv-badge">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
