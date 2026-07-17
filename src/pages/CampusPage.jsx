@@ -31,6 +31,11 @@ export default function CampusPage() {
         title={txt('campus.hero.title', 'Where Learning Extends Beyond the Classroom')}
         subtitle={txt('campus.hero.subtitle', 'A vibrant 12-acre campus where every passion finds a home — sports, arts, science, and service.')}
         crumb="Campus"
+        highlights={[
+          { n: '12', l: 'Acre green campus' },
+          { n: '8+', l: 'World-class facilities' },
+          { n: '30K', l: 'Volume library' },
+        ]}
       />
 
       <CampusLife />
