@@ -3,6 +3,7 @@ import CampusLife from '../components/CampusLife'
 import Campus3D from '../components/Campus3D'
 import Library from '../components/Library'
 import TiltCard from '../components/TiltCard'
+import WarpBackground from '../components/WarpBackground'
 import { Reveal, SectionHead } from '../components/common'
 import { usePageImage } from '../context/PageImagesContext'
 import { usePageTextResolver } from '../context/PageTextContext'
@@ -37,24 +38,31 @@ export default function CampusPage() {
       {/* Facilities */}
       <section className="section">
         <div className="container">
-          <SectionHead
-            center
-            eyebrow={txt('campus.fac.eyebrow', 'World-Class Facilities')}
-            title={txt('campus.fac.title', 'Built for')}
-            accent={txt('campus.fac.accent', 'Every Ambition')}
-            lead={txt('campus.fac.lead', 'State-of-the-art infrastructure designed for safety, comfort, and inspired learning.')}
-          />
-          <div className="grid cols-4 fac-grid">
-            {FACILITIES.map((f, i) => (
-              <Reveal className="philo-cell" delay={(i % 4) + 1} key={f.t}>
-                <TiltCard className="card philosophy-card fac-card">
-                  <div className="card-icon">{f.ic}</div>
-                  <h3>{txt(`campus.fac.${i + 1}.t`, f.t)}</h3>
-                  <p>{txt(`campus.fac.${i + 1}.d`, f.d)}</p>
-                </TiltCard>
-              </Reveal>
-            ))}
-          </div>
+          <WarpBackground
+            className="warp-facilities"
+            beamsPerSide={4}
+            beamSize={5}
+            beamDuration={3.6}
+          >
+            <SectionHead
+              center
+              eyebrow={txt('campus.fac.eyebrow', 'World-Class Facilities')}
+              title={txt('campus.fac.title', 'Built for')}
+              accent={txt('campus.fac.accent', 'Every Ambition')}
+              lead={txt('campus.fac.lead', 'State-of-the-art infrastructure designed for safety, comfort, and inspired learning.')}
+            />
+            <div className="grid cols-4 fac-grid">
+              {FACILITIES.map((f, i) => (
+                <Reveal className="philo-cell" delay={(i % 4) + 1} key={f.t}>
+                  <TiltCard className="card philosophy-card fac-card">
+                    <div className="card-icon">{f.ic}</div>
+                    <h3>{txt(`campus.fac.${i + 1}.t`, f.t)}</h3>
+                    <p>{txt(`campus.fac.${i + 1}.d`, f.d)}</p>
+                  </TiltCard>
+                </Reveal>
+              ))}
+            </div>
+          </WarpBackground>
         </div>
       </section>
 

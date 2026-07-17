@@ -1,7 +1,5 @@
-import { Link } from 'react-router-dom'
 import FutureHero from '../components/FutureHero'
 import Admission from '../components/Admission'
-import WarpBackground from '../components/WarpBackground'
 import { Reveal, SectionHead } from '../components/common'
 
 const REQUIREMENTS = [
@@ -118,28 +116,6 @@ export default function AdmissionsPage() {
                 <p>{a}</p>
               </details>
             ))}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Warp CTA */}
-      <section className="section">
-        <div className="container">
-          <Reveal>
-            <WarpBackground className="warp-cta" beamsPerSide={4} beamSize={5} beamDuration={3.4}>
-              <div className="warp-cta-card">
-                <span className="eyebrow">Admissions Open 2026–27</span>
-                <h3>Your Child’s Future Starts at Dawn</h3>
-                <p>
-                  Seats are filling fast across every grade. Begin the application today and
-                  join a community built on excellence, care, and boundless curiosity.
-                </p>
-                <div className="warp-cta-actions">
-                  <Link to="/admissions" className="btn btn-gold">Apply Now</Link>
-                  <Link to="/contact" className="btn btn-ghost">Talk to Admissions</Link>
-                </div>
-              </div>
-            </WarpBackground>
           </Reveal>
         </div>
       </section>
