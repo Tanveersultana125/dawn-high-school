@@ -4074,6 +4074,30 @@ body.no-scroll { overflow: hidden; }
   align-items: start;
 }
 
+/* ---- Refined, professional backdrop for the Achievements section ---- */
+#achievements.section-dark {
+  position: relative;
+  background:
+    radial-gradient(60% 55% at 85% 0%, rgba(37, 99, 235, 0.28) 0%, transparent 60%),
+    radial-gradient(50% 50% at 5% 100%, rgba(230, 199, 104, 0.10) 0%, transparent 62%),
+    linear-gradient(165deg, #071734 0%, #0a2150 55%, #0b1c40 100%);
+  overflow: hidden;
+}
+/* faint engineering grid, masked so it fades toward the edges */
+#achievements.section-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 100% 52px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 52px 100%;
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 0%, #000 45%, transparent 100%);
+  mask-image: radial-gradient(120% 100% at 50% 0%, #000 45%, transparent 100%);
+}
+#achievements.section-dark > .container { position: relative; z-index: 1; }
+
 /* ============================================================
    FACULTY
    ============================================================ */
