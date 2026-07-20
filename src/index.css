@@ -196,6 +196,8 @@ ul {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   font-style: italic;
+  /* keep multi-word accents together so they wrap as one clean unit */
+  white-space: nowrap;
   /* italic glyphs lean right; pad so the last stroke isn't clipped by text-clip */
   padding-right: 0.3em;
   margin-right: -0.24em;
