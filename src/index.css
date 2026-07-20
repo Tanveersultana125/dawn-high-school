@@ -7064,17 +7064,6 @@ body.no-scroll { overflow: hidden; }
   gap: 48px;
   align-items: center;
   margin-top: 12px;
-  padding: clamp(28px, 4vw, 48px);
-  border-radius: var(--radius-lg, 22px);
-  /* founder card — cool blue tint */
-  background: linear-gradient(150deg, rgba(37, 99, 235, 0.08), rgba(37, 99, 235, 0.03));
-  border: 1px solid rgba(37, 99, 235, 0.14);
-  box-shadow: 0 24px 60px -34px rgba(4, 16, 45, 0.5);
-}
-/* leadership card — warm gold tint to differentiate */
-.founder-card.alt {
-  background: linear-gradient(150deg, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.04));
-  border: 1px solid rgba(212, 175, 55, 0.22);
 }
 .founder-photo {
   position: relative;
