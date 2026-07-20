@@ -6592,33 +6592,45 @@ body.no-scroll { overflow: hidden; }
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: linear-gradient(150deg, rgba(37, 99, 235, 0.14), rgba(212, 175, 55, 0.14));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--c, #2563eb) 26%, #ffffff), color-mix(in srgb, var(--c, #2563eb) 9%, #ffffff));
+  border: 1px solid color-mix(in srgb, var(--c, #2563eb) 24%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 .subject b { color: var(--navy-800); font-size: 0.98rem; }
 .subject span { display: block; font-size: 0.78rem; color: var(--text-faint); }
 
 /* PixelCard wrapper styled as a light subject card */
 .subject-pixel.pixel-card {
+  --c: #2563eb;
   height: auto;
   width: auto;
   aspect-ratio: auto;
   min-height: 96px;
   display: block;
-  background: linear-gradient(158deg, #eef4ff 0%, #f7faff 55%, #ffffff 100%);
-  border: 1px solid rgba(37, 99, 235, 0.14);
+  background: linear-gradient(158deg, color-mix(in srgb, var(--c) 14%, #ffffff) 0%, #ffffff 78%);
+  border: 1px solid color-mix(in srgb, var(--c) 28%, transparent);
   border-radius: var(--radius-md);
+  box-shadow: inset 4px 0 0 var(--c);
   transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux),
     border-color 0.4s var(--ease-lux);
 }
 .subject-pixel.pixel-card::before { display: none; } /* drop the dark glow */
+/* distinct colour per subject for a vibrant, professional grid */
+.subject-pixel.pixel-card:nth-child(1) { --c: #2563eb; }
+.subject-pixel.pixel-card:nth-child(2) { --c: #12b886; }
+.subject-pixel.pixel-card:nth-child(3) { --c: #6d5efc; }
+.subject-pixel.pixel-card:nth-child(4) { --c: #d4870f; }
+.subject-pixel.pixel-card:nth-child(5) { --c: #0ea5b7; }
+.subject-pixel.pixel-card:nth-child(6) { --c: #e0559a; }
+.subject-pixel.pixel-card:nth-child(7) { --c: #10a26a; }
+.subject-pixel.pixel-card:nth-child(8) { --c: #e8722c; }
 .subject-pixel.pixel-card:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--royal-200, #bcd2f5);
+  box-shadow: inset 4px 0 0 var(--c), 0 22px 44px -22px color-mix(in srgb, var(--c) 55%, transparent);
+  border-color: color-mix(in srgb, var(--c) 50%, transparent);
 }
 .subject-pixel .pixel-canvas { position: absolute; inset: 0; z-index: 0; }
 .subject-pixel .subject {
