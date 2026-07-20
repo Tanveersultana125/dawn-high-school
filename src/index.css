@@ -3863,8 +3863,8 @@ body.no-scroll { overflow: hidden; }
   text-align: center;
   padding: 34px 18px 30px;
   border-radius: var(--radius-md);
-  background: linear-gradient(165deg, #2a5fd0 0%, #1e50be 52%, #1543a8 100%);
-  border: 1px solid rgba(120, 160, 255, 0.5);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.42) 52%, rgba(255, 255, 255, 0.32) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 26px 52px -28px rgba(4, 16, 45, 0.85);
   transform-style: preserve-3d;
   will-change: transform;
@@ -3953,7 +3953,7 @@ body.no-scroll { overflow: hidden; }
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 3.6vw, 3rem);
   font-weight: 700;
-  color: var(--white);
+  color: #0f2c66;
   display: flex;
   justify-content: center;
   align-items: baseline;
@@ -3974,7 +3974,7 @@ body.no-scroll { overflow: hidden; }
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(15, 44, 102, 0.82);
 }
 
 .timeline {
