@@ -1330,6 +1330,116 @@ ul {
   .page-hero-figure { order: -1; max-width: 320px; margin: 0 auto; }
 }
 
+/* ============================================================
+   GALLERY HERO — light, corporate split with an angular photo
+   (src/components/GalleryHero.jsx)
+   ============================================================ */
+.gallery-hero {
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--nav-h) + 60px) 0 88px;
+  background: linear-gradient(120deg, #ffffff 0%, #f2f5fc 52%, #e8eef8 100%);
+}
+/* soft geometric glows in the corners */
+.gh-shape {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(10px);
+}
+.gh-shape--a {
+  top: -140px;
+  right: -110px;
+  width: 440px;
+  height: 440px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.12), transparent 66%);
+}
+.gh-shape--b {
+  bottom: -150px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.14), transparent 66%);
+}
+.gh-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: clamp(30px, 5vw, 70px);
+  align-items: center;
+}
+.gallery-hero .crumb {
+  justify-content: flex-start;
+  color: rgba(10, 31, 68, 0.55);
+  margin-bottom: 16px;
+}
+.gallery-hero .crumb a:hover { color: var(--gold-600); }
+.gallery-hero .crumb b { color: var(--gold-600); }
+.gallery-hero .eyebrow { color: var(--gold-600); }
+.gh-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.3rem, 4.6vw, 3.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: var(--navy-800);
+}
+.gh-sub {
+  margin-top: 18px;
+  max-width: 460px;
+  color: var(--text-soft);
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+  line-height: 1.7;
+}
+.gh-cta { margin-top: 30px; }
+
+/* angular-clipped campus photo with an offset gold frame */
+.gh-media {
+  position: relative;
+  justify-self: center;
+  width: 100%;
+  max-width: 620px;
+}
+.gh-photo {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 4 / 3;
+  background-size: cover;
+  background-position: center;
+  clip-path: polygon(13% 0, 100% 0, 100% 100%, 0 100%);
+  box-shadow: 0 44px 90px -34px rgba(10, 31, 68, 0.45);
+}
+.gh-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transform: translate(22px, 22px);
+  clip-path: polygon(13% 0, 100% 0, 100% 100%, 0 100%);
+  background: linear-gradient(140deg, rgba(230, 199, 104, 0.95) 0%, rgba(184, 134, 11, 0.35) 55%, transparent 100%);
+}
+/* thin gold accent line angling through the whitespace */
+.gh-diagonal {
+  position: absolute;
+  top: -8%;
+  left: 4%;
+  width: 1px;
+  height: 118%;
+  z-index: 2;
+  transform: rotate(17deg);
+  background: linear-gradient(180deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+}
+
+@media (max-width: 860px) {
+  .gh-inner { grid-template-columns: 1fr; gap: 40px; }
+  .gh-copy { text-align: center; }
+  .gallery-hero .crumb,
+  .gallery-hero .eyebrow { justify-content: center; }
+  .gh-sub { margin-left: auto; margin-right: auto; }
+  .gh-media { order: -1; max-width: 460px; }
+  .gh-photo { aspect-ratio: 16 / 10; }
+}
+
 /* ---- ADMISSIONS — confident dots + solid gold pill eyebrow ---- */
 .page-hero--admissions::before {
   content: '';
