@@ -125,7 +125,7 @@ export default function AcademicsPage() {
       </section>
 
       {/* Learning philosophy */}
-      <section className="section">
+      <section className="section philosophy-section">
         <div className="container">
           <SectionHead
             center

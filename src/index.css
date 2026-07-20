@@ -1667,6 +1667,32 @@ ul {
   transform: rotate(-6deg) scale(1.06);
 }
 
+/* ---- Learning philosophy — deep blue backdrop so the white cards pop ---- */
+.philosophy-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 55% at 85% 0%, rgba(46, 108, 220, 0.4) 0%, transparent 58%),
+    radial-gradient(55% 60% at 8% 100%, rgba(20, 52, 120, 0.5) 0%, transparent 58%),
+    linear-gradient(165deg, #071a3d 0%, #0a2350 55%, #0c2c63 100%);
+}
+/* faint grid, masked so it fades toward the edges */
+.philosophy-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(140, 170, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(140, 170, 255, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 20%, #000 42%, transparent 82%);
+  mask-image: radial-gradient(120% 90% at 50% 20%, #000 42%, transparent 82%);
+  pointer-events: none;
+}
+.philosophy-section > .container { position: relative; z-index: 1; }
+.philosophy-section .section-title { color: #fff; }
+
 /* ---- Interactive 3D tilt cards ---- */
 .philo-cell {
   perspective: 1000px;
