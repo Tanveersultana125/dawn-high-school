@@ -6587,7 +6587,17 @@ body.no-scroll { overflow: hidden; }
   box-shadow: var(--shadow-md);
   border-color: transparent;
 }
-.subject .s-ic { font-size: 1.5rem; }
+.subject .s-ic {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(150deg, rgba(37, 99, 235, 0.14), rgba(212, 175, 55, 0.14));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
 .subject b { color: var(--navy-800); font-size: 0.98rem; }
 .subject span { display: block; font-size: 0.78rem; color: var(--text-faint); }
 
@@ -6598,8 +6608,8 @@ body.no-scroll { overflow: hidden; }
   aspect-ratio: auto;
   min-height: 96px;
   display: block;
-  background: var(--white);
-  border: 1px solid var(--gray-200);
+  background: linear-gradient(158deg, #eef4ff 0%, #f7faff 55%, #ffffff 100%);
+  border: 1px solid rgba(37, 99, 235, 0.14);
   border-radius: var(--radius-md);
   transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux),
     border-color 0.4s var(--ease-lux);
