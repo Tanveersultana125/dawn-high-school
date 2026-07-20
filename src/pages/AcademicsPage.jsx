@@ -195,7 +195,7 @@ export default function AcademicsPage() {
           />
           <div className="grid cols-3">
             {ASSESS.map((a, i) => (
-              <Reveal className="card" delay={(i % 3) + 1} key={a.t}>
+              <Reveal className="card assess-card" delay={(i % 3) + 1} key={a.t}>
                 <div className="card-icon">{a.ic}</div>
                 <h3>{txt(`academics.assess.${i + 1}.t`, a.t)}</h3>
                 <p>{txt(`academics.assess.${i + 1}.d`, a.d)}</p>
