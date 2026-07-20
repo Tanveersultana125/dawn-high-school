@@ -1246,6 +1246,88 @@ ul {
   background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.55), transparent);
 }
 
+/* ---- ACADEMICS split: left copy + framed hero image ---- */
+.page-hero--academics.page-hero--figure { text-align: left; }
+.page-hero--academics.page-hero--figure .page-hero-inner {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+.page-hero--academics.page-hero--figure .crumb,
+.page-hero--academics.page-hero--figure .eyebrow { justify-content: flex-start; }
+.page-hero--academics.page-hero--figure .page-hero-title::after { margin-left: 0; margin-right: auto; }
+.page-hero--academics.page-hero--figure .page-hero-sub { margin-left: 0; margin-right: 0; }
+
+/* framed image with a soft gold border, glass shine and floating glows */
+.page-hero-figure {
+  position: relative;
+  justify-self: center;
+  max-width: 440px;
+  width: 100%;
+}
+.phf-frame {
+  position: relative;
+  z-index: 1;
+  padding: 9px;
+  border-radius: 26px;
+  overflow: hidden;
+  background: linear-gradient(150deg, rgba(230, 199, 104, 0.95) 0%, rgba(184, 134, 11, 0.55) 42%, rgba(255, 255, 255, 0.1) 100%);
+  box-shadow: 0 44px 90px -34px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(212, 175, 55, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.phf-frame img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 12%;
+  border-radius: 18px;
+}
+/* diagonal glass shine sweeping across the frame */
+.phf-shine {
+  position: absolute;
+  inset: 9px;
+  border-radius: 18px;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.28) 0%, transparent 32%);
+  mix-blend-mode: screen;
+}
+/* soft coloured glows floating behind the frame for depth */
+.phf-glow {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(46px);
+  pointer-events: none;
+}
+.phf-glow--gold {
+  width: 240px;
+  height: 240px;
+  top: -50px;
+  right: -46px;
+  background: rgba(212, 175, 55, 0.4);
+}
+.phf-glow--blue {
+  width: 260px;
+  height: 260px;
+  bottom: -60px;
+  left: -54px;
+  background: rgba(46, 108, 220, 0.45);
+}
+
+@media (max-width: 860px) {
+  .page-hero--academics.page-hero--figure { text-align: center; }
+  .page-hero--academics.page-hero--figure .page-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .page-hero--academics.page-hero--figure .crumb,
+  .page-hero--academics.page-hero--figure .eyebrow { justify-content: center; }
+  .page-hero--academics.page-hero--figure .page-hero-title::after { margin-left: auto; margin-right: auto; }
+  .page-hero-figure { order: -1; max-width: 320px; margin: 0 auto; }
+}
+
 /* ---- ADMISSIONS — confident dots + solid gold pill eyebrow ---- */
 .page-hero--admissions::before {
   content: '';

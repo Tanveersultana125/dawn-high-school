@@ -18,10 +18,11 @@ const heroItem = {
  *  (used on Contact). Pass `variant` to switch the accent pattern per page.
  *  Pass `highlights` (array of { n, l }) to float a column of glass stat
  *  cards alongside the copy on wider layouts. */
-export default function PageHero({ kicker, title, subtitle, crumb, variant, photo, highlights }) {
+export default function PageHero({ kicker, title, subtitle, crumb, variant, photo, highlights, figure, figureAlt }) {
   const hasAside = Array.isArray(highlights) && highlights.length > 0
+  const hasFigure = Boolean(figure)
   return (
-    <section className={`page-hero${variant ? ` page-hero--${variant}` : ''}${photo ? ' page-hero--photo' : ''}${hasAside ? ' page-hero--split' : ''}`}>
+    <section className={`page-hero${variant ? ` page-hero--${variant}` : ''}${photo ? ' page-hero--photo' : ''}${hasAside ? ' page-hero--split' : ''}${hasFigure ? ' page-hero--figure' : ''}`}>
       {photo && (
         <div
           className="page-hero-photo"
@@ -53,6 +54,17 @@ export default function PageHero({ kicker, title, subtitle, crumb, variant, phot
           )}
           {subtitle && <motion.p className="page-hero-sub" variants={heroItem}>{subtitle}</motion.p>}
         </div>
+
+        {hasFigure && (
+          <motion.div className="page-hero-figure" variants={heroItem}>
+            <div className="phf-frame">
+              <img src={figure} alt={figureAlt || ''} loading="eager" />
+              <span className="phf-shine" aria-hidden="true" />
+            </div>
+            <span className="phf-glow phf-glow--gold" aria-hidden="true" />
+            <span className="phf-glow phf-glow--blue" aria-hidden="true" />
+          </motion.div>
+        )}
 
         {hasAside && (
           <motion.div className="page-hero-aside" variants={heroItem} aria-hidden="true">

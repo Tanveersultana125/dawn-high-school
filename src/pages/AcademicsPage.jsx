@@ -44,6 +44,8 @@ export default function AcademicsPage() {
       <PageHero
         variant="academics"
         photo={heroPhoto}
+        figure={pickImg('academics.hero.figure', '/student-kid.png')}
+        figureAlt="Dawn High School student"
         kicker={txt('academics.hero.kicker', 'Academic Excellence')}
         title={txt('academics.hero.title', 'Programs for Every Stage of Growth')}
         subtitle={txt('academics.hero.subtitle', 'From first steps to final exams, our academic pathways challenge, inspire, and empower students at every level.')}
