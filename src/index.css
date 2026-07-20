@@ -3863,8 +3863,8 @@ body.no-scroll { overflow: hidden; }
   text-align: center;
   padding: 34px 18px 30px;
   border-radius: var(--radius-md);
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.42) 52%, rgba(255, 255, 255, 0.32) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.8);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 26px 52px -28px rgba(4, 16, 45, 0.85);
   transform-style: preserve-3d;
   will-change: transform;
