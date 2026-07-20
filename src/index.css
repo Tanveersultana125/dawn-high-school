@@ -10035,15 +10035,17 @@ body.no-scroll { overflow: hidden; }
    ============================================================ */
 .journey-section {
   position: relative;
-  background: #ffffff;
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(37, 99, 235, 0.18), transparent 70%),
+    var(--gradient-navy);
 }
-.journey-section .section-title { color: var(--navy-800); }
 .journey-card {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(165deg, #2a5fd0 0%, #1e50be 52%, #1543a8 100%);
-  border: 1px solid rgba(120, 160, 255, 0.5);
-  box-shadow: 0 18px 44px rgba(4, 16, 45, 0.28);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(6px);
 }
 /* keep card text above the meteor shower */
 .journey-card > *:not(.meteors) { position: relative; z-index: 1; }
