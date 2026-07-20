@@ -4236,6 +4236,29 @@ body.no-scroll { overflow: hidden; }
    HOVER SLIDER — interactive "Explore Our Streams" showcase
    (src/components/HoverSlider.jsx + ProgramShowcase.jsx)
    ============================================================ */
+/* professional tinted backdrop with blue + gold aurora glows and a faint grid */
+.program-showcase {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 55% at 88% 8%, rgba(37, 99, 235, 0.1), transparent 58%),
+    radial-gradient(55% 60% at 6% 96%, rgba(212, 175, 55, 0.09), transparent 58%),
+    linear-gradient(165deg, #f6f8fe 0%, #eef2fb 55%, #e9eef9 100%);
+}
+.program-showcase::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(37, 99, 235, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.045) 1px, transparent 1px);
+  background-size: 58px 58px;
+  -webkit-mask-image: radial-gradient(120% 100% at 70% 30%, #000 42%, transparent 82%);
+  mask-image: radial-gradient(120% 100% at 70% 30%, #000 42%, transparent 82%);
+  pointer-events: none;
+}
+.program-showcase > .container { position: relative; z-index: 1; }
 .program-showcase .ps-title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3rem);
