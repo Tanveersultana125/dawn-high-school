@@ -115,7 +115,7 @@ export default function AboutPage() {
       </section>
 
       {/* Founder / Leadership */}
-      <section className="section">
+      <section className="section leadership-section">
         <div className="container">
           <SectionHead
             center
