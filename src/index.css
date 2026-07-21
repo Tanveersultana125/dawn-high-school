@@ -1877,10 +1877,48 @@ ul {
   display: flex;
 }
 .fac-card {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   width: 100%;
   padding: 28px 26px 30px;
+}
+/* gradient accent bar that grows across the top edge on hover */
+.fac-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 3px;
+  z-index: 4;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #2563eb, var(--gold-400, #e6c768));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease-lux);
+}
+.fac-card:hover::before { transform: scaleX(1); }
+/* diagonal shine that sweeps across the card on hover */
+.fac-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 55%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+  transform: skewX(-20deg);
+  background: linear-gradient(110deg, transparent, rgba(37, 99, 235, 0.14), transparent);
+  opacity: 0;
+}
+.fac-card:hover::after { animation: facShine 0.9s var(--ease-lux); }
+@keyframes facShine {
+  0% { left: -80%; opacity: 0; }
+  22% { opacity: 1; }
+  100% { left: 135%; opacity: 0; }
 }
 .fac-card .card-icon {
   width: 52px;
@@ -1888,6 +1926,12 @@ ul {
   border-radius: 14px;
   font-size: 1.35rem;
   margin-bottom: 20px;
+  transition: box-shadow 0.4s var(--ease-lux), transform 0.4s var(--ease-lux);
+}
+/* icon lights up with a coloured glow on hover */
+.fac-card:hover .card-icon {
+  box-shadow: 0 12px 28px -8px rgba(37, 99, 235, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 /* reserve two title lines so every description starts on the same line */
 .fac-card h3 {
