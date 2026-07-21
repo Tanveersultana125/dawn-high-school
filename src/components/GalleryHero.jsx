@@ -40,11 +40,6 @@ export default function GalleryHero({ kicker, title, subtitle, crumb, image, cta
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* thin blue chevron pointing into the copy */}
-          <svg className="gh-chevron" viewBox="0 0 130 240" fill="none" aria-hidden="true">
-            <path d="M120 12 L22 120 L120 228" stroke="#2f6cdc" strokeWidth="2" />
-          </svg>
-
           {/* angular hexagon-masked photo, echoed by a thin outline behind it */}
           <span className="gh-outline" aria-hidden="true" />
           <div className="gh-photo" style={{ backgroundImage: `url('${image}')` }} />
