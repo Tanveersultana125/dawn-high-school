@@ -8336,6 +8336,8 @@ body.no-scroll { overflow: hidden; }
    BuildingBlocks — isometric 3D cube grid (brand-adapted)
    ============================================================ */
 .blocks-section { overflow: hidden; }
+/* when this section is first on the page, clear the fixed navbar */
+.blocks-section.blocks-first { padding-top: calc(var(--nav-h) + 56px); }
 .blocks-layout {
   display: grid;
   grid-template-columns: 1.05fr 1fr;

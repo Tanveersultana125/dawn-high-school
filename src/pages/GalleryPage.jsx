@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import GalleryHero from '../components/GalleryHero'
 import Gallery from '../components/Gallery'
 import VideoGallery from '../components/VideoGallery'
 import BuildingBlocks from '../components/BuildingBlocks'
@@ -8,18 +7,9 @@ import { Reveal } from '../components/common'
 export default function GalleryPage() {
   return (
     <>
-      <GalleryHero
-        image="https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1600&q=80"
-        kicker="Gallery"
-        title="A Glimpse Into Campus Moments"
-        subtitle="From classrooms and labs to celebrations and championships — explore life at Dawn."
-        crumb="Gallery"
-        ctaText="Schedule a Visit"
-        ctaTo="/contact"
-      />
-
       <BuildingBlocks
         layout="reverse"
+        sectionClassName="blocks-first"
         eyebrow="Life at Dawn"
         title="Moments That Build"
         accent="Lasting Memories"

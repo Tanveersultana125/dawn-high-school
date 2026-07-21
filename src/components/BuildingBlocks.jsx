@@ -46,6 +46,7 @@ export default function BuildingBlocks({
   lead = 'Every lesson, lab, and project is a building block — layered together to shape confident, curious, future-ready learners. Hover to pause, click a block to open the photo.',
   buttonText = 'Explore Academics',
   to = '/academics',
+  sectionClassName = '',
 }) {
   const stacked = layout === 'stacked'
   const reverse = layout === 'reverse'
@@ -152,7 +153,7 @@ export default function BuildingBlocks({
 
   if (stacked) {
     return (
-      <section className="section section-dark blocks-section blocks-stacked" id="innovation">
+      <section className={`section section-dark blocks-section blocks-stacked ${sectionClassName}`} id="innovation">
         <div className="container">
           {copy}
           {visual}
@@ -164,7 +165,7 @@ export default function BuildingBlocks({
   }
 
   return (
-    <section className="section section-dark blocks-section" id="innovation">
+    <section className={`section section-dark blocks-section ${sectionClassName}`} id="innovation">
       <div className="container blocks-layout">
         {reverse ? (
           <>
