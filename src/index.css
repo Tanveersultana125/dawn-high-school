@@ -6889,6 +6889,38 @@ body.no-scroll { overflow: hidden; }
 .fee-card li { font-size: 0.9rem; color: var(--text-soft); }
 
 /* Classes / grades offered */
+/* "Classes We Offer" band: a cursor image trail runs behind the grade cards.
+   The layer itself takes no pointer events — the section relays them to the
+   trail — so the cards keep their own hover behaviour. */
+.grades-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.grades-trail {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.grades-trail .content {
+  z-index: 0;
+  border-radius: 0;
+}
+.grades-trail .content__img {
+  width: 150px;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(10, 33, 80, 0.18);
+}
+.grades-section > .container {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 700px) {
+  /* No cursor to follow — skip the work entirely on touch-sized screens. */
+  .grades-trail { display: none; }
+}
+
 .grade-card {
   text-align: center;
   border-top: 4px solid var(--gold-500);

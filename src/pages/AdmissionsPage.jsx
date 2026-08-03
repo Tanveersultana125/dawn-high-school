@@ -1,6 +1,27 @@
+import { useState } from 'react'
 import FutureHero from '../components/FutureHero'
 import Admission from '../components/Admission'
+import ImageTrail from '../components/ImageTrail'
 import { Reveal, SectionHead } from '../components/common'
+
+// Photos that trail the cursor across the "Classes We Offer" band. Kept at
+// module scope so the array identity is stable and the trail isn't rebuilt on
+// every render.
+const TRAIL_IMAGES = [
+  'https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=400&q=80',
+]
+
+const REDUCED_MOTION =
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 const REQUIREMENTS = [
   ['Completed application form', 'Submitted online or at the admissions office.'],
@@ -33,6 +54,10 @@ const FAQ = [
 ]
 
 export default function AdmissionsPage() {
+  // Held in state rather than a ref so the trail re-runs its effect once the
+  // section node exists and can start relaying pointer moves.
+  const [gradesSection, setGradesSection] = useState(null)
+
   return (
     <>
       <FutureHero />
@@ -66,8 +91,13 @@ export default function AdmissionsPage() {
         </div>
       </section>
 
-      {/* Classes offered */}
-      <section className="section section-alt">
+      {/* Classes offered — cursor drags a trail of campus photos behind the cards */}
+      <section className="section section-alt grades-section" ref={setGradesSection}>
+        {!REDUCED_MOTION && (
+          <div className="grades-trail" aria-hidden="true">
+            <ImageTrail items={TRAIL_IMAGES} variant={1} pointerTarget={gradesSection} />
+          </div>
+        )}
         <div className="container">
           <SectionHead
             center
