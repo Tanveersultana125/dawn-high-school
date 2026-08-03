@@ -159,11 +159,26 @@ export default function PageImagesManager({ page }) {
         // Drop deleted cards unless the user is peeking at removed items.
         const slots = group.slots.filter((s) => showRemoved || !isRemoved(s.key))
         if (slots.length === 0) return null
+        // Split into the sections of the live page, keeping catalogue order so
+        // the panel reads top-to-bottom the way a visitor scrolls the page.
+        const sections = []
+        for (const slot of slots) {
+          const name = slot.section || 'Other images'
+          const last = sections[sections.length - 1]
+          if (last && last.name === name) last.slots.push(slot)
+          else sections.push({ name, slots: [slot] })
+        }
         return (
         <div className="pi-group" key={group.page}>
           {!page && <h3 className="pi-group-title">{group.page} page</h3>}
+          {sections.map((section) => (
+          <div className="pi-section" key={section.name}>
+            <h4 className="pi-section-title">
+              <span className="pi-section-name">{section.name}</span>
+              <span className="pi-section-where">on the {group.page} page</span>
+            </h4>
           <div className="pi-grid">
-            {slots.map((slot) => {
+            {section.slots.map((slot) => {
               const entry = images[slot.key]
               const hidden = !!entry?.hidden
               const managed = !hidden && !!entry?.url
@@ -258,6 +273,8 @@ export default function PageImagesManager({ page }) {
               )
             })}
           </div>
+          </div>
+          ))}
         </div>
         )
       })}
