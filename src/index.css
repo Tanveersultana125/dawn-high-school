@@ -6899,7 +6899,16 @@ body.no-scroll { overflow: hidden; }
    their own corner radii instead. */
 .grade-card-wrap {
   display: flex;
-  perspective: 1100px;
+  perspective: 900px;
+  animation: gradeFloat 7s ease-in-out infinite;
+}
+/* Stagger the idle bob so the row breathes rather than pulsing in unison. */
+.grade-card-wrap:nth-child(2) { animation-delay: -1.75s; }
+.grade-card-wrap:nth-child(3) { animation-delay: -3.5s; }
+.grade-card-wrap:nth-child(4) { animation-delay: -5.25s; }
+@keyframes gradeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
 }
 .grade-card {
   --gc-accent: var(--royal-600);
@@ -6916,9 +6925,10 @@ body.no-scroll { overflow: hidden; }
   border: 1px solid var(--gray-200);
   border-radius: 22px;
   background: var(--white);
-  box-shadow: 0 16px 38px -20px rgba(10, 31, 68, 0.32);
-  transition: transform 0.25s var(--ease-lux), box-shadow 0.5s var(--ease-lux),
-    border-color 0.5s var(--ease-lux);
+  /* No box-shadow: a flat CSS shadow stays put while the card rotates, which
+     reads as fake. `.grade-cast` below is a real layer set back in Z, so it
+     swings with the card the way a cast shadow should. */
+  transition: transform 0.25s var(--ease-lux), border-color 0.5s var(--ease-lux);
 }
 /* Colour wash rising from the base of the card */
 .grade-card::before {
@@ -6949,18 +6959,69 @@ body.no-scroll { overflow: hidden; }
   border-radius: inherit;
   background: radial-gradient(
     260px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(120, 160, 255, 0.22),
-    transparent 62%
+    rgba(255, 255, 255, 0.75),
+    transparent 58%
   );
   opacity: 0;
   transition: opacity 0.3s var(--ease-lux);
   pointer-events: none;
+  transform: translateZ(2px);
 }
-.grade-card:hover {
-  box-shadow: 0 40px 70px -28px rgba(10, 31, 68, 0.45);
-  border-color: var(--gc-accent);
-}
+.grade-card:hover { border-color: var(--gc-accent); }
 .grade-card:hover .tilt3d-glare { opacity: 1; }
+
+/* ---- The three depth props behind the face ---- */
+
+/* Extruded body: a slightly larger coloured slab set back in Z, so a rim of it
+   shows all round and a full side face swings into view as the card tilts. */
+.grade-slab {
+  position: absolute;
+  inset: 0;
+  border-radius: 26px;
+  background: linear-gradient(160deg, var(--gc-accent), var(--gc-deep));
+  transform: translateZ(-24px) scale(1.055);
+  pointer-events: none;
+}
+/* Blurred shadow further back again — it swings with the card, so the light
+   reads as fixed while the card moves under it. */
+.grade-cast {
+  position: absolute;
+  inset: 6% 4% -6% 4%;
+  border-radius: 30px;
+  background: rgba(10, 31, 68, 0.42);
+  filter: blur(26px);
+  transform: translateZ(-72px) scale(1.05);
+  opacity: 0.5;
+  transition: opacity 0.4s var(--ease-lux);
+  pointer-events: none;
+}
+.grade-card:hover .grade-cast { opacity: 0.75; }
+/* Specular streak that sweeps the face on hover. */
+.grade-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateZ(3px);
+}
+.grade-shine::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  bottom: -60%;
+  left: -40%;
+  width: 32%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.72),
+    transparent
+  );
+  transform: rotate(14deg) translateX(-120%);
+  transition: transform 0.85s var(--ease-lux);
+}
+.grade-card:hover .grade-shine::before { transform: rotate(14deg) translateX(460%); }
 
 /* Depth layers — the further from the card surface, the more they float as it
    tilts. Any hover transform has to restate its translateZ or the layer drops
@@ -6973,16 +7034,36 @@ body.no-scroll { overflow: hidden; }
   margin-bottom: 20px;
   transform: translateZ(26px);
 }
-.grade-art {
+/* The art sits on a tinted chip, and the chip itself floats well clear of the
+   card face — the gap between the two Z depths is what sells the parallax. */
+.grade-pedestal {
+  position: relative;
   flex: none;
-  width: 62px;
-  height: 62px;
-  transform: translateZ(30px);
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 22px;
+  transform-style: preserve-3d;
+  transform: translateZ(34px);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.95), var(--gc-wash));
+  border: 1px solid var(--gray-200);
+  box-shadow: 0 14px 24px -12px rgba(10, 31, 68, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: transform 0.5s var(--ease-lux), box-shadow 0.5s var(--ease-lux);
+}
+.grade-card:hover .grade-pedestal {
+  transform: translateZ(58px) rotate(-4deg);
+  box-shadow: 0 26px 38px -14px rgba(10, 31, 68, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.grade-art {
+  width: 58px;
+  height: 58px;
+  transform: translateZ(22px);
   transition: transform 0.5s var(--ease-lux);
-  filter: drop-shadow(0 8px 12px rgba(10, 31, 68, 0.18));
+  filter: drop-shadow(0 8px 10px rgba(10, 31, 68, 0.25));
 }
 .grade-art svg { display: block; width: 100%; height: 100%; }
-.grade-card:hover .grade-art { transform: translateZ(48px) scale(1.07); }
+.grade-card:hover .grade-art { transform: translateZ(34px) scale(1.08); }
 
 .grade-headings { min-width: 0; }
 .grade-card .tier {
@@ -7027,12 +7108,16 @@ body.no-scroll { overflow: hidden; }
 
 @media (max-width: 1080px) {
   .grade-card { padding: 22px 20px 26px; }
-  .grade-art { width: 54px; height: 54px; }
+  .grade-pedestal { width: 66px; height: 66px; border-radius: 19px; }
+  .grade-art { width: 50px; height: 50px; }
   .grade-card .grade-range { font-size: 1.3rem; }
 }
 @media (prefers-reduced-motion: reduce) {
+  .grade-card-wrap { animation: none; }
   .grade-card { transform: none !important; }
-  .grade-card:hover .grade-art { transform: translateZ(30px); }
+  .grade-card:hover .grade-pedestal { transform: translateZ(34px); }
+  .grade-card:hover .grade-art { transform: translateZ(22px); }
+  .grade-card:hover .grade-shine::before { transform: rotate(14deg) translateX(-120%); }
 }
 
 /* Date list */

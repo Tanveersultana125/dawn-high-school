@@ -108,9 +108,17 @@ export default function AdmissionsPage() {
               >
                 {/* TiltCard rotates the card in 3D under the cursor; the layers
                     inside sit at different translateZ depths so they float. */}
-                <TiltCard className="grade-card" max={9}>
+                <TiltCard className="grade-card" max={14}>
+                  {/* Coloured slab sitting behind the face — its rim is the
+                      card's extruded body, and it swings into view on tilt. */}
+                  <span className="grade-slab" aria-hidden="true" />
+                  <span className="grade-cast" aria-hidden="true" />
+                  <span className="grade-shine" aria-hidden="true" />
+
                   <div className="grade-head">
-                    <span className="grade-art">{g.art}</span>
+                    <span className="grade-pedestal">
+                      <span className="grade-art">{g.art}</span>
+                    </span>
                     <div className="grade-headings">
                       <span className="tier">{g.tier}</span>
                       <h3 className="grade-range">{g.grade}</h3>
