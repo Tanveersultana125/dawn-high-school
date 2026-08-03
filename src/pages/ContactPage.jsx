@@ -1,8 +1,12 @@
+import { useState } from 'react'
 import PageHero from '../components/PageHero'
 import Contact from '../components/Contact'
-import TiltCard from '../components/TiltCard'
+import CurvedInput from '../components/CurvedInput'
 import { Reveal, SectionHead } from '../components/common'
 import { usePageImage } from '../context/PageImagesContext'
+import { submitEnquiry } from '../lib/enquiries'
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
 const DEPTS = [
   {
@@ -22,6 +26,40 @@ const DEPTS = [
 ]
 
 export default function ContactPage() {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const [error, setError] = useState('')
+
+  // The curved bar on the General Enquiries card is a one-field shortcut into
+  // the same Firestore "enquiries" collection the full contact form writes to.
+  const sendEnquiry = async (address) => {
+    const clean = address.trim()
+    if (!EMAIL_RE.test(clean)) {
+      setStatus('error')
+      setError('Please enter a valid email address.')
+      return
+    }
+    setStatus('sending')
+    setError('')
+    try {
+      await submitEnquiry(
+        {
+          name: '',
+          email: clean,
+          phone: '',
+          grade: '',
+          message: 'General enquiry — sent from the Direct Contacts card.',
+        },
+        'contact'
+      )
+      setStatus('sent')
+      setEmail('')
+    } catch (err) {
+      setStatus('error')
+      setError(err?.message || 'Something went wrong. Please try again.')
+    }
+  }
+
   const heroPhoto = usePageImage(
     'contact.hero',
     'https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1600&q=80'
@@ -91,8 +129,11 @@ export default function ContactPage() {
                   </div>
                 </div>
               ) : (
+                /* Not a TiltCard: it holds a live form, and a card that swings
+                   under the cursor makes the field hard to aim at (it also
+                   throws off the SVG caret's screen-space maths). */
                 <div className="dept-card-wrap" key={d.t}>
-                  <TiltCard className="card dept-card" max={16}>
+                  <div className="card dept-card dept-card--form">
                     <div className="dept-card-info">
                       <span className="dept-ic">{d.ic}</span>
                       <div className="dept-card-text">
@@ -100,8 +141,49 @@ export default function ContactPage() {
                         <p>{d.d}</p>
                         <p className="dept-contact">{d.e}</p>
                       </div>
+
+                      <div className="dept-card-form">
+                        <CurvedInput
+                          width="100%"
+                          bend={14}
+                          height={56}
+                          fontSize={14}
+                          cornerRadius={18}
+                          shadowSize="sm"
+                          theme="light"
+                          type="email"
+                          name="email"
+                          placeholder="your@email.com"
+                          buttonText={status === 'sending' ? 'Sending…' : 'Send'}
+                          ariaLabel="Email address for a general enquiry"
+                          value={email}
+                          onChange={(v) => {
+                            setEmail(v)
+                            if (status !== 'idle') setStatus('idle')
+                          }}
+                          onSubmit={sendEnquiry}
+                          backgroundColor="#ffffff"
+                          textColor="#0a1f44"
+                          placeholderColor="#9aa0b6"
+                          borderColor="rgba(16, 51, 116, 0.24)"
+                          buttonColor="#1450c8"
+                          buttonTextColor="#ffffff"
+                          iconColor="#1450c8"
+                          shadowColor="#0a1f44"
+                        />
+                        <p
+                          className={`dept-card-note ${status === 'error' ? 'dept-card-note--error' : ''}`}
+                          role="status"
+                        >
+                          {status === 'sent'
+                            ? 'Thanks — we’ll reply to that address shortly.'
+                            : status === 'error'
+                              ? error
+                              : 'Drop your email and we’ll get back to you.'}
+                        </p>
+                      </div>
                     </div>
-                  </TiltCard>
+                  </div>
                 </div>
               )
             )}
