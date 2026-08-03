@@ -1,12 +1,32 @@
 import { Link } from 'react-router-dom'
 import { Reveal, SectionHead } from './common'
 import { CardSpotlight } from './CardSpotlight'
+import { EnquireIcon, CampusIcon, AssessIcon, EnrollIcon } from './admissionIcons'
 
+// The four steps walk the brand ramp — royal blue lightening into navy, then
+// gold at enrolment. `accent` colours the badge, ribbon, title and arrow;
+// `deep` is the shaded end of each gradient.
 const STEPS = [
-  { num: '01', title: 'Enquire', desc: 'Submit an online enquiry form or call our admissions office to begin.' },
-  { num: '02', title: 'Campus Visit', desc: 'Tour our facilities and meet faculty to experience the Dawn difference.' },
-  { num: '03', title: 'Assessment', desc: 'A friendly interaction and age-appropriate assessment for the student.' },
-  { num: '04', title: 'Enroll', desc: 'Receive your offer, complete registration, and welcome to the family!' },
+  {
+    num: '01', title: 'Enquire', icon: EnquireIcon,
+    accent: '#4f86f7', deep: '#1d5fd1',
+    desc: 'Submit an online enquiry form or call our admissions office to begin.',
+  },
+  {
+    num: '02', title: 'Campus Visit', icon: CampusIcon,
+    accent: '#1450c8', deep: '#0d3a97',
+    desc: 'Tour our facilities and meet faculty to experience the Dawn difference.',
+  },
+  {
+    num: '03', title: 'Assessment', icon: AssessIcon,
+    accent: '#0e2a5e', deep: '#061128',
+    desc: 'A friendly interaction and age-appropriate assessment for the student.',
+  },
+  {
+    num: '04', title: 'Enroll', icon: EnrollIcon,
+    accent: '#b8860b', deep: '#8a6408',
+    desc: 'Receive your offer, complete registration, and welcome to the family!',
+  },
 ]
 
 const CHECKLIST = [
@@ -49,11 +69,29 @@ export default function Admission() {
 
         <div className="admission-steps">
           {STEPS.map((s, i) => (
-            <Reveal className="adm-step" delay={i + 1} key={s.num}>
-              <div className="step-num">{s.num}</div>
+            <Reveal
+              className="adm-step"
+              delay={i + 1}
+              key={s.num}
+              style={{ '--st-accent': s.accent, '--st-deep': s.deep }}
+            >
+              <span className="step-ribbon" aria-hidden="true">{s.num}</span>
+              <span className="step-badge" aria-hidden="true">{s.icon}</span>
               <h3>{s.title}</h3>
               <p>{s.desc}</p>
-              {i < STEPS.length - 1 && <span className="step-arrow">→</span>}
+              {/* Progress pips: how far along the four steps this card is. */}
+              <span className="step-dots" aria-hidden="true">
+                {STEPS.map((d, j) => (
+                  <i className={j <= i ? 'on' : ''} key={d.num} />
+                ))}
+              </span>
+              {i < STEPS.length - 1 && (
+                <span className="step-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6">
+                    <path d="M5 12h13M12 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              )}
             </Reveal>
           ))}
         </div>
