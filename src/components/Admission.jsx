@@ -77,18 +77,10 @@ export default function Admission() {
             >
               <span className="step-ribbon" aria-hidden="true">{s.num}</span>
 
-              {/* Badge and title share a row, with the arrow to the next step
-                  centred on that same row in the gap between cards. */}
+              {/* Badge and title share a row. */}
               <div className="step-head">
                 <span className="step-badge" aria-hidden="true">{s.icon}</span>
                 <h3>{s.title}</h3>
-                {i < STEPS.length - 1 && (
-                  <span className="step-arrow" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8">
-                      <path d="M5 12h13M12 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                )}
               </div>
 
               <p>{s.desc}</p>

@@ -5153,24 +5153,6 @@ body.no-scroll { overflow: hidden; }
 }
 .step-dots i.on { background: var(--st-accent); }
 
-/* Arrow to the next step, centred on the badge/title row inside the gap. */
-.step-arrow {
-  position: absolute;
-  top: 50%;
-  right: -54px; /* card padding 24 + half the 26px gap + half the disc */
-  transform: translateY(-50%);
-  z-index: 4;
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: linear-gradient(150deg, var(--st-accent), var(--st-deep));
-  color: var(--white);
-  box-shadow: 0 8px 16px -6px rgba(10, 31, 68, 0.5);
-}
-.step-arrow svg { width: 17px; height: 17px; }
-
 @media (max-width: 1080px) {
   .adm-step { padding: 34px 20px 20px; }
   .step-head { gap: 12px; padding-right: 24px; }
@@ -7599,7 +7581,6 @@ body.no-scroll { overflow: hidden; }
   .form-row { grid-template-columns: 1fr; }
   .hero-stats { gap: 22px; }
   .panel-features { grid-template-columns: 1fr; }
-  .adm-step .step-arrow { display: none; }
 }
 
 @media (max-width: 620px) {
