@@ -6958,26 +6958,22 @@ body.no-scroll { overflow: hidden; }
 .dept-card-text p { color: var(--text-soft); font-size: 0.9rem; overflow-wrap: anywhere; }
 .dept-card-text .dept-contact { color: var(--royal-600); font-weight: 600; margin-top: 2px; }
 
-/* General Enquiries card: curved email bar sits on the card's open right side.
-   `overflow: visible` so the bar's arc and drop shadow aren't clipped. */
-.dept-card--form { overflow: visible; cursor: default; }
+/* General Enquiries card: the curved email bar spans the full width of the
+   card, under the contact details. `overflow: visible` so the arc and its drop
+   shadow aren't clipped by the card. */
+.dept-card--form { overflow: visible; cursor: default; padding: 26px 28px 24px; }
 .dept-card-form {
-  margin-left: auto;
-  width: min(360px, 100%);
-  flex: none;
+  width: 100%;
+  margin-top: 20px;
 }
 .dept-card-note {
-  margin-top: 6px;
-  font-size: 0.78rem;
+  margin-top: 10px;
+  font-size: 0.82rem;
   color: var(--text-faint);
   text-align: center;
   min-height: 1.2em;
 }
 .dept-card-note--error { color: #c0392b; }
-@media (max-width: 860px) {
-  .dept-card-info { flex-wrap: wrap; }
-  .dept-card-form { margin-left: 0; width: 100%; }
-}
 /* ── Campus block: dark info panel on one side, large map on the other ── */
 .campus-row {
   display: grid;
