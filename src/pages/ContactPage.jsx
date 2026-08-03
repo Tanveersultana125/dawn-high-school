@@ -141,49 +141,47 @@ export default function ContactPage() {
                         <p>{d.d}</p>
                         <p className="dept-contact">{d.e}</p>
                       </div>
-                    </div>
 
-                    {/* The bar spans the whole card, so the arc reads across the
-                        full box rather than as a small detail in one corner. */}
-                    <div className="dept-card-form">
-                      <CurvedInput
-                        width="100%"
-                        bend={26}
-                        height={72}
-                        fontSize={16}
-                        cornerRadius={26}
-                        shadowSize="md"
-                        theme="light"
-                        type="email"
-                        name="email"
-                        placeholder="your@email.com"
-                        buttonText={status === 'sending' ? 'Sending…' : 'Send'}
-                        ariaLabel="Email address for a general enquiry"
-                        value={email}
-                        onChange={(v) => {
-                          setEmail(v)
-                          if (status !== 'idle') setStatus('idle')
-                        }}
-                        onSubmit={sendEnquiry}
-                        backgroundColor="#ffffff"
-                        textColor="#0a1f44"
-                        placeholderColor="#9aa0b6"
-                        borderColor="rgba(16, 51, 116, 0.24)"
-                        buttonColor="#1450c8"
-                        buttonTextColor="#ffffff"
-                        iconColor="#1450c8"
-                        shadowColor="#0a1f44"
-                      />
-                      <p
-                        className={`dept-card-note ${status === 'error' ? 'dept-card-note--error' : ''}`}
-                        role="status"
-                      >
-                        {status === 'sent'
-                          ? 'Thanks — we’ll reply to that address shortly.'
-                          : status === 'error'
-                            ? error
-                            : 'Drop your email and we’ll get back to you.'}
-                      </p>
+                      <div className="dept-card-form">
+                        <CurvedInput
+                          width="100%"
+                          bend={14}
+                          height={56}
+                          fontSize={14}
+                          cornerRadius={18}
+                          shadowSize="sm"
+                          theme="light"
+                          type="email"
+                          name="email"
+                          placeholder="your@email.com"
+                          buttonText={status === 'sending' ? 'Sending…' : 'Send'}
+                          ariaLabel="Email address for a general enquiry"
+                          value={email}
+                          onChange={(v) => {
+                            setEmail(v)
+                            if (status !== 'idle') setStatus('idle')
+                          }}
+                          onSubmit={sendEnquiry}
+                          backgroundColor="#ffffff"
+                          textColor="#0a1f44"
+                          placeholderColor="#9aa0b6"
+                          borderColor="rgba(16, 51, 116, 0.24)"
+                          buttonColor="#1450c8"
+                          buttonTextColor="#ffffff"
+                          iconColor="#1450c8"
+                          shadowColor="#0a1f44"
+                        />
+                        <p
+                          className={`dept-card-note ${status === 'error' ? 'dept-card-note--error' : ''}`}
+                          role="status"
+                        >
+                          {status === 'sent'
+                            ? 'Thanks — we’ll reply to that address shortly.'
+                            : status === 'error'
+                              ? error
+                              : 'Drop your email and we’ll get back to you.'}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
