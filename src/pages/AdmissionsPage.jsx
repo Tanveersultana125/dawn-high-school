@@ -1,5 +1,6 @@
 import FutureHero from '../components/FutureHero'
 import Admission from '../components/Admission'
+import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
 import { BlocksArt, BookArt, ScienceArt, GraduateArt, CheckMark } from '../components/gradeArt'
 
@@ -11,27 +12,29 @@ const REQUIREMENTS = [
   ['Transfer certificate', 'Required for students moving from another school.'],
 ]
 
-// `accent` drives the card's number, eyebrow, checks and base bar; `wash` is the
-// same hue at low alpha for the soft gradient inside the card's lower half.
+// Each card owns a step of the brand ramp — royal blue lightening into navy,
+// then gold for the graduating years. `accent` colours the eyebrow, checks and
+// base bar, `deep` is the shaded lower edge of that bar, and `wash` is the same
+// hue at low alpha for the gradient rising inside the card.
 const GRADES = [
   {
     tier: 'Play School', grade: 'Nursery – KG', art: BlocksArt,
-    accent: '#6C5CE7', wash: 'rgba(108, 92, 231, 0.14)',
+    accent: '#4f86f7', deep: '#1d5fd1', wash: 'rgba(79, 134, 247, 0.16)',
     items: ['Play-based early learning', 'Phonics & motor skills', 'Safe, nurturing care'],
   },
   {
     tier: 'Primary', grade: 'Grades 1 – 5', art: BookArt,
-    accent: '#12A594', wash: 'rgba(18, 165, 148, 0.14)',
+    accent: '#1450c8', deep: '#0d3a97', wash: 'rgba(20, 80, 200, 0.14)',
     items: ['Strong foundations', 'Tuition & materials', 'Activity access'],
   },
   {
     tier: 'Middle', grade: 'Grades 6 – 8', art: ScienceArt,
-    accent: '#1450c8', wash: 'rgba(20, 80, 200, 0.13)',
+    accent: '#0e2a5e', deep: '#061128', wash: 'rgba(14, 42, 94, 0.13)',
     items: ['STEM & labs', 'Clubs & sports', 'Critical thinking'],
   },
   {
     tier: 'High School', grade: 'Grades 9 – 12', art: GraduateArt,
-    accent: '#C97A0B', wash: 'rgba(201, 122, 11, 0.15)',
+    accent: '#b8860b', deep: '#8a6408', wash: 'rgba(184, 134, 11, 0.16)',
     items: ['Science & Commerce streams', 'Counselling & guidance', 'Career preparation'],
   },
 ]
@@ -98,29 +101,31 @@ export default function AdmissionsPage() {
           <div className="grid cols-4">
             {GRADES.map((g, i) => (
               <Reveal
-                className="grade-card"
+                className="grade-card-wrap"
                 delay={(i % 4) + 1}
                 key={g.tier}
-                style={{ '--gc-accent': g.accent, '--gc-wash': g.wash }}
+                style={{ '--gc-accent': g.accent, '--gc-deep': g.deep, '--gc-wash': g.wash }}
               >
-                <span className="grade-num" aria-hidden="true">{`0${i + 1}`}</span>
-
-                <div className="grade-head">
-                  <span className="grade-art">{g.art}</span>
-                  <div className="grade-headings">
-                    <span className="tier">{g.tier}</span>
-                    <h3 className="grade-range">{g.grade}</h3>
+                {/* TiltCard rotates the card in 3D under the cursor; the layers
+                    inside sit at different translateZ depths so they float. */}
+                <TiltCard className="grade-card" max={9}>
+                  <div className="grade-head">
+                    <span className="grade-art">{g.art}</span>
+                    <div className="grade-headings">
+                      <span className="tier">{g.tier}</span>
+                      <h3 className="grade-range">{g.grade}</h3>
+                    </div>
                   </div>
-                </div>
 
-                <ul className="grade-list">
-                  {g.items.map((it) => (
-                    <li key={it}>
-                      <CheckMark />
-                      <span>{it}</span>
-                    </li>
-                  ))}
-                </ul>
+                  <ul className="grade-list">
+                    {g.items.map((it) => (
+                      <li key={it}>
+                        <CheckMark />
+                        <span>{it}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </TiltCard>
               </Reveal>
             ))}
           </div>

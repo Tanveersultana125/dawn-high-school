@@ -6889,22 +6889,35 @@ body.no-scroll { overflow: hidden; }
 .fee-card li { font-size: 0.9rem; color: var(--text-soft); }
 
 /* Classes / grades offered.
-   Each card carries its own hue through `--gc-accent` (number, eyebrow, checks,
-   base bar) and `--gc-wash` (the soft gradient in the card's lower half), both
-   set inline per grade so one rule set covers all four. */
+   Each card steps along the brand ramp via three inline custom properties:
+   `--gc-accent` (eyebrow, checks, base bar), `--gc-deep` (the shaded lower edge
+   of that bar) and `--gc-wash` (the gradient rising inside the card), so one
+   rule set covers all four.
+   The card tilts in 3D under the cursor (TiltCard) and its contents sit at
+   different translateZ depths, which is why nothing here may clip: `overflow`
+   other than `visible` would flatten the 3D scene, so the pseudo-elements carry
+   their own corner radii instead. */
+.grade-card-wrap {
+  display: flex;
+  perspective: 1100px;
+}
 .grade-card {
   --gc-accent: var(--royal-600);
+  --gc-deep: var(--navy-800);
   --gc-wash: rgba(20, 80, 200, 0.12);
   position: relative;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
+  transform-style: preserve-3d;
+  will-change: transform;
   padding: 26px 24px 30px;
   border: 1px solid var(--gray-200);
   border-radius: 22px;
   background: var(--white);
-  box-shadow: 0 16px 38px -20px rgba(10, 31, 68, 0.3);
-  transition: transform 0.5s var(--ease-lux), box-shadow 0.5s var(--ease-lux),
+  box-shadow: 0 16px 38px -20px rgba(10, 31, 68, 0.32);
+  transition: transform 0.25s var(--ease-lux), box-shadow 0.5s var(--ease-lux),
     border-color 0.5s var(--ease-lux);
 }
 /* Colour wash rising from the base of the card */
@@ -6915,52 +6928,61 @@ body.no-scroll { overflow: hidden; }
   right: 0;
   bottom: 0;
   height: 62%;
+  border-radius: 0 0 21px 21px;
   background: radial-gradient(120% 100% at 50% 100%, var(--gc-wash), transparent 72%);
   pointer-events: none;
 }
-/* Solid base bar, the plinth the card appears to sit on */
+/* Base bar, shaded top-to-bottom so it reads as a bevelled front edge */
 .grade-card::after {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 7px;
-  background: var(--gc-accent);
+  height: 8px;
+  border-radius: 0 0 21px 21px;
+  background: linear-gradient(180deg, var(--gc-accent) 0%, var(--gc-deep) 100%);
+}
+.grade-card .tilt3d-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(120, 160, 255, 0.22),
+    transparent 62%
+  );
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-lux);
+  pointer-events: none;
 }
 .grade-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 34px 60px -26px rgba(10, 31, 68, 0.4);
+  box-shadow: 0 40px 70px -28px rgba(10, 31, 68, 0.45);
   border-color: var(--gc-accent);
 }
+.grade-card:hover .tilt3d-glare { opacity: 1; }
 
-.grade-num {
-  position: absolute;
-  top: 18px;
-  right: 22px;
-  font-family: var(--font-display);
-  font-size: 1.7rem;
-  font-weight: 800;
-  line-height: 1;
-  color: var(--gc-accent);
-}
-
+/* Depth layers — the further from the card surface, the more they float as it
+   tilts. Any hover transform has to restate its translateZ or the layer drops
+   back to the surface. */
 .grade-head {
   position: relative;
   display: flex;
   align-items: center;
   gap: 14px;
-  padding-right: 42px; /* clear of the number badge */
   margin-bottom: 20px;
+  transform: translateZ(26px);
 }
 .grade-art {
   flex: none;
   width: 62px;
   height: 62px;
+  transform: translateZ(30px);
   transition: transform 0.5s var(--ease-lux);
+  filter: drop-shadow(0 8px 12px rgba(10, 31, 68, 0.18));
 }
 .grade-art svg { display: block; width: 100%; height: 100%; }
-.grade-card:hover .grade-art { transform: translateY(-3px) scale(1.06); }
+.grade-card:hover .grade-art { transform: translateZ(48px) scale(1.07); }
 
 .grade-headings { min-width: 0; }
 .grade-card .tier {
@@ -6987,6 +7009,7 @@ body.no-scroll { overflow: hidden; }
   margin-top: auto;
   padding-top: 18px;
   border-top: 1px solid var(--gray-200);
+  transform: translateZ(14px);
 }
 .grade-list li {
   display: flex;
@@ -7006,6 +7029,10 @@ body.no-scroll { overflow: hidden; }
   .grade-card { padding: 22px 20px 26px; }
   .grade-art { width: 54px; height: 54px; }
   .grade-card .grade-range { font-size: 1.3rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .grade-card { transform: none !important; }
+  .grade-card:hover .grade-art { transform: translateZ(30px); }
 }
 
 /* Date list */
