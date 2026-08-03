@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom'
 import FutureHero from '../components/FutureHero'
 import Admission from '../components/Admission'
+import InfiniteMenu from '../components/InfiniteMenu'
 import { Reveal, SectionHead } from '../components/common'
 
 const REQUIREMENTS = [
@@ -11,11 +13,20 @@ const REQUIREMENTS = [
 ]
 
 const GRADES = [
-  { tier: 'Play School', grade: 'Nursery – KG', items: ['Play-based early learning', 'Phonics & motor skills', 'Safe, nurturing care'] },
-  { tier: 'Primary', grade: 'Grades 1 – 5', items: ['Strong foundations', 'Tuition & materials', 'Activity access'] },
-  { tier: 'Middle', grade: 'Grades 6 – 8', items: ['STEM & labs', 'Clubs & sports', 'Critical thinking'] },
-  { tier: 'High School', grade: 'Grades 9 – 12', items: ['Science & Commerce streams', 'Counselling & guidance', 'Career preparation'] },
+  { tier: 'Play School', grade: 'Nursery – KG', img: 'photo-1577896851231-70ef18881754', items: ['Play-based early learning', 'Phonics & motor skills', 'Safe, nurturing care'] },
+  { tier: 'Primary', grade: 'Grades 1 – 5', img: 'photo-1503676260728-1c00da094a0b', items: ['Strong foundations', 'Tuition & materials', 'Activity access'] },
+  { tier: 'Middle', grade: 'Grades 6 – 8', img: 'photo-1562774053-701939374585', items: ['STEM & labs', 'Clubs & sports', 'Critical thinking'] },
+  { tier: 'High School', grade: 'Grades 9 – 12', img: 'photo-1523240795612-9a054b0db644', items: ['Science & Commerce streams', 'Counselling & guidance', 'Career preparation'] },
 ]
+
+// One disc per grade level. Built once at module scope — a fresh array each
+// render would tear down and rebuild the whole WebGL scene.
+const GRADE_ORBS = GRADES.map((g) => ({
+  image: `https://images.unsplash.com/${g.img}?auto=format&fit=crop&w=512&h=512&q=80`,
+  link: '/academics',
+  title: g.tier,
+  description: g.grade,
+}))
 
 const DATES = [
   ['Sep 2025', 'Applications open for the 2026–27 academic year'],
@@ -33,6 +44,8 @@ const FAQ = [
 ]
 
 export default function AdmissionsPage() {
+  const navigate = useNavigate()
+
   return (
     <>
       <FutureHero />
@@ -76,6 +89,18 @@ export default function AdmissionsPage() {
             accent="Every Grade"
             lead="From our earliest learners to graduating seniors, Dawn welcomes students at every stage of their journey."
           />
+
+          {/* Draggable sphere of the grade levels. The cards below stay the
+              source of truth — canvas text isn't selectable or crawlable, so
+              the sphere is the visual and the cards carry the detail. */}
+          <Reveal className="grade-orbit">
+            <InfiniteMenu
+              items={GRADE_ORBS}
+              scale={1.15}
+              onItemClick={(item) => navigate(item.link)}
+            />
+          </Reveal>
+
           <div className="grid cols-4">
             {GRADES.map((g, i) => (
               <Reveal className="card grade-card" delay={(i % 4) + 1} key={g.tier}>
