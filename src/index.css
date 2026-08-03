@@ -6889,37 +6889,6 @@ body.no-scroll { overflow: hidden; }
 .fee-card li { font-size: 0.9rem; color: var(--text-soft); }
 
 /* Classes / grades offered */
-/* Draggable grade-level sphere above the "Classes We Offer" cards. */
-.grade-orbit {
-  position: relative;
-  height: clamp(360px, 42vw, 520px);
-  margin-bottom: 34px;
-}
-/* Recolour the component's demo overlay to the site palette. */
-.grade-orbit .face-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  color: var(--navy-800);
-}
-.grade-orbit .face-description {
-  color: var(--text-soft);
-  font-size: 1rem;
-  max-width: 16ch;
-  text-align: right;
-}
-.grade-orbit .action-button {
-  background: var(--gold-500);
-  border: 4px solid var(--white);
-  box-shadow: 0 12px 30px rgba(10, 31, 68, 0.22);
-}
-.grade-orbit .action-button-icon { color: var(--navy-900); }
-
-@media (max-width: 760px) {
-  /* The canvas sets touch-action:none to drag, which would trap page scrolling
-     on a phone. Cards alone carry the section at this size. */
-  .grade-orbit { display: none; }
-}
-
 .grade-card {
   text-align: center;
   border-top: 4px solid var(--gold-500);
