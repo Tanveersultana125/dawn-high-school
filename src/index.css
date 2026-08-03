@@ -6888,33 +6888,125 @@ body.no-scroll { overflow: hidden; }
 .fee-card ul { margin-top: 18px; display: grid; gap: 9px; }
 .fee-card li { font-size: 0.9rem; color: var(--text-soft); }
 
-/* Classes / grades offered */
+/* Classes / grades offered.
+   Each card carries its own hue through `--gc-accent` (number, eyebrow, checks,
+   base bar) and `--gc-wash` (the soft gradient in the card's lower half), both
+   set inline per grade so one rule set covers all four. */
 .grade-card {
-  text-align: center;
-  border-top: 4px solid var(--gold-500);
+  --gc-accent: var(--royal-600);
+  --gc-wash: rgba(20, 80, 200, 0.12);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 26px 24px 30px;
+  border: 1px solid var(--gray-200);
+  border-radius: 22px;
+  background: var(--white);
+  box-shadow: 0 16px 38px -20px rgba(10, 31, 68, 0.3);
+  transition: transform 0.5s var(--ease-lux), box-shadow 0.5s var(--ease-lux),
+    border-color 0.5s var(--ease-lux);
 }
+/* Colour wash rising from the base of the card */
+.grade-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62%;
+  background: radial-gradient(120% 100% at 50% 100%, var(--gc-wash), transparent 72%);
+  pointer-events: none;
+}
+/* Solid base bar, the plinth the card appears to sit on */
+.grade-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 7px;
+  background: var(--gc-accent);
+}
+.grade-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 34px 60px -26px rgba(10, 31, 68, 0.4);
+  border-color: var(--gc-accent);
+}
+
+.grade-num {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--gc-accent);
+}
+
+.grade-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-right: 42px; /* clear of the number badge */
+  margin-bottom: 20px;
+}
+.grade-art {
+  flex: none;
+  width: 62px;
+  height: 62px;
+  transition: transform 0.5s var(--ease-lux);
+}
+.grade-art svg { display: block; width: 100%; height: 100%; }
+.grade-card:hover .grade-art { transform: translateY(-3px) scale(1.06); }
+
+.grade-headings { min-width: 0; }
 .grade-card .tier {
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  display: block;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  font-size: 0.82rem;
-  color: var(--royal-600);
+  font-size: 0.7rem;
+  color: var(--gc-accent);
 }
 .grade-card .grade-range {
   font-family: var(--font-display);
-  font-size: 1.85rem;
+  font-size: 1.45rem;
   font-weight: 700;
   color: var(--navy-800);
-  margin: 10px 0 4px;
+  margin-top: 5px;
+  white-space: nowrap;
 }
-.grade-card ul {
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid var(--gray-200);
+
+.grade-list {
+  position: relative;
   display: grid;
-  gap: 9px;
+  gap: 11px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--gray-200);
 }
-.grade-card li { font-size: 0.9rem; color: var(--text-soft); }
+.grade-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--text-soft);
+}
+.grade-list li svg {
+  flex: none;
+  width: 17px;
+  height: 17px;
+  color: var(--gc-accent);
+}
+
+@media (max-width: 1080px) {
+  .grade-card { padding: 22px 20px 26px; }
+  .grade-art { width: 54px; height: 54px; }
+  .grade-card .grade-range { font-size: 1.3rem; }
+}
 
 /* Date list */
 .date-list { display: grid; gap: 14px; }

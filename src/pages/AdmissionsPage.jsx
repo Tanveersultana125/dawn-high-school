@@ -1,6 +1,7 @@
 import FutureHero from '../components/FutureHero'
 import Admission from '../components/Admission'
 import { Reveal, SectionHead } from '../components/common'
+import { BlocksArt, BookArt, ScienceArt, GraduateArt, CheckMark } from '../components/gradeArt'
 
 const REQUIREMENTS = [
   ['Completed application form', 'Submitted online or at the admissions office.'],
@@ -10,11 +11,29 @@ const REQUIREMENTS = [
   ['Transfer certificate', 'Required for students moving from another school.'],
 ]
 
+// `accent` drives the card's number, eyebrow, checks and base bar; `wash` is the
+// same hue at low alpha for the soft gradient inside the card's lower half.
 const GRADES = [
-  { tier: 'Play School', grade: 'Nursery – KG', items: ['Play-based early learning', 'Phonics & motor skills', 'Safe, nurturing care'] },
-  { tier: 'Primary', grade: 'Grades 1 – 5', items: ['Strong foundations', 'Tuition & materials', 'Activity access'] },
-  { tier: 'Middle', grade: 'Grades 6 – 8', items: ['STEM & labs', 'Clubs & sports', 'Critical thinking'] },
-  { tier: 'High School', grade: 'Grades 9 – 12', items: ['Science & Commerce streams', 'Counselling & guidance', 'Career preparation'] },
+  {
+    tier: 'Play School', grade: 'Nursery – KG', art: BlocksArt,
+    accent: '#6C5CE7', wash: 'rgba(108, 92, 231, 0.14)',
+    items: ['Play-based early learning', 'Phonics & motor skills', 'Safe, nurturing care'],
+  },
+  {
+    tier: 'Primary', grade: 'Grades 1 – 5', art: BookArt,
+    accent: '#12A594', wash: 'rgba(18, 165, 148, 0.14)',
+    items: ['Strong foundations', 'Tuition & materials', 'Activity access'],
+  },
+  {
+    tier: 'Middle', grade: 'Grades 6 – 8', art: ScienceArt,
+    accent: '#1450c8', wash: 'rgba(20, 80, 200, 0.13)',
+    items: ['STEM & labs', 'Clubs & sports', 'Critical thinking'],
+  },
+  {
+    tier: 'High School', grade: 'Grades 9 – 12', art: GraduateArt,
+    accent: '#C97A0B', wash: 'rgba(201, 122, 11, 0.15)',
+    items: ['Science & Commerce streams', 'Counselling & guidance', 'Career preparation'],
+  },
 ]
 
 const DATES = [
@@ -78,11 +97,29 @@ export default function AdmissionsPage() {
           />
           <div className="grid cols-4">
             {GRADES.map((g, i) => (
-              <Reveal className="card grade-card" delay={(i % 4) + 1} key={g.tier}>
-                <span className="tier">{g.tier}</span>
-                <div className="grade-range">{g.grade}</div>
-                <ul>
-                  {g.items.map((it) => <li key={it}>{it}</li>)}
+              <Reveal
+                className="grade-card"
+                delay={(i % 4) + 1}
+                key={g.tier}
+                style={{ '--gc-accent': g.accent, '--gc-wash': g.wash }}
+              >
+                <span className="grade-num" aria-hidden="true">{`0${i + 1}`}</span>
+
+                <div className="grade-head">
+                  <span className="grade-art">{g.art}</span>
+                  <div className="grade-headings">
+                    <span className="tier">{g.tier}</span>
+                    <h3 className="grade-range">{g.grade}</h3>
+                  </div>
+                </div>
+
+                <ul className="grade-list">
+                  {g.items.map((it) => (
+                    <li key={it}>
+                      <CheckMark />
+                      <span>{it}</span>
+                    </li>
+                  ))}
                 </ul>
               </Reveal>
             ))}
