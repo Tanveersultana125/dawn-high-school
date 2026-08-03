@@ -7302,6 +7302,32 @@ body.no-scroll { overflow: hidden; }
 }
 .cta-band p { color: rgba(255, 255, 255, 0.74); margin-top: 8px; position: relative; }
 
+/* Curved email bar in the CTA band. It sits above the decorative glow and
+   arches slightly, so the row needs a little headroom for the arc + shadow. */
+.cta-band-form {
+  position: relative;
+  z-index: 1;
+  width: min(460px, 100%);
+  flex-shrink: 0;
+}
+.cta-band-note {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.62);
+  text-align: center;
+  min-height: 1.2em;
+}
+.cta-band-note a {
+  color: var(--gold-500);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cta-band-note-error { color: #ffb4a8; }
+@media (max-width: 760px) {
+  .cta-band { flex-direction: column; align-items: stretch; text-align: center; }
+  .cta-band-form { width: 100%; }
+}
+
 /* ============================================================
    Responsive
    ============================================================ */
