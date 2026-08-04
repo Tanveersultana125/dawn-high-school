@@ -24,6 +24,26 @@ const TILE_IMAGES = [
   { thumb: '/student-kid.png', full: '/student-kid.png' }, // a Dawn student
 ]
 
+// Which of a face's nine cells carry a pip, for each value 1–6.
+const PIP_CELLS = {
+  1: [5],
+  2: [1, 9],
+  3: [1, 5, 9],
+  4: [1, 3, 7, 9],
+  5: [1, 3, 5, 7, 9],
+  6: [1, 3, 4, 6, 7, 9],
+}
+
+// Opposite faces sum to seven, as on a real die.
+const DIE_FACES = [
+  { face: 'front', value: 1 },
+  { face: 'back', value: 6 },
+  { face: 'right', value: 3 },
+  { face: 'left', value: 4 },
+  { face: 'top', value: 5 },
+  { face: 'bottom', value: 2 },
+]
+
 // Deterministic per-tile scatter (offset + skew) for the scroll-arrange gallery.
 // Seeded by index so it never jitters between renders.
 const seeded = (n) => {
@@ -43,7 +63,7 @@ export default function BuildingBlocks({
   eyebrow = 'Innovation at Dawn',
   title = 'Building Blocks of a',
   accent = 'Brighter Future',
-  lead = 'Every lesson, lab, and project is a building block — layered together to shape confident, curious, future-ready learners. Hover to pause, click a block to open the photo.',
+  lead = 'Every lesson, lab, and project is a building block — layered together to shape confident, curious, future-ready learners. Hover to pause the roll, click to open the gallery.',
   buttonText = 'Explore Academics',
   to = '/academics',
   sectionClassName = '',
@@ -78,33 +98,31 @@ export default function BuildingBlocks({
     }
   }, [spreadOpen, openImg])
 
-  // 4×4×4 block of cubes packed solid — `--l` is the depth slab, `--x` the
-  // column and `--i` the row; the CSS turns those three indices into the
-  // isometric position and the paint order.
-  const grid = (
-    <div className="cube-container">
-      {[0, 1, 2, 3].map((l) => (
-        <div className="cube" key={l} style={{ '--l': l }}>
-          {Array.from({ length: 4 }).map((_, x) => (
-            <div className="cube-col" key={x} style={{ '--x': x }}>
-              {Array.from({ length: 4 }).map((_, i) => {
-                const img = TILE_IMAGES[(l * 16 + x * 4 + i) % TILE_IMAGES.length]
-                return (
-                  <span
-                    key={i}
-                    role="button"
-                    tabIndex={0}
-                    aria-label="Open photo"
-                    style={{ '--i': i + 1, '--img': `url('${img.thumb}')` }}
-                    onClick={() => setSpreadOpen(true)}
-                    onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setSpreadOpen(true)}
-                  />
-                )
-              })}
-            </div>
-          ))}
-        </div>
-      ))}
+  // A tumbling die. Each face is a 3×3 grid; PIP_CELLS says which of the nine
+  // cells that face's value fills. Opposite faces sum to seven, as on a real
+  // die, so the tumble never shows an impossible pair.
+  const die = (
+    <div
+      className="die"
+      role="button"
+      tabIndex={0}
+      aria-label="Open the photo gallery"
+      onClick={() => setSpreadOpen(true)}
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setSpreadOpen(true)}
+    >
+      <div className="die-cube">
+        {DIE_FACES.map(({ face, value }) => (
+          <span className={`die-face die-${face}`} key={face}>
+            {PIP_CELLS[value].map((cell) => (
+              <i
+                key={cell}
+                style={{ gridRow: Math.ceil(cell / 3), gridColumn: ((cell - 1) % 3) + 1 }}
+              />
+            ))}
+          </span>
+        ))}
+      </div>
+      <span className="die-shadow" aria-hidden="true" />
     </div>
   )
 
@@ -122,7 +140,7 @@ export default function BuildingBlocks({
   )
 
   const visual = (
-    <Reveal className="blocks-visual" delay={reverse || stacked ? 0 : 1}>{grid}</Reveal>
+    <Reveal className="blocks-visual" delay={reverse || stacked ? 0 : 1}>{die}</Reveal>
   )
 
   // Auto-arranging gallery: images start scattered/skewed and settle into a

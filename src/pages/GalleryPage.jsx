@@ -13,7 +13,7 @@ export default function GalleryPage() {
         eyebrow="Life at Dawn"
         title="Moments That Build"
         accent="Lasting Memories"
-        lead="Every photograph is a building block of the Dawn journey — first-day smiles, science fairs, championship cheers, and everything in between. Hover the blocks, then scroll on to explore the moments."
+        lead="Every photograph is a building block of the Dawn journey — first-day smiles, science fairs, championship cheers, and everything in between. Give the die a click, then scroll on to explore the moments."
         buttonText="See Campus Life"
         to="/campus"
       />
