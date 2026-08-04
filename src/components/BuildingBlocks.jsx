@@ -44,6 +44,16 @@ const DIE_FACES = [
   { face: 'bottom', value: 2 },
 ]
 
+// Every pip on the die is a photo. Dealing them out in one running sequence
+// across all 21 pips keeps any single face from repeating an image.
+const DIE_PIPS = (() => {
+  let n = 0
+  return DIE_FACES.map(({ face, value }) => ({
+    face,
+    pips: PIP_CELLS[value].map((cell) => ({ cell, img: TILE_IMAGES[n++ % TILE_IMAGES.length] })),
+  }))
+})()
+
 // Deterministic per-tile scatter (offset + skew) for the scroll-arrange gallery.
 // Seeded by index so it never jitters between renders.
 const seeded = (n) => {
@@ -98,9 +108,8 @@ export default function BuildingBlocks({
     }
   }, [spreadOpen, openImg])
 
-  // A tumbling die. Each face is a 3×3 grid; PIP_CELLS says which of the nine
-  // cells that face's value fills. Opposite faces sum to seven, as on a real
-  // die, so the tumble never shows an impossible pair.
+  // A tumbling die whose pips are photographs. Each face is a 3×3 grid;
+  // PIP_CELLS says which of the nine cells that face's value fills.
   const die = (
     <div
       className="die"
@@ -111,12 +120,16 @@ export default function BuildingBlocks({
       onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setSpreadOpen(true)}
     >
       <div className="die-cube">
-        {DIE_FACES.map(({ face, value }) => (
+        {DIE_PIPS.map(({ face, pips }) => (
           <span className={`die-face die-${face}`} key={face}>
-            {PIP_CELLS[value].map((cell) => (
+            {pips.map(({ cell, img }) => (
               <i
                 key={cell}
-                style={{ gridRow: Math.ceil(cell / 3), gridColumn: ((cell - 1) % 3) + 1 }}
+                style={{
+                  gridRow: Math.ceil(cell / 3),
+                  gridColumn: ((cell - 1) % 3) + 1,
+                  '--pip': `url('${img.thumb}')`,
+                }}
               />
             ))}
           </span>

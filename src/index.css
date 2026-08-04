@@ -9212,15 +9212,22 @@ body.no-scroll { overflow: hidden; }
     inset 0 -14px 26px rgba(10, 31, 68, 0.07);
   backface-visibility: hidden;
 }
-/* Pips: lit from the top-left, like the faces. */
+/* Pips are photographs rather than dots: a white bezel and a fine navy rim ring
+   each one, with an inner shadow seating it into the face and a hairline
+   highlight along the bottom edge, so it reads as set in rather than pasted on. */
 .die-face i {
   place-self: center;
-  width: 78%;
+  width: 92%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle at 34% 28%, #4a4a4a, #0c0c0c 62%);
-  box-shadow: inset 0 -1px 2px rgba(255, 255, 255, 0.22),
-    0 1px 1px rgba(255, 255, 255, 0.5);
+  background-color: #dfe4ec;
+  background-image: var(--pip);
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.94),
+    inset 0 0 0 3px rgba(10, 31, 68, 0.16),
+    inset 0 4px 8px rgba(10, 31, 68, 0.34),
+    0 1px 0 rgba(255, 255, 255, 0.75);
 }
 
 .die-front { transform: translateZ(calc(var(--die) / 2)); }
@@ -9238,7 +9245,8 @@ body.no-scroll { overflow: hidden; }
   border-radius: inherit;
   pointer-events: none;
 }
-.die-top::after { background: rgba(255, 255, 255, 0.35); }
+/* Light enough to read as the lit face without washing the photos out. */
+.die-top::after { background: rgba(255, 255, 255, 0.2); }
 .die-front::after { background: rgba(10, 31, 68, 0.04); }
 .die-left::after { background: rgba(10, 31, 68, 0.1); }
 .die-right::after { background: rgba(10, 31, 68, 0.17); }
