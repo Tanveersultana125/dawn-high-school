@@ -7109,15 +7109,6 @@ body.no-scroll { overflow: hidden; }
   .grade-card:hover .grade-art { transform: none; }
 }
 
-/* Date list */
-.date-list { display: grid; gap: 14px; }
-.date-list--row {
-  grid-template-columns: repeat(3, 1fr);
-  max-width: 900px;
-  margin: 0 auto;
-}
-@media (max-width: 700px) { .date-list--row { grid-template-columns: 1fr; } }
-
 /* Department cards with campus maps */
 .dept-list { display: grid; gap: 40px; }
 /* Professional faded divider + centered gold diamond between campus blocks */
@@ -7302,64 +7293,148 @@ body.no-scroll { overflow: hidden; }
   .campus-info { padding: 30px 24px; height: auto; min-height: 340px; }
   .campus-card-map { height: 300px; }
 }
-.date-row {
-  position: relative;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  padding: 18px 24px 18px 28px;
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition: transform 0.45s var(--ease-lux), box-shadow 0.45s var(--ease-lux),
-    border-color 0.45s var(--ease-lux);
+/* ---- Key dates — horizontal milestone timeline ----
+   Five columns: date above the rail, description below it. Each column draws
+   its own segment of the rail, which is why the middle band has a fixed height:
+   it keeps every node on the same line however the labels below wrap. */
+.date-track {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  max-width: 1080px;
+  margin: 0 auto;
 }
-/* Gold accent bar slides in from the left */
-.date-row::before {
+.dt-item {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  justify-items: center;
+  text-align: center;
+  padding: 0 8px;
+}
+/* Soft column highlight on hover */
+.dt-item::after {
+  content: '';
+  position: absolute;
+  inset: -14px 2px -16px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(20, 80, 200, 0.055), rgba(20, 80, 200, 0) 72%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-lux);
+  pointer-events: none;
+}
+.dt-item:hover::after { opacity: 1; }
+
+.dt-when {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.dt-month {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-600);
+}
+.dt-year {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--navy-800);
+}
+
+.dt-rail {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 48px;
+}
+.dt-rail::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: var(--gradient-gold);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.45s var(--ease-lux);
+  right: 0;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--gray-300);
 }
-/* Soft gold sheen that sweeps across on hover */
-.date-row::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(110deg, transparent 0%,
-    rgba(212, 175, 55, 0.1) 45%, transparent 70%);
-  transform: translateX(-100%);
-  transition: transform 0.7s var(--ease-lux);
-  pointer-events: none;
+/* Trim the rail so it starts and ends at the outer nodes. */
+.dt-item:first-child .dt-rail::before { left: 50%; }
+.dt-item:last-child .dt-rail::before { right: 50%; }
+
+/* The node reads as a bead rather than a dot because its highlight sits
+   off-centre and it is shaded underneath. */
+.dt-node {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: radial-gradient(120% 120% at 34% 28%, #fff4d2, var(--gold-500) 50%, var(--gold-600));
+  box-shadow: 0 0 0 5px var(--white),
+    0 3px 6px rgba(10, 31, 68, 0.4),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.32);
+  transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux);
 }
-.date-row:hover {
-  transform: translateX(6px);
-  box-shadow: 0 14px 34px rgba(10, 31, 68, 0.12);
-  border-color: rgba(212, 175, 55, 0.5);
+.dt-item:hover .dt-node {
+  transform: scale(1.35);
+  box-shadow: 0 0 0 5px var(--white),
+    0 0 0 10px rgba(212, 175, 55, 0.18),
+    0 4px 8px rgba(10, 31, 68, 0.4),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.32);
 }
-.date-row:hover::before { transform: scaleY(1); }
-.date-row:hover::after { transform: translateX(100%); }
-.date-row .d-date {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--gold-600);
-  min-width: 150px;
-  transition: color 0.3s ease;
+
+.dt-label {
+  position: relative;
+  z-index: 1;
+  max-width: 196px;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
-.date-row .d-label {
-  color: var(--navy-800);
-  font-weight: 600;
-  transition: transform 0.45s var(--ease-lux);
+
+/* Below the point where five columns get cramped, the same markup turns on its
+   side: date and label either side of a vertical rail. */
+@media (max-width: 900px) {
+  .date-track {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+  }
+  .dt-item {
+    grid-template-columns: 92px 44px 1fr;
+    grid-template-rows: auto;
+    align-items: center;
+    justify-items: stretch;
+    text-align: left;
+    padding: 0;
+  }
+  .dt-item::after { inset: -2px -10px; border-radius: 14px; }
+  .dt-when { align-items: flex-end; text-align: right; }
+  .dt-rail { height: 100%; min-height: 74px; }
+  .dt-rail::before {
+    left: 50%;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    height: auto;
+    margin: 0 0 0 -1px;
+  }
+  .dt-item:first-child .dt-rail::before { top: 50%; left: 50%; }
+  .dt-item:last-child .dt-rail::before { bottom: 50%; right: auto; }
+  .dt-label { max-width: none; padding: 14px 0; }
 }
-.date-row:hover .d-label { transform: translateX(4px); }
+@media (max-width: 460px) {
+  .dt-item { grid-template-columns: 74px 36px 1fr; }
+  .dt-year { font-size: 1.12rem; }
+  .dt-label { font-size: 0.86rem; }
+}
 
 /* ---- Department / contact cards — premium hover ---- */
 .dept-card {

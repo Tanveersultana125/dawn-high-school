@@ -136,13 +136,24 @@ export default function AdmissionsPage() {
       <section className="section">
         <div className="container">
           <SectionHead center eyebrow="Key Dates" title="Important" accent="Deadlines" />
-          <Reveal className="date-list">
-            {DATES.map(([d, label]) => (
-              <div className="date-row" key={label}>
-                <span className="d-date">{d}</span>
-                <span className="d-label">{label}</span>
-              </div>
-            ))}
+          <Reveal className="date-track">
+            {DATES.map(([when, label]) => {
+              const [month, year] = when.split(' ')
+              return (
+                <div className="dt-item" key={label}>
+                  <div className="dt-when">
+                    <span className="dt-month">{month}</span>
+                    <span className="dt-year">{year}</span>
+                  </div>
+                  {/* Fixed-height band so the rail lines up across all five
+                      columns no matter how the labels below them wrap. */}
+                  <div className="dt-rail">
+                    <span className="dt-node" aria-hidden="true" />
+                  </div>
+                  <p className="dt-label">{label}</p>
+                </div>
+              )
+            })}
           </Reveal>
         </div>
       </section>
