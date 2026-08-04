@@ -136,20 +136,13 @@ export default function AdmissionsPage() {
       <section className="section">
         <div className="container">
           <SectionHead center eyebrow="Key Dates" title="Important" accent="Deadlines" />
-          <Reveal className="deadline-panel">
-            {DATES.map(([when, label]) => {
-              const [month, year] = when.split(' ')
-              return (
-                <div className="deadline-row" key={label}>
-                  <div className="dl-when">
-                    <span className="dl-month">{month}</span>
-                    <span className="dl-year">{year}</span>
-                  </div>
-                  <span className="dl-mark" aria-hidden="true" />
-                  <p className="dl-label">{label}</p>
-                </div>
-              )
-            })}
+          <Reveal className="date-list">
+            {DATES.map(([d, label]) => (
+              <div className="date-row" key={label}>
+                <span className="d-date">{d}</span>
+                <span className="d-label">{label}</span>
+              </div>
+            ))}
           </Reveal>
         </div>
       </section>
