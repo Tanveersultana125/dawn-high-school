@@ -3,6 +3,10 @@ import Admission from '../components/Admission'
 import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
 import { BlocksArt, BookArt, ScienceArt, GraduateArt, CheckMark } from '../components/gradeArt'
+import {
+  CalendarIcon, BuildingIcon, ClipboardIcon, EnvelopeIcon, ShieldIcon,
+  FormArt, CampusArt, AssessArt, LetterArt, EnrolArt,
+} from '../components/keyDateArt'
 
 const REQUIREMENTS = [
   ['Completed application form', 'Submitted online or at the admissions office.'],
@@ -39,12 +43,35 @@ const GRADES = [
   },
 ]
 
+// Key dates timeline. `lead` is the plain first line and `strong` the emphasised
+// second; `accent` colours the badge, the card's left edge, the date and the
+// chevron, `wash` tints the card and `glow` the halo behind the badge.
 const DATES = [
-  ['Sep 2025', 'Applications open for the 2026–27 academic year'],
-  ['Nov 2025', 'Campus open house & guided tours'],
-  ['Jan 2026', 'Entrance assessments & interactions begin'],
-  ['Mar 2026', 'Offer letters released to selected families'],
-  ['Apr 2026', 'Enrolment & registration closes'],
+  {
+    month: 'Sep', year: '2025', icon: CalendarIcon, art: FormArt,
+    accent: '#E09B12', wash: 'rgba(224, 155, 18, 0.13)', glow: 'rgba(224, 155, 18, 0.2)',
+    lead: 'Applications open for the', strong: '2026–27 academic year',
+  },
+  {
+    month: 'Nov', year: '2025', icon: BuildingIcon, art: CampusArt,
+    accent: '#2E6BE6', wash: 'rgba(46, 107, 230, 0.12)', glow: 'rgba(46, 107, 230, 0.18)',
+    lead: 'Campus open house &', strong: 'guided tours',
+  },
+  {
+    month: 'Jan', year: '2026', icon: ClipboardIcon, art: AssessArt,
+    accent: '#7256DC', wash: 'rgba(114, 86, 220, 0.12)', glow: 'rgba(114, 86, 220, 0.18)',
+    lead: 'Entrance assessments &', strong: 'interactions begin',
+  },
+  {
+    month: 'Mar', year: '2026', icon: EnvelopeIcon, art: LetterArt,
+    accent: '#2FA765', wash: 'rgba(47, 167, 101, 0.12)', glow: 'rgba(47, 167, 101, 0.18)',
+    lead: 'Offer letters released to', strong: 'selected families',
+  },
+  {
+    month: 'Apr', year: '2026', icon: ShieldIcon, art: EnrolArt,
+    accent: '#DC4C63', wash: 'rgba(220, 76, 99, 0.12)', glow: 'rgba(220, 76, 99, 0.18)',
+    lead: 'Enrolment &', strong: 'registration closes',
+  },
 ]
 
 const FAQ = [
@@ -135,26 +162,43 @@ export default function AdmissionsPage() {
       {/* Important dates */}
       <section className="section">
         <div className="container">
-          <SectionHead center eyebrow="Key Dates" title="Important" accent="Deadlines" />
-          <Reveal className="date-track">
-            {DATES.map(([when, label]) => {
-              const [month, year] = when.split(' ')
-              return (
-                <div className="dt-item" key={label}>
-                  <div className="dt-when">
-                    <span className="dt-month">{month}</span>
-                    <span className="dt-year">{year}</span>
+          <SectionHead
+            center
+            eyebrow="Key Dates"
+            title="Important"
+            accent="Deadlines"
+            lead="Stay updated with our important admission timeline."
+          />
+          <div className="kd-timeline">
+            {DATES.map((d, i) => (
+              <Reveal
+                className="kd-row"
+                delay={(i % 6) + 1}
+                key={d.strong}
+                style={{ '--kd-accent': d.accent, '--kd-wash': d.wash, '--kd-glow': d.glow }}
+              >
+                <span className="kd-badge" aria-hidden="true">{d.icon}</span>
+
+                <div className="kd-card">
+                  <div className="kd-when">
+                    <span className="kd-month">{d.month}</span>
+                    <span className="kd-year">{d.year}</span>
                   </div>
-                  {/* Fixed-height band so the rail lines up across all five
-                      columns no matter how the labels below them wrap. */}
-                  <div className="dt-rail">
-                    <span className="dt-node" aria-hidden="true" />
-                  </div>
-                  <p className="dt-label">{label}</p>
+                  <span className="kd-divider" aria-hidden="true" />
+                  <p className="kd-text">
+                    {d.lead}
+                    <b>{d.strong}</b>
+                  </p>
+                  <span className="kd-art" aria-hidden="true">{d.art}</span>
+                  <span className="kd-go" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6">
+                      <path d="m9 5 7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
                 </div>
-              )
-            })}
-          </Reveal>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

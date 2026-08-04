@@ -7293,147 +7293,208 @@ body.no-scroll { overflow: hidden; }
   .campus-info { padding: 30px 24px; height: auto; min-height: 340px; }
   .campus-card-map { height: 300px; }
 }
-/* ---- Key dates — horizontal milestone timeline ----
-   Five columns: date above the rail, description below it. Each column draws
-   its own segment of the rail, which is why the middle band has a fixed height:
-   it keeps every node on the same line however the labels below wrap. */
-.date-track {
+/* ---- Key dates — vertical milestone timeline ----
+   A rail of glowing icon badges down the left, each wired to a card whose left
+   edge, date, artwork and chevron all take that row's `--kd-accent`. Depth is
+   lighting only — halos, inset highlights and layered ambient shadow — so no
+   transform touches the text. */
+.kd-timeline {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  max-width: 1080px;
-  margin: 0 auto;
+  gap: 20px;
+  max-width: 1020px;
+  margin: 46px auto 0;
 }
-.dt-item {
+.kd-row {
+  --kd-accent: var(--royal-600);
+  --kd-wash: rgba(20, 80, 200, 0.12);
+  --kd-glow: rgba(20, 80, 200, 0.18);
   position: relative;
   display: grid;
-  grid-template-rows: auto auto auto;
-  justify-items: center;
-  text-align: center;
-  padding: 0 8px;
+  grid-template-columns: 100px 1fr;
+  align-items: center;
 }
-/* Soft column highlight on hover */
-.dt-item::after {
+/* Thread running down to the next badge, with a bead at its foot. */
+.kd-row:not(:last-child)::before {
   content: '';
   position: absolute;
-  inset: -14px 2px -16px;
-  border-radius: 20px;
-  background: linear-gradient(180deg, rgba(20, 80, 200, 0.055), rgba(20, 80, 200, 0) 72%);
-  opacity: 0;
-  transition: opacity 0.4s var(--ease-lux);
-  pointer-events: none;
+  left: 39px;
+  top: calc(50% + 42px);
+  height: calc(50% + 22px);
+  width: 2px;
+  background: linear-gradient(180deg, var(--kd-accent), transparent 85%);
+  opacity: 0.4;
 }
-.dt-item:hover::after { opacity: 1; }
-
-.dt-when {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-}
-.dt-month {
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold-600);
-}
-.dt-year {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--navy-800);
+.kd-row:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 35px;
+  bottom: -14px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--kd-accent);
+  opacity: 0.55;
 }
 
-.dt-rail {
+/* Badge on the rail — white disc, accent icon, halo in the accent at low alpha. */
+.kd-badge {
   position: relative;
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 100%;
-  height: 48px;
+  width: 66px;
+  height: 66px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--kd-accent);
+  box-shadow: 0 0 0 9px var(--kd-glow),
+    0 14px 26px -12px rgba(10, 31, 68, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: transform 0.45s var(--ease-lux), box-shadow 0.45s var(--ease-lux);
 }
-.dt-rail::before {
+.kd-badge svg { width: 30px; height: 30px; }
+/* Stub bridging the badge to the card's edge. */
+.kd-badge::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 100%;
   top: 50%;
-  height: 2px;
-  margin-top: -1px;
-  background: var(--gray-300);
+  width: 22px;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: 3px;
+  background: var(--kd-accent);
 }
-/* Trim the rail so it starts and ends at the outer nodes. */
-.dt-item:first-child .dt-rail::before { left: 50%; }
-.dt-item:last-child .dt-rail::before { right: 50%; }
+.kd-row:hover .kd-badge {
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 11px var(--kd-glow),
+    0 20px 32px -12px rgba(10, 31, 68, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
 
-/* The node reads as a bead rather than a dot because its highlight sits
-   off-centre and it is shaded underneath. */
-.dt-node {
+.kd-card {
   position: relative;
-  width: 15px;
-  height: 15px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 112px 1px 1fr auto;
+  align-items: center;
+  min-height: 108px;
+  border: 1px solid var(--gray-200);
+  border-left: 8px solid var(--kd-accent);
+  border-radius: 18px;
+  background: linear-gradient(98deg, var(--white) 38%, var(--kd-wash));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 2px 3px rgba(10, 31, 68, 0.04),
+    0 20px 36px -26px rgba(10, 31, 68, 0.45);
+  transition: box-shadow 0.45s var(--ease-lux), border-color 0.45s var(--ease-lux);
+}
+.kd-row:hover .kd-card {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 4px 6px rgba(10, 31, 68, 0.05),
+    0 32px 50px -28px rgba(10, 31, 68, 0.5);
+  border-color: var(--gray-300);
+  border-left-color: var(--kd-accent);
+}
+
+.kd-when {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 0 16px;
+  color: var(--kd-accent);
+}
+.kd-month {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.kd-year {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.05;
+}
+.kd-divider {
+  align-self: stretch;
+  width: 1px;
+  margin: 26px 0;
+  background: var(--gray-200);
+}
+
+.kd-text {
+  padding: 0 24px;
+  color: var(--navy-800);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+/* The emphasised half always takes its own line, as in the reference. */
+.kd-text b {
+  display: block;
+  font-weight: 700;
+  color: var(--navy-900);
+}
+
+/* Faded illustration, tucked in behind the chevron. */
+.kd-art {
+  position: absolute;
+  top: 50%;
+  right: 96px;
+  width: 116px;
+  height: 92px;
+  transform: translateY(-50%);
+  color: var(--kd-accent);
+  opacity: 0.42;
+  pointer-events: none;
+}
+.kd-art svg { display: block; width: 100%; height: 100%; }
+
+.kd-go {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin: 0 22px;
   border-radius: 50%;
-  background: radial-gradient(120% 120% at 34% 28%, #fff4d2, var(--gold-500) 50%, var(--gold-600));
-  box-shadow: 0 0 0 5px var(--white),
-    0 3px 6px rgba(10, 31, 68, 0.4),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.32);
-  transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux);
+  background: var(--white);
+  color: var(--kd-accent);
+  box-shadow: 0 6px 14px -6px rgba(10, 31, 68, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: transform 0.4s var(--ease-lux), background 0.4s var(--ease-lux),
+    color 0.4s var(--ease-lux);
 }
-.dt-item:hover .dt-node {
-  transform: scale(1.35);
-  box-shadow: 0 0 0 5px var(--white),
-    0 0 0 10px rgba(212, 175, 55, 0.18),
-    0 4px 8px rgba(10, 31, 68, 0.4),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.32);
-}
-
-.dt-label {
-  position: relative;
-  z-index: 1;
-  max-width: 196px;
-  color: var(--text-soft);
-  font-size: 0.9rem;
-  line-height: 1.6;
+.kd-go svg { width: 17px; height: 17px; }
+.kd-row:hover .kd-go {
+  transform: translateX(3px);
+  background: var(--kd-accent);
+  color: var(--white);
 }
 
-/* Below the point where five columns get cramped, the same markup turns on its
-   side: date and label either side of a vertical rail. */
 @media (max-width: 900px) {
-  .date-track {
-    grid-template-columns: 1fr;
-    max-width: 560px;
-  }
-  .dt-item {
-    grid-template-columns: 92px 44px 1fr;
-    grid-template-rows: auto;
-    align-items: center;
-    justify-items: stretch;
-    text-align: left;
-    padding: 0;
-  }
-  .dt-item::after { inset: -2px -10px; border-radius: 14px; }
-  .dt-when { align-items: flex-end; text-align: right; }
-  .dt-rail { height: 100%; min-height: 74px; }
-  .dt-rail::before {
-    left: 50%;
-    right: auto;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    height: auto;
-    margin: 0 0 0 -1px;
-  }
-  .dt-item:first-child .dt-rail::before { top: 50%; left: 50%; }
-  .dt-item:last-child .dt-rail::before { bottom: 50%; right: auto; }
-  .dt-label { max-width: none; padding: 14px 0; }
+  /* The artwork is the first thing to go — the text needs the room. */
+  .kd-art { display: none; }
+  .kd-card { grid-template-columns: 96px 1px 1fr auto; }
+  .kd-row { grid-template-columns: 84px 1fr; }
+  .kd-row:not(:last-child)::before { left: 33px; }
+  .kd-row:not(:last-child)::after { left: 29px; }
+  .kd-badge { width: 56px; height: 56px; margin-left: 4px; }
+  .kd-badge svg { width: 26px; height: 26px; }
+  .kd-badge::after { width: 18px; }
 }
-@media (max-width: 460px) {
-  .dt-item { grid-template-columns: 74px 36px 1fr; }
-  .dt-year { font-size: 1.12rem; }
-  .dt-label { font-size: 0.86rem; }
+@media (max-width: 620px) {
+  .kd-row { grid-template-columns: 64px 1fr; }
+  .kd-row:not(:last-child)::before { left: 25px; }
+  .kd-row:not(:last-child)::after { left: 21px; }
+  .kd-badge { width: 46px; height: 46px; box-shadow: 0 0 0 6px var(--kd-glow), 0 12px 20px -10px rgba(10, 31, 68, 0.5); }
+  .kd-badge svg { width: 21px; height: 21px; }
+  .kd-badge::after { width: 12px; }
+  .kd-card { grid-template-columns: 74px 1px 1fr; min-height: 92px; border-left-width: 6px; }
+  .kd-when { padding: 0 10px; }
+  .kd-month { font-size: 0.92rem; }
+  .kd-year { font-size: 1.24rem; }
+  .kd-text { padding: 14px 16px; font-size: 0.92rem; }
+  .kd-go { display: none; }
 }
 
 /* ---- Department / contact cards — premium hover ---- */
