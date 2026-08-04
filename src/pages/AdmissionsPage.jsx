@@ -43,33 +43,36 @@ const GRADES = [
   },
 ]
 
-// Key dates timeline. `lead` is the plain first line and `strong` the emphasised
-// second; `accent` colours the badge, the card's left edge, the date and the
-// chevron, `wash` tints the card and `glow` the halo behind the badge.
+// Key dates timeline. The five milestones walk the brand ramp — royal blue
+// deepening into navy, then gold once a place is secured — the same progression
+// the grade cards and admission steps use.
+// `lead` is the plain first line and `strong` the emphasised second; `accent`
+// colours the badge, the card's left edge, the date and the chevron, `wash`
+// tints the card and `glow` is the halo behind the badge.
 const DATES = [
   {
     month: 'Sep', year: '2025', icon: CalendarIcon, art: FormArt,
-    accent: '#E09B12', wash: 'rgba(224, 155, 18, 0.13)', glow: 'rgba(224, 155, 18, 0.2)',
+    accent: '#4f86f7', wash: 'rgba(79, 134, 247, 0.14)', glow: 'rgba(79, 134, 247, 0.2)',
     lead: 'Applications open for the', strong: '2026–27 academic year',
   },
   {
     month: 'Nov', year: '2025', icon: BuildingIcon, art: CampusArt,
-    accent: '#2E6BE6', wash: 'rgba(46, 107, 230, 0.12)', glow: 'rgba(46, 107, 230, 0.18)',
+    accent: '#2563eb', wash: 'rgba(37, 99, 235, 0.13)', glow: 'rgba(37, 99, 235, 0.18)',
     lead: 'Campus open house &', strong: 'guided tours',
   },
   {
     month: 'Jan', year: '2026', icon: ClipboardIcon, art: AssessArt,
-    accent: '#7256DC', wash: 'rgba(114, 86, 220, 0.12)', glow: 'rgba(114, 86, 220, 0.18)',
+    accent: '#1450c8', wash: 'rgba(20, 80, 200, 0.12)', glow: 'rgba(20, 80, 200, 0.17)',
     lead: 'Entrance assessments &', strong: 'interactions begin',
   },
   {
     month: 'Mar', year: '2026', icon: EnvelopeIcon, art: LetterArt,
-    accent: '#2FA765', wash: 'rgba(47, 167, 101, 0.12)', glow: 'rgba(47, 167, 101, 0.18)',
+    accent: '#0e2a5e', wash: 'rgba(14, 42, 94, 0.11)', glow: 'rgba(14, 42, 94, 0.15)',
     lead: 'Offer letters released to', strong: 'selected families',
   },
   {
     month: 'Apr', year: '2026', icon: ShieldIcon, art: EnrolArt,
-    accent: '#DC4C63', wash: 'rgba(220, 76, 99, 0.12)', glow: 'rgba(220, 76, 99, 0.18)',
+    accent: '#b8860b', wash: 'rgba(184, 134, 11, 0.15)', glow: 'rgba(184, 134, 11, 0.21)',
     lead: 'Enrolment &', strong: 'registration closes',
   },
 ]
