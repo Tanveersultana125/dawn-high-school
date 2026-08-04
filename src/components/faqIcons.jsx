@@ -23,19 +23,28 @@ export const TestIcon = (
   </svg>
 )
 
-/** Scholarships — award medal. */
+/** Scholarships — graduation cap. */
 export const ScholarshipIcon = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-    <circle cx="12" cy="9" r="5.5" />
-    <path d="m8.4 13.6-1.6 7.4 5.2-2.6 5.2 2.6-1.6-7.4" strokeLinejoin="round" />
-    <path d="m12 6.4 1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2L8.8 8.7l2.2-.3 1-2Z" strokeLinejoin="round" opacity=".75" />
+    <path d="M12 4 2.5 8.5 12 13l9.5-4.5L12 4Z" strokeLinejoin="round" />
+    <path d="M6.5 10.8v4.4c0 1.9 2.5 3.4 5.5 3.4s5.5-1.5 5.5-3.4v-4.4" strokeLinecap="round" />
+    <path d="M21.5 8.5v5" strokeLinecap="round" />
   </svg>
 )
 
-/** Mid-year admissions — transfer arrows. */
+/** Mid-year admissions — a new student. */
 export const TransferIcon = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-    <path d="M4 8h13M13.5 4.5 17 8l-3.5 3.5" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M20 16H7M10.5 12.5 7 16l3.5 3.5" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4.5 20a7.5 7.5 0 0 1 15 0" strokeLinecap="round" />
+  </svg>
+)
+
+/** Question mark, shown beside the section's intro line. */
+export const AskIcon = (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+    <path d="M20.5 11.5c0 4.4-3.8 8-8.5 8-1 0-2-.2-2.9-.5L4 20.5l1.6-4.4a7.7 7.7 0 0 1-1.1-4c0-4.4 3.8-8 8.5-8s7.5 3.6 7.5 7.4Z" strokeLinejoin="round" />
+    <path d="M10.2 9.4a2 2 0 0 1 3.8.8c0 1.4-2 1.6-2 3" strokeLinecap="round" />
+    <path d="M12 15.4h.01" strokeLinecap="round" strokeWidth="2.2" />
   </svg>
 )

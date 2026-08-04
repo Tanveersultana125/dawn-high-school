@@ -8,7 +8,20 @@ import {
   CalendarIcon, BuildingIcon, ClipboardIcon, EnvelopeIcon, ShieldIcon,
   FormArt, CampusArt, AssessArt, LetterArt, EnrolArt,
 } from '../components/keyDateArt'
-import { AgeIcon, TestIcon, ScholarshipIcon, TransferIcon } from '../components/faqIcons'
+import SmartImage from '../components/SmartImage'
+import { AgeIcon, TestIcon, ScholarshipIcon, TransferIcon, AskIcon } from '../components/faqIcons'
+
+// Photo mosaic beside the FAQ. `span` is how many of the grid's six columns the
+// tile takes, so the rhythm reads wide / narrow down the block.
+const MOSAIC = [
+  { id: 'photo-1562774053-701939374585', span: 4, alt: 'The Dawn campus' },
+  { id: 'photo-1497486751825-1233686d5d80', span: 2, alt: 'Students working in the library' },
+  { id: 'photo-1523240795612-9a054b0db644', span: 4, alt: 'A teacher with students in class' },
+  { id: 'photo-1461896836934-ffe607ba8211', span: 2, alt: 'The sports field' },
+  { id: 'photo-1511671782779-c97d3d27a1d4', span: 3, alt: 'Music practice' },
+  { id: 'photo-1532094349884-543bc11b234d', span: 3, alt: 'Students in the science lab' },
+  { id: 'photo-1529070538774-1843cb3265df', span: 4, alt: 'Students together on campus' },
+]
 
 const REQUIREMENTS = [
   ['Completed application form', 'Submitted online or at the admissions office.'],
@@ -223,49 +236,75 @@ export default function AdmissionsPage() {
       </section>
 
       {/* FAQ */}
-      <section className="section section-alt">
-        <div className="container" style={{ maxWidth: 880 }}>
-          <SectionHead
-            center
-            eyebrow="FAQ"
-            title="Questions,"
-            accent="Answered"
-            lead="Find quick answers to the most common questions about admissions."
-          />
-          <div className="faq-stack">
-            {FAQ.map((f, i) => {
-              const isOpen = openFaq === i
-              return (
-                <Reveal
-                  className={`fx-item ${isOpen ? 'open' : ''}`}
-                  delay={(i % 4) + 1}
-                  key={f.q}
-                >
-                  <button
-                    type="button"
-                    className="fx-q"
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-a-${i}`}
-                    onClick={() => setOpenFaq(isOpen ? -1 : i)}
-                  >
-                    <span className="fx-num" aria-hidden="true">{`0${i + 1}`}</span>
-                    <span className="fx-text">{f.q}</span>
-                    {/* Two bars; the upright one collapses to make the minus. */}
-                    <span className="fx-toggle" aria-hidden="true" />
-                  </button>
+      <section className="section section-dark faq-section">
+        <div className="container faq-layout">
+          <div className="faq-side">
+            <Reveal>
+              <h2 className="faq-title">
+                Questions, <span>Answered</span>
+              </h2>
+              <span className="faq-rule" aria-hidden="true" />
+            </Reveal>
 
-                  <div className="fx-a" id={`faq-a-${i}`} role="region">
-                    <div className="fx-a-clip">
-                      <div className="fx-a-in">
-                        <span className="fx-a-ic" aria-hidden="true">{f.icon}</span>
+            <Reveal className="faq-intro" delay={1}>
+              <span className="faq-intro-ic" aria-hidden="true">{AskIcon}</span>
+              <p>
+                Find quick answers to the most common questions about admissions,
+                academics, and student life.
+              </p>
+            </Reveal>
+
+            <div className="faq-stack">
+              {FAQ.map((f, i) => {
+                const isOpen = openFaq === i
+                return (
+                  <Reveal
+                    className={`fx-item ${isOpen ? 'open' : ''}`}
+                    delay={(i % 4) + 1}
+                    key={f.q}
+                  >
+                    <button
+                      type="button"
+                      className="fx-q"
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-a-${i}`}
+                      onClick={() => setOpenFaq(isOpen ? -1 : i)}
+                    >
+                      <span className="fx-ic" aria-hidden="true">{f.icon}</span>
+                      <span className="fx-text">{f.q}</span>
+                      {/* Two bars; the upright one collapses to make the minus. */}
+                      <span className="fx-toggle" aria-hidden="true" />
+                    </button>
+
+                    <div className="fx-a" id={`faq-a-${i}`} role="region">
+                      <div className="fx-a-clip">
                         <p>{f.a}</p>
                       </div>
                     </div>
-                  </div>
-                </Reveal>
-              )
-            })}
+                  </Reveal>
+                )
+              })}
+            </div>
           </div>
+
+          <Reveal className="faq-mosaic" delay={2}>
+            {MOSAIC.map((m) => (
+              <div className="fm-tile" key={m.id} style={{ '--span': m.span }}>
+                <SmartImage
+                  src={`https://images.unsplash.com/${m.id}?auto=format&fit=crop&w=760&q=78`}
+                  alt={m.alt}
+                  loading="lazy"
+                />
+              </div>
+            ))}
+            <div className="fm-crest">
+              <img src="/dawn-logo.png" alt="" width="226" height="213" loading="lazy" />
+              <p>
+                Nurturing Minds.
+                <span>Building Futures.</span>
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>
