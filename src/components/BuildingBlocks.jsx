@@ -4,11 +4,12 @@ import { Reveal } from './common'
 import SmartImage from './SmartImage'
 
 // Small school / children / campus photos that tile across the cube faces.
-// `thumb` is used on the tiny cube faces; `full` opens in the lightbox on click.
+// `face` covers a side of the die; `full` opens in the lightbox on click.
 // (CSS backgrounds — if one ever fails to load the tile just stays a soft grey,
 // never a broken-image icon.)
-const U = (id, w) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=${w > 600 ? 85 : 70}`
-const photo = (id) => ({ thumb: U(id, 240), full: U(id, 1280) })
+const U = (id, w) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=${w > 600 ? 85 : 78}`
+// `face` covers a whole side of the die, `full` opens in the lightbox.
+const photo = (id) => ({ face: U(id, 560), full: U(id, 1280) })
 
 const TILE_IMAGES = [
   photo('photo-1577896851231-70ef18881754'), // young students
@@ -21,38 +22,14 @@ const TILE_IMAGES = [
   photo('photo-1529070538774-1843cb3265df'), // students together
   photo('photo-1517245386807-bb43f82c33c4'), // activities
   photo('photo-1562774053-701939374585'),    // campus
-  { thumb: '/student-kid.png', full: '/student-kid.png' }, // a Dawn student
+  { face: '/student-kid.png', full: '/student-kid.png' }, // a Dawn student
 ]
 
-// Which of a face's nine cells carry a pip, for each value 1–6.
-const PIP_CELLS = {
-  1: [5],
-  2: [1, 9],
-  3: [1, 5, 9],
-  4: [1, 3, 7, 9],
-  5: [1, 3, 5, 7, 9],
-  6: [1, 3, 4, 6, 7, 9],
-}
-
-// Opposite faces sum to seven, as on a real die.
-const DIE_FACES = [
-  { face: 'front', value: 1 },
-  { face: 'back', value: 6 },
-  { face: 'right', value: 3 },
-  { face: 'left', value: 4 },
-  { face: 'top', value: 5 },
-  { face: 'bottom', value: 2 },
-]
-
-// Every pip on the die is a photo. Dealing them out in one running sequence
-// across all 21 pips keeps any single face from repeating an image.
-const DIE_PIPS = (() => {
-  let n = 0
-  return DIE_FACES.map(({ face, value }) => ({
-    face,
-    pips: PIP_CELLS[value].map((cell) => ({ cell, img: TILE_IMAGES[n++ % TILE_IMAGES.length] })),
-  }))
-})()
+// One photo per side of the die.
+const DIE_FACES = ['front', 'back', 'right', 'left', 'top', 'bottom'].map((face, i) => ({
+  face,
+  img: TILE_IMAGES[i % TILE_IMAGES.length],
+}))
 
 // Deterministic per-tile scatter (offset + skew) for the scroll-arrange gallery.
 // Seeded by index so it never jitters between renders.
@@ -108,8 +85,7 @@ export default function BuildingBlocks({
     }
   }, [spreadOpen, openImg])
 
-  // A tumbling die whose pips are photographs. Each face is a 3×3 grid;
-  // PIP_CELLS says which of the nine cells that face's value fills.
+  // A tumbling die, each side carrying one full photograph.
   const die = (
     <div
       className="die"
@@ -120,19 +96,12 @@ export default function BuildingBlocks({
       onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setSpreadOpen(true)}
     >
       <div className="die-cube">
-        {DIE_PIPS.map(({ face, pips }) => (
-          <span className={`die-face die-${face}`} key={face}>
-            {pips.map(({ cell, img }) => (
-              <i
-                key={cell}
-                style={{
-                  gridRow: Math.ceil(cell / 3),
-                  gridColumn: ((cell - 1) % 3) + 1,
-                  '--pip': `url('${img.thumb}')`,
-                }}
-              />
-            ))}
-          </span>
+        {DIE_FACES.map(({ face, img }) => (
+          <span
+            className={`die-face die-${face}`}
+            key={face}
+            style={{ '--face': `url('${img.face}')` }}
+          />
         ))}
       </div>
       <span className="die-shadow" aria-hidden="true" />

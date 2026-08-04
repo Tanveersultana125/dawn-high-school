@@ -9199,35 +9199,21 @@ body.no-scroll { overflow: hidden; }
   border-radius: 22px;
 }
 
+/* Each side carries one photograph, edge to edge. The white bezel and the fine
+   navy rim inside it keep the die's moulded character around the image, and the
+   inner shadow along the bottom seats the photo into the face. */
 .die-face {
   position: absolute;
   inset: 0;
-  display: grid;
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-  gap: 6%;
-  padding: 13%;
   border-radius: 15%;
-  background: linear-gradient(150deg, #ffffff 0%, #f2f4f8 55%, #dfe4ec 100%);
-  box-shadow: inset 0 0 0 1px rgba(10, 31, 68, 0.09),
-    inset 0 -14px 26px rgba(10, 31, 68, 0.07);
-  backface-visibility: hidden;
-}
-/* Pips are photographs rather than dots: a white bezel and a fine navy rim ring
-   each one, with an inner shadow seating it into the face and a hairline
-   highlight along the bottom edge, so it reads as set in rather than pasted on. */
-.die-face i {
-  place-self: center;
-  width: 92%;
-  aspect-ratio: 1;
-  border-radius: 50%;
   background-color: #dfe4ec;
-  background-image: var(--pip);
+  background-image: var(--face);
   background-size: cover;
   background-position: center;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.94),
-    inset 0 0 0 3px rgba(10, 31, 68, 0.16),
-    inset 0 4px 8px rgba(10, 31, 68, 0.34),
-    0 1px 0 rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.94),
+    inset 0 0 0 7px rgba(10, 31, 68, 0.14),
+    inset 0 -16px 30px rgba(10, 31, 68, 0.22);
+  backface-visibility: hidden;
 }
 
 .die-front { transform: translateZ(calc(var(--die) / 2)); }
