@@ -6974,10 +6974,11 @@ body.no-scroll { overflow: hidden; }
    `--gc-accent` (eyebrow, checks, base bar), `--gc-deep` (the shaded lower edge
    of that bar) and `--gc-wash` (the gradient rising inside the card), so one
    rule set covers all four.
-   The card tilts in 3D under the cursor (TiltCard) and its contents sit at
-   different translateZ depths, which is why nothing here may clip: `overflow`
-   other than `visible` would flatten the 3D scene, so the pseudo-elements carry
-   their own corner radii instead. */
+   The card tilts under the cursor (TiltCard). It deliberately does NOT use
+   `transform-style: preserve-3d` with translateZ layers: a positive translateZ
+   magnifies an element through the perspective, and the browser scales it up
+   from a texture rasterised at the original size, which left every card's text
+   and icons visibly soft even at rest. */
 .grade-card-wrap {
   display: flex;
   perspective: 1100px;
@@ -6990,9 +6991,7 @@ body.no-scroll { overflow: hidden; }
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: visible;
-  transform-style: preserve-3d;
-  will-change: transform;
+  overflow: hidden;
   padding: 26px 24px 30px;
   border: 1px solid var(--gray-200);
   border-radius: 22px;
@@ -7043,27 +7042,22 @@ body.no-scroll { overflow: hidden; }
 }
 .grade-card:hover .tilt3d-glare { opacity: 1; }
 
-/* Depth layers — the further from the card surface, the more they float as it
-   tilts. Any hover transform has to restate its translateZ or the layer drops
-   back to the surface. */
 .grade-head {
   position: relative;
   display: flex;
   align-items: center;
   gap: 14px;
   margin-bottom: 20px;
-  transform: translateZ(26px);
 }
 .grade-art {
   flex: none;
   width: 62px;
   height: 62px;
-  transform: translateZ(30px);
   transition: transform 0.5s var(--ease-lux);
   filter: drop-shadow(0 8px 12px rgba(10, 31, 68, 0.18));
 }
 .grade-art svg { display: block; width: 100%; height: 100%; }
-.grade-card:hover .grade-art { transform: translateZ(48px) scale(1.07); }
+.grade-card:hover .grade-art { transform: translateY(-4px) scale(1.07); }
 
 .grade-headings { min-width: 0; }
 .grade-card .tier {
@@ -7090,7 +7084,6 @@ body.no-scroll { overflow: hidden; }
   margin-top: auto;
   padding-top: 18px;
   border-top: 1px solid var(--gray-200);
-  transform: translateZ(14px);
 }
 .grade-list li {
   display: flex;
@@ -7113,7 +7106,7 @@ body.no-scroll { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   .grade-card { transform: none !important; }
-  .grade-card:hover .grade-art { transform: translateZ(30px); }
+  .grade-card:hover .grade-art { transform: none; }
 }
 
 /* Date list */
