@@ -3,28 +3,30 @@ import { Reveal, SectionHead } from './common'
 import { CardSpotlight } from './CardSpotlight'
 import { EnquireIcon, CampusIcon, AssessIcon, EnrollIcon } from './admissionIcons'
 
-// Violet → blue → teal → orange, per the reference design. `accent` and `deep`
-// are the two ends of each card's gradient (badge, ribbon, arrow); `wash` is the
-// same hue at low alpha for the tint at the foot of the card.
+// The four steps walk the brand ramp — royal blue deepening into navy, then
+// gold at enrolment — the same progression the grade cards use, so the two
+// sections read as one family. `accent` and `deep` are the two ends of each
+// card's gradient (badge, ribbon); `wash` is the same hue at low alpha for the
+// tint at the foot of the card.
 const STEPS = [
   {
     num: '01', title: 'Enquire', icon: EnquireIcon,
-    accent: '#7C3AED', deep: '#5B21B6', wash: 'rgba(124, 58, 237, 0.11)',
+    accent: '#4f86f7', deep: '#1d5fd1', wash: 'rgba(79, 134, 247, 0.13)',
     desc: 'Submit an online enquiry form or call our admissions office to begin.',
   },
   {
     num: '02', title: 'Campus Visit', icon: CampusIcon,
-    accent: '#2563EB', deep: '#1E40AF', wash: 'rgba(37, 99, 235, 0.11)',
+    accent: '#1450c8', deep: '#0d3a97', wash: 'rgba(20, 80, 200, 0.12)',
     desc: 'Tour our facilities and meet faculty to experience the Dawn difference.',
   },
   {
     num: '03', title: 'Assessment', icon: AssessIcon,
-    accent: '#14B8A6', deep: '#0F766E', wash: 'rgba(20, 184, 166, 0.12)',
+    accent: '#0e2a5e', deep: '#061128', wash: 'rgba(14, 42, 94, 0.12)',
     desc: 'A friendly interaction and age-appropriate assessment for the student.',
   },
   {
     num: '04', title: 'Enroll', icon: EnrollIcon,
-    accent: '#F97316', deep: '#C2410C', wash: 'rgba(249, 115, 22, 0.12)',
+    accent: '#b8860b', deep: '#8a6408', wash: 'rgba(184, 134, 11, 0.14)',
     desc: 'Receive your offer, complete registration, and welcome to the family!',
   },
 ]
