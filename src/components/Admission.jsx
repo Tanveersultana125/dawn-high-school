@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom'
 import { Reveal, SectionHead } from './common'
-import { CardSpotlight } from './CardSpotlight'
 import { EnquireIcon, CampusIcon, AssessIcon, EnrollIcon } from './admissionIcons'
+import {
+  FormIcon, CertIcon, ReportIcon, PhotoIcon, IdIcon,
+  ClipboardBadge, ShieldBadge, FolderArt,
+} from './applyArt'
 
 // The four steps walk the brand ramp — royal blue deepening into navy, then
 // gold at enrolment — the same progression the grade cards use, so the two
@@ -32,28 +35,16 @@ const STEPS = [
 ]
 
 const CHECKLIST = [
-  'Completed online application form',
-  "Student's birth certificate copy",
-  'Previous school report cards',
-  'Two passport-size photographs',
-  'Parent / guardian ID proof',
+  { label: 'Completed online application form', icon: FormIcon },
+  { label: "Student's birth certificate copy", icon: CertIcon },
+  { label: 'Previous school report cards', icon: ReportIcon },
+  { label: 'Two passport-size photographs', icon: PhotoIcon },
+  { label: 'Parent / guardian ID proof', icon: IdIcon },
 ]
 
-const CheckIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className="card-spotlight__check"
-  >
-    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-    <path
-      d="M12 2c-.218 0 -.432 .002 -.642 .005l-.616 .017l-.299 .013l-.579 .034l-.553 .046c-4.785 .464 -6.732 2.411 -7.196 7.196l-.046 .553l-.034 .579c-.005 .098 -.01 .198 -.013 .299l-.017 .616l-.004 .318l-.001 .324c0 .218 .002 .432 .005 .642l.017 .616l.013 .299l.034 .579l.046 .553c.464 4.785 2.411 6.732 7.196 7.196l.553 .046l.579 .034c.098 .005 .198 .01 .299 .013l.616 .017l.642 .005l.642 -.005l.616 -.017l.299 -.013l.579 -.034l.553 -.046c4.785 -.464 6.732 -2.411 7.196 -7.196l.046 -.553l.034 -.579c.005 -.098 .01 -.198 .013 -.299l.017 -.616l.005 -.642l-.005 -.642l-.017 -.616l-.013 -.299l-.034 -.579l-.046 -.553c-.464 -4.785 -2.411 -6.732 -7.196 -7.196l-.553 -.046l-.579 -.034a28.058 28.058 0 0 0 -.299 -.013l-.616 -.017l-.318 -.004l-.324 -.001zm2.293 7.293a1 1 0 0 1 1.497 1.32l-.083 .094l-4 4a1 1 0 0 1 -1.32 .083l-.094 -.083l-2 -2a1 1 0 0 1 1.32 -1.497l.094 .083l1.293 1.292l3.293 -3.292z"
-      fill="currentColor"
-      strokeWidth="0"
-    />
+const CheckMark = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" aria-hidden="true">
+    <path d="m6 12.4 4 4 8-9" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
@@ -90,21 +81,35 @@ export default function Admission() {
           ))}
         </div>
 
-        <Reveal className="admission-spotlight-wrap">
-          <CardSpotlight className="admission-spotlight">
-            <p className="card-spotlight__title">What you'll need to apply</p>
-            <ul className="card-spotlight__list">
+        <Reveal className="apply-panel">
+          <div className="ap-head">
+            <span className="ap-head-ic" aria-hidden="true">{ClipboardBadge}</span>
+            <h3>
+              What you&apos;ll need
+              <span>to apply</span>
+            </h3>
+          </div>
+
+          <div className="ap-body">
+            <ul className="ap-list">
               {CHECKLIST.map((item) => (
-                <li className="card-spotlight__item" key={item}>
-                  <CheckIcon />
-                  <span>{item}</span>
+                <li key={item.label}>
+                  <span className="ap-check" aria-hidden="true"><CheckMark /></span>
+                  <span className="ap-tile" aria-hidden="true">{item.icon}</span>
+                  <span className="ap-label">{item.label}</span>
                 </li>
               ))}
             </ul>
-            <p className="card-spotlight__note">
-              Have everything ready and our admissions team will guide you through the rest.
+            <div className="ap-art" aria-hidden="true">{FolderArt}</div>
+          </div>
+
+          <div className="ap-note">
+            <span className="ap-note-ic" aria-hidden="true">{ShieldBadge}</span>
+            <p>
+              Have everything ready and our admissions team will <b>guide you</b> through
+              the rest.
             </p>
-          </CardSpotlight>
+          </div>
         </Reveal>
 
         <Reveal className="admission-cta">

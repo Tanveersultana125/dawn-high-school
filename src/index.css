@@ -5526,14 +5526,191 @@ body.no-scroll { overflow: hidden; }
   font-size: 0.85rem;
   color: #d4d4d4;
 }
-.admission-spotlight-wrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 46px;
+/* ---- "What you'll need to apply" panel ----
+   A light panel: badge + two-line heading, a column of white requirement pills
+   beside the folder artwork, and a full-width footer note. Depth is lighting
+   only — raised badges, inset highlights, layered ambient shadow — so nothing
+   transforms the text. */
+.apply-panel {
+  position: relative;
+  overflow: hidden;
+  max-width: 1060px;
+  margin: 52px auto 0;
+  padding: 38px 40px 32px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(160deg, var(--white), var(--gray-50));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 2px 4px rgba(10, 31, 68, 0.04),
+    0 34px 60px -36px rgba(10, 31, 68, 0.5);
 }
-.admission-spotlight {
+/* Faint dot field in the top-right, as in the reference. */
+.apply-panel::before {
+  content: '';
+  position: absolute;
+  top: 34px;
+  right: 38px;
+  width: 96px;
+  height: 62px;
+  background-image: radial-gradient(circle, rgba(20, 80, 200, 0.22) 1.8px, transparent 1.9px);
+  background-size: 19px 15px;
+  pointer-events: none;
+}
+
+.ap-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 30px;
+}
+.ap-head-ic {
+  flex: none;
+  width: 82px;
+  height: 82px;
+  filter: drop-shadow(0 14px 22px rgba(10, 31, 68, 0.4));
+}
+.ap-head-ic svg { display: block; width: 100%; height: 100%; }
+.ap-head h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--navy-900);
+}
+/* Second line takes the accent, with a short rule beneath it. */
+.ap-head h3 span {
+  display: block;
+  position: relative;
+  padding-bottom: 12px;
+  color: var(--royal-600);
+}
+.ap-head h3 span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 54px;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--gradient-gold);
+}
+
+.ap-body {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  align-items: center;
+  gap: 30px;
+}
+
+.ap-list {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+}
+.ap-list li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  border: 1px solid var(--gray-200);
+  border-radius: 14px;
+  background: var(--white);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 10px 20px -16px rgba(10, 31, 68, 0.5);
+  transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux),
+    border-color 0.4s var(--ease-lux);
+}
+.ap-list li:hover {
+  transform: translateX(5px);
+  border-color: rgba(20, 80, 200, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 18px 30px -18px rgba(10, 31, 68, 0.5);
+}
+/* Filled check disc */
+.ap-check {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: var(--white);
+  background: linear-gradient(160deg, var(--royal-500), var(--royal-600));
+  box-shadow: 0 7px 13px -7px rgba(20, 80, 200, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.ap-check svg { width: 15px; height: 15px; }
+/* Tinted tile holding the document icon */
+.ap-tile {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(20, 80, 200, 0.09);
+  color: var(--royal-600);
+}
+.ap-tile svg { width: 21px; height: 21px; }
+.ap-label {
+  min-width: 0;
+  color: var(--navy-800);
+  font-size: 0.98rem;
+  font-weight: 500;
+}
+
+.ap-art {
+  justify-self: center;
   width: 100%;
-  max-width: 460px;
+  max-width: 320px;
+}
+.ap-art svg { display: block; width: 100%; height: auto; }
+
+.ap-note {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 28px;
+  padding: 20px 26px;
+  border: 1px solid var(--gray-200);
+  border-radius: 18px;
+  background: linear-gradient(100deg, rgba(20, 80, 200, 0.05), rgba(212, 175, 55, 0.06));
+}
+.ap-note-ic {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 10px 20px -10px rgba(10, 31, 68, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.ap-note-ic svg { width: 30px; height: 30px; }
+.ap-note p {
+  color: var(--text-soft);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.ap-note p b { color: var(--royal-600); font-weight: 700; }
+
+@media (max-width: 900px) {
+  .apply-panel { padding: 30px 24px 26px; }
+  .apply-panel::before { display: none; }
+  .ap-body { grid-template-columns: 1fr; }
+  /* Artwork above the list once they stack — it reads as a header, not a
+     trailing afterthought. */
+  .ap-art { order: -1; max-width: 250px; }
+  .ap-head-ic { width: 66px; height: 66px; }
+  .ap-head { gap: 16px; }
+}
+@media (max-width: 560px) {
+  .ap-list li { gap: 12px; padding: 11px 14px; }
+  .ap-tile { display: none; }
+  .ap-label { font-size: 0.92rem; }
+  .ap-note { flex-direction: column; align-items: flex-start; gap: 14px; padding: 18px; }
+  .ap-note p { font-size: 0.94rem; }
 }
 
 /* ---- View Magnifier (drag-to-zoom cards) ---- */
