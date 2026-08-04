@@ -3,6 +3,7 @@ import { Reveal, SectionHead } from './common'
 import { fetchMedia } from '../lib/media'
 import { isFirebaseConfigured } from '../lib/firebase'
 import SmartImage from './SmartImage'
+import RibbonField from './RibbonField'
 
 const U = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80`
 
@@ -84,7 +85,8 @@ export default function Gallery() {
   }, [lightbox, move])
 
   return (
-    <section className="section section-alt gallery-section" id="gallery">
+    <section className="section gallery-section" id="gallery">
+      <RibbonField />
       <div className="container">
         <SectionHead
           center
