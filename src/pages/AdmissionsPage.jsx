@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import FutureHero from '../components/FutureHero'
 import Admission from '../components/Admission'
 import TiltCard from '../components/TiltCard'
@@ -7,6 +8,7 @@ import {
   CalendarIcon, BuildingIcon, ClipboardIcon, EnvelopeIcon, ShieldIcon,
   FormArt, CampusArt, AssessArt, LetterArt, EnrolArt,
 } from '../components/keyDateArt'
+import { AgeIcon, TestIcon, ScholarshipIcon, TransferIcon } from '../components/faqIcons'
 
 const REQUIREMENTS = [
   ['Completed application form', 'Submitted online or at the admissions office.'],
@@ -78,13 +80,28 @@ const DATES = [
 ]
 
 const FAQ = [
-  ['What is the right age to apply?', 'Grade 1 admissions are open to children who turn 6 by the start of the academic year. Other grades are age-appropriate based on prior schooling.'],
-  ['Is there an entrance test?', 'Yes — a friendly, age-appropriate interaction and assessment helps us understand each child’s needs and place them well.'],
-  ['Do you offer scholarships?', 'Merit and need-based scholarships are available for eligible students across all grades. Speak to our admissions team for details.'],
-  ['Are mid-year admissions possible?', 'Subject to seat availability, we accept mid-year transfers with a valid transfer certificate.'],
+  {
+    q: 'What is the right age to apply?', icon: AgeIcon,
+    a: 'Grade 1 admissions are open to children who turn 6 by the start of the academic year. Other grades are age-appropriate based on prior schooling.',
+  },
+  {
+    q: 'Is there an entrance test?', icon: TestIcon,
+    a: 'Yes — a friendly, age-appropriate interaction and assessment helps us understand each child’s needs and place them well.',
+  },
+  {
+    q: 'Do you offer scholarships?', icon: ScholarshipIcon,
+    a: 'Merit and need-based scholarships are available for eligible students across all grades. Speak to our admissions team for details.',
+  },
+  {
+    q: 'Are mid-year admissions possible?', icon: TransferIcon,
+    a: 'Subject to seat availability, we accept mid-year transfers with a valid transfer certificate.',
+  },
 ]
 
 export default function AdmissionsPage() {
+  // One answer open at a time, the first by default.
+  const [openFaq, setOpenFaq] = useState(0)
+
   return (
     <>
       <FutureHero />
@@ -207,16 +224,48 @@ export default function AdmissionsPage() {
 
       {/* FAQ */}
       <section className="section section-alt">
-        <div className="container" style={{ maxWidth: 820 }}>
-          <SectionHead center eyebrow="FAQ" title="Questions," accent="Answered" />
-          <Reveal>
-            {FAQ.map(([q, a]) => (
-              <details className="faq-item" key={q}>
-                <summary>{q}</summary>
-                <p>{a}</p>
-              </details>
-            ))}
-          </Reveal>
+        <div className="container" style={{ maxWidth: 880 }}>
+          <SectionHead
+            center
+            eyebrow="FAQ"
+            title="Questions,"
+            accent="Answered"
+            lead="Find quick answers to the most common questions about admissions."
+          />
+          <div className="faq-stack">
+            {FAQ.map((f, i) => {
+              const isOpen = openFaq === i
+              return (
+                <Reveal
+                  className={`fx-item ${isOpen ? 'open' : ''}`}
+                  delay={(i % 4) + 1}
+                  key={f.q}
+                >
+                  <button
+                    type="button"
+                    className="fx-q"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-a-${i}`}
+                    onClick={() => setOpenFaq(isOpen ? -1 : i)}
+                  >
+                    <span className="fx-num" aria-hidden="true">{`0${i + 1}`}</span>
+                    <span className="fx-text">{f.q}</span>
+                    {/* Two bars; the upright one collapses to make the minus. */}
+                    <span className="fx-toggle" aria-hidden="true" />
+                  </button>
+
+                  <div className="fx-a" id={`faq-a-${i}`} role="region">
+                    <div className="fx-a-clip">
+                      <div className="fx-a-in">
+                        <span className="fx-a-ic" aria-hidden="true">{f.icon}</span>
+                        <p>{f.a}</p>
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              )
+            })}
+          </div>
         </div>
       </section>
     </>

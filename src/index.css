@@ -7597,6 +7597,165 @@ body.no-scroll { overflow: hidden; }
 .faq-item[open] summary::after { content: '−'; }
 .faq-item p { padding: 0 24px 22px; color: var(--text-soft); font-size: 0.94rem; }
 
+/* ---- Admissions FAQ — numbered accordion ----
+   Closed rows carry a navy number disc; the open one turns gold, the card takes
+   a gold rim and the answer drops into a gold-washed panel with its own icon.
+   One answer is open at a time. Depth is lighting only — raised discs, inset
+   highlights, layered ambient shadow — so nothing transforms the text. */
+.faq-stack {
+  display: grid;
+  gap: 16px;
+  margin-top: 40px;
+}
+.fx-item {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 18px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 2px 3px rgba(10, 31, 68, 0.04),
+    0 16px 30px -24px rgba(10, 31, 68, 0.42);
+  transition: border-color 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux);
+}
+.fx-item.open {
+  border-color: rgba(212, 175, 55, 0.7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 4px 6px rgba(10, 31, 68, 0.05),
+    0 28px 46px -26px rgba(10, 31, 68, 0.45);
+}
+
+.fx-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 19px 20px 19px 22px;
+  background: none;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.fx-num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--white);
+  background: linear-gradient(160deg, var(--navy-700), var(--navy-900));
+  box-shadow: 0 9px 17px -9px rgba(10, 31, 68, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.35);
+  transition: background 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux);
+}
+.fx-item.open .fx-num {
+  background: linear-gradient(160deg, var(--gold-500), var(--gold-600));
+  box-shadow: 0 9px 17px -9px rgba(184, 134, 11, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.24);
+}
+
+.fx-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy-800);
+}
+
+/* Plus that becomes a minus: the upright bar scales away. */
+.fx-toggle {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  color: var(--gray-500);
+  box-shadow: 0 6px 14px -7px rgba(10, 31, 68, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: color 0.35s var(--ease-lux), border-color 0.35s var(--ease-lux);
+}
+.fx-item.open .fx-toggle {
+  color: var(--gold-600);
+  border-color: rgba(212, 175, 55, 0.55);
+}
+.fx-toggle::before,
+.fx-toggle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: currentColor;
+  border-radius: 2px;
+}
+.fx-toggle::before {
+  width: 14px;
+  height: 2px;
+  margin: -1px 0 0 -7px;
+}
+.fx-toggle::after {
+  width: 2px;
+  height: 14px;
+  margin: -7px 0 0 -1px;
+  transition: transform 0.35s var(--ease-lux);
+}
+.fx-item.open .fx-toggle::after { transform: scaleY(0); }
+
+/* 0fr → 1fr animates the answer's real height without measuring it. */
+.fx-a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s var(--ease-lux);
+}
+.fx-item.open .fx-a { grid-template-rows: 1fr; }
+.fx-a-clip { overflow: hidden; }
+
+.fx-a-in {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0 20px 20px;
+  padding: 18px 24px;
+  border-left: 4px solid var(--gold-500);
+  border-radius: 12px;
+  background: linear-gradient(100deg, rgba(212, 175, 55, 0.13), rgba(212, 175, 55, 0.04));
+}
+.fx-a-ic {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-600);
+}
+.fx-a-ic svg { width: 28px; height: 28px; }
+.fx-a-in p {
+  color: var(--text-soft);
+  font-size: 0.96rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 620px) {
+  .fx-q { gap: 13px; padding: 16px 14px 16px 16px; }
+  .fx-num { width: 38px; height: 38px; font-size: 0.86rem; }
+  .fx-text { font-size: 0.96rem; }
+  .fx-toggle { width: 34px; height: 34px; }
+  .fx-a-in { margin: 0 14px 14px; padding: 16px; gap: 14px; }
+  .fx-a-ic { width: 44px; height: 44px; }
+  .fx-a-ic svg { width: 22px; height: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-a { transition: none; }
+}
+
 /* CTA band */
 .cta-band {
   border-radius: var(--radius-xl);
