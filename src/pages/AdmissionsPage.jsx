@@ -3,7 +3,6 @@ import Admission from '../components/Admission'
 import TiltCard from '../components/TiltCard'
 import { Reveal, SectionHead } from '../components/common'
 import { BlocksArt, BookArt, ScienceArt, GraduateArt, CheckMark } from '../components/gradeArt'
-import { AgeIcon, TestIcon, ScholarshipIcon, TransferIcon } from '../components/faqIcons'
 
 const REQUIREMENTS = [
   ['Completed application form', 'Submitted online or at the admissions office.'],
@@ -48,30 +47,11 @@ const DATES = [
   ['Apr 2026', 'Enrolment & registration closes'],
 ]
 
-// Same brand ramp as the grade cards and the admission steps, so the whole page
-// reads as one family. `accent` colours the icon, the card's left edge and the
-// chevron; `wash` is the same hue at low alpha for the card's gradient.
 const FAQ = [
-  {
-    q: 'What is the right age to apply?', icon: AgeIcon,
-    accent: '#4f86f7', wash: 'rgba(79, 134, 247, 0.14)',
-    a: 'Grade 1 admissions are open to children who turn 6 by the start of the academic year. Other grades are age-appropriate based on prior schooling.',
-  },
-  {
-    q: 'Is there an entrance test?', icon: TestIcon,
-    accent: '#1450c8', wash: 'rgba(20, 80, 200, 0.13)',
-    a: 'Yes — a friendly, age-appropriate interaction and assessment helps us understand each child’s needs and place them well.',
-  },
-  {
-    q: 'Do you offer scholarships?', icon: ScholarshipIcon,
-    accent: '#0e2a5e', wash: 'rgba(14, 42, 94, 0.12)',
-    a: 'Merit and need-based scholarships are available for eligible students across all grades. Speak to our admissions team for details.',
-  },
-  {
-    q: 'Are mid-year admissions possible?', icon: TransferIcon,
-    accent: '#b8860b', wash: 'rgba(184, 134, 11, 0.15)',
-    a: 'Subject to seat availability, we accept mid-year transfers with a valid transfer certificate.',
-  },
+  ['What is the right age to apply?', 'Grade 1 admissions are open to children who turn 6 by the start of the academic year. Other grades are age-appropriate based on prior schooling.'],
+  ['Is there an entrance test?', 'Yes — a friendly, age-appropriate interaction and assessment helps us understand each child’s needs and place them well.'],
+  ['Do you offer scholarships?', 'Merit and need-based scholarships are available for eligible students across all grades. Speak to our admissions team for details.'],
+  ['Are mid-year admissions possible?', 'Subject to seat availability, we accept mid-year transfers with a valid transfer certificate.'],
 ]
 
 export default function AdmissionsPage() {
@@ -180,31 +160,16 @@ export default function AdmissionsPage() {
 
       {/* FAQ */}
       <section className="section section-alt">
-        <div className="container" style={{ maxWidth: 880 }}>
+        <div className="container" style={{ maxWidth: 820 }}>
           <SectionHead center eyebrow="FAQ" title="Questions," accent="Answered" />
-          <div className="faq-rich">
-            {FAQ.map((f, i) => (
-              <Reveal
-                className="fq-row"
-                delay={(i % 4) + 1}
-                key={f.q}
-                style={{ '--fq-accent': f.accent, '--fq-wash': f.wash }}
-              >
-                <span className="fq-badge" aria-hidden="true">{f.icon}</span>
-                <details className="fq-card">
-                  <summary>
-                    <span className="fq-q">{f.q}</span>
-                    <span className="fq-chev" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-                        <path d="m9 5 7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                  </summary>
-                  <p>{f.a}</p>
-                </details>
-              </Reveal>
+          <Reveal>
+            {FAQ.map(([q, a]) => (
+              <details className="faq-item" key={q}>
+                <summary>{q}</summary>
+                <p>{a}</p>
+              </details>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
     </>
