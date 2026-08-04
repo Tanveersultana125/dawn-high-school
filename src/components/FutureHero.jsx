@@ -46,7 +46,11 @@ export default function FutureHero() {
           shapes confident, creative, and future-ready leaders.
         </p>
         <div className="fh-actions">
-          <Link to="/admissions" className="btn btn-gold">Apply Now</Link>
+          {/* This hero only ever renders on /admissions, so linking to
+              /admissions did nothing on click. The application form lives on
+              /contact — the same place this page's "Start Online Application"
+              CTA points to. */}
+          <Link to="/contact" className="btn btn-gold">Apply Now</Link>
           <a href="#home" onClick={toVideo} className="fh-btn-line">▶ Watch Campus Film</a>
         </div>
       </div>

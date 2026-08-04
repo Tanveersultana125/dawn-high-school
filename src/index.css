@@ -3816,6 +3816,9 @@ body.no-scroll { overflow: hidden; }
 .fh-card {
   position: absolute;
   z-index: 2;
+  /* Decorative floats, same stacking level as the hero's buttons and painted
+     after them — without this they can swallow clicks where they overlap. */
+  pointer-events: none;
   display: flex;
   align-items: center;
   gap: 12px;
