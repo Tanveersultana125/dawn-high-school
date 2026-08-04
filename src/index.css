@@ -9224,14 +9224,25 @@ body.no-scroll { overflow: hidden; }
    per-face shading do the rest — CSS can't bevel a cube's edges, so the corner
    radius plus a light-to-dark ramp across the faces is what reads as a moulded
    die rather than six flat squares. */
+/* `--half` is kept as its own plain length rather than derived with
+   calc(var(--die) / 2): the size was a clamp(), and dividing that inside a
+   transform left the faces stacked at the centre instead of pushed out to the
+   cube's surfaces — which rendered as flat panels fanned open, not a die. */
 .die {
-  --die: clamp(150px, 22vw, 236px);
+  --die: 240px;
+  --half: 120px;
   position: relative;
   width: var(--die);
   height: var(--die);
-  perspective: 1100px;
+  perspective: 1000px;
   cursor: pointer;
   outline: none;
+}
+@media (max-width: 1080px) {
+  .die { --die: 200px; --half: 100px; }
+}
+@media (max-width: 560px) {
+  .die { --die: 156px; --half: 78px; }
 }
 .die-cube {
   position: relative;
@@ -9258,26 +9269,29 @@ body.no-scroll { overflow: hidden; }
 /* Each side carries one photograph, edge to edge. The white bezel and the fine
    navy rim inside it keep the die's moulded character around the image, and the
    inner shadow along the bottom seats the photo into the face. */
+/* A small corner radius only. Flat faces meet along a shared edge, so the more
+   they are rounded the wider the notch between them — at 15% the die read as
+   loose panels rather than one solid block. */
 .die-face {
   position: absolute;
   inset: 0;
-  border-radius: 15%;
+  border-radius: 7%;
   background-color: #dfe4ec;
   background-image: var(--face);
   background-size: cover;
   background-position: center;
-  box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.94),
-    inset 0 0 0 7px rgba(10, 31, 68, 0.14),
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.9),
+    inset 0 0 0 4px rgba(10, 31, 68, 0.16),
     inset 0 -16px 30px rgba(10, 31, 68, 0.22);
   backface-visibility: hidden;
 }
 
-.die-front { transform: translateZ(calc(var(--die) / 2)); }
-.die-back { transform: rotateY(180deg) translateZ(calc(var(--die) / 2)); }
-.die-right { transform: rotateY(90deg) translateZ(calc(var(--die) / 2)); }
-.die-left { transform: rotateY(-90deg) translateZ(calc(var(--die) / 2)); }
-.die-top { transform: rotateX(90deg) translateZ(calc(var(--die) / 2)); }
-.die-bottom { transform: rotateX(-90deg) translateZ(calc(var(--die) / 2)); }
+.die-front { transform: translateZ(var(--half)); }
+.die-back { transform: rotateY(180deg) translateZ(var(--half)); }
+.die-right { transform: rotateY(90deg) translateZ(var(--half)); }
+.die-left { transform: rotateY(-90deg) translateZ(var(--half)); }
+.die-top { transform: rotateX(90deg) translateZ(var(--half)); }
+.die-bottom { transform: rotateX(-90deg) translateZ(var(--half)); }
 
 /* Ambient shading per face — the key light sits above and to the front-left. */
 .die-face::after {
