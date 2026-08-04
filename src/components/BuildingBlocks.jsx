@@ -78,11 +78,13 @@ export default function BuildingBlocks({
     }
   }, [spreadOpen, openImg])
 
-  // 3 depth layers, each a grid of isometric cube tiles → one big 3D cube
+  // 4×4×4 block of cubes packed solid — `--l` is the depth slab, `--x` the
+  // column and `--i` the row; the CSS turns those three indices into the
+  // isometric position and the paint order.
   const grid = (
     <div className="cube-container">
-      {[0, 1, 2].map((l) => (
-        <div className="cube" key={l}>
+      {[0, 1, 2, 3].map((l) => (
+        <div className="cube" key={l} style={{ '--l': l }}>
           {Array.from({ length: 4 }).map((_, x) => (
             <div className="cube-col" key={x} style={{ '--x': x }}>
               {Array.from({ length: 4 }).map((_, i) => {
