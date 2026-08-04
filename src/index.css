@@ -5042,7 +5042,7 @@ body.no-scroll { overflow: hidden; }
   --st-deep: var(--navy-800);
   --st-wash: rgba(20, 80, 200, 0.11);
   position: relative;
-  padding: 40px 24px 22px;
+  padding: 40px 24px 30px;
   border-radius: var(--radius-lg);
   background: var(--white);
   border: 1px solid var(--gray-200);
@@ -5138,20 +5138,6 @@ body.no-scroll { overflow: hidden; }
   font-size: 0.88rem;
   line-height: 1.65;
 }
-
-.step-dots {
-  position: relative;
-  display: flex;
-  gap: 6px;
-  margin-top: 22px;
-}
-.step-dots i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--gray-300);
-}
-.step-dots i.on { background: var(--st-accent); }
 
 @media (max-width: 1080px) {
   .adm-step { padding: 34px 20px 20px; }

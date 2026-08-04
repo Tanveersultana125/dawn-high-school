@@ -86,13 +86,6 @@ export default function Admission() {
               </div>
 
               <p>{s.desc}</p>
-
-              {/* Progress pips: how far along the four steps this card is. */}
-              <span className="step-dots" aria-hidden="true">
-                {STEPS.map((d, j) => (
-                  <i className={j <= i ? 'on' : ''} key={d.num} />
-                ))}
-              </span>
             </Reveal>
           ))}
         </div>
