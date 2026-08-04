@@ -7109,15 +7109,6 @@ body.no-scroll { overflow: hidden; }
   .grade-card:hover .grade-art { transform: none; }
 }
 
-/* Date list */
-.date-list { display: grid; gap: 14px; }
-.date-list--row {
-  grid-template-columns: repeat(3, 1fr);
-  max-width: 900px;
-  margin: 0 auto;
-}
-@media (max-width: 700px) { .date-list--row { grid-template-columns: 1fr; } }
-
 /* Department cards with campus maps */
 .dept-list { display: grid; gap: 40px; }
 /* Professional faded divider + centered gold diamond between campus blocks */
@@ -7302,64 +7293,116 @@ body.no-scroll { overflow: hidden; }
   .campus-info { padding: 30px 24px; height: auto; min-height: 340px; }
   .campus-card-map { height: 300px; }
 }
-.date-row {
+/* ---- Key dates ----
+   One panel, hairline-ruled, with a timeline running through it. The depth is
+   lighting only — a raised panel edge, a hairline rail and a small domed bead
+   per entry. No 3D transform touches the text, so it stays sharp. */
+.deadline-panel {
   position: relative;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  padding: 18px 24px 18px 28px;
+  max-width: 940px;
+  margin: 0 auto;
   background: var(--white);
   border: 1px solid var(--gray-200);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: transform 0.45s var(--ease-lux), box-shadow 0.45s var(--ease-lux),
-    border-color 0.45s var(--ease-lux);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(10, 31, 68, 0.05),
+    0 28px 54px -34px rgba(10, 31, 68, 0.5);
 }
-/* Gold accent bar slides in from the left */
-.date-row::before {
+/* The rail. It fades out at both ends so it reads as a thread through the
+   panel rather than a border between two columns. */
+.deadline-panel::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: 158px;
   top: 0;
   bottom: 0;
-  width: 4px;
-  background: var(--gradient-gold);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.45s var(--ease-lux);
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--gray-200) 7%,
+    var(--gray-200) 93%,
+    transparent
+  );
 }
-/* Soft gold sheen that sweeps across on hover */
-.date-row::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(110deg, transparent 0%,
-    rgba(212, 175, 55, 0.1) 45%, transparent 70%);
-  transform: translateX(-100%);
-  transition: transform 0.7s var(--ease-lux);
-  pointer-events: none;
+
+.deadline-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 158px 1fr;
+  align-items: center;
+  transition: background 0.4s var(--ease-lux);
 }
-.date-row:hover {
-  transform: translateX(6px);
-  box-shadow: 0 14px 34px rgba(10, 31, 68, 0.12);
-  border-color: rgba(212, 175, 55, 0.5);
+.deadline-row + .deadline-row { border-top: 1px solid var(--gray-100); }
+.deadline-row:hover {
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.07), rgba(212, 175, 55, 0) 55%);
 }
-.date-row:hover::before { transform: scaleY(1); }
-.date-row:hover::after { transform: translateX(100%); }
-.date-row .d-date {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.1rem;
+
+.dl-when {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 24px 30px 24px 32px;
+  text-align: right;
+}
+.dl-month {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--gold-600);
-  min-width: 150px;
-  transition: color 0.3s ease;
 }
-.date-row .d-label {
+.dl-year {
+  font-family: var(--font-display);
+  font-size: 1.32rem;
+  font-weight: 700;
+  line-height: 1;
   color: var(--navy-800);
-  font-weight: 600;
-  transition: transform 0.45s var(--ease-lux);
 }
-.date-row:hover .d-label { transform: translateX(4px); }
+
+/* Bead on the rail. The off-centre highlight and the shade beneath it are what
+   make it read as a sphere rather than a flat dot. */
+.dl-mark {
+  position: absolute;
+  left: 158px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: radial-gradient(120% 120% at 34% 28%, #fff4d2, var(--gold-500) 50%, var(--gold-600));
+  box-shadow: 0 0 0 5px var(--white),
+    0 2px 4px rgba(10, 31, 68, 0.4),
+    inset 0 -1px 1.5px rgba(0, 0, 0, 0.32);
+  transition: transform 0.4s var(--ease-lux), box-shadow 0.4s var(--ease-lux);
+}
+.deadline-row:hover .dl-mark {
+  transform: scale(1.35);
+  box-shadow: 0 0 0 5px var(--white),
+    0 0 0 9px rgba(212, 175, 55, 0.18),
+    0 3px 6px rgba(10, 31, 68, 0.4),
+    inset 0 -1px 1.5px rgba(0, 0, 0, 0.32);
+}
+
+.dl-label {
+  padding: 24px 32px 24px 36px;
+  color: var(--navy-800);
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.55;
+  transition: transform 0.4s var(--ease-lux);
+}
+.deadline-row:hover .dl-label { transform: translateX(4px); }
+
+@media (max-width: 620px) {
+  .deadline-panel::before { left: 108px; }
+  .deadline-row { grid-template-columns: 108px 1fr; }
+  .dl-when { padding: 20px 20px 20px 22px; }
+  .dl-year { font-size: 1.15rem; }
+  .dl-mark { left: 108px; }
+  .dl-label { padding: 20px 22px 20px 26px; font-size: 0.92rem; }
+}
 
 /* ---- Department / contact cards — premium hover ---- */
 .dept-card {
