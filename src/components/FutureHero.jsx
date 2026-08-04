@@ -10,10 +10,10 @@ export default function FutureHero() {
   // Optional admin-managed photo layered softly behind the 3D scene.
   const bgPhoto = usePageImage('admissions.hero', '')
 
-  const toVideo = (e) => {
+  // Scroll cue at the foot of the hero — moves to whatever section follows it.
+  const toNextSection = (e) => {
     e.preventDefault()
-    // Prefer the page's #home anchor; otherwise scroll to whatever follows the hero.
-    const target = document.getElementById('home') || sectionRef.current?.nextElementSibling
+    const target = sectionRef.current?.nextElementSibling
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' })
     else window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
   }
@@ -51,7 +51,9 @@ export default function FutureHero() {
               /contact — the same place this page's "Start Online Application"
               CTA points to. */}
           <Link to="/contact" className="btn btn-gold">Apply Now</Link>
-          <a href="#home" onClick={toVideo} className="fh-btn-line">▶ Watch Campus Film</a>
+          {/* The campus films live in the gallery's video section. This used to
+              look for a #home anchor, which doesn't exist on this page. */}
+          <Link to="/gallery#videos" className="fh-btn-line">▶ Watch Campus Film</Link>
         </div>
       </div>
 
@@ -71,7 +73,7 @@ export default function FutureHero() {
         </div>
       </div>
 
-      <a href="#home" onClick={toVideo} className="fh-scroll" aria-label="Scroll to campus film">
+      <a href="#admissions" onClick={toNextSection} className="fh-scroll" aria-label="Scroll to the next section">
         <span className="fh-scroll-line" />
         Scroll
       </a>

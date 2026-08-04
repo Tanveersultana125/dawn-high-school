@@ -34,12 +34,45 @@ function ScrollProgress() {
   )
 }
 
-/** Jump to the top whenever the route changes. */
+/**
+ * Jump to the top whenever the route changes — unless the link carried a hash,
+ * in which case scroll to that section instead. React Router does not act on
+ * the hash itself, so a link like /gallery#videos would otherwise land at the
+ * top of the page.
+ */
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
+
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  }, [pathname])
+    if (!hash) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+      return
+    }
+
+    // The target section may not be mounted on the first paint after the route
+    // change, so retry for a short while before giving up.
+    const id = decodeURIComponent(hash.slice(1))
+    let frame = 0
+    const findAndScroll = (attemptsLeft) => {
+      const el = document.getElementById(id)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        return
+      }
+      if (attemptsLeft > 0) {
+        frame = requestAnimationFrame(() => findAndScroll(attemptsLeft - 1))
+        return
+      }
+      // Section never appeared — some render conditionally, e.g. the video
+      // gallery hides itself when nothing has been uploaded. Land at the top
+      // rather than leaving the page at an arbitrary offset.
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    }
+    findAndScroll(40)
+
+    return () => cancelAnimationFrame(frame)
+  }, [pathname, hash])
+
   return null
 }
 
