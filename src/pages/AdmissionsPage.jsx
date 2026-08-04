@@ -136,16 +136,11 @@ export default function AdmissionsPage() {
       <section className="section">
         <div className="container">
           <SectionHead center eyebrow="Key Dates" title="Important" accent="Deadlines" />
-          <Reveal className="date-list date-timeline">
+          <Reveal className="date-list">
             {DATES.map(([d, label]) => (
-              /* The bead lives outside the card: the card clips its own sheen,
-                 and the bead has to sit on the rail beyond that edge. */
-              <div className="date-item" key={label}>
-                <span className="d-node" aria-hidden="true" />
-                <div className="date-row">
-                  <span className="d-date">{d}</span>
-                  <span className="d-label">{label}</span>
-                </div>
+              <div className="date-row" key={label}>
+                <span className="d-date">{d}</span>
+                <span className="d-label">{label}</span>
               </div>
             ))}
           </Reveal>
