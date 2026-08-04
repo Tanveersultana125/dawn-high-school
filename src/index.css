@@ -9172,37 +9172,52 @@ body.no-scroll { overflow: hidden; }
 .cube-container .cube { position: relative; z-index: 2; }
 .cube-container .cube:nth-child(2) { z-index: 1; translate: -60px -60px; }
 .cube-container .cube:nth-child(3) { z-index: 3; translate: 60px 60px; }
+/* Each tile is a die: the side faces are as deep as the front face is wide, so
+   the block reads as a cube rather than a card on edge. The column gap and the
+   per-column offset both follow from that depth — 40 face + 40 side + a 8px
+   breathing gap — which is what keeps the dice separate but evenly ranked. */
 .cube-container .cube-col {
   position: absolute;
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  translate: calc(-70px * var(--x)) 0;
+  gap: 48px; /* side depth + the gap between dice */
+  translate: calc(-88px * var(--x)) 0; /* face + side + gap */
 }
 .cube-container span {
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #dcdcdc;
   background-image: var(--img);
   background-size: cover;
   background-position: center;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
   z-index: calc(1 * var(--i));
   cursor: pointer;
   transition: 1.4s;
 }
+/* Left face — the same photo in shadow. It used to be a flat beige panel, which
+   read as a cream slab beside each tile rather than a lit cube's dark side. */
 .cube-container span::before {
   content: '';
   position: absolute;
   left: -40px;
   width: 40px;
   height: 100%;
-  background: #c9c2ad; /* left side kept plain (no photo) for a clean 3D edge */
+  background-color: #6f6a5f;
+  background-image: var(--img);
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.45) saturate(0.8);
+  border-radius: 3px 0 0 3px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.28);
   transform-origin: right;
   transform: skewY(45deg);
   transition: 1.4s;
 }
+/* Top face — the same photo, lit. */
 .cube-container span::after {
   content: '';
   position: absolute;
@@ -9210,16 +9225,18 @@ body.no-scroll { overflow: hidden; }
   left: 0;
   width: 100%;
   height: 40px;
-  background-color: #e6e6e6;
-  background-image: var(--img); /* same photo as the front face */
+  background-color: #eef0f4;
+  background-image: var(--img);
   background-size: cover;
   background-position: center;
-  filter: brightness(0.85); /* slightly shaded top face */
+  filter: brightness(1.2) saturate(0.95);
+  border-radius: 3px 3px 0 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.24);
   transform-origin: bottom;
   transform: skewX(45deg);
   transition: 1.4s;
 }
-/* photo shows by default — hover lights the tile with a gold accent */
+/* photo shows by default — hover lights the die with a gold accent */
 .cube-container span:hover {
   transition: 0s;
   filter: drop-shadow(0 0 26px rgba(212, 175, 55, 0.8));
@@ -9227,8 +9244,8 @@ body.no-scroll { overflow: hidden; }
   outline-offset: -2px;
   z-index: 99;
 }
-.cube-container span:hover::before { transition: 0s; filter: brightness(0.8); }
-.cube-container span:hover::after { transition: 0s; filter: brightness(1); }
+.cube-container span:hover::before { transition: 0s; filter: brightness(0.62) saturate(0.9); }
+.cube-container span:hover::after { transition: 0s; filter: brightness(1.35); }
 
 @media (max-width: 900px) {
   .blocks-layout { grid-template-columns: 1fr; }
