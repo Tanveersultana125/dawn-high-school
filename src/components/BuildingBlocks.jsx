@@ -61,7 +61,7 @@ export default function BuildingBlocks({
   sectionClassName = '',
 }) {
   return (
-    <section className={`section section-dark blocks-section ${sectionClassName}`} id="innovation">
+    <section className={`section section-alt blocks-section ${sectionClassName}`} id="innovation">
       <div className="container">
         <div className="blocks-layout">
           <Reveal className="blocks-copy">

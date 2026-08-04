@@ -9215,7 +9215,7 @@ body.no-scroll { overflow: hidden; }
   bottom: -62px;
   width: 130px;
   height: 120px;
-  background-image: radial-gradient(circle, rgba(212, 175, 55, 0.34) 1.7px, transparent 1.8px);
+  background-image: radial-gradient(circle, rgba(184, 134, 11, 0.45) 1.7px, transparent 1.8px);
   background-size: 17px 17px;
   -webkit-mask-image: linear-gradient(150deg, #000, transparent 72%);
   mask-image: linear-gradient(150deg, #000, transparent 72%);
@@ -9232,8 +9232,8 @@ body.no-scroll { overflow: hidden; }
   grid-column: span var(--span, 6);
   overflow: hidden;
   border-radius: 14px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 22px 40px -28px rgba(0, 0, 0, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(10, 31, 68, 0.08),
+    0 22px 40px -28px rgba(10, 31, 68, 0.55);
 }
 .bm-tile img {
   display: block;
@@ -9249,10 +9249,11 @@ body.no-scroll { overflow: hidden; }
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   margin-top: clamp(34px, 4vw, 54px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--gray-200);
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.045);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: var(--white);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 20px 38px -30px rgba(10, 31, 68, 0.5);
 }
 .bs-item {
   display: flex;
@@ -9261,7 +9262,7 @@ body.no-scroll { overflow: hidden; }
   padding: 22px 26px;
 }
 /* Hairline rules between the figures rather than around them. */
-.bs-item + .bs-item { border-left: 1px solid rgba(255, 255, 255, 0.1); }
+.bs-item + .bs-item { border-left: 1px solid var(--gray-200); }
 .bs-ic {
   flex: none;
   display: grid;
@@ -9269,10 +9270,9 @@ body.no-scroll { overflow: hidden; }
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  color: var(--gold-400);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  color: var(--gold-600);
+  background: rgba(212, 175, 55, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(184, 134, 11, 0.28);
 }
 .bs-ic svg { width: 25px; height: 25px; }
 .bs-item b {
@@ -9281,13 +9281,13 @@ body.no-scroll { overflow: hidden; }
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.1;
-  color: var(--white);
+  color: var(--navy-800);
 }
 .bs-item small {
   display: block;
   margin-top: 3px;
   font-size: 0.86rem;
-  color: rgba(255, 255, 255, 0.62);
+  color: var(--text-soft);
 }
 
 @media (max-width: 1040px) {
@@ -9296,13 +9296,13 @@ body.no-scroll { overflow: hidden; }
   .blocks-stats { grid-template-columns: repeat(2, 1fr); }
   /* With two per row the left rule would orphan the third figure. */
   .bs-item:nth-child(3) { border-left: 0; }
-  .bs-item:nth-child(n + 3) { border-top: 1px solid rgba(255, 255, 255, 0.1); }
+  .bs-item:nth-child(n + 3) { border-top: 1px solid var(--gray-200); }
 }
 @media (max-width: 620px) {
   .blocks-mosaic { grid-auto-rows: minmax(112px, auto); gap: 9px; }
   .blocks-stats { grid-template-columns: 1fr; }
   .bs-item { padding: 16px 20px; }
-  .bs-item + .bs-item { border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+  .bs-item + .bs-item { border-left: 0; border-top: 1px solid var(--gray-200); }
   .bs-ic { width: 46px; height: 46px; }
   .bs-ic svg { width: 22px; height: 22px; }
   .bs-item b { font-size: 1.3rem; }
