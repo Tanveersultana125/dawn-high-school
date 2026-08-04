@@ -84,7 +84,7 @@ export default function Gallery() {
   }, [lightbox, move])
 
   return (
-    <section className="section" id="gallery">
+    <section className="section section-alt gallery-section" id="gallery">
       <div className="container">
         <SectionHead
           center

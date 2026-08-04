@@ -4778,6 +4778,24 @@ body.no-scroll { overflow: hidden; }
 /* ============================================================
    GALLERY (masonry + lightbox)
    ============================================================ */
+/* The same tinted band the library section sits on: the site's light alt
+   background, with a soft warm wash off the top-right corner and a cool one at
+   the lower left, so it isn't a flat white wall behind the photos. */
+.gallery-section {
+  position: relative;
+  isolation: isolate;
+}
+.gallery-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(52% 46% at 88% 4%, rgba(212, 175, 55, 0.14), transparent 68%),
+    radial-gradient(46% 42% at 4% 82%, rgba(20, 80, 200, 0.07), transparent 70%);
+  pointer-events: none;
+}
+
 .gallery-grid {
   columns: 3;
   column-gap: 20px;
