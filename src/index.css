@@ -9590,6 +9590,11 @@ body.no-scroll { overflow: hidden; }
 /* ============================================================
    About — "About Our School" collage + feature layout
    ============================================================ */
+/* About is the first block on /about, so it must clear the fixed header —
+   the default section padding (9vw) falls short of --nav-h on common widths
+   and the kicker ends up behind the navy bar. */
+.section.abx { padding-top: calc(var(--nav-h) + clamp(48px, 5vw, 84px)); }
+
 .abx-grid {
   display: grid;
   grid-template-columns: 1fr 1.08fr;
