@@ -6762,15 +6762,19 @@ body.no-scroll { overflow: hidden; }
 }
 .library-media:hover img { transform: scale(1.05); }
 
-/* Copy column: tighter, better-proportioned heading beside the card */
-.library-copy { display: flex; flex-direction: column; justify-content: center; }
-.library-copy .section-head { margin-bottom: 0; max-width: 100%; }
-.library-copy .section-title {
-  font-size: clamp(1.9rem, 3vw, 2.6rem);
+/* Heading sits above the photo card, centred like the other sections */
+.section.library > .container > .section-head {
+  max-width: 820px;
+  margin-bottom: clamp(38px, 4.5vw, 60px);
+}
+.section.library > .container > .section-head .section-title {
+  font-size: clamp(1.95rem, 3.4vw, 2.9rem);
   line-height: 1.16;
 }
-.library-copy .eyebrow { margin-bottom: 14px; }
-.library-copy .section-lead { margin-top: 16px; max-width: 54ch; }
+
+/* Copy column: stats + features sit level with the card */
+.library-copy { display: flex; flex-direction: column; justify-content: center; }
+.library-copy > .library-stats:first-child { margin-top: 0; }
 .library-badge {
   position: absolute;
   left: 22px;

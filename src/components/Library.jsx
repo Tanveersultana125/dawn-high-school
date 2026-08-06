@@ -79,6 +79,14 @@ export default function Library({ alt = false, detailed = false, img = LIBRARY_I
   return (
     <section className={`section library ${alt ? 'section-alt' : ''}`} id="library">
       <div className="container">
+        <SectionHead
+          center
+          eyebrow={intro.eyebrow}
+          title={intro.title}
+          accent={intro.accent}
+          lead={intro.lead}
+        />
+
         <div className="library-grid">
           <Reveal className="library-media">
             <SmartImage src={mainImg} alt="The Dawn Library reading hall" loading="lazy" />
@@ -89,13 +97,6 @@ export default function Library({ alt = false, detailed = false, img = LIBRARY_I
           </Reveal>
 
           <Reveal className="library-copy" delay={1}>
-            <SectionHead
-              eyebrow={intro.eyebrow}
-              title={intro.title}
-              accent={intro.accent}
-              lead={intro.lead}
-            />
-
             <div className="library-stats">
               {STATS.map((s) => (
                 <div className="library-stat" key={s.label}>
