@@ -6771,18 +6771,9 @@ body.no-scroll { overflow: hidden; }
   font-size: clamp(1.95rem, 3.4vw, 2.9rem);
   line-height: 1.16;
 }
-/* eyebrow + title stay centred; the lead reads left-aligned underneath */
-.section.library > .container > .section-head .section-lead {
-  text-align: left;
-  margin-left: 0;
-  margin-right: auto;
-  margin-top: 24px;
-  max-width: 700px;
-}
-
-/* Copy column: stats + features sit level with the card */
+/* Copy column: intro text, stats and features sit level with the card */
 .library-copy { display: flex; flex-direction: column; justify-content: center; }
-.library-copy > .library-stats:first-child { margin-top: 0; }
+.library-lead { margin-top: 0; max-width: 100%; }
 .library-badge {
   position: absolute;
   left: 22px;

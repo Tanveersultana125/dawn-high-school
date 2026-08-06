@@ -84,7 +84,6 @@ export default function Library({ alt = false, detailed = false, img = LIBRARY_I
           eyebrow={intro.eyebrow}
           title={intro.title}
           accent={intro.accent}
-          lead={intro.lead}
         />
 
         <div className="library-grid">
@@ -97,6 +96,8 @@ export default function Library({ alt = false, detailed = false, img = LIBRARY_I
           </Reveal>
 
           <Reveal className="library-copy" delay={1}>
+            <p className="section-lead library-lead">{intro.lead}</p>
+
             <div className="library-stats">
               {STATS.map((s) => (
                 <div className="library-stat" key={s.label}>
